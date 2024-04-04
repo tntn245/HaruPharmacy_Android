@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:weightSum="2"
-    tools:context=".SignUp"
+    android:gravity="center"
     android:orientation="vertical"
-    android:gravity="center">
+    android:weightSum="2"
+    tools:context=".SignUp">
 
     <LinearLayout
         android:id="@+id/imageViewBackground"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scaleType="centerCrop"
         android:background="@color/white"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:scaleType="centerCrop">
 
         <ImageView
             android:id="@+id/imageView"
@@ -30,9 +30,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:weightSum="9"
         android:background="@drawable/gradient_no_radius"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="9">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,38 +45,38 @@
                 android:id="@+id/customView"
                 android:layout_width="360dp"
                 android:layout_height="350dp"
-                android:weightSum="5"
+                android:layout_gravity="center"
                 android:background="@drawable/border_radius"
                 android:elevation="8dp"
-                android:layout_gravity="center"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:orientation="vertical"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:weightSum="5">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/textViewSignUp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:gravity="center"
+                        android:text="ĐĂNG KÝ"
                         android:textColor="@color/dark_blue"
                         android:textSize="40sp"
-                        android:textStyle="bold"
-                        android:text="ĐĂNG KÝ"
-                        />
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
 
                     <EditText
                         android:id="@+id/usernameEditText"
@@ -89,35 +89,34 @@
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="16dp"/>
+                        android:layout_height="16dp" />
 
                     <EditText
                         android:id="@+id/passwordEditText"
                         android:layout_width="300dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
+                        android:background="@drawable/edittext_border_radius"
                         android:gravity="center"
-                        android:hint="Mật khẩu"
-                        android:background="@drawable/edittext_border_radius"/>
+                        android:hint="Mật khẩu" />
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="16dp"/>
+                        android:layout_height="16dp" />
 
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="16dp"/>
+                        android:layout_height="16dp" />
 
                     <Button
                         android:id="@+id/SignUpButton"
                         android:layout_width="300dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
+                        android:backgroundTint="@color/dark_blue"
                         android:elevation="8dp"
-                        android:text="Đăng ký"
-                        android:background="@drawable/custom_button_signup"
-                        android:backgroundTint="@null"/>
+                        android:text="Đăng ký" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -128,17 +127,17 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:scaleType="centerCrop">
+
             <TextView
                 android:id="@+id/textViewLogin"
                 android:layout_width="265dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text="Nếu đã có tài khoản? Đăng nhập tại đây"
-                />
+                android:text="Nếu đã có tài khoản? Đăng nhập tại đây" />
         </LinearLayout>
 
     </LinearLayout>
