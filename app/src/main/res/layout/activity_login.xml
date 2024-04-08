@@ -43,8 +43,9 @@
 
             <LinearLayout
                 android:id="@+id/customView"
-                android:layout_width="360dp"
-                android:layout_height="350dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="35dp"
                 android:weightSum="5"
                 android:background="@drawable/border_radius"
                 android:elevation="8dp"
@@ -69,10 +70,13 @@
                         android:textStyle="bold"
                         android:text="LOGIN"
                         />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp"/>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="4"
                     android:orientation="vertical"
@@ -80,8 +84,10 @@
 
                     <EditText
                         android:id="@+id/usernameEditText"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingLeft="110dp"
+                        android:paddingRight="110dp"
                         android:layout_gravity="center"
                         android:background="@drawable/edittext_border_radius"
                         android:gravity="center"
@@ -93,8 +99,10 @@
 
                     <EditText
                         android:id="@+id/passwordEditText"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingLeft="110dp"
+                        android:paddingRight="110dp"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:hint="Password"
@@ -106,9 +114,9 @@
 
                     <TextView
                         android:id="@+id/textViewForgotPass"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="right"
                         android:gravity="right"
                         android:text="Forgot password?"
                         />
@@ -119,8 +127,10 @@
 
                     <Button
                         android:id="@+id/loginButton"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingLeft="130dp"
+                        android:paddingRight="130dp"
                         android:layout_gravity="center"
                         android:elevation="8dp"
                         android:text="Login"
@@ -139,12 +149,12 @@
             android:orientation="horizontal" >
             <TextView
                 android:id="@+id/textViewRegister"
-                android:layout_width="265dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Bạn chưa có tài khoản? Đăng ký tại đây"
+                android:text="Bạn chưa có tài khoản? Đăng ký"
                 />
         </LinearLayout>
 
