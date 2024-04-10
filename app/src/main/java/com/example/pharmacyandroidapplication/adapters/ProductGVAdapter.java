@@ -1,4 +1,4 @@
-package com.example.pharmacyandroidapplication;
+package com.example.pharmacyandroidapplication.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.models.Product;
 
 import java.util.ArrayList;
 

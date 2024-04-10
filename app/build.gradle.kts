@@ -45,4 +45,15 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-database:20.3.1")
+
+    // Scalable Size Unit (support for different screen sizes)
+    implementation("com.intuit.sdp:sdp-android:1.0.6")
+    implementation("com.intuit.ssp:ssp-android:1.0.6")
+
+    // Rounded ImageView
+    implementation("com.makeramen:roundedimageview:2.3.0")
+
+    //FIREBASE MESSAGE
+    implementation ("com.google.firebase:firebase-messaging:23.4.1")
+
 }
