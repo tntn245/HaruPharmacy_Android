@@ -1,4 +1,4 @@
-package com.example.pharmacyandroidapplication;
+package com.example.pharmacyandroidapplication.models;
 
 public class Product {
     private String product_name;
