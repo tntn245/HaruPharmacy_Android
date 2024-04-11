@@ -12,12 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.pharmacyandroidapplication.R;
-import com.example.pharmacyandroidapplication.models.Product;
 
 import java.util.ArrayList;
 
-public class ProductGVAdapter extends ArrayAdapter<Product> {
-    public ProductGVAdapter(@NonNull Context context, ArrayList<Product> productArrayList) {
+
+public class HomeProductAdapter extends ArrayAdapter<com.example.pharmacyandroidapplication.models.Product> {
+    public HomeProductAdapter(@NonNull Context context, ArrayList<com.example.pharmacyandroidapplication.models.Product> productArrayList) {
         super(context, 0, productArrayList);
     }
 
@@ -28,17 +28,18 @@ public class ProductGVAdapter extends ArrayAdapter<Product> {
         View listitemView = convertView;
         if (listitemView == null) {
             // Layout Inflater inflates each item to be displayed in GridView.
-            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.layout_item_product, parent, false);
+            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_shopping, parent, false);
         }
 
-        Product product = getItem(position);
-        TextView name_product = listitemView.findViewById(R.id.txt_name_product);
+        com.example.pharmacyandroidapplication.models.Product product = getItem(position);
+        TextView name_product = listitemView.findViewById(R.id.item_name);
+        TextView price_product = listitemView.findViewById(R.id.item_price);
         ImageView img_product = listitemView.findViewById(R.id.img_product);
 
         assert product != null;
         name_product.setText(product.getProductName());
+        price_product.setText(Integer.toString(product.getProductPrice()));
         img_product.setImageResource(product.getProductImg());
         return listitemView;
     }
 }
-

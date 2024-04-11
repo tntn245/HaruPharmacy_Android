@@ -1,26 +1,36 @@
 package com.example.pharmacyandroidapplication.models;
 
 public class Product {
-    private String product_name;
-    private int imgProductid;
-    public Product(String product_name, int imgProductid){
-        this.imgProductid = imgProductid;
-        this.product_name = product_name;
+    private String name;
+    private int img;
+    private int price;
+    public Product(String name, int price, int img){
+        this.img = img;
+        this.name = name;
+        this.price = price;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public String getProductName() {
+        return name;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setProductName(String product_name) {
+        this.name = name;
     }
 
-    public int getImgProductid() {
-        return imgProductid;
+    public int getProductImg() {
+        return img;
     }
 
-    public void setImgProductid(int imgProductid) {
-        this.imgProductid = imgProductid;
+    public void setProductImg(int img) {
+        this.img = img;
+    }
+
+    public int getProductPrice() {
+        return price;
+    }
+
+    public void setProductPrice(int price) {
+        this.price = price;
     }
 }
