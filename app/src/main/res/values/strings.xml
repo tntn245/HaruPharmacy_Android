@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Pharmacy Android Application</string>
+    <string name="type_a_message">Nhập tin nhắn</string>
 </resources>

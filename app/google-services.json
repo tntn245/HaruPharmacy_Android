@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "464697881053",
+    "firebase_url": "https://harupharmacy-f4929-default-rtdb.firebaseio.com",
+    "project_id": "harupharmacy-f4929",
+    "storage_bucket": "harupharmacy-f4929.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464697881053:android:32b963648c413c63f20634",
+        "android_client_info": {
+          "package_name": "com.example.pharmacyandroidapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5um3VKdZUp2F3zeoFpNVjzSIaJumoXDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
