@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,13 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.models.Category;
 import com.example.pharmacyandroidapplication.models.Product;
 
 import java.util.ArrayList;
 
-public class ProductGVAdapter extends ArrayAdapter<Product> {
-    public ProductGVAdapter(@NonNull Context context, ArrayList<Product> productArrayList) {
-        super(context, 0, productArrayList);
+public class HomeCategoryAdapter extends ArrayAdapter<Category> {
+    public HomeCategoryAdapter(@NonNull Context context, ArrayList<Category> categoryArrayList) {
+        super(context, 0, categoryArrayList);
     }
 
     @NonNull
@@ -28,16 +30,14 @@ public class ProductGVAdapter extends ArrayAdapter<Product> {
         View listitemView = convertView;
         if (listitemView == null) {
             // Layout Inflater inflates each item to be displayed in GridView.
-            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.layout_item_product, parent, false);
+            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_category, parent, false);
         }
 
-        Product product = getItem(position);
-        TextView name_product = listitemView.findViewById(R.id.txt_name_product);
-        ImageView img_product = listitemView.findViewById(R.id.img_product);
+        com.example.pharmacyandroidapplication.models.Category category = getItem(position);
+        Button btn_category = listitemView.findViewById(R.id.button_category);
 
-        assert product != null;
-        name_product.setText(product.getProductName());
-        img_product.setImageResource(product.getProductImg());
+        assert category != null;
+        btn_category.setText(category.getName());
         return listitemView;
     }
 }

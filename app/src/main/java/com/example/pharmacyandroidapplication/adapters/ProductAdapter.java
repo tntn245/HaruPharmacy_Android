@@ -1,4 +1,4 @@
-package com.example.pharmacyandroidapplication;
+package com.example.pharmacyandroidapplication.adapters;
 
 import android.view.View;
 
