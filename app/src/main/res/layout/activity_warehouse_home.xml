@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="9"
+    tools:context=".activities.LoginActivity">
+
+    <LinearLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/dark_blue"
+        android:orientation="horizontal"
+        android:weightSum="7"
+        app:layout_constraintHeight_percent="0.1">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:contentDescription="icon_warehouse"
+            android:src="@drawable/ic_back"
+            tools:ignore="HardcodedText" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/warehouse_management"
+                android:textAllCaps="true"
+                android:textSize="@dimen/_20sdp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:contentDescription="icon_search"
+            android:src="@drawable/baseline_content_paste_search_50"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/_20sdp">
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:text="@string/inventory"
+                android:textAllCaps="true"
+                android:textColor="@color/app_theme"
+                android:textSize="@dimen/_20sdp"
+                app:backgroundTint="@color/pastel_light_blue"
+                app:cornerRadius="@dimen/_10sdp"
+                app:icon="@drawable/ic_warehouse"
+                app:iconGravity="start"
+                app:iconSize="@dimen/_100sdp"
+                app:iconTint="@color/app_theme"
+                app:strokeColor="@color/app_theme"
+                app:strokeWidth="@dimen/_2sdp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/_20sdp">
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:text="@string/stock_in"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sdp"
+                app:backgroundTint="@color/dark_blue"
+                app:cornerRadius="@dimen/_10sdp"
+                app:icon="@drawable/ic_stock_in"
+                app:iconGravity="start"
+                app:iconSize="@dimen/_100sdp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="@dimen/_2sdp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/_20sdp">
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:text="@string/stock_out"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sdp"
+                app:backgroundTint="@color/dark_brown_blue"
+                app:cornerRadius="@dimen/_10sdp"
+                app:icon="@drawable/ic_stock_out"
+                app:iconGravity="start"
+                app:iconSize="@dimen/_100sdp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="@dimen/_2sdp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
