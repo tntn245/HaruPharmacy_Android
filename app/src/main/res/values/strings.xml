@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Pharmacy Android Application</string>
     <string name="type_a_message">Nhập tin nhắn</string>
+    <string name="warehouse_management">Quản lý kho</string>
+    <string name="inventory">Tồn kho</string>
+    <string name="stock_in">Nhập kho</string>
+    <string name="stock_out">Xuất kho</string>
 </resources>
