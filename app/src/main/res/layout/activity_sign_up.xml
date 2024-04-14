@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:weightSum="2"
-    tools:context=".activities.SignUp">
+    tools:context=".activities.SignUpActivity">
 
     <LinearLayout
         android:id="@+id/imageViewBackground"
