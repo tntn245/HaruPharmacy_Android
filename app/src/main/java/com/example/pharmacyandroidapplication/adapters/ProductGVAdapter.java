@@ -28,7 +28,7 @@ public class ProductGVAdapter extends ArrayAdapter<Product> {
         View listitemView = convertView;
         if (listitemView == null) {
             // Layout Inflater inflates each item to be displayed in GridView.
-            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.layout_item_product, parent, false);
+            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_product, parent, false);
         }
 
         Product product = getItem(position);
