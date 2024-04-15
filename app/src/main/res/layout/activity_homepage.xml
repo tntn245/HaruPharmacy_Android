@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="3dp">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -116,11 +115,12 @@
                 android:horizontalSpacing="8dp"
                 android:numColumns="2"
                 android:padding="8dp"
-                android:verticalSpacing="8dp"></GridView>
+                android:verticalSpacing="8dp">
+
+            </GridView>
 
         </RelativeLayout>
     </ScrollView>
-
 </LinearLayout>
 
 

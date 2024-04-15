@@ -149,7 +149,6 @@
                 </LinearLayout>
             </GridLayout>
             <Button
-                android:id="@+id/loginButton"
                 android:layout_width="@dimen/_170sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
