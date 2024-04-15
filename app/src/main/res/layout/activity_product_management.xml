@@ -54,11 +54,11 @@
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_30sdp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:contentDescription="icon_search"
-            android:src="@drawable/baseline_content_paste_search_50"
+            android:src="@drawable/ic_search"
             tools:ignore="HardcodedText" />
     </LinearLayout>
 

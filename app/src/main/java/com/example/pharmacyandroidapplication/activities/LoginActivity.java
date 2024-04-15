@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.pharmacyandroidapplication.R;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
