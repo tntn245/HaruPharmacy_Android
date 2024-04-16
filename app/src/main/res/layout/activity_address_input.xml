@@ -44,7 +44,7 @@
         android:weightSum="2"
         android:orientation="vertical">
         <EditText
-            android:layout_width="@dimen/_300sdp"
+            android:layout_width="@dimen/_285sdp"
             android:layout_height="@dimen/_45sdp"
             android:layout_gravity="center"
             android:background="@drawable/input_border_radius"
@@ -53,10 +53,10 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="16dp" />
+            android:layout_height="@dimen/_16sdp" />
 
         <EditText
-            android:layout_width="@dimen/_300sdp"
+            android:layout_width="@dimen/_285sdp"
             android:layout_height="@dimen/_45sdp"
             android:layout_gravity="center"
             android:background="@drawable/input_border_radius"
@@ -87,7 +87,7 @@
             android:weightSum="2"
             android:orientation="vertical">
             <Spinner
-                android:layout_width="@dimen/_300sdp"
+                android:layout_width="@dimen/_285sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
                 android:background="@drawable/input_border_radius"
@@ -96,10 +96,10 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="16dp" />
+                android:layout_height="@dimen/_16sdp" />
 
             <EditText
-                android:layout_width="@dimen/_300sdp"
+                android:layout_width="@dimen/_285sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
                 android:background="@drawable/input_border_radius"
