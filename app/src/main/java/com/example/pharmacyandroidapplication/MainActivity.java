@@ -15,6 +15,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wh_stock_in_details);
+        setContentView(R.layout.activity_address_input);
     }
 }
