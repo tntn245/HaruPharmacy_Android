@@ -5,4 +5,6 @@
     <string name="inventory">Tồn kho</string>
     <string name="stock_in">Nhập kho</string>
     <string name="stock_out">Xuất kho</string>
+    <string name="quan_ly_don_hang">quan ly don hang</string>
+    <string name="id_order">id order</string>
 </resources>
