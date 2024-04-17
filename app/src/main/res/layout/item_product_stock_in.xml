@@ -32,9 +32,93 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="8"
+            android:padding="@dimen/_8sdp"
             android:layout_gravity="center"
             android:orientation="vertical"
             android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Số lô: "
+                            android:textAlignment="center"
+                            android:textSize="@dimen/text_size_medium" />
+                        <TextView
+                            android:id="@+id/lot_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="F34ERTGH"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            android:textSize="@dimen/text_size_medium" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hạn sử dụng: "
+                            android:textAlignment="center"
+                            android:textSize="@dimen/text_size_medium" />
+                        <TextView
+                            android:id="@+id/production_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1/1/2000"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/text_size_medium" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ngày sản xuất: "
+                            android:textAlignment="center"
+                            android:textSize="@dimen/text_size_medium" />
+                        <TextView
+                            android:id="@+id/expiration_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1/1/2000"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/text_size_medium" />
+
+                    </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="#CCCCCC" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,7 +135,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/img_first_product"
+                        android:id="@+id/img_product"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center"
@@ -163,88 +247,6 @@
                         </LinearLayout>
 
                     </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="5"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Số lô: "
-                            android:textAlignment="center"
-                            android:textSize="@dimen/text_size_medium" />
-                        <TextView
-                            android:id="@+id/lot_number"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="F34ERTGH"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            android:textSize="@dimen/text_size_medium" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Hạn sử dụng: "
-                                android:textAlignment="center"
-                                android:textSize="@dimen/text_size_medium" />
-                            <TextView
-                                android:id="@+id/production_date"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1/1/2000"
-                                android:textStyle="bold"
-                                android:textSize="@dimen/text_size_medium" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ngày sản xuất: "
-                            android:textAlignment="center"
-                            android:textSize="@dimen/text_size_medium" />
-                        <TextView
-                            android:id="@+id/expiration_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1/1/2000"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/text_size_medium" />
-
-                    </LinearLayout>
-
                 </LinearLayout>
             </LinearLayout>
 

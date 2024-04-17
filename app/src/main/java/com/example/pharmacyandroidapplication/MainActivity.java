@@ -4,7 +4,8 @@ import android.widget.GridView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.pharmacyandroidapplication.adapters.StockInAdapter;
+import com.example.pharmacyandroidapplication.adapters.ProductStockInDetailsAdapter;
+import com.example.pharmacyandroidapplication.models.ProductStockInDetails;
 import com.example.pharmacyandroidapplication.models.StockIn;
 
 import java.util.ArrayList;
@@ -16,15 +17,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wh_stock_in_details);
-        GridView StockInWH= findViewById(R.id.list_product_stock_in);
-        ArrayList<StockIn> StockArrayList = new ArrayList<StockIn>();
+        GridView StockInDetails= findViewById(R.id.list_product_stock_in);
+        ArrayList<ProductStockInDetails> productStockInDetails = new ArrayList<ProductStockInDetails>();
 
-        StockArrayList.add(new StockIn(new Date(2024, 4, 2), 100000));
-        StockArrayList.add(new StockIn(new Date(2024, 4, 1),100000));
-        StockArrayList.add(new StockIn(new Date(2024, 3, 29),100000));
-        StockArrayList.add(new StockIn(new Date(2024, 3, 18),100000));
+        productStockInDetails.add(new ProductStockInDetails("Chromium","SDGDSE",new Date(2023,1,1),new Date(2024, 4, 2), 10,100000,R.drawable.pro1));
+        productStockInDetails.add(new ProductStockInDetails("Omega3","UDXFDG",new Date(2023,1,1),new Date(2024, 4, 1),10,100000,R.drawable.pro2));
+        productStockInDetails.add(new ProductStockInDetails("Thyroid-Pro Formula","DGBDFS",new Date(2023,1,1),new Date(2024, 3, 29),10,100000,R.drawable.pro3));
 
-        StockInAdapter adapter = new StockInAdapter(this, StockArrayList);
-        StockInWH.setAdapter(adapter);
+        ProductStockInDetailsAdapter adapter = new ProductStockInDetailsAdapter(this, productStockInDetails);
+        StockInDetails.setAdapter(adapter);
     }
 }
