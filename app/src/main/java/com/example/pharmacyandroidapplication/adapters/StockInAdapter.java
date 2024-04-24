@@ -19,8 +19,12 @@ import com.example.pharmacyandroidapplication.models.StockIn;
 import java.util.ArrayList;
 
 public class StockInAdapter extends ArrayAdapter<StockIn> {
+    private Context context;
+    ArrayList<StockIn> StockInArrayList;
     public StockInAdapter(@NonNull Context context, ArrayList<StockIn> StockInArrayList) {
         super(context, 0, StockInArrayList);
+        this.context = context;
+        this.StockInArrayList = StockInArrayList;
     }
 
     @NonNull

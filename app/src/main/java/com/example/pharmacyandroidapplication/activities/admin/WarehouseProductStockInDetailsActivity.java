@@ -2,6 +2,7 @@ package com.example.pharmacyandroidapplication.activities.admin;
 
 import android.os.Bundle;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +13,7 @@ import com.example.pharmacyandroidapplication.models.ProductStockInDetails;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class WarehouseStockInDetails extends AppCompatActivity {
+public class WarehouseProductStockInDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,5 +28,12 @@ public class WarehouseStockInDetails extends AppCompatActivity {
 
         ProductStockInDetailsAdapter adapter = new ProductStockInDetailsAdapter(this, productStockInDetails);
         StockInDetails.setAdapter(adapter);
+
+        // Nhận giá trị của item từ Intent
+        String selectedStockInID = getIntent().getStringExtra("selectedStockInID");
+
+        // Hiển thị giá trị của item trong layout
+        TextView StockInID = findViewById(R.id.id_stock_in);
+        StockInID.setText(selectedStockInID);
     }
 }

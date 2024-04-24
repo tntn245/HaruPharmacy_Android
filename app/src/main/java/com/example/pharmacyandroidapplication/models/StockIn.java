@@ -3,12 +3,27 @@ package com.example.pharmacyandroidapplication.models;
 import java.util.Date;
 
 public class StockIn {
+    private String id;
     private Date date;
     private int total_payment;
 
     public StockIn(Date date, int total_payment) {
+        this.id = "";
         this.date = date;
         this.total_payment = total_payment;
+    }
+    public StockIn(String id, Date date, int total_payment) {
+        this.id = id;
+        this.date = date;
+        this.total_payment = total_payment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Date getDate() {

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -8,19 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="15"
-        android:background="@color/light_gray">
+        android:background="@color/background">
         <LinearLayout
             android:orientation="horizontal"
-            android:background="@color/dark_blue"
+            android:background="@color/app_theme"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:weightSum="1"
             >
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:text="Xác nhận đơn hàng"
                 android:gravity="center"
                 android:textColor="@color/white"
@@ -36,7 +36,7 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 >
                 <LinearLayout
                     android:orientation="horizontal"
@@ -49,7 +49,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Hình thức nhận hàng"
-                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:textSize="@dimen/_13sdp"
                         android:fontFamily="sans-serif-black"
                         android:gravity="center_vertical"
@@ -59,13 +59,13 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.9"
-                        android:text="giao hàng tận nơi"
-                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:text="Giao hàng tận nơi"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:textSize="@dimen/_13sdp"
                         android:fontFamily="sans-serif-black"
                         android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/_20sdp"
-                        android:textColor="@color/dark_blue"
+                        android:paddingStart="@dimen/_20sdp"
+                        android:textColor="@color/app_theme"
                         >
                     </TextView>
                     <ImageButton
@@ -80,14 +80,14 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
-                    android:background="@color/light_gray"
+                    android:background="@color/background"
                     android:weightSum="2">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Giao hàng tới"
-                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:textSize="@dimen/_13sdp"
                         android:fontFamily="sans-serif-black"
                         android:gravity="center_vertical"
@@ -103,7 +103,7 @@
                         android:fontFamily="sans-serif-black"
                         android:gravity="end|center"
                         android:paddingRight="@dimen/_15sdp"
-                        android:textColor="@color/dark_blue"
+                        android:textColor="@color/app_theme"
                         >
                     </TextView>
                 </LinearLayout>
@@ -155,12 +155,14 @@
                     android:textSize="16sp"
                     android:padding="8dp"
                     android:background="@color/white"
-                    android:layout_marginTop="@dimen/_5sdp"/>
+                    android:layout_marginTop="@dimen/_5sdp"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:padding="@dimen/_5sdp"
                     android:weightSum="2">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -168,7 +170,8 @@
                         android:text="Danh sách sản phẩm"
                         android:fontFamily="sans-serif-black"
                         android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/_10sdp"></TextView>
+                        android:paddingLeft="@dimen/_10sdp" />
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -177,7 +180,7 @@
                         android:fontFamily="sans-serif-black"
                         android:gravity="end|center"
                         android:paddingRight="@dimen/_10sdp"
-                        android:textColor="@color/dark_blue"></TextView>
+                        android:textColor="@color/app_theme" />
                 </LinearLayout>
                 <include layout="@layout/item_pay"></include>
                 <include layout="@layout/item_pay"></include>
@@ -194,13 +197,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_weight="1"
                             android:text="Tổng tiền hàng"
                             android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/_10sdp"></TextView>
+                            android:paddingLeft="@dimen/_10sdp" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
@@ -208,19 +213,21 @@
                             android:text="120.000đ"
                             android:fontFamily="sans-serif-black"
                             android:gravity="end|center"
-                            android:paddingRight="@dimen/_10sdp"></TextView>
+                            android:paddingRight="@dimen/_10sdp" />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_weight="1"
                             android:text="Phí vận chuyển"
                             android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/_10sdp"></TextView>
+                            android:paddingLeft="@dimen/_10sdp" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
@@ -228,7 +235,7 @@
                             android:text="120.000đ"
                             android:fontFamily="sans-serif-black"
                             android:gravity="end|center"
-                            android:paddingRight="@dimen/_10sdp"></TextView>
+                            android:paddingRight="@dimen/_10sdp" />
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -243,6 +250,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
@@ -250,7 +258,8 @@
                             android:text="Thành tiền"
                             android:textSize="@dimen/_15sdp"
                             android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/_10sdp"></TextView>
+                            android:paddingLeft="@dimen/_10sdp" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
@@ -259,7 +268,7 @@
                             android:textSize="@dimen/_15sdp"
                             android:fontFamily="sans-serif-black"
                             android:gravity="end|center"
-                            android:paddingRight="@dimen/_10sdp"></TextView>
+                            android:paddingRight="@dimen/_10sdp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -281,4 +290,4 @@
             </Button>
         </LinearLayout>
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -1,15 +1,17 @@
-package com.example.pharmacyandroidapplication.activities;
+package com.example.pharmacyandroidapplication.activities.customer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pharmacyandroidapplication.MainActivity;
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.LoginActivity;
 
 public class SignUpActivity extends Activity {
     EditText editTextEmail, editTextPassword;
@@ -18,6 +20,16 @@ public class SignUpActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super. onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        TextView textViewRegister = findViewById(R.id.textViewLogin);
+        textViewRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
         editTextEmail = findViewById(R.id.usernameEditText);
         editTextPassword = findViewById(R.id.passwordEditText);
         buttonReg = findViewById(R.id.SignUpButton);
