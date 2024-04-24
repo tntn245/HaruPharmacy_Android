@@ -90,7 +90,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:paddingTop="@dimen/_4sdp"
+                                android:paddingTop="@dimen/_6sdp"
                                 android:id="@+id/icon_qlsp"
                                 android:layout_width="@dimen/_50sdp"
                                 android:layout_height="@dimen/_50sdp"
@@ -130,7 +130,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:paddingTop="@dimen/_4sdp"
+                                android:paddingTop="@dimen/_6sdp"
                                 android:id="@+id/icon_qllsp"
                                 android:layout_width="@dimen/_50sdp"
                                 android:layout_height="@dimen/_50sdp"
@@ -218,7 +218,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:paddingTop="@dimen/_4sdp"
+                                android:paddingTop="@dimen/_6sdp"
                                 android:id="@+id/icon_qlkho"
                                 android:layout_width="@dimen/_50sdp"
                                 android:layout_height="@dimen/_50sdp"
@@ -251,7 +251,7 @@
                     android:orientation="horizontal"
                     android:columnCount="2"
                     android:weightSum="2"
-                    android:paddingHorizontal="16dp">
+                    android:paddingHorizontal="@dimen/_16sdp">
                     <androidx.cardview.widget.CardView
                         android:id="@+id/item_thongke"
                         android:layout_width="@dimen/_200sdp"
@@ -259,8 +259,7 @@
                         app:cardCornerRadius="@dimen/_20sdp"
                         android:layout_weight="1"
                         android:layout_marginVertical="@dimen/_14sdp"
-                        android:layout_marginLeft="@dimen/_16sdp"
-                        android:paddingHorizontal="@dimen/_8sdp">
+                        android:layout_marginLeft="@dimen/_16sdp">
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
