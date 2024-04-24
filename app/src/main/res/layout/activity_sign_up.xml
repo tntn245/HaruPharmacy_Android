@@ -144,7 +144,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:text="Đăng nhập tại đây" />
+                android:text="Đăng nhập" />
         </LinearLayout>
 
     </LinearLayout>
