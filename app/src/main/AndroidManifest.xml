@@ -63,6 +63,18 @@
         <activity
             android:name=".activities.customer.PaymentActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.customer.UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.UserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.UserAddressesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.UserAddAddressesActivity"
+            android:exported="false" />
 
         <activity
             android:name=".MainActivity"

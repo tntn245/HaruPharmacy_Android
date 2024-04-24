@@ -83,6 +83,8 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     return true;
                 } else if (itemId == R.id.profile) {
                     // Xử lý khi người dùng chọn trang tài khoản
+                    Intent CartIntent = new Intent(CustomerHomepageActivity.this, UserActivity.class);
+                    startActivity(CartIntent);
                     return true;
                 }
                 return false;
