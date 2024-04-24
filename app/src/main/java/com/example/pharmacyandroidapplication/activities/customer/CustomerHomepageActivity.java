@@ -78,8 +78,8 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     return true;
                 } else if (itemId == R.id.cart) {
                     // Xử lý khi người dùng chọn trang giỏ hàng
-                    Intent supportIntent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
-                    startActivity(supportIntent);
+                    Intent CartIntent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
+                    startActivity(CartIntent);
                     return true;
                 } else if (itemId == R.id.profile) {
                     // Xử lý khi người dùng chọn trang tài khoản
