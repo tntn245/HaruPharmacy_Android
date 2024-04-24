@@ -40,6 +40,7 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
+
         <activity
             android:name=".activities.customer.CustomerHomepageActivity"
             android:exported="false"
@@ -53,6 +54,13 @@
         <activity
             android:name=".activities.customer.SignUpActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.customer.ProductDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.CartActivity"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.pharmacyandroidapplication.MainActivity;
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.activities.ChatActivity;
-import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.adapters.HomeCategoryAdapter;
 import com.example.pharmacyandroidapplication.adapters.HomeProductAdapter;
 import com.example.pharmacyandroidapplication.models.Category;
@@ -26,6 +24,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_homepage);
 
+        // Gridview Category
         GridView categoryGV= findViewById(R.id.rcv_category);
         ArrayList<Category> CategoryArrayList = new ArrayList<Category>();
 
@@ -36,6 +35,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         HomeCategoryAdapter categoryAdapter = new HomeCategoryAdapter(this, CategoryArrayList);
         categoryGV.setAdapter(categoryAdapter);
 
+        // Gridview Product
         GridView productGV= findViewById(R.id.rcv_shopping);
         ArrayList<Product> ProductArrayList = new ArrayList<Product>();
 
@@ -46,7 +46,23 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         HomeProductAdapter productAdapter = new HomeProductAdapter(this, ProductArrayList);
         productGV.setAdapter(productAdapter);
 
+        // Click Product
+        productGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy giá trị của item được click
+                Product productDetails = ProductArrayList.get(position);
 
+                // Truyền giá trị của item qua layout tiếp theo để hiển thị
+                Intent intent = new Intent(CustomerHomepageActivity.this, ProductDetailsActivity.class);
+                intent.putExtra("product_img", productDetails.getProductImg());
+                intent.putExtra("product_name", productDetails.getProductName());
+                intent.putExtra("product_price", productDetails.getProductPrice());
+                startActivity(intent);
+            }
+        });
+
+        // Click Bottom nav
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -62,6 +78,8 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     return true;
                 } else if (itemId == R.id.cart) {
                     // Xử lý khi người dùng chọn trang giỏ hàng
+                    Intent supportIntent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
+                    startActivity(supportIntent);
                     return true;
                 } else if (itemId == R.id.profile) {
                     // Xử lý khi người dùng chọn trang tài khoản
