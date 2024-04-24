@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:weightSum="2"
-    tools:context=".activities.SignUpActivity">
+    tools:context=".activities.customer.SignUpActivity">
 
     <LinearLayout
         android:id="@+id/imageViewBackground"
@@ -128,16 +128,23 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal"
+            android:gravity="center"
             android:scaleType="centerCrop">
 
             <TextView
-                android:id="@+id/textViewLogin"
-                android:layout_width="265dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:gravity="center"
-                android:text="Nếu đã có tài khoản? Đăng nhập tại đây" />
+                android:text="Nếu đã có tài khoản? " />
+            <TextView
+                android:id="@+id/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Đăng nhập tại đây" />
         </LinearLayout>
 
     </LinearLayout>

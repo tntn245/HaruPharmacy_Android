@@ -1,4 +1,4 @@
-package com.example.pharmacyandroidapplication.activities;
+package com.example.pharmacyandroidapplication.activities.customer;
 
 import android.os.Bundle;
 import android.widget.GridView;
@@ -13,10 +13,10 @@ import com.example.pharmacyandroidapplication.models.Product;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class CustomerHomepageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
+        setContentView(R.layout.activity_customer_homepage);
 
         GridView categoryGV= findViewById(R.id.rcv_category);
         ArrayList<Category> CategoryArrayList = new ArrayList<Category>();

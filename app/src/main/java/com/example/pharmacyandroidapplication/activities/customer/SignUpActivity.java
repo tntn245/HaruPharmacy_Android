@@ -1,4 +1,4 @@
-package com.example.pharmacyandroidapplication.activities;
+package com.example.pharmacyandroidapplication.activities.customer;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.pharmacyandroidapplication.MainActivity;
 import com.example.pharmacyandroidapplication.R;
 
 public class SignUpActivity extends Activity {

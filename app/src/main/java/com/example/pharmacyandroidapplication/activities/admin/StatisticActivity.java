@@ -1,9 +1,10 @@
-package com.example.pharmacyandroidapplication;
+package com.example.pharmacyandroidapplication.activities.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.pharmacyandroidapplication.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -27,7 +28,7 @@ public class StatisticActivity extends AppCompatActivity {
         entries.add(new BarEntry(4f, 400f)); // (X, Y)
         entries.add(new BarEntry(5f, 500f)); // (X, Y)
 
-        BarDataSet barDataSet = new BarDataSet(entries, "Label");
+        BarDataSet barDataSet = new BarDataSet(entries,"Doanh thu");
         BarData barData = new BarData(barDataSet);
         barChart.setData(barData);
         barChart.invalidate(); // refresh

@@ -1,4 +1,4 @@
-package com.example.pharmacyandroidapplication.activities;
+package com.example.pharmacyandroidapplication.activities.customer;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
