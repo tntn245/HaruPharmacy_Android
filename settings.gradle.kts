@@ -10,8 +10,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        jcenter() // Warning: this repository is going to shut down soon
+        maven { url = uri("https://jitpack.io") } //Add this line in your settings.gradle
     }
 }
-
 rootProject.name = "Pharmacy Android Application"
 include(":app")

@@ -61,4 +61,7 @@ dependencies {
 
     //FIREBASE MESSAGE
     implementation ("com.google.firebase:firebase-messaging:23.4.1")
+
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 }

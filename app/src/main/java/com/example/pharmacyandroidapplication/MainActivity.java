@@ -24,27 +24,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super. onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-        editTextEmail = findViewById(R.id.usernameEditText);
-        editTextPassword = findViewById(R.id.passwordEditText);
-        buttonReg = findViewById(R.id.SignUpButton);
-
-        buttonReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email, password;
-                email = String.valueOf(editTextEmail.getText());
-                password = String.valueOf(editTextPassword.getText());
-
-                if (TextUtils.isEmpty(email) ){
-                    Toast.makeText(MainActivity.this,"Enter email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(password) ) {
-                    Toast.makeText(MainActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-        });
+        setContentView(R.layout.activity_main);
     }
 }
