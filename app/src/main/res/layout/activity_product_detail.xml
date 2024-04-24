@@ -91,7 +91,7 @@
                     android:text="600.000 VNĐ"
                     android:textSize="30dp"
                     android:textStyle="italic|bold"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/app_theme"
                     android:layout_margin="10dp"
                     android:paddingBottom="20dp">
                 </TextView>
@@ -107,10 +107,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text=" Panadol Extra (Panadol đỏ) là thuốc giảm đau, hạ sốt có thành phần chính là paracetamol (1) và caffeine.\n Thuốc được sử dụng để điều trị các triệu chứng đau từ nhẹ đến vừa.
+                    android:text="Panadol Extra (Panadol đỏ) là thuốc giảm đau, hạ sốt có thành phần chính là paracetamol (1) và caffeine.\n Thuốc được sử dụng để điều trị các triệu chứng đau từ nhẹ đến vừa.
 Đây là một loại thuốc vô cùng phổ biến và được nhiều người sử dụng. Thuốc Panadol Extra vừa là thuốc không kê đơn (có thể mua được ở các nhà thuốc mà không cần chỉ định của bác sĩ) và là thuốc kê đơn (được bác sĩ chỉ định sử dụng để điều trị bệnh lý)."
                     android:textSize="18dp"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/black"
                     android:layout_margin="10dp">
                 </TextView>
             </LinearLayout>
@@ -138,7 +138,7 @@
                 android:layout_weight="1"
                 android:text="CHỌN MUA"
                 android:textSize="20dp"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/app_theme"
                 android:layout_marginLeft="10dp">
             </Button>
         </LinearLayout>

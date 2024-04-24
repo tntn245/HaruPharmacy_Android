@@ -15,10 +15,13 @@ import com.example.pharmacyandroidapplication.models.Order;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.ViewHolder> {
     private ArrayList<Order> orderArrayList;
+    private Context context;
 
-    public OrderRVAdapter(ArrayList<Order> orderArrayList) {
+    public OrderRVAdapter(Context context, ArrayList<Order> orderArrayList) {
+        this.context = context;
         this.orderArrayList = orderArrayList;
     }
 
@@ -48,6 +51,7 @@ public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.ViewHold
         TextView txt_total_payment;
         TextView order_status;
         TextView payment_status;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txt_order_id = itemView.findViewById(R.id.txt_order_id);
