@@ -13,12 +13,13 @@ import androidx.annotation.Nullable;
 
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.models.DateFormat;
+import com.example.pharmacyandroidapplication.models.Product;
 import com.example.pharmacyandroidapplication.models.ProductStockInDetails;
 
 import java.util.ArrayList;
 
-public class ProductStockInDetailsAdapter extends ArrayAdapter<ProductStockInDetails> {
-    public ProductStockInDetailsAdapter(@NonNull Context context, ArrayList<ProductStockInDetails> productStockInDetailsArrayList) {
+public class ProductInventoryLotNumDetailsAdapter extends ArrayAdapter<ProductStockInDetails> {
+    public ProductInventoryLotNumDetailsAdapter(@NonNull Context context, ArrayList<ProductStockInDetails> productStockInDetailsArrayList) {
         super(context, 0, productStockInDetailsArrayList);
     }
 
@@ -29,21 +30,16 @@ public class ProductStockInDetailsAdapter extends ArrayAdapter<ProductStockInDet
         View listitemView = convertView;
         if (listitemView == null) {
             // Layout Inflater inflates each item to be displayed in GridView.
-            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_product_stock_in, parent, false);
+            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_product_inventory_lotnum_details, parent, false);
         }
 
         ProductStockInDetails productStockInDetails = getItem(position);
         TextView lot_number = listitemView.findViewById(R.id.lot_number);
         TextView production_date = listitemView.findViewById(R.id.production_date);
         TextView expiration_date = listitemView.findViewById(R.id.expiration_date);
-        TextView name_product = listitemView.findViewById(R.id.name_product);
-        TextView product_unit_price = listitemView.findViewById(R.id.product_unit_price);
-        TextView product_quantity = listitemView.findViewById(R.id.product_quantity);
-        TextView product_total_price = listitemView.findViewById(R.id.product_total_price);
-        ImageView img_product = listitemView.findViewById(R.id.img_product);
+        TextView lotnum_quantity_in_stock = listitemView.findViewById(R.id.lotnum_quantity_in_stock);
 
         assert productStockInDetails != null;
-        name_product.setText(productStockInDetails.getProduct_name());
         lot_number.setText(productStockInDetails.getLot_number());
 
         DateFormat dateFormat = new DateFormat(productStockInDetails.getProduction_date());
@@ -52,12 +48,9 @@ public class ProductStockInDetailsAdapter extends ArrayAdapter<ProductStockInDet
         dateFormat = new DateFormat(productStockInDetails.getExpiration_date());
         expiration_date.setText(dateFormat.formatDateToString());
 
-        name_product.setText(productStockInDetails.getProduct_name());
-        product_unit_price.setText(Integer.toString(productStockInDetails.getUnit_price()));
-        product_quantity.setText(Integer.toString(productStockInDetails.getIn_quantity()));
-        product_total_price.setText(Integer.toString(productStockInDetails.totalPrice()));
-        img_product.setImageResource(productStockInDetails.getImg());
+        lotnum_quantity_in_stock.setText(Integer.toString(productStockInDetails.getQuantity_in_stock()));
 
         return listitemView;
     }
 }
+

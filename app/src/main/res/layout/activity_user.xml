@@ -85,6 +85,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/view_orders"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_10sdp"
@@ -113,6 +114,7 @@
                         android:orientation="horizontal">
                         <!-- Column 1 -->
                         <LinearLayout
+                            android:id="@+id/order_processing"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

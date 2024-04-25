@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/stock_in"
+                android:text="@string/inventory"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/heading_2"
@@ -83,7 +83,7 @@
         android:weightSum="3">
 
         <GridView
-            android:id="@+id/list_stock_in"
+            android:id="@+id/list_inventory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:horizontalSpacing="@dimen/_10sdp"

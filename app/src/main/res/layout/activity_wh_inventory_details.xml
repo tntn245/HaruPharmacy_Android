@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/background"
     android:gravity="center"
     android:orientation="vertical"
-    android:weightSum="9"
-    android:background="@color/background"
+    android:weightSum="8"
     tools:context=".activities.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/pastel_dark_blue"
         android:orientation="horizontal"
         android:weightSum="7"
-        android:background="@color/pastel_dark_blue"
         app:layout_constraintHeight_percent="0.1">
 
         <ImageView
@@ -35,30 +35,31 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/id_stock_in"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="FFFFFFFFFFF"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="@dimen/heading_2"
-                android:textStyle="bold" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <ImageView
+                    android:id="@+id/product_img"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_launcher" />
 
                 <TextView
-                    android:id="@+id/date_stock_in"
+                    android:id="@+id/product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1/1/2000"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="FFFFFFFFFFFF"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_medium" />
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="bold" />
+
             </LinearLayout>
         </LinearLayout>
 
@@ -71,43 +72,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
+        android:layout_weight="6"
         android:gravity="center"
         android:orientation="vertical"
         android:weightSum="3">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp">
-
-            <CheckBox
-                android:id="@+id/checkbox_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chọn tất cả"
-                android:textSize="@dimen/text_size_medium" />
-
-            <ImageButton
-                android:id="@+id/image_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:layout_gravity="end|center_vertical"
-                android:padding="12dp"
-                android:src="@drawable/ic_delete" />
-        </FrameLayout>
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <GridView
-                android:id="@+id/list_product_stock_in"
+                android:id="@+id/list_lotnum"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:horizontalSpacing="8dp"
                 android:numColumns="1"
                 android:padding="8dp"
+                android:gravity="center"
                 android:verticalSpacing="8dp" />
         </RelativeLayout>
 
@@ -131,25 +112,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tổng tiền: "
+                android:text="Tổng tồn kho: "
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_large"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/total_price_stock_in_details"
+                android:id="@+id/total_product_inventory_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100000"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_large" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" đ"
+                android:text="100"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_large" />

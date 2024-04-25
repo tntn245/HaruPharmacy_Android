@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -33,5 +35,26 @@ public class UserActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        TextView viewOrders = findViewById(R.id.view_orders);
+        viewOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, OrdersTrackingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        LinearLayout linearLayout = findViewById(R.id.order_processing);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Thực hiện hành động khi LinearLayout được click
+                // Ví dụ: Chuyển sang trang khác
+                Intent intent = new Intent(UserActivity.this, OrderDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
