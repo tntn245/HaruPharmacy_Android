@@ -4,10 +4,12 @@ public class Product {
     private String id;
     private String name;
     private int img;
+    private int quantity;
     private int price;
     public Product(String name, int price, int img){
         this.id="";
         this.img = img;
+        this.quantity = 1;
         this.name = name;
         this.price = price;
     }
@@ -17,6 +19,14 @@ public class Product {
         this.name = name;
         this.img = img;
         this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getId() {

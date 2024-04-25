@@ -75,6 +75,12 @@
         <activity
             android:name=".activities.customer.UserAddAddressesActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.customer.OrdersTrackingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.OrderDetailsActivity"
+            android:exported="false" />
 
         <activity
             android:name=".MainActivity"
