@@ -22,7 +22,7 @@ public class WarehouseHomeActivity extends AppCompatActivity {
         btnInventory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WarehouseHomeActivity.this, StockInAdapter.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
+                Intent intent = new Intent(WarehouseHomeActivity.this, WarehouseStockOutActivity.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
                 startActivity(intent);
             }
         });
@@ -40,7 +40,7 @@ public class WarehouseHomeActivity extends AppCompatActivity {
         btnStockOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WarehouseHomeActivity.this, StockInAdapter.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
+                Intent intent = new Intent(WarehouseHomeActivity.this, WarehouseStockOutActivity.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
                 startActivity(intent);
             }
         });

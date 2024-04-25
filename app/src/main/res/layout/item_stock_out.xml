@@ -42,7 +42,7 @@
                 android:orientation="horizontal"
                 android:gravity="center">
                 <TextView
-                    android:id="@+id/id_stock_in"
+                    android:id="@+id/id_stock_out"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="FFFFFFFFFFFFFFFFFFFF"
@@ -57,11 +57,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ngày nhập: "
+                    android:text="Ngày xuất: "
                     android:textSize="@dimen/text_size_medium"/>
 
                 <TextView
-                    android:id="@+id/date_stock_in"
+                    android:id="@+id/date_stock_out"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1/1/2000"
@@ -77,42 +77,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tổng tiền: "
+                    android:text="Ghi chú: "
                     android:textSize="@dimen/text_size_medium"/>
                 <TextView
-                    android:id="@+id/price_stock_in"
+                    android:id="@+id/noted_stock_out"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100000"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" VNĐ"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textAlignment="center" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/number_of_product"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" sản phẩm"
                     android:textSize="@dimen/text_size_medium"
                     android:textAlignment="center" />
             </LinearLayout>

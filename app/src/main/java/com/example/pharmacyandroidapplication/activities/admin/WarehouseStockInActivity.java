@@ -11,7 +11,6 @@ import android.widget.GridView;
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.adapters.StockInAdapter;
 import com.example.pharmacyandroidapplication.models.StockIn;
-import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,7 +40,7 @@ public class WarehouseStockInActivity extends AppCompatActivity {
                 StockIn itemStockIn = StockArrayList.get(position);
 
                 // Truyền giá trị của item qua layout tiếp theo để hiển thị
-                Intent intent = new Intent(WarehouseStockInActivity.this, WarehouseProductStockInDetailsActivity.class);
+                Intent intent = new Intent(WarehouseStockInActivity.this, WarehouseStockInDetailsActivity.class);
                 intent.putExtra("selectedStockInID", itemStockIn.getId());
                 startActivity(intent);
             }

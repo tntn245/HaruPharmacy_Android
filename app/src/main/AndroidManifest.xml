@@ -15,6 +15,12 @@
         android:theme="@style/Theme.PharmacyAndroidApplication"
         tools:targetApi="31">
         <activity
+            android:name=".activities.admin.WarehouseStockOutDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.WarehouseStockOutActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.admin.StatisticActivity"
             android:exported="false" />
         <activity
@@ -24,7 +30,7 @@
             android:name=".activities.admin.WarehouseStockInActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.admin.WarehouseProductStockInDetailsActivity"
+            android:name=".activities.admin.WarehouseStockInDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.admin.ProductManagementActivity"
@@ -39,8 +45,6 @@
             android:name=".activities.admin.AdminHomepageActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
-
         <activity
             android:name=".activities.customer.CustomerHomepageActivity"
             android:exported="false"
@@ -81,7 +85,6 @@
         <activity
             android:name=".activities.customer.OrderDetailsActivity"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
