@@ -16,12 +16,9 @@ import com.example.pharmacyandroidapplication.models.Product;
 
 import java.util.ArrayList;
 
-public class OrderDetailsAdapter extends ArrayAdapter<Product> {
-    ArrayList<Product> productArrayList;
-
-    public OrderDetailsAdapter(@NonNull Context context, ArrayList<Product> productArrayList) {
+public class ProductInventoryAdapter extends ArrayAdapter<Product> {
+    public ProductInventoryAdapter(@NonNull Context context, ArrayList<Product> productArrayList) {
         super(context, 0, productArrayList);
-        this.productArrayList = productArrayList;
     }
 
     @NonNull
@@ -31,20 +28,19 @@ public class OrderDetailsAdapter extends ArrayAdapter<Product> {
         View listitemView = convertView;
         if (listitemView == null) {
             // Layout Inflater inflates each item to be displayed in GridView.
-            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_product_orderdetail, parent, false);
+            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_product_inventory, parent, false);
         }
 
         Product product = getItem(position);
-        ImageView product_img = listitemView.findViewById(R.id.product_img);
         TextView product_name = listitemView.findViewById(R.id.product_name);
-        TextView product_price = listitemView.findViewById(R.id.product_price);
-        TextView product_quantity = listitemView.findViewById(R.id.product_quantity);
+        TextView product_inventory_quantity = listitemView.findViewById(R.id.product_inventory_quantity);
+        ImageView product_img = listitemView.findViewById(R.id.product_img);
 
         assert product != null;
+        product_name.setText(product.getProductName());
+        product_inventory_quantity.setText(Integer.toString(product.getInventory_quantity()));
         product_img.setImageResource(product.getImg());
-        product_name.setText(product.getName());
-        product_price.setText(Integer.toString(product.getPrice()));
-        product_quantity.setText(Integer.toString(product.getInventory_quantity()));
         return listitemView;
     }
 }
+

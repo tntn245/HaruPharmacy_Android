@@ -15,6 +15,12 @@
         android:theme="@style/Theme.PharmacyAndroidApplication"
         tools:targetApi="31">
         <activity
+            android:name=".activities.admin.WarehouseInventoryDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.WarehouseInventoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.admin.WarehouseStockOutDetailsActivity"
             android:exported="false" />
         <activity

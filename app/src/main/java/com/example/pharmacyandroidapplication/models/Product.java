@@ -4,29 +4,36 @@ public class Product {
     private String id;
     private String name;
     private int img;
-    private int quantity;
+    private int inventory_quantity;
     private int price;
     public Product(String name, int price, int img){
         this.id="";
         this.img = img;
-        this.quantity = 1;
+        this.inventory_quantity = 1;
         this.name = name;
         this.price = price;
     }
 
-    public Product(String id, String name, int img, int price) {
+    public Product(String id, String name, int img, int inventory_quantity, int price) {
         this.id = id;
         this.name = name;
         this.img = img;
+        this.inventory_quantity = inventory_quantity;
+        this.price = price;
+    }
+    public Product(String name, int price, int inventory_quantity, int img) {
+        this.name = name;
+        this.img = img;
+        this.inventory_quantity = inventory_quantity;
         this.price = price;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getInventory_quantity() {
+        return inventory_quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setInventory_quantity(int inventory_quantity) {
+        this.inventory_quantity = inventory_quantity;
     }
 
     public String getId() {

@@ -76,7 +76,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Hạn sử dụng: "
+                            android:text="Ngày sản xuất: "
                             android:textAlignment="center"
                             android:textSize="@dimen/text_size_medium" />
                         <TextView
@@ -98,7 +98,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ngày sản xuất: "
+                            android:text="Hạn sử dụng: "
                             android:textAlignment="center"
                             android:textSize="@dimen/text_size_medium" />
                         <TextView
