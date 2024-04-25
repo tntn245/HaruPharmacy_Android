@@ -19,7 +19,16 @@
                 android:textSize="@dimen/text_size_medium"
                 android:textColor="@color/text_theme"
                 android:textStyle="bold" />
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAddAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm mới"
+            android:drawableLeft="@drawable/ic_add"
+            />
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"

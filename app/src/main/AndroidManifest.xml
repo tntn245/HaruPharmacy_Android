@@ -15,7 +15,7 @@
         android:theme="@style/Theme.PharmacyAndroidApplication"
         tools:targetApi="31">
         <activity
-            android:name=".WHStockInDetailsActivity"
+            android:name=".activities.admin.StatisticActivity"
             android:exported="false" />
         <activity
             android:name=".activities.admin.WarehouseHomeActivity"
@@ -24,14 +24,58 @@
             android:name=".activities.admin.WarehouseStockInActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.admin.WarehouseProductStockInDetailsActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.admin.ProductManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.CategoryManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.OrderManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.AdminHomepageActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+
+        <activity
+            android:name=".activities.customer.CustomerHomepageActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activities.ChatActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.customer.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.ProductDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.PaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.UserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.UserAddressesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.UserAddAddressesActivity"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

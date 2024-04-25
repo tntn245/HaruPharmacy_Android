@@ -68,10 +68,10 @@
             android:gravity="center"
             android:padding="@dimen/_20sdp">
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/inventory"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150sdp"
                 android:text="@string/inventory"
-                android:textAllCaps="true"
                 android:textColor="@color/app_theme"
                 android:textSize="@dimen/heading_2"
                 app:backgroundTint="@color/pastel_light_blue"
@@ -91,6 +91,7 @@
             android:gravity="center"
             android:padding="@dimen/_20sdp">
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/stockin"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150sdp"
                 android:text="@string/stock_in"
@@ -113,6 +114,7 @@
             android:gravity="center"
             android:padding="@dimen/_20sdp">
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/stockout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150sdp"
                 android:text="@string/stock_out"
