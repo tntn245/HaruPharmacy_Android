@@ -300,6 +300,7 @@
                         android:layout_marginLeft="@dimen/_16sdp"
                         android:paddingHorizontal="@dimen/_8sdp"
                         android:visibility="invisible">
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
             </LinearLayout>
 
