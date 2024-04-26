@@ -12,77 +12,88 @@
         android:orientation="vertical"
         android:padding="@dimen/_5sdp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/_10sdp">
-
-        <!-- ImageView for nav_drawer icon -->
-        <ImageView
-            android:id="@+id/drawer_icon_admin"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/nav_drawer"/>
+            android:padding="@dimen/_10sdp">
 
-        <!-- ImageView for img_logo -->
-        <ImageView
-            android:id="@+id/img_logo"
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_55sdp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/img_logo"/>
+            <!-- ImageView for nav_drawer icon -->
+            <ImageView
+                android:id="@+id/drawer_icon_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/nav_drawer"/>
 
-    </RelativeLayout>
+            <!-- ImageView for img_logo -->
+            <ImageView
+                android:id="@+id/img_logo"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_55sdp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/img_logo"/>
 
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/_10sdp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                app:cardCornerRadius="@dimen/_5sdp"
+                app:cardElevation="@dimen/_5sdp">
+
+                <include layout="@layout/component_search_bar" />
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_height="match_parent">
         <androidx.cardview.widget.CardView
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             app:cardCornerRadius="@dimen/_20sdp"
             android:backgroundTint="@color/background">
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/_40sdp">
-
                 <LinearLayout
+                    android:padding="@dimen/_10sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="2"
                     android:orientation="horizontal"
-                    android:padding="@dimen/_10sdp"
-                    android:paddingHorizontal="@dimen/_16sdp"
-                    android:weightSum="2">
-
+                    android:columnCount="2"
+                    android:weightSum="2"
+                    android:paddingHorizontal="16dp">
                     <androidx.cardview.widget.CardView
                         android:id="@+id/item_qlsp"
-                        android:layout_width="@dimen/_220sdp"
-                        android:layout_height="@dimen/_120sdp"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        android:layout_marginVertical="@dimen/_14sdp"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_90sdp"
+                        app:cardCornerRadius="@dimen/_20sdp"
                         android:layout_weight="1"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        app:cardCornerRadius="@dimen/_20sdp">
-
+                        android:layout_marginVertical="@dimen/_14sdp"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:paddingHorizontal="@dimen/_8sdp">
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_height="wrap_content">
 
                             <ImageView
+                                android:paddingTop="@dimen/_6sdp"
                                 android:id="@+id/icon_qlsp"
                                 android:layout_width="@dimen/_50sdp"
                                 android:layout_height="@dimen/_50sdp"
-                                android:paddingTop="@dimen/_4sdp"
                                 android:src="@drawable/medicine_9_svgrepo_com"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -93,39 +104,36 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:maxLines="2"
-                                android:padding="@dimen/_5sdp"
-                                android:text="Quản lý sản phẩm"
-                                android:textAlignment="center"
                                 android:textColor="@color/app_theme"
+                                android:padding="@dimen/_5sdp"
                                 android:textSize="@dimen/text_size_medium"
                                 android:textStyle="bold"
+                                android:text="Quản lý sản phẩm"
+                                android:textAlignment="center"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/icon_qlsp"
                                 tools:ignore="MissingConstraints" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
-
                     <androidx.cardview.widget.CardView
                         android:id="@+id/item_qllsp"
-                        android:layout_width="@dimen/_220sdp"
-                        android:layout_height="@dimen/_120sdp"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        android:layout_marginVertical="@dimen/_14sdp"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_90sdp"
+                        app:cardCornerRadius="@dimen/_20sdp"
                         android:layout_weight="1"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        app:cardCornerRadius="@dimen/_20sdp">
-
+                        android:layout_marginVertical="@dimen/_14sdp"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:paddingHorizontal="@dimen/_8sdp">
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_height="wrap_content">
 
                             <ImageView
+                                android:paddingTop="@dimen/_6sdp"
                                 android:id="@+id/icon_qllsp"
                                 android:layout_width="@dimen/_50sdp"
                                 android:layout_height="@dimen/_50sdp"
-                                android:paddingTop="@dimen/_4sdp"
                                 android:src="@drawable/icon_category"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -136,12 +144,12 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:maxLines="2"
-                                android:padding="@dimen/_5sdp"
-                                android:text="Quản lý loại sản phẩm"
-                                android:textAlignment="center"
                                 android:textColor="@color/app_theme"
+                                android:padding="@dimen/_5sdp"
                                 android:textSize="@dimen/text_size_medium"
                                 android:textStyle="bold"
+                                android:text="Quản lý loại sản phẩm"
+                                android:textAlignment="center"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/icon_qllsp"
@@ -149,36 +157,31 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="2"
                     android:orientation="horizontal"
-                    android:padding="@dimen/_10sdp"
-                    android:paddingHorizontal="@dimen/_16sdp"
-                    android:weightSum="2">
-
+                    android:columnCount="2"
+                    android:weightSum="2"
+                    android:paddingHorizontal="@dimen/_16sdp">
                     <androidx.cardview.widget.CardView
                         android:id="@+id/item_qldh"
-                        android:layout_width="@dimen/_220sdp"
-                        android:layout_height="@dimen/_120sdp"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        android:layout_marginVertical="@dimen/_14sdp"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_90sdp"
+                        app:cardCornerRadius="@dimen/_20sdp"
                         android:layout_weight="1"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        app:cardCornerRadius="@dimen/_20sdp">
-
+                        android:layout_marginVertical="@dimen/_14sdp"
+                        android:layout_marginLeft="@dimen/_16sdp"
+                        android:paddingHorizontal="@dimen/_8sdp">
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_height="wrap_content">
 
                             <ImageView
+                                android:paddingTop="@dimen/_4sdp"
                                 android:id="@+id/icon_qldh"
                                 android:layout_width="@dimen/_50sdp"
                                 android:layout_height="@dimen/_50sdp"
-                                android:paddingTop="@dimen/_4sdp"
                                 android:src="@drawable/icon_order"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -189,39 +192,36 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:maxLines="2"
-                                android:padding="@dimen/_5sdp"
-                                android:text="Quản lý đơn hàng"
-                                android:textAlignment="center"
                                 android:textColor="@color/app_theme"
+                                android:padding="@dimen/_5sdp"
                                 android:textSize="@dimen/text_size_medium"
                                 android:textStyle="bold"
+                                android:text="Quản lý đơn hàng"
+                                android:textAlignment="center"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/icon_qldh"
                                 tools:ignore="MissingConstraints" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
-
                     <androidx.cardview.widget.CardView
                         android:id="@+id/item_qlkho"
-                        android:layout_width="@dimen/_220sdp"
-                        android:layout_height="@dimen/_120sdp"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        android:layout_marginVertical="@dimen/_14sdp"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_90sdp"
+                        app:cardCornerRadius="@dimen/_20sdp"
                         android:layout_weight="1"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        app:cardCornerRadius="@dimen/_20sdp">
-
+                        android:layout_marginVertical="@dimen/_14sdp"
+                        android:layout_marginLeft="@dimen/_16sdp"
+                        android:paddingHorizontal="@dimen/_8sdp">
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_height="wrap_content">
 
                             <ImageView
+                                android:paddingTop="@dimen/_6sdp"
                                 android:id="@+id/icon_qlkho"
                                 android:layout_width="@dimen/_50sdp"
                                 android:layout_height="@dimen/_50sdp"
-                                android:paddingTop="@dimen/_4sdp"
                                 android:src="@drawable/icon_inventory"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -232,12 +232,12 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:maxLines="2"
-                                android:padding="@dimen/_5sdp"
-                                android:text="Quản lý kho"
-                                android:textAlignment="center"
                                 android:textColor="@color/app_theme"
+                                android:padding="@dimen/_5sdp"
                                 android:textSize="@dimen/text_size_medium"
                                 android:textStyle="bold"
+                                android:text="Quản lý kho"
+                                android:textAlignment="center"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/icon_qlkho"
@@ -248,32 +248,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="2"
                     android:orientation="horizontal"
-                    android:padding="@dimen/_10sdp"
-                    android:paddingHorizontal="@dimen/_16sdp"
-                    android:weightSum="2">
-
+                    android:columnCount="2"
+                    android:weightSum="2"
+                    android:paddingHorizontal="@dimen/_16sdp">
                     <androidx.cardview.widget.CardView
                         android:id="@+id/item_thongke"
-                        android:layout_width="@dimen/_220sdp"
-                        android:layout_height="@dimen/_120sdp"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        android:layout_marginVertical="@dimen/_14sdp"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_90sdp"
+                        app:cardCornerRadius="@dimen/_20sdp"
                         android:layout_weight="1"
-                        android:paddingHorizontal="@dimen/_8sdp"
-                        app:cardCornerRadius="@dimen/_20sdp">
-
+                        android:layout_marginVertical="@dimen/_14sdp"
+                        android:layout_marginLeft="@dimen/_16sdp">
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_height="wrap_content">
 
                             <ImageView
+                                android:paddingTop="@dimen/_4sdp"
                                 android:id="@+id/icon_thongke"
                                 android:layout_width="@dimen/_50sdp"
                                 android:layout_height="@dimen/_50sdp"
-                                android:paddingTop="@dimen/_4sdp"
                                 android:src="@drawable/icon_statistic"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -284,31 +279,29 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:maxLines="2"
-                                android:padding="@dimen/_5sdp"
-                                android:text="Thống kê"
-                                android:textAlignment="center"
                                 android:textColor="@color/app_theme"
+                                android:padding="@dimen/_5sdp"
                                 android:textSize="@dimen/text_size_medium"
                                 android:textStyle="bold"
+                                android:text="Thống kê"
+                                android:textAlignment="center"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/icon_thongke"
                                 tools:ignore="MissingConstraints" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
-
                     <androidx.cardview.widget.CardView
-                        android:layout_width="@dimen/_220sdp"
-                        android:layout_height="@dimen/_120sdp"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
-                        android:layout_marginVertical="@dimen/_14sdp"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_90sdp"
+                        app:cardCornerRadius="@dimen/_20sdp"
                         android:layout_weight="1"
+                        android:layout_marginVertical="@dimen/_14sdp"
+                        android:layout_marginLeft="@dimen/_16sdp"
                         android:paddingHorizontal="@dimen/_8sdp"
-                        android:visibility="invisible"
-                        app:cardCornerRadius="@dimen/_20sdp"/>
-
+                        android:visibility="invisible">
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
-
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
