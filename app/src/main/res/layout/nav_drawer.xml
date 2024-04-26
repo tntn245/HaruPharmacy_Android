@@ -11,14 +11,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_56sdp"
-        android:id="@+id/nav_toolbar"
-        android:elevation="@dimen/_4sdp"
-        android:background="@color/background"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+<!--    <Toolbar-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/_56sdp"-->
+<!--        android:id="@+id/nav_toolbar"-->
+<!--        android:elevation="@dimen/_4sdp"-->
+<!--        android:background="@color/background"-->
+<!--        android:theme="@style/ThemeOverlay.AppCompat.Dark"-->
+<!--        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>-->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
