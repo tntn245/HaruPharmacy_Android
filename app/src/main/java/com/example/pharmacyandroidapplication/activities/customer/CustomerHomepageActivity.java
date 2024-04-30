@@ -1,28 +1,169 @@
 package com.example.pharmacyandroidapplication.activities.customer;
 
+import static java.security.AccessController.getContext;
+
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.activities.ChatActivity;
+import com.example.pharmacyandroidapplication.activities.LogoutActivity;
 import com.example.pharmacyandroidapplication.adapters.HomeCategoryAdapter;
 import com.example.pharmacyandroidapplication.adapters.HomeProductAdapter;
 import com.example.pharmacyandroidapplication.models.Category;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
 public class CustomerHomepageActivity extends AppCompatActivity {
+    private void openDrawer(){
+        ImageView openDrawerButton = findViewById(R.id.icon_drawer_menu);
+        openDrawerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+                drawerLayout.openDrawer(GravityCompat.START); // Mở Drawer từ trái sang
+            }
+        });
+
+    }
+    private void closeDrawer(){
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                // Xử lý các sự kiện khi người dùng chọn các mục trong Drawer Navigation
+                int id = item.getItemId();
+
+                if (id == R.id.nav_home_drawer) {
+                    // Xử lý khi người dùng chọn trang chủ
+                    Intent intent = new Intent(CustomerHomepageActivity.this, CustomerHomepageActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (id == R.id.nav_support_drawer) {
+                    // Xử lý khi người dùng chọn trang tư vấn
+                    Intent intent = new Intent(CustomerHomepageActivity.this, ChatActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.nav_shopping_drawer) {
+                    // Xử lý khi người dùng chọn trang giỏ hàng
+                    Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
+                    startActivity(intent);
+                    return true;
+                }  else if (id == R.id.nav_cart_drawer) {
+                    // Xử lý khi người dùng chọn trang giỏ hàng
+                    Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.nav_info_drawer) {
+                    // Xử lý khi người dùng chọn trang giỏ hàng
+                    Intent intent = new Intent(CustomerHomepageActivity.this, UserActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.nav_logout_drawer) {
+                    // Xử lý khi người dùng chọn trang tài khoản
+                    Intent intent = new Intent(CustomerHomepageActivity.this, LogoutActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                // Sau khi xử lý xong, đóng Drawer Navigation
+                DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+                drawerLayout.closeDrawer(GravityCompat.START); // Đóng Drawer từ trái sang
+                return true;
+            }
+        });
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_homepage);
+
+        openDrawer();
+        closeDrawer();
+
+        ScrollView scrollView= findViewById(R.id.scroll_view);
+        CardView searchBar= findViewById(R.id.search_bar);
+        ImageView searchIcon= findViewById(R.id.ic_search);
+//        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                if (scrollY > oldScrollY) {
+//                    searchBar.setVisibility(View.VISIBLE);
+//                    searchIcon.setVisibility(View.INVISIBLE);
+//                } else if (scrollY < oldScrollY) {
+//                    searchBar.setVisibility(View.GONE);
+//                    searchIcon.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
+        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY) {
+//                    searchBar.setVisibility(View.GONE);
+                    searchIcon.setVisibility(View.VISIBLE);
+
+                    // Lấy margin của thanh search
+                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) searchBar.getLayoutParams();
+                    int startMarginTop = params.topMargin;
+                    int startMarginBottom = params.bottomMargin;
+                    int startHeight = searchBar.getHeight();
+
+                    // Tạo một ValueAnimator để thay đổi chiều cao của thanh search
+                    ValueAnimator animator = ValueAnimator.ofInt(startHeight, 0); // startHeight là chiều cao ban đầu, endHeight là chiều cao cuối cùng sau khi thu nhỏ
+                    animator.setDuration(500); // Thiết lập thời gian thực hiện animation
+
+                    // Listener để cập nhật chiều cao của thanh search và layout cha
+                    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            // Lấy giá trị chiều cao hiện tại từ ValueAnimator
+                            int animatedValue = (int) animation.getAnimatedValue();
+
+                            // Cập nhật chiều cao của thanh search
+                            searchBar.getLayoutParams().height = animatedValue;
+
+                            // Cập nhật margin của thanh search
+                            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) searchBar.getLayoutParams();
+                            params.topMargin = (int) (startMarginTop * ((float) animatedValue / startHeight));
+                            params.bottomMargin = (int) (startMarginBottom * ((float) animatedValue / startHeight));
+                            searchBar.setLayoutParams(params);
+
+                            searchBar.requestLayout();
+                        }
+                    });
+                    animator.start();
+                } else if (scrollY < oldScrollY) {
+//                    searchBar.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
+//                    searchBar.setVisibility(View.VISIBLE);
+//                    searchIcon.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+
+
 
         // Gridview Category
         GridView categoryGV= findViewById(R.id.rcv_category);
@@ -70,6 +211,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
                 if (itemId == R.id.home) {
                     // Xử lý khi người dùng chọn trang chủ
+                    Intent supportIntent = new Intent(CustomerHomepageActivity.this, CustomerHomepageActivity.class);
+                    startActivity(supportIntent);
+                    finish();
                     return true;
                 } else if (itemId == R.id.support) {
                     // Xử lý khi người dùng chọn trang tư vấn

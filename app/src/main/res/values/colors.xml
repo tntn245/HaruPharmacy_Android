@@ -6,6 +6,8 @@
     <color name="light_blue">#67C6E3</color>
     <color name="dark_brown_blue">#365486</color>
     <color name="background">#EEEFF3</color>
+    <color name="dark_background">#EAEFFA</color>
+    <color name="light_background">#FAFAFA</color>
     <color name="app_theme">#4E78E4</color>
     <color name="text_theme">#F2F9FF</color>
     <color name="gray">#615D5D</color>

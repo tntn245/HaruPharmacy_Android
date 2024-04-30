@@ -1,52 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/app_theme"
-        android:orientation="vertical"
-        android:padding="@dimen/_5sdp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp">
-
-            <!-- ImageView for nav_drawer icon -->
-            <ImageView
-                android:id="@+id/drawer_icon_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/nav_drawer" />
-
-            <!-- ImageView for img_logo -->
-            <ImageView
-                android:id="@+id/img_logo"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_55sdp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/img_logo" />
-
-        </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/_10sdp">
+            android:background="@color/app_theme"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
 
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
+                android:weightSum="10"
+                android:padding="@dimen/_10sdp">
+
+                <!-- ImageView for nav_drawer icon -->
+                <ImageView
+                    android:id="@+id/icon_drawer_menu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/nav_drawer" />
+
+                <!-- ImageView for img_logo -->
+                <ImageView
+                    android:id="@+id/img_logo"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_55sdp"
+                    android:layout_weight="6"
+                    android:src="@drawable/img_logo" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/ic_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_25sdp"
+                        android:src="@drawable/ic_search"
+                        app:tint="@color/white"
+                        android:visibility="invisible"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_10sdp"
                 android:orientation="horizontal"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
@@ -55,101 +73,153 @@
 
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-    <!--        <SearchView-->
-    <!--                        android:layout_width="match_parent"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:layout_marginBottom="10dp"-->
-    <!--                        android:background="#F2F2F2" >-->
-    <!--        </SearchView>-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <ScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <ScrollView
+                android:id="@+id/scroll_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottom_nav">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="25dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="Danh mục sản phẩm"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
 
-                <GridView
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="25dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Danh mục sản phẩm"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
-                    android:id="@+id/rcv_category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:horizontalSpacing="8dp"
-                    android:numColumns="2"
-                    android:padding="8dp"
-                    android:verticalSpacing="8dp">
+                    <GridView
 
-                </GridView>
+                        android:id="@+id/rcv_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:horizontalSpacing="8dp"
+                        android:numColumns="2"
+                        android:padding="8dp"
+                        android:verticalSpacing="8dp">
+
+                    </GridView>
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp">
-
-                    <ImageView
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/img_banner">
+                        android:paddingTop="5dp">
 
-                    </ImageView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/img_banner">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="25dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="Mua sắm"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                        </ImageView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <GridView
-                    android:id="@+id/rcv_shopping"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:horizontalSpacing="8dp"
-                    android:numColumns="2"
-                    android:padding="8dp"
-                    android:verticalSpacing="8dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="25dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Mua sắm"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
-                </GridView>
+                    <GridView
+                        android:id="@+id/rcv_shopping"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:horizontalSpacing="8dp"
+                        android:numColumns="2"
+                        android:padding="8dp"
+                        android:verticalSpacing="8dp">
 
+                    </GridView>
+
+                </LinearLayout>
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/bottom_nav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <include layout="@layout/bottom_navigation" />
             </LinearLayout>
-        </ScrollView>
+        </RelativeLayout>
 
-        <include layout="@layout/bottom_navigation" />
+    </LinearLayout>
 
-    </RelativeLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:backgroundTint="@color/light_background"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:itemIconSize="@dimen/_27sdp"
+        app:itemIconTint="@color/app_theme"
+        app:itemTextAppearance="@style/DrawerHeaderTextStyle"
+        app:itemVerticalPadding="@dimen/_15sdp"
+        app:menu="@menu/nav_drawer_menu">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_10sdp">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@color/gray" />
+
+            <Button
+                android:id="@+id/hotlineButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_40sdp"
+                android:backgroundTint="@color/dark_background"
+                android:drawableLeft="@drawable/ic_phone"
+                android:drawableTint="@color/app_theme"
+                android:elevation="@dimen/_8sdp"
+                android:gravity="center"
+                android:text="Hotline: 0942275188"
+                android:textColor="@color/app_theme"
+                android:textSize="@dimen/_13sdp"></Button>
+
+            <TextView
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Haru Pharmacy"
+                android:textSize="@dimen/_13sdp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>
 

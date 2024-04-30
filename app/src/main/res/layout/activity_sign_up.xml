@@ -22,7 +22,8 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/icon2" />
+            app:srcCompat="@drawable/icon2"
+            android:importantForAccessibility="no" />
     </LinearLayout>
 
     <LinearLayout
@@ -149,4 +150,9 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>
