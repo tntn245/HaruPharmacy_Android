@@ -2,33 +2,36 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="12"
         android:layout_margin="10dp"
-        android:backgroundTint="@color/white">
+        android:backgroundTint="@color/white"
+        android:orientation="vertical"
+        android:weightSum="12">
+
         <LinearLayout
-            android:orientation="horizontal"
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="horizontal"
             android:weightSum="10">
+
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/left"
+                android:background="@null"
                 android:scaleType="fitCenter"
-                android:background="@null">
-            </ImageButton>
+                android:src="@drawable/left" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="7">
-            </TextView>
+                android:layout_weight="7" />
+
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -41,6 +44,7 @@
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:src="@drawable/icon_cart"
                 android:scaleType="fitCenter"
@@ -48,10 +52,12 @@
                 android:padding="@dimen/_1sdp">
             </ImageButton>
         </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10">
+
             <LinearLayout
             android:orientation="vertical"
             android:id="@+id/detail_product"
@@ -61,14 +67,16 @@
             android:padding="@dimen/_5sdp"
             >
                 <ImageView
+                    android:id="@+id/product_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/panadol"
-                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
                     android:background="@null"
-                    android:adjustViewBounds="true">
-                </ImageView>
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/panadol" />
+
                 <TextView
+                    android:id="@+id/product_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
@@ -166,6 +174,15 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:text="Thông tin sản phẩm*"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="italic|normal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="Panadol Extra (Panadol đỏ) là thuốc giảm đau, hạ sốt có thành phần chính là paracetamol (1) và caffeine.\n Thuốc được sử dụng để điều trị các triệu chứng đau từ nhẹ đến vừa.
 Đây là một loại thuốc vô cùng phổ biến và được nhiều người sử dụng. Thuốc Panadol Extra vừa là thuốc không kê đơn (có thể mua được ở các nhà thuốc mà không cần chỉ định của bác sĩ) và là thuốc kê đơn (được bác sĩ chỉ định sử dụng để điều trị bệnh lý)."
                     android:textSize="@dimen/text_size_medium"
@@ -174,13 +191,15 @@
                 </TextView>
             </LinearLayout>
         </ScrollView>
+
         <LinearLayout
-            android:orientation="horizontal"
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:layout_marginTop="5dp">
+            android:background="@color/white"
+            android:orientation="horizontal">
+
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
