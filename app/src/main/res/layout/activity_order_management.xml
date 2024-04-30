@@ -32,23 +32,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/app_name"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="cursive"
-                android:paddingBottom="@dimen/_3sdp"
+                android:textSize="@dimen/text_size_large"
                 android:text="@string/quan_ly_don_hang"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_15sdp"
-                android:textStyle="bold" />
-
+                android:textStyle="bold"
+                android:padding="@dimen/_6sdp"
+                android:textColor="@color/text_theme" />
         </LinearLayout>
 
         <ImageView
@@ -64,8 +53,8 @@
         android:id="@+id/orderRV"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"
-        android:background="@color/pastel_dark_blue" />
+        android:layout_weight="8">
+    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"

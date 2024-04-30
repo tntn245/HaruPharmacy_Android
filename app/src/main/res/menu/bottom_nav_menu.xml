@@ -5,7 +5,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Trang chủ"
-        android:icon="@drawable/baseline_home_24"/>
+        android:icon="@drawable/baseline_home_24" />
     <item
         android:id="@+id/support"
         android:layout_width="wrap_content"

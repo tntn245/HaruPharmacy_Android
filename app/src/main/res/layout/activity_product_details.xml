@@ -36,19 +36,21 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@null"
-                android:paddingLeft="10dp"
+                android:src="@drawable/icon_share"
                 android:scaleType="fitCenter"
-                android:src="@drawable/share" />
-
+                android:background="@null"
+                android:padding="@dimen/_4sdp">
+            </ImageButton>
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:background="@null"
+                android:src="@drawable/icon_cart"
                 android:scaleType="fitCenter"
-                android:src="@drawable/gio_hang" />
+                android:background="@null"
+                android:padding="@dimen/_1sdp">
+            </ImageButton>
         </LinearLayout>
 
         <ScrollView
@@ -57,12 +59,13 @@
             android:layout_weight="10">
 
             <LinearLayout
-                android:id="@+id/detail_product"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:id="@+id/detail_product"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_5sdp"
+            >
                 <ImageView
                     android:id="@+id/product_img"
                     android:layout_width="match_parent"
@@ -76,63 +79,98 @@
                     android:id="@+id/product_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:text="Panadol Extra đỏ (hộp 60 viên)"
                     android:textColor="@color/black"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
+                    android:text="Panadol Extra đỏ (hộp 60 viên)"
+                    android:textSize="@dimen/_18ssp"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/_3sdp">
+                </TextView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="9999 lượt mua"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="italic"
+                    android:textColor="@color/app_theme"
+                    android:gravity="right"
+                    android:paddingRight="20dp">
+                </TextView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/number_of_purchases"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="right"
-                        android:text="9999"
-                        android:textSize="15dp"
-                        android:textStyle="italic" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text=" lượt mua"
-                        android:textSize="15dp"
-                        android:textStyle="italic" />/>
-
-                </LinearLayout>
-
-                <LinearLayout
+                    android:layout_height="match_parent"
+                    android:text="600.000"
+                    android:textSize="@dimen/_25ssp"
+                    android:textStyle="bold"
+                    android:textColor="@color/app_theme"
+                    android:layout_margin="@dimen/_5sdp">
+                </TextView>
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/product_price"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingBottom="20dp"
-                        android:text="600.000"
-                        android:textColor="@color/app_theme"
-                        android:textSize="30dp"
-                        android:textStyle="italic|bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingBottom="20dp"
-                        android:text=" VNĐ"
-                        android:textColor="@color/app_theme"
-                        android:textSize="30dp"
-                        android:textStyle="italic|bold" />
-
-                </LinearLayout>
-
+                    android:layout_height="match_parent"
+                    android:text="VND"
+                    android:textSize="@dimen/_25ssp"
+                    android:textStyle="bold"
+                    android:textColor="@color/app_theme"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp">
+                </TextView>
+            </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Thông tin sản phẩm"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_margin="@dimen/_3sdp">
+                </TextView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Danh mục"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColor="@color/gray"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/_3sdp">
+                </TextView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Thuốc không kê đơn"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColor="@color/app_theme"
+                    android:layout_margin="@dimen/_3sdp">
+                </TextView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Thành phần"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColor="@color/gray"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/_3sdp">
+                </TextView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Cafein 65 mg, Paracetamol 500 mg."
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColor="@color/black"
+                    android:layout_margin="@dimen/_3sdp">
+                </TextView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Mô tả ngắn"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColor="@color/gray"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/_3sdp">
+                </TextView>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -145,11 +183,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp"
                     android:text="Panadol Extra (Panadol đỏ) là thuốc giảm đau, hạ sốt có thành phần chính là paracetamol (1) và caffeine.\n Thuốc được sử dụng để điều trị các triệu chứng đau từ nhẹ đến vừa.
 Đây là một loại thuốc vô cùng phổ biến và được nhiều người sử dụng. Thuốc Panadol Extra vừa là thuốc không kê đơn (có thể mua được ở các nhà thuốc mà không cần chỉ định của bác sĩ) và là thuốc kê đơn (được bác sĩ chỉ định sử dụng để điều trị bệnh lý)."
+                    android:textSize="@dimen/text_size_medium"
                     android:textColor="@color/black"
-                    android:textSize="18dp" />
+                    android:layout_margin="@dimen/_3sdp">
+                </TextView>
             </LinearLayout>
         </ScrollView>
 
@@ -165,19 +204,21 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@null"
-                android:paddingLeft="10dp"
+                android:src="@drawable/chatbox"
                 android:scaleType="fitStart"
-                android:src="@drawable/chat" />
-
+                android:background="@null"
+                android:paddingLeft="@dimen/_10sdp"
+                >
+            </ImageButton>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/app_theme"
                 android:text="CHỌN MUA"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:backgroundTint="@color/button_color"
+                android:layout_marginLeft="10dp">
+            </Button>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
