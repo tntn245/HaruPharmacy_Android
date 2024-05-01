@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".activity_add_category">
+    tools:context=".activity_edit_category">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
-                    android:hint="Tên loại sản phẩm"
+                    android:text="Thần kinh, não"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
             <LinearLayout

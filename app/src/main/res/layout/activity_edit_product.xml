@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".activity_add_product">
+    tools:context=".activity_edit_product">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thêm sản phẩm"
+            android:text="Sửa thông tin sản phẩm"
             android:gravity="center"
             android:layout_weight="8"
             android:textColor="@color/text_theme"
@@ -119,7 +119,7 @@
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
-                    android:hint="Tên sản phẩm"
+                    android:text="Thuốc trị ngu"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
 
@@ -204,7 +204,7 @@
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
-                    android:hint="Giá bán"
+                    android:text="1.000.000"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
 
@@ -256,7 +256,7 @@
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
-                    android:hint="Thành phần"
+                    android:text="Adaptogen Ashwagandha"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
 
@@ -282,7 +282,7 @@
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
-                    android:hint="Công dụng"
+                    android:text="Trị ngu"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
             <LinearLayout
