@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:backgroundTint="@color/background"
     android:orientation="vertical"
-    tools:context=".activities.admin.activity_edit_category">
+    tools:context=".activities.admin.activity_add_product_stockout">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chỉnh sửa loại sản phẩm"
+            android:text="Xuất sản phẩm"
             android:gravity="center"
             android:layout_weight="8"
             android:textColor="@color/text_theme"
@@ -36,41 +36,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/_3sdp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="4">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="Mã loại sản phẩm"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="#FFFFF"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,32 +50,7 @@
                     android:paddingLeft="@dimen/_25sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
-                    android:text="Tên loại sản phẩm"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:layout_width="@dimen/_285sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/input_border_radius"
-                    android:text="Thần kinh, não"
-                    android:paddingStart="@dimen/_15sdp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="Tình trạng kinh doanh"
+                    android:text="Tên sản phẩm"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
@@ -119,42 +60,89 @@
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
-                    android:hint="Chọn tình trang kinh doanh"
+                    android:hint="Chọn sản phẩm"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_25sdp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:weightSum="2"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:backgroundTint="@color/button_color"
-                    android:elevation="@dimen/_8sdp"
-                    android:text="Hoàn tất"
-                    android:textSize="@dimen/text_size_medium"
-                    android:padding="@dimen/_10sdp"
-                    android:layout_margin="@dimen/_8sdp"/>
+                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="Số lô"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
 
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                <Spinner
+                    android:layout_width="@dimen/_285sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
-                    android:backgroundTint="@color/test9"
-                    android:elevation="@dimen/_8sdp"
-                    android:text="Hủy"
-                    android:textSize="@dimen/text_size_medium"
-                    android:layout_margin="@dimen/_8sdp"/>
+                    android:background="@drawable/input_border_radius"
+                    android:hint="Chọn số lô"
+                    android:paddingStart="@dimen/_15sdp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="Số lượng"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="@dimen/_285sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/input_border_radius"
+                    android:hint="Số lượng"
+                    android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/button_color"
+            android:elevation="@dimen/_8sdp"
+            android:text="Thêm"
+            android:textSize="@dimen/text_size_medium"
+            android:padding="@dimen/_10sdp"
+            android:layout_margin="@dimen/_8sdp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/test9"
+            android:elevation="@dimen/_8sdp"
+            android:text="Hủy"
+            android:textSize="@dimen/text_size_medium"
+            android:layout_margin="@dimen/_8sdp"/>
+    </LinearLayout>
 </LinearLayout>

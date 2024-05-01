@@ -1,10 +1,12 @@
-  package com.example.pharmacyandroidapplication;
+  package com.example.pharmacyandroidapplication.activities.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class activity_edit_category extends AppCompatActivity {
+import com.example.pharmacyandroidapplication.R;
+
+  public class activity_edit_category extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

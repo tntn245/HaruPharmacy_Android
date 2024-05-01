@@ -15,16 +15,34 @@
         android:theme="@style/Theme.PharmacyAndroidApplication"
         tools:targetApi="31">
         <activity
-            android:name=".activity_edit_category"
+            android:name=".activities.admin.activity_add_product_stockout"
             android:exported="false" />
         <activity
-            android:name=".activity_edit_product"
+            android:name=".activities.admin.activity_add_stockout"
             android:exported="false" />
         <activity
-            android:name=".activity_add_category"
+            android:name=".activities.admin.activity_add_product_stockin"
             android:exported="false" />
         <activity
-            android:name=".activity_add_product"
+            android:name=".activities.admin.activity_add_stockin"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.activity_edit_order"
+            android:exported="false" />
+        <activity
+            android:name=".acitivity_edit_ordermanagement"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.activity_edit_category"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.activity_edit_product"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.activity_add_category"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.activity_add_product"
             android:exported="false" />
         <activity
             android:name=".activities.admin.WarehouseInventoryDetailsActivity"

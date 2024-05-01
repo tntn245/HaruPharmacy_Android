@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".activity_add_product">
+    tools:context=".activities.admin.activity_add_product">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -313,35 +313,36 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_25sdp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:weightSum="2"
-                android:orientation="horizontal">
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:backgroundTint="@color/button_color"
-                    android:elevation="@dimen/_8sdp"
-                    android:text="Thêm"
-                    android:textSize="@dimen/text_size_medium"
-                    android:padding="@dimen/_10sdp"/>
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:backgroundTint="@color/test9"
-                    android:elevation="@dimen/_8sdp"
-                    android:text="Hủy"
-                    android:textSize="@dimen/text_size_medium" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/button_color"
+            android:elevation="@dimen/_8sdp"
+            android:text="Thêm"
+            android:textSize="@dimen/text_size_medium"
+            android:padding="@dimen/_10sdp"
+            android:layout_margin="@dimen/_8sdp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/test9"
+            android:elevation="@dimen/_8sdp"
+            android:text="Hủy"
+            android:textSize="@dimen/text_size_medium"
+            android:layout_margin="@dimen/_8sdp"/>
+    </LinearLayout>
 </LinearLayout>

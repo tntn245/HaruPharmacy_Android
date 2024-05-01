@@ -1,8 +1,10 @@
-package com.example.pharmacyandroidapplication;
+package com.example.pharmacyandroidapplication.activities.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.pharmacyandroidapplication.R;
 
 public class activity_add_product extends AppCompatActivity {
 

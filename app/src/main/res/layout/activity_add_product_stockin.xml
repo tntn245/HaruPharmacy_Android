@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:backgroundTint="@color/background"
     android:orientation="vertical"
-    tools:context=".activities.admin.activity_edit_product">
-
+    tools:context=".activities.admin.activity_add_product_stockin">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sửa thông tin sản phẩm"
+            android:text="Nhập sản phẩm"
             android:gravity="center"
             android:layout_weight="8"
             android:textColor="@color/text_theme"
@@ -49,52 +48,25 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="@dimen/_130sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:src="@mipmap/ic_launcher" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:padding="@dimen/_10sdp"
-                    android:src="@drawable/ic_edit" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="@dimen/_25sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
-                    android:text="Mã sản phẩm"
+                    android:text="Số lô"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="#FFFFF"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="@dimen/_285sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/input_border_radius"
+                    android:hint="Số lô"
+                    android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
 
             <LinearLayout
@@ -114,15 +86,14 @@
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
 
-                <EditText
+                <Spinner
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
-                    android:text="Thuốc trị ngu"
+                    android:hint="Chọn sản phẩm"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -130,34 +101,6 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="Loại sản phẩm"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:layout_width="@dimen/_285sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/input_border_radius"
-                    android:hint="Chọn loại sản phẩm"
-                    android:paddingStart="@dimen/_15sdp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <TextView
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="@dimen/_25sdp"
@@ -168,46 +111,14 @@
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="50"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="Giá bán"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-
                 <EditText
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
-                    android:text="1.000.000"
+                    android:hint="Số lượng"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -233,7 +144,6 @@
                     android:hint="Chọn đơn vị"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -246,7 +156,7 @@
                     android:paddingLeft="@dimen/_25sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
-                    android:text="Thành phần"
+                    android:text="Đơn giá nhập"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
@@ -256,7 +166,7 @@
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
-                    android:text="Adaptogen Ashwagandha"
+                    android:hint="Đơn giá nhập"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
 
@@ -272,7 +182,37 @@
                     android:paddingLeft="@dimen/_25sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
-                    android:text="Công dụng"
+                    android:text="Ngày sản xuất"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edit_text_date"
+                    android:layout_width="@dimen/_285sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:hint="Chọn ngày sản xuất"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/input_border_radius"
+                    android:paddingStart="@dimen/_15sdp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="Ngày hết hạn"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
@@ -280,10 +220,13 @@
                 <EditText
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
+                    android:hint="Chọn ngày hết hạn"
+                    android:focusable="false"
+                    android:clickable="true"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
-                    android:text="Trị ngu"
-                    android:paddingStart="@dimen/_15sdp" />
+                    android:paddingStart="@dimen/_15sdp"/>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -329,7 +272,7 @@
             android:layout_gravity="center"
             android:backgroundTint="@color/button_color"
             android:elevation="@dimen/_8sdp"
-            android:text="Hoàn tất"
+            android:text="Thêm"
             android:textSize="@dimen/text_size_medium"
             android:padding="@dimen/_10sdp"
             android:layout_margin="@dimen/_8sdp"/>

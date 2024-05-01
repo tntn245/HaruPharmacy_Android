@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".activity_add_category">
+    tools:context=".activities.admin.activity_add_category">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,12 +32,6 @@
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold" />
     </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -145,9 +139,10 @@
                     android:layout_gravity="center"
                     android:backgroundTint="@color/button_color"
                     android:elevation="@dimen/_8sdp"
-                    android:text="Thêm"
+                    android:text="Hoàn tất"
                     android:textSize="@dimen/text_size_medium"
-                    android:padding="@dimen/_10sdp"/>
+                    android:padding="@dimen/_10sdp"
+                    android:layout_margin="@dimen/_8sdp"/>
 
                 <Button
                     android:layout_width="0dp"
@@ -157,8 +152,8 @@
                     android:backgroundTint="@color/test9"
                     android:elevation="@dimen/_8sdp"
                     android:text="Hủy"
-                    android:textSize="@dimen/text_size_medium" />
+                    android:textSize="@dimen/text_size_medium"
+                    android:layout_margin="@dimen/_8sdp"/>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>
