@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.activities.admin.AdminHomepageActivity;
 import com.example.pharmacyandroidapplication.activities.customer.CustomerHomepageActivity;
+import com.example.pharmacyandroidapplication.activities.customer.ProductDetailsActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +31,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        Button btnProductDetail = findViewById(R.id.btnProductDetail);
+        btnProductDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProductDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
         Button btnAdmin = findViewById(R.id.btnAdmin);
         btnAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
