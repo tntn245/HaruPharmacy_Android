@@ -25,5 +25,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Customer's Home" />
+    <Button
+        android:id="@+id/btnProductDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Detail" />
 
 </LinearLayout>
