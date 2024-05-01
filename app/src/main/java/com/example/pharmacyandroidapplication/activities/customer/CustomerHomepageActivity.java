@@ -1,23 +1,17 @@
 package com.example.pharmacyandroidapplication.activities.customer;
 
-import static java.security.AccessController.getContext;
-
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
@@ -25,13 +19,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.activities.ChatActivity;
-import com.example.pharmacyandroidapplication.activities.LogoutActivity;
+import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.adapters.HomeCategoryAdapter;
 import com.example.pharmacyandroidapplication.adapters.HomeProductAdapter;
 import com.example.pharmacyandroidapplication.models.Category;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -56,35 +51,31 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if (id == R.id.nav_home_drawer) {
-                    // Xử lý khi người dùng chọn trang chủ
                     Intent intent = new Intent(CustomerHomepageActivity.this, CustomerHomepageActivity.class);
                     startActivity(intent);
                     finish();
                     return true;
                 } else if (id == R.id.nav_support_drawer) {
-                    // Xử lý khi người dùng chọn trang tư vấn
                     Intent intent = new Intent(CustomerHomepageActivity.this, ChatActivity.class);
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_shopping_drawer) {
-                    // Xử lý khi người dùng chọn trang giỏ hàng
                     Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
                     startActivity(intent);
                     return true;
                 }  else if (id == R.id.nav_cart_drawer) {
-                    // Xử lý khi người dùng chọn trang giỏ hàng
                     Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_info_drawer) {
-                    // Xử lý khi người dùng chọn trang giỏ hàng
                     Intent intent = new Intent(CustomerHomepageActivity.this, UserActivity.class);
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_logout_drawer) {
-                    // Xử lý khi người dùng chọn trang tài khoản
-                    Intent intent = new Intent(CustomerHomepageActivity.this, LogoutActivity.class);
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(CustomerHomepageActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                     return true;
                 }
 

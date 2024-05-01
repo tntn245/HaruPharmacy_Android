@@ -16,30 +16,40 @@ import androidx.annotation.NonNull;
 
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.activities.LoginActivity;
+import com.example.pharmacyandroidapplication.models.Account;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 public class SignUpActivity extends Activity {
-    EditText editTextEmail, editTextPassword;
+    EditText editTextName, editTextPassword;
     TextView textViewLogin;
     Button buttonReg;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+    FirebaseDatabase database;
+    DatabaseReference reference;
+
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null){
+//            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super. onCreate(savedInstanceState);
@@ -47,7 +57,7 @@ public class SignUpActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
 
         textViewLogin = findViewById(R.id.textViewLogin);
-        editTextEmail = findViewById(R.id.usernameEditText);
+        editTextName = findViewById(R.id.usernameEditText);
         editTextPassword = findViewById(R.id.passwordEditText);
         buttonReg = findViewById(R.id.SignUpButton);
         progressBar = findViewById(R.id.progressBar);
@@ -67,7 +77,7 @@ public class SignUpActivity extends Activity {
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
                 String email, password;
-                email = String.valueOf(editTextEmail.getText());
+                email = String.valueOf(editTextName.getText());
                 password = String.valueOf(editTextPassword.getText());
 
                 if (TextUtils.isEmpty(email) ){
@@ -85,7 +95,15 @@ public class SignUpActivity extends Activity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(SignUpActivity.this, "Sign up successful..",
+                                    String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+                                    database = FirebaseDatabase.getInstance();
+                                    reference = database.getReference("accounts");
+
+                                    Account acc = new Account(userID);
+                                    reference.child(userID).setValue(acc);
+
+                                    Toast.makeText(SignUpActivity.this, "Sign up successfully.",
                                             Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                     startActivity(intent);
