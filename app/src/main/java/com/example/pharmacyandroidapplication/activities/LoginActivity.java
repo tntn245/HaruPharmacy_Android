@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView textViewForgotPass;
     EditText editTextName, editTextPassword;
     Button buttonLogin;
+    Button buttonLoginSMS;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
 
@@ -95,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.usernameEditText);
         editTextPassword = findViewById(R.id.passwordEditText);
         buttonLogin = findViewById(R.id.loginButton);
+        buttonLoginSMS = findViewById(R.id.loginSMSButton);
         progressBar = findViewById(R.id.progressBar);
 
         textViewRegister.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +187,12 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
+            }
+        });
+
+        buttonLoginSMS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
             }
         });
 

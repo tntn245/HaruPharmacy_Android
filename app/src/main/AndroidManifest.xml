@@ -15,6 +15,9 @@
         android:theme="@style/Theme.PharmacyAndroidApplication"
         tools:targetApi="31">
         <activity
+            android:name=".activities.customer.LoginSMSActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.admin.WarehouseInventoryDetailsActivity"
             android:exported="false" />
         <activity

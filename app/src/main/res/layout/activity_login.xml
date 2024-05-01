@@ -16,13 +16,14 @@
         android:layout_weight="2"
         android:scaleType="centerCrop"
         android:background="@color/white"
+        android:gravity="center"
         android:orientation="horizontal" >
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_150sdp"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/family" />
+            android:src="@drawable/logo_blue" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,7 +70,7 @@
                         android:gravity="center"
                         android:text="@string/login"
                         android:textAllCaps="true"
-                        android:textColor="@color/dark_blue"
+                        android:textColor="@color/app_theme"
                         android:textSize="@dimen/heading_1"
                         android:textStyle="bold" />
 
@@ -91,6 +92,10 @@
                         android:background="@drawable/edittext_border_radius"
                         android:gravity="center"
                         android:hint="@string/username"
+                        android:drawableLeft="@drawable/ic_user"
+                        android:drawableTint="@color/gray"
+                        android:drawablePadding="-50dp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:textSize="@dimen/text_size_medium"
                         android:layout_marginTop="@dimen/_10sdp"/>
 
@@ -106,6 +111,10 @@
                         android:background="@drawable/edittext_border_radius"
                         android:gravity="center"
                         android:hint="@string/password"
+                        android:drawableLeft="@drawable/ic_password"
+                        android:drawableTint="@color/gray"
+                        android:drawablePadding="-50dp"
+                        android:paddingLeft="@dimen/_15sdp"
                         android:textSize="@dimen/text_size_medium"/>
 
 
@@ -125,7 +134,7 @@
                         android:layout_width="@dimen/_230sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_gravity="center"
-                        android:backgroundTint="@color/dark_blue"
+                        android:backgroundTint="@color/app_theme"
                         android:elevation="@dimen/_8sdp"
                         android:text="@string/login"
                         android:textSize="@dimen/text_size_medium"/>
@@ -167,10 +176,10 @@
                         android:layout_gravity="center"
                         android:elevation="@dimen/_8sdp"
                         android:drawableLeft="@drawable/ic_phone"
-                        android:backgroundTint="@color/pastel_dark_blue"
-                        android:drawableTint="@color/app_theme"
+                        android:backgroundTint="@color/pastel_light_blue"
+                        android:drawableTint="@color/black"
                         android:text="SMS"
-                        android:textColor="@color/app_theme"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_size_medium"
                         android:layout_marginBottom="@dimen/_15sdp"/>
 
@@ -192,6 +201,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Bạn chưa có tài khoản? "
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_medium"
                 />
             <TextView
@@ -202,6 +212,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:text="@string/signup"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_medium"/>
 
         </LinearLayout>
