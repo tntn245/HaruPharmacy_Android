@@ -87,7 +87,8 @@
                     android:text="-"
                     android:padding="0dp"
                     android:gravity="center"
-                    android:layout_marginLeft="@dimen/_2sdp">
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:backgroundTint="@color/button_color">
                 </Button>
                 <TextView
                     android:id="@+id/item_cart_quanlity"
@@ -107,7 +108,8 @@
                     android:text="+"
                     android:padding="0dp"
                     android:gravity="center"
-                    android:layout_marginLeft="@dimen/_2sdp">
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:backgroundTint="@color/button_color">
                 </Button>
             </LinearLayout>
         </LinearLayout>

@@ -40,7 +40,7 @@
                     android:layout_centerInParent="true"
                     android:text="Mua sắm"
                     android:textColor="@color/text_theme"
-                    android:textSize="@dimen/_13ssp"
+                    android:textSize="@dimen/text_size_large"
                     android:textStyle="bold" />
             </RelativeLayout>
             <LinearLayout

@@ -7,7 +7,8 @@
     <string name="stock_out">Xuất kho</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
-    <string name="quan_ly_don_hang">quan ly don hang</string>
+    <string name="quan_ly_don_hang">Quản lý đơn hàng</string>
+    <string name="product_management">Quản lý sản phẩm</string>
     <string name="id_order">id order</string>
     <string name="statistic">Thống kê</string>
     <string name="login">Đăng nhập</string>

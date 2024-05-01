@@ -27,7 +27,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Thông tin cá nhân"
-                    android:textSize="@dimen/text_size_medium"
+                    android:textSize="@dimen/text_size_large"
                     android:textColor="@color/text_theme"
                     android:textStyle="bold" />
             </LinearLayout>
