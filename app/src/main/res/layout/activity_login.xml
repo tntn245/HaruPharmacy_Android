@@ -44,34 +44,34 @@
             <LinearLayout
                 android:id="@+id/customView"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/_5sdp"
-                android:paddingRight="@dimen/_5sdp"
-                android:weightSum="5"
+                android:layout_height="@dimen/_350sdp"
+                android:layout_gravity="center"
                 android:background="@drawable/border_radius"
                 android:elevation="@dimen/_8sdp"
-                android:layout_gravity="center"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:orientation="vertical"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:weightSum="5">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/textViewLogin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:textColor="@color/dark_blue"
-                        android:textSize="@dimen/_40ssp"
-                        android:textStyle="bold"
                         android:text="@string/login"
                         android:textAllCaps="true"
-                        />
+                        android:textColor="@color/dark_blue"
+                        android:textSize="@dimen/heading_1"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -79,57 +79,100 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:padding="@dimen/_10sdp"
+                    android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:gravity="center_vertical">
+                    android:padding="@dimen/_10sdp">
 
                     <EditText
                         android:id="@+id/usernameEditText"
-                        android:layout_width="@dimen/_250sdp"
+                        android:layout_width="@dimen/_230sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_gravity="center"
                         android:background="@drawable/edittext_border_radius"
                         android:gravity="center"
-                        android:hint="Username" />
+                        android:hint="@string/username"
+                        android:textSize="@dimen/text_size_medium"
+                        android:layout_marginTop="@dimen/_10sdp"/>
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_16sdp"/>
+                        android:layout_height="@dimen/_16sdp" />
 
                     <EditText
                         android:id="@+id/passwordEditText"
-                        android:layout_width="@dimen/_250sdp"
+                        android:layout_width="@dimen/_230sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_gravity="center"
+                        android:background="@drawable/edittext_border_radius"
                         android:gravity="center"
-                        android:hint="Password"
-                        android:background="@drawable/edittext_border_radius"/>
+                        android:hint="@string/password"
+                        android:textSize="@dimen/text_size_medium"/>
 
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_16sdp"/>
 
                     <TextView
                         android:id="@+id/textViewForgotPass"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:gravity="right"
                         android:text="@string/forgot_password"
-                        />
+                        android:textSize="@dimen/text_size_medium"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"/>
 
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_16sdp"/>
 
                     <Button
                         android:id="@+id/loginButton"
-                        android:layout_width="@dimen/_250sdp"
+                        android:layout_width="@dimen/_230sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/dark_blue"
+                        android:elevation="@dimen/_8sdp"
+                        android:text="@string/login"
+                        android:textSize="@dimen/text_size_medium"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/darker_gray" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hoặc phương thức khác"
+                            android:textSize="@dimen/text_size_medium"
+                            android:textColor="@android:color/darker_gray"
+                            android:paddingHorizontal="8dp"
+                            android:background="@android:color/white" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/darker_gray" />
+
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/loginSMSButton"
+                        android:layout_width="@dimen/_230sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_gravity="center"
                         android:elevation="@dimen/_8sdp"
-                        android:text="@string/login"
-                        android:backgroundTint="@color/dark_blue"/>
+                        android:drawableLeft="@drawable/ic_phone"
+                        android:backgroundTint="@color/pastel_dark_blue"
+                        android:drawableTint="@color/app_theme"
+                        android:text="SMS"
+                        android:textColor="@color/app_theme"
+                        android:textSize="@dimen/text_size_medium"
+                        android:layout_marginBottom="@dimen/_15sdp"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -149,6 +192,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Bạn chưa có tài khoản? "
+                android:textSize="@dimen/text_size_medium"
                 />
             <TextView
                 android:id="@+id/textViewRegister"
@@ -157,8 +201,9 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:text="Đăng ký"
-                />
+                android:text="@string/signup"
+                android:textSize="@dimen/text_size_medium"/>
+
         </LinearLayout>
 
     </LinearLayout>

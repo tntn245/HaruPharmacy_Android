@@ -1,10 +1,8 @@
 package com.example.pharmacyandroidapplication.activities.customer;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.activities.LoginActivity;
@@ -21,13 +20,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
-public class SignUpActivity extends Activity {
+public class SignUpActivity extends AppCompatActivity {
     EditText editTextName, editTextPassword;
     TextView textViewLogin;
     Button buttonReg;
@@ -53,9 +51,8 @@ public class SignUpActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super. onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_signup);
         mAuth = FirebaseAuth.getInstance();
-
         textViewLogin = findViewById(R.id.textViewLogin);
         editTextName = findViewById(R.id.usernameEditText);
         editTextPassword = findViewById(R.id.passwordEditText);
@@ -116,6 +113,7 @@ public class SignUpActivity extends Activity {
                         });
             }
         });
+
 
 
     }
