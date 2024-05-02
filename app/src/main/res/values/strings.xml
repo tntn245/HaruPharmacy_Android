@@ -13,4 +13,9 @@
     <string name="statistic">Thống kê</string>
     <string name="login">Đăng nhập</string>
     <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="signup">Đăng ký</string>
+    <string name="username">Tên đăng nhập</string>
+    <string name="password">Mật khẩu</string>
+    <string name="haru_pharmacy">Haru Pharmacy</string>
+    <string name="otp">Gửi mã OTP</string>
 </resources>

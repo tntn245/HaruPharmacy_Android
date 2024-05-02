@@ -44,6 +44,10 @@
         <activity
             android:name=".activities.admin.activity_add_product"
             android:exported="false" />
+      
+        <activity
+            android:name=".activities.customer.LoginSMSActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.admin.WarehouseInventoryDetailsActivity"
             android:exported="false" />
@@ -79,12 +83,10 @@
             android:exported="false" />
         <activity
             android:name=".activities.admin.AdminHomepageActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="false" />
         <activity
             android:name=".activities.customer.CustomerHomepageActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="false" />
         <activity
             android:name=".activities.ChatActivity"
             android:exported="false" />

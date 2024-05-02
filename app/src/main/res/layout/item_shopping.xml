@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="10dp"
     app:cardCornerRadius="20dp"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp">
+    android:paddingTop="@dimen/_10sdp"
+    android:paddingBottom="@dimen/_10sdp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,9 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/icon4">
-
-        </ImageView>
+            android:src="@drawable/icon4"/>
 
         <TextView
             android:id="@+id/item_name"
@@ -41,15 +40,6 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:textAlignment="center" />
-        <Button
-            android:id="@+id/shop_btn"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:text="Chọn mua"
-            android:elevation="8dp"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/app_theme">
-        </Button>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,12 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.models.Product;
 
 import java.util.ArrayList;
 
 
-public class HomeProductAdapter extends ArrayAdapter<com.example.pharmacyandroidapplication.models.Product> {
-    public HomeProductAdapter(@NonNull Context context, ArrayList<com.example.pharmacyandroidapplication.models.Product> productArrayList) {
+public class HomeProductAdapter extends ArrayAdapter<Product> {
+    public HomeProductAdapter(@NonNull Context context, ArrayList<Product> productArrayList) {
         super(context, 0, productArrayList);
     }
 
@@ -31,7 +33,7 @@ public class HomeProductAdapter extends ArrayAdapter<com.example.pharmacyandroid
             listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_shopping, parent, false);
         }
 
-        com.example.pharmacyandroidapplication.models.Product product = getItem(position);
+        Product product = getItem(position);
         TextView name_product = listitemView.findViewById(R.id.item_name);
         TextView price_product = listitemView.findViewById(R.id.item_price);
         ImageView img_product = listitemView.findViewById(R.id.img_product);
@@ -40,6 +42,7 @@ public class HomeProductAdapter extends ArrayAdapter<com.example.pharmacyandroid
         name_product.setText(product.getProductName());
         price_product.setText(Integer.toString(product.getProductPrice()));
         img_product.setImageResource(product.getProductImg());
+
         return listitemView;
     }
 }
