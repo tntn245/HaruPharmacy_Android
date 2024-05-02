@@ -23,9 +23,9 @@
                 android:layout_height="match_parent"
                 android:text="Xác nhận đơn hàng"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/text_theme"
                 android:textStyle="bold"
-                android:textSize="@dimen/_18sdp">
+                android:textSize="@dimen/text_size_large">
             </TextView>
         </LinearLayout>
         <ScrollView
@@ -43,6 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:background="@color/white"
+                    android:layout_marginVertical="@dimen/_5sdp"
                     android:weightSum="2">
                     <TextView
                         android:layout_width="0dp"
@@ -141,7 +142,8 @@
                         android:fontFamily="sans-serif-black"
                         android:textSize="@dimen/_12sdp"
                         android:layout_marginLeft="@dimen/_25sdp"
-                        android:layout_marginBottom="@dimen/_25sdp">
+                        android:layout_marginBottom="@dimen/_25sdp"
+                        android:backgroundTint="@color/button_color">
                     </Button>
                 </LinearLayout>
             </FrameLayout>
@@ -285,8 +287,9 @@
                 android:layout_weight="2"
                 android:text="THANH TOÁN"
                 android:textSize="20dp"
-                android:backgroundTint="@color/app_theme"
-                android:layout_marginLeft="10dp">
+                android:backgroundTint="@color/button_color"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/text_theme">
             </Button>
         </LinearLayout>
     </LinearLayout>

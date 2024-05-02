@@ -10,7 +10,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_theme"
-            android:padding="@dimen/_20sdp"
+            android:padding="@dimen/_25sdp"
             android:gravity="center">
             <TextView
                 android:layout_width="wrap_content"
@@ -21,14 +21,6 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btnAddAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Thêm mới"
-            android:drawableLeft="@drawable/ic_add"
-            />
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -47,13 +39,14 @@
     </GridView>
 </LinearLayout>
         <Button
+            android:id="@+id/btnAddAddress"
             android:layout_width="@dimen/_170sdp"
             android:layout_height="@dimen/_45sdp"
             android:layout_gravity="center"
             android:elevation="@dimen/_8sdp"
             android:text="Thêm địa chỉ"
             android:textSize="@dimen/text_size_medium"
-            android:backgroundTint="@color/dark_blue"/>
+            android:backgroundTint="@color/button_color"/>
     </LinearLayout>
     <include layout="@layout/bottom_navigation"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

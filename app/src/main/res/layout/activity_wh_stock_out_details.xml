@@ -15,7 +15,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:background="@color/pastel_dark_blue"
+        android:background="@color/app_theme"
         android:weightSum="7"
         app:layout_constraintHeight_percent="0.1">
 
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="FFFFFFFFFFF"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/text_theme"
                 android:textSize="@dimen/heading_2"
                 android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:text="1/1/2000"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_theme"
                     android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
         </LinearLayout>
