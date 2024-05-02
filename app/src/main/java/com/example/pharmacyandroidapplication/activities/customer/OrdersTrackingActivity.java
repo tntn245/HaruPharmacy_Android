@@ -1,14 +1,20 @@
 package com.example.pharmacyandroidapplication.activities.customer;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.admin.WarehouseInventoryActivity;
+import com.example.pharmacyandroidapplication.activities.admin.WarehouseInventoryDetailsActivity;
 import com.example.pharmacyandroidapplication.adapters.OrderTrackingAdapter;
 import com.example.pharmacyandroidapplication.adapters.StockInAdapter;
 import com.example.pharmacyandroidapplication.models.Order;
+import com.example.pharmacyandroidapplication.models.Product;
 import com.example.pharmacyandroidapplication.models.StockIn;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -29,5 +35,20 @@ public class OrdersTrackingActivity extends AppCompatActivity {
 
         OrderTrackingAdapter adapter = new OrderTrackingAdapter(this, OrdersArrayList);
         listOrders.setAdapter(adapter);
+
+        listOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy giá trị của item được click
+                Order item = OrdersArrayList.get(position);
+
+                // Truyền giá trị của item qua layout tiếp theo để hiển thị
+                Intent intent = new Intent(OrdersTrackingActivity.this, OrderDetailsActivity.class);
+                intent.putExtra("selectedOrderID", item.getId_order());
+                intent.putExtra("selectedOrderDate", item.getOrder_date());
+                intent.putExtra("selectedTotalPayment", item.getTotal_payment());
+                startActivity(intent);
+            }
+        });
     }
 }

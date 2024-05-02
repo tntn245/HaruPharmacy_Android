@@ -51,8 +51,6 @@ public class UserActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Thực hiện hành động khi LinearLayout được click
                 // Ví dụ: Chuyển sang trang khác
-                Intent intent = new Intent(UserActivity.this, OrderDetailsActivity.class);
-                startActivity(intent);
             }
         });
 
