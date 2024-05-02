@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -96,18 +97,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         ScrollView scrollView= findViewById(R.id.scroll_view);
         CardView searchBar= findViewById(R.id.search_bar);
         ImageView searchIcon= findViewById(R.id.ic_search);
-//        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                if (scrollY > oldScrollY) {
-//                    searchBar.setVisibility(View.VISIBLE);
-//                    searchIcon.setVisibility(View.INVISIBLE);
-//                } else if (scrollY < oldScrollY) {
-//                    searchBar.setVisibility(View.GONE);
-//                    searchIcon.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -167,6 +156,15 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         HomeCategoryAdapter categoryAdapter = new HomeCategoryAdapter(this, CategoryArrayList);
         categoryGV.setAdapter(categoryAdapter);
 
+        categoryAdapter.setOnButtonClickListener(new HomeCategoryAdapter.OnButtonClickListener() {
+            @Override
+            public void onButtonClick(int position) {
+                // Xử lý sự kiện click tại vị trí position
+                Toast.makeText(getApplicationContext(), "Button clicked at position: " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         // Gridview Product
         GridView productGV= findViewById(R.id.rcv_shopping);
         ArrayList<Product> ProductArrayList = new ArrayList<Product>();
@@ -184,6 +182,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Lấy giá trị của item được click
                 Product productDetails = ProductArrayList.get(position);
+                Toast.makeText(getApplicationContext(), "Item clicked at position: ", Toast.LENGTH_SHORT).show();
 
                 // Truyền giá trị của item qua layout tiếp theo để hiển thị
                 Intent intent = new Intent(CustomerHomepageActivity.this, ProductDetailsActivity.class);

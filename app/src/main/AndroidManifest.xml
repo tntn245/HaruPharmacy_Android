@@ -52,12 +52,10 @@
             android:exported="false" />
         <activity
             android:name=".activities.admin.AdminHomepageActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="false" />
         <activity
             android:name=".activities.customer.CustomerHomepageActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="false" />
         <activity
             android:name=".activities.ChatActivity"
             android:exported="false" />
