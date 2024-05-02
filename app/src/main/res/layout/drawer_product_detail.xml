@@ -12,7 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="11">
         <Button
             android:id="@+id/close_button"
             android:layout_width="@dimen/_30sdp"
@@ -20,16 +21,19 @@
             android:background="@drawable/ic_x"
             android:layout_gravity="center"
             android:textColor="@android:color/black"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:layout_weight="1"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Chọn số lượng, đơn vị"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/text_size_medium"
             android:fontFamily="sans-serif-black"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@color/black"></TextView>
+            android:textColor="@color/black"
+            android:layout_weight="10">
+        </TextView>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
@@ -105,7 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Đơn vị"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/text_size_medium"
         android:textColor="@color/gray"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp">
@@ -155,7 +159,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Số lượng"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/text_size_medium"
         android:textColor="@color/gray"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp">
@@ -177,7 +181,8 @@
             android:backgroundTint="@color/dark_blue"
             android:gravity="center"
             android:padding="0dp"
-            android:text="-"></Button>
+            android:text="-">
+        </Button>
 
         <TextView
             android:id="@+id/item_cart_quanlity"
@@ -188,7 +193,6 @@
             android:background="@drawable/border_radius"
             android:gravity="center"
             android:text="2 ">
-
         </TextView>
 
         <Button
@@ -199,7 +203,8 @@
             android:backgroundTint="@color/dark_blue"
             android:gravity="center"
             android:padding="0dp"
-            android:text="+"></Button>
+            android:text="+">
+        </Button>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -211,68 +216,96 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lưu ý: Đơn hàng sau 21:00 sẽ được giao vào 8:00 hôm sau. Quy khách có thể:"></TextView>
+            android:text="Lưu ý: Đơn hàng sau 21:00 sẽ được giao vào 8:00 hôm sau. Quy khách có thể:">
+        </TextView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đến nhà thuốc"
             android:textColor="@color/dark_blue"
-            android:fontFamily="sans-serif-black"></TextView>
+            android:fontFamily="sans-serif-black">
+        </TextView>
     </LinearLayout>
         <LinearLayout
             android:paddingTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2"
+            android:weightSum="6"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"            >
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:layout_height="match_parent"
                 android:text="Tạm tính"
-                android:fontFamily="sans-serif-black"
+                android:textColor="@color/gray"
+                android:textStyle="bold"
+                android:textSize="@dimen/_12ssp"
                 android:layout_gravity="center"
-                android:gravity="start"></TextView>
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:gravity="start">
+            </TextView>
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="560.000 đ"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:weightSum="3">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="560.000"
                 android:fontFamily="sans-serif-black"
                 android:textSize="@dimen/_16sdp"
                 android:layout_gravity="center"
-                android:gravity="end"></TextView>
+                android:gravity="end">
+            </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="đ"
+                    android:fontFamily="sans-serif-black"
+                    android:textSize="@dimen/_16sdp"
+                    android:layout_gravity="center"
+                    android:gravity="start"
+                    android:layout_marginStart="@dimen/_3sdp">
+                </TextView>
+            </LinearLayout>
         </LinearLayout>
     <LinearLayout
-        android:paddingTop="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:gravity="center"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
         <Button
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_border"
-            android:text="Thêm vào giỏ"
-            android:textColor="@color/dark_blue"
-            android:fontFamily="sans-serif-black"
-            android:textSize="@dimen/_15sdp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginRight="@dimen/_10sdp"></Button>
-        <Button
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/dark_blue"
+            android:backgroundTint="#E4EDF4"
+            android:elevation="@dimen/_8sdp"
             android:text="Mua ngay"
+            android:textColor="@color/app_theme"
             android:fontFamily="sans-serif-black"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="@dimen/text_size_medium"
+            android:padding="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginLeft="@dimen/_10sdp"></Button>
+            android:backgroundTint="@color/button_color"
+            android:textColor="@color/text_theme"
+            android:elevation="@dimen/_8sdp"
+            android:fontFamily="sans-serif-black"
+            android:text="Thêm vào giỏ"
+            android:textSize="@dimen/text_size_medium"
+            android:layout_marginEnd="@dimen/_5sdp"/>
     </LinearLayout>
 </LinearLayout>

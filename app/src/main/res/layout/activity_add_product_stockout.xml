@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/background"
+    android:orientation="vertical"
+    tools:context=".activities.admin.activity_add_product_stockout">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_theme"
+        android:gravity="center"
+        android:weightSum="9"
+        android:padding="@dimen/_20sdp">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:contentDescription="icon_warehouse"
+            android:src="@drawable/ic_back"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xuất sản phẩm"
+            android:gravity="center"
+            android:layout_weight="8"
+            android:textColor="@color/text_theme"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="Tên sản phẩm"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:layout_width="@dimen/_285sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/input_border_radius"
+                    android:hint="Chọn sản phẩm"
+                    android:paddingStart="@dimen/_15sdp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="Số lô"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:layout_width="@dimen/_285sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/input_border_radius"
+                    android:hint="Chọn số lô"
+                    android:paddingStart="@dimen/_15sdp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="Số lượng"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="@dimen/_285sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/input_border_radius"
+                    android:hint="Số lượng"
+                    android:paddingStart="@dimen/_15sdp" />
+            </LinearLayout>
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/button_color"
+            android:elevation="@dimen/_8sdp"
+            android:text="Thêm"
+            android:textSize="@dimen/text_size_medium"
+            android:padding="@dimen/_10sdp"
+            android:layout_margin="@dimen/_8sdp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/test9"
+            android:elevation="@dimen/_8sdp"
+            android:text="Hủy"
+            android:textSize="@dimen/text_size_medium"
+            android:layout_margin="@dimen/_8sdp"/>
+    </LinearLayout>
+</LinearLayout>
