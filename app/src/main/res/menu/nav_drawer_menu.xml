@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+<group android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_home_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Trang chủ"
+        android:icon="@drawable/baseline_home_24"/>
+    <item
+        android:id="@+id/nav_support_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Tư vấn"
+        android:icon="@drawable/support"/>
+    <item
+        android:id="@+id/nav_shopping_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Mua sắm"
+        android:icon="@drawable/nav_shopping"/>
+    <item
+        android:id="@+id/nav_cart_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Giỏ hàng"
+        android:icon="@drawable/baseline_add_shopping_cart_24" />
+    <item
+        android:id="@+id/nav_info_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Tài khoản"
+        android:icon="@drawable/profile"/>
+    <item
+        android:id="@+id/nav_logout_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Đăng xuất"
+        android:icon="@drawable/nav_logout"/>
+</group>
+</menu>

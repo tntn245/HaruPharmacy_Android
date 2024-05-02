@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DrawerHeaderTextStyle">
+        <item name="android:textSize">@dimen/_13sdp</item> <!-- Đặt kích thước font tùy ý -->
+    <style name="FullScreenDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+</resources>

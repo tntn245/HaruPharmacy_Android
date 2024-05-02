@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:text="Đơn hàng của tôi"
                     android:textColor="@color/text_theme"
-                    android:textSize="@dimen/text_size_medium"
+                    android:textSize="@dimen/text_size_large"
                     android:textStyle="bold" />
             </LinearLayout>
             <androidx.cardview.widget.CardView
@@ -103,7 +103,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <GridView
-
+                android:id="@+id/list_orders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"

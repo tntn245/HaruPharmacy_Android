@@ -19,8 +19,12 @@ import com.example.pharmacyandroidapplication.models.StockIn;
 import java.util.ArrayList;
 
 public class StockInAdapter extends ArrayAdapter<StockIn> {
+    private Context context;
+    ArrayList<StockIn> StockInArrayList;
     public StockInAdapter(@NonNull Context context, ArrayList<StockIn> StockInArrayList) {
         super(context, 0, StockInArrayList);
+        this.context = context;
+        this.StockInArrayList = StockInArrayList;
     }
 
     @NonNull
@@ -34,10 +38,12 @@ public class StockInAdapter extends ArrayAdapter<StockIn> {
         }
 
         StockIn stockIn = getItem(position);
+        TextView id_stock_in = listitemView.findViewById(R.id.id_stock_in);
         TextView date_stock_in = listitemView.findViewById(R.id.date_stock_in);
         TextView price_stock_in = listitemView.findViewById(R.id.price_stock_in);
 
         assert stockIn != null;
+        id_stock_in.setText(stockIn.getId());
         DateFormat dateFormat = new DateFormat(stockIn.getDate());
         date_stock_in.setText(dateFormat.formatDateToString());
         price_stock_in.setText(Integer.toString(stockIn.getTotal_payment()));

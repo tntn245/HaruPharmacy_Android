@@ -7,6 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:weightSum="9"
+    android:background="@color/background"
     tools:context=".activities.LoginActivity">
 
     <LinearLayout
@@ -15,6 +16,7 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="7"
+        android:background="@color/app_theme"
         app:layout_constraintHeight_percent="0.1">
 
         <ImageView
@@ -39,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="FFFFFFFFFFF"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/text_theme"
                 android:textSize="@dimen/heading_2"
                 android:textStyle="bold" />
 
@@ -55,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:text="1/1/2000"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_theme"
                     android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
         </LinearLayout>
@@ -96,14 +98,19 @@
                 android:src="@drawable/ic_delete" />
         </FrameLayout>
 
-        <GridView
-            android:id="@+id/list_product_stock_in"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:horizontalSpacing="8dp"
-            android:numColumns="1"
-            android:padding="8dp"
-            android:verticalSpacing="8dp" />
+            android:layout_height="match_parent">
+            <GridView
+                android:id="@+id/list_product_stock_in"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:horizontalSpacing="8dp"
+                android:numColumns="1"
+                android:padding="8dp"
+                android:verticalSpacing="8dp" />
+        </RelativeLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -111,18 +118,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/app_theme"
+        android:layout_marginTop="@dimen/_10sdp"
         android:orientation="horizontal"
-        android:weightSum="7"
-        app:layout_constraintHeight_percent="0.1">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:contentDescription="icon_warehouse"
-            android:src="@drawable/ic_back"
-            tools:ignore="HardcodedText" />
+        android:weightSum="7">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -135,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:text="Tổng tiền: "
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/text_theme"
                 android:textSize="@dimen/text_size_large"
                 android:textStyle="bold" />
 
@@ -145,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:text="100000"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/text_theme"
                 android:textSize="@dimen/text_size_large" />
 
             <TextView
@@ -153,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:text=" đ"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/text_theme"
                 android:textSize="@dimen/text_size_large" />
         </LinearLayout>
 

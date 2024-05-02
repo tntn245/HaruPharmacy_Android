@@ -52,6 +52,7 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-database:20.3.1")
+    implementation("com.google.firebase:firebase-auth")
 
     // Scalable Size Unit (support for different screen sizes)
     implementation("com.intuit.sdp:sdp-android:1.0.6")
@@ -62,4 +63,7 @@ dependencies {
 
     //FIREBASE MESSAGE
     implementation ("com.google.firebase:firebase-messaging:23.4.1")
+
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 }

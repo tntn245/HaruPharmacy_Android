@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/dark_blue"
+        android:background="@color/app_theme"
         android:orientation="horizontal"
         android:weightSum="7"
         app:layout_constraintHeight_percent="0.1">
@@ -43,7 +43,7 @@
                 android:text="@string/warehouse_management"
                 android:textAllCaps="true"
                 android:textSize="@dimen/heading_2"
-                android:textColor="@color/white"
+                android:textColor="@color/text_theme"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -68,10 +68,10 @@
             android:gravity="center"
             android:padding="@dimen/_20sdp">
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/inventory"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150sdp"
                 android:text="@string/inventory"
-                android:textAllCaps="true"
                 android:textColor="@color/app_theme"
                 android:textSize="@dimen/heading_2"
                 app:backgroundTint="@color/pastel_light_blue"
@@ -91,6 +91,7 @@
             android:gravity="center"
             android:padding="@dimen/_20sdp">
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/stockin"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150sdp"
                 android:text="@string/stock_in"
@@ -113,6 +114,7 @@
             android:gravity="center"
             android:padding="@dimen/_20sdp">
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/stockout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150sdp"
                 android:text="@string/stock_out"

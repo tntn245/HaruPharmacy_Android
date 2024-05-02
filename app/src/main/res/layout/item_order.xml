@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/test5"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
         android:id="@+id/icon_order"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
-        android:src="@drawable/chat"
+        android:src="@drawable/ic_edit"
         android:scaleType="centerCrop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -53,14 +53,16 @@
         android:layout_marginEnd="@dimen/_10sdp"
         app:layout_constraintTop_toTopOf="@id/txt_order_id"
         app:layout_constraintStart_toStartOf="@id/txt_payment_status"/>
+
     <TextView
         android:id="@+id/order_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="52dp"
         android:text="Done"
-        android:layout_marginEnd="-8dp"
         app:layout_constraintEnd_toEndOf="@+id/txt_order_status"
         app:layout_constraintTop_toBottomOf="@id/txt_order_status" />
+
     <TextView
         android:id="@+id/txt_payment_status"
         android:layout_width="wrap_content"
@@ -69,11 +71,13 @@
         android:layout_marginEnd="@dimen/_10sdp"
         app:layout_constraintTop_toBottomOf="@id/order_status"
         app:layout_constraintEnd_toEndOf="parent"/>
+
     <TextView
         android:id="@+id/payment_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
         android:text="Not yet"
         app:layout_constraintEnd_toEndOf="@id/txt_payment_status"
-        app:layout_constraintTop_toBottomOf="@id/txt_payment_status"/>
+        app:layout_constraintTop_toBottomOf="@id/txt_payment_status" />
 </androidx.constraintlayout.widget.ConstraintLayout>

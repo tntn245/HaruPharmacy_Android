@@ -1,6 +1,5 @@
-package com.example.pharmacyandroidapplication.activities;
+package com.example.pharmacyandroidapplication.activities.admin;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +11,8 @@ import com.example.pharmacyandroidapplication.adapters.OrderRVAdapter;
 import com.example.pharmacyandroidapplication.models.Order;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class OrderActivity extends AppCompatActivity {
+public class OrderManagementActivity extends AppCompatActivity {
     private RecyclerView orderRV;
 
     protected void onCreate(Bundle savedInstanceState) {

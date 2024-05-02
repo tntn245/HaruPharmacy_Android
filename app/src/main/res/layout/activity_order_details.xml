@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Chi tiết đơn hàng"
             android:textColor="@color/text_theme"
-            android:textSize="@dimen/text_size_medium"
+            android:textSize="@dimen/text_size_large"
             android:textStyle="bold" />
     </LinearLayout>
     <androidx.cardview.widget.CardView
@@ -147,6 +147,7 @@
             android:elevation="@dimen/_10sdp"
             android:layout_margin="@dimen/_10sdp">
             <GridView
+                android:id="@+id/list_products"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
