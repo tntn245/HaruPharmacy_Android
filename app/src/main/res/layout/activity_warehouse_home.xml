@@ -66,11 +66,11 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="@dimen/_20sdp">
+            android:padding="@dimen/_40sdp">
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/inventory"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="@dimen/_130sdp"
                 android:text="@string/inventory"
                 android:textColor="@color/app_theme"
                 android:textSize="@dimen/heading_2"
@@ -78,7 +78,7 @@
                 app:cornerRadius="@dimen/_10sdp"
                 app:icon="@drawable/ic_warehouse"
                 app:iconGravity="start"
-                app:iconSize="@dimen/_100sdp"
+                app:iconSize="@dimen/_80sdp"
                 app:iconTint="@color/app_theme"
                 app:strokeColor="@color/app_theme"
                 app:strokeWidth="@dimen/_2sdp" />
@@ -89,11 +89,11 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="@dimen/_20sdp">
+            android:padding="@dimen/_40sdp">
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/stockin"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="@dimen/_130sdp"
                 android:text="@string/stock_in"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
@@ -102,7 +102,7 @@
                 app:cornerRadius="@dimen/_10sdp"
                 app:icon="@drawable/ic_stock_in"
                 app:iconGravity="start"
-                app:iconSize="@dimen/_100sdp"
+                app:iconSize="@dimen/_80sdp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="@dimen/_2sdp" />
         </LinearLayout>
@@ -112,11 +112,11 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="@dimen/_20sdp">
+            android:padding="@dimen/_40sdp">
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/stockout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="@dimen/_130sdp"
                 android:text="@string/stock_out"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
@@ -125,7 +125,7 @@
                 app:cornerRadius="@dimen/_10sdp"
                 app:icon="@drawable/ic_stock_out"
                 app:iconGravity="start"
-                app:iconSize="@dimen/_100sdp"
+                app:iconSize="@dimen/_80sdp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="@dimen/_2sdp" />
         </LinearLayout>
