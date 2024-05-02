@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pharmacyandroidapplication.R;
@@ -48,5 +50,16 @@ public class OrderDetailsManagementActivity extends AppCompatActivity {
 
         OrderDetailsAdapter productAdapter = new OrderDetailsAdapter(this, ProductArrayList);
         ProductGV.setAdapter(productAdapter);
+
+
+        ImageView btn_edit = findViewById(R.id.btn_edit);
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderDetailsManagementActivity.this, EditOrderActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

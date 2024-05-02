@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.adapters.StockInAdapter;
@@ -46,6 +47,16 @@ public class WarehouseStockOutActivity extends AppCompatActivity {
                 Intent intent = new Intent(WarehouseStockOutActivity.this, WarehouseStockOutDetailsActivity.class);
                 intent.putExtra("selectedStockOutID", itemStockOut.getId());
                 startActivity(intent);
+            }
+        });
+
+        ImageView btn_add = findViewById(R.id.btn_add_stockout);
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WarehouseStockOutActivity.this, AddStockOutActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
