@@ -32,17 +32,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="7" />
+                android:layout_weight="8" />
 
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/icon_share"
-                android:scaleType="fitCenter"
-                android:background="@null"
-                android:padding="@dimen/_4sdp">
-            </ImageButton>
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -83,7 +74,7 @@
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
                     android:text="Panadol Extra đỏ (hộp 60 viên)"
-                    android:textSize="@dimen/_18ssp"
+                    android:textSize="@dimen/heading_2"
                     android:textStyle="bold"
                     android:layout_margin="@dimen/_3sdp">
                 </TextView>
@@ -91,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="9999 lượt mua"
-                    android:textSize="@dimen/text_size_small"
+                    android:textSize="@dimen/text_size_medium"
                     android:textStyle="italic"
                     android:textColor="@color/app_theme"
                     android:gravity="right"
@@ -106,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="600.000"
-                    android:textSize="@dimen/_25ssp"
+                    android:textSize="@dimen/heading_2"
                     android:textStyle="bold"
                     android:textColor="@color/app_theme"
                     android:layout_margin="@dimen/_5sdp">
@@ -114,8 +105,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="VND"
-                    android:textSize="@dimen/_25ssp"
+                    android:text=" đ"
+                    android:textSize="@dimen/heading_2"
                     android:textStyle="bold"
                     android:textColor="@color/app_theme"
                     android:layout_marginTop="@dimen/_5sdp"
@@ -126,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Thông tin sản phẩm"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_margin="@dimen/_3sdp">
@@ -177,10 +168,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp"
                     android:text="Thông tin sản phẩm*"
+                    android:textSize="@dimen/text_size_medium"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
                     android:textStyle="italic|normal" />
 
                 <TextView
@@ -201,26 +191,26 @@
             android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:background="@color/white"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/chatbox"
                 android:scaleType="fitStart"
                 android:background="@null"
                 android:paddingLeft="@dimen/_10sdp"
-                >
-            </ImageButton>
+                />
             <Button
                 android:id="@+id/btn_Chonmua"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CHỌN MUA"
-                android:textSize="20dp"
-                android:backgroundTint="@color/button_color"
+                android:text="Chọn mua"
+                android:textSize="@dimen/text_size_medium"
+                android:backgroundTint="@color/app_theme"
                 android:layout_marginLeft="10dp">
             </Button>
         </LinearLayout>

@@ -17,6 +17,7 @@ import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.activities.admin.AdminHomepageActivity;
 import com.example.pharmacyandroidapplication.activities.customer.CustomerHomepageActivity;
 import com.example.pharmacyandroidapplication.activities.customer.ForgotPassActivity;
+import com.example.pharmacyandroidapplication.activities.customer.LoginSMSActivity;
 import com.example.pharmacyandroidapplication.activities.customer.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -193,6 +194,9 @@ public class LoginActivity extends AppCompatActivity {
         buttonLoginSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, LoginSMSActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
