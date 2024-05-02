@@ -1,83 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView
-        android:id="@+id/icon_order"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:src="@drawable/ic_edit"
-        android:scaleType="centerCrop"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+    android:layout_height="120dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
 
-    <TextView
-        android:id="@+id/txt_order_id"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_5sdp"
-        android:text="#ID DON HANG: #52357"
-        app:layout_constraintStart_toStartOf="@+id/txt_staff_name"
-        app:layout_constraintLeft_toRightOf="@id/icon_order"
-        app:layout_constraintBottom_toTopOf="@id/txt_staff_name"/>
-    <TextView
-        android:id="@+id/txt_staff_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_15sdp"
-        android:text="Staff Name: Mai Tran Khuong Duy"
-        app:layout_constraintLeft_toRightOf="@id/icon_order"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_order_id"
-        />
+        android:weightSum="6"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/txt_total_payment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:text="Total Payment: 300000"
-        app:layout_constraintStart_toStartOf="@+id/txt_staff_name"
-        app:layout_constraintLeft_toRightOf="@id/icon_order"
-        app:layout_constraintTop_toBottomOf="@id/txt_staff_name"
-        />
-    <TextView
-        android:id="@+id/txt_order_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Order status: "
-        android:layout_marginEnd="@dimen/_10sdp"
-        app:layout_constraintTop_toTopOf="@id/txt_order_id"
-        app:layout_constraintStart_toStartOf="@id/txt_payment_status"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/_15sdp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start">
+                <TextView
+                    android:id="@+id/order_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mã đơn hàng"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày đặt hàng: "
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_medium"/>
 
-    <TextView
-        android:id="@+id/order_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="52dp"
-        android:text="Done"
-        app:layout_constraintEnd_toEndOf="@+id/txt_order_status"
-        app:layout_constraintTop_toBottomOf="@id/txt_order_status" />
+                <TextView
+                    android:id="@+id/order_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1/1/2020"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/txt_payment_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Payment status: "
-        android:layout_marginEnd="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@id/order_status"
-        app:layout_constraintEnd_toEndOf="parent"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tổng tiền: "
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_medium"/>
+                <TextView
+                    android:id="@+id/order_total_payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100000"
+                    android:textSize="@dimen/text_size_medium" />
 
-    <TextView
-        android:id="@+id/payment_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
-        android:text="Not yet"
-        app:layout_constraintEnd_toEndOf="@id/txt_payment_status"
-        app:layout_constraintTop_toBottomOf="@id/txt_payment_status" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" đ"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tình trạng đơn hàng: "
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <TextView
+                    android:id="@+id/order_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đang vận chuyển"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tình trạng thanh toán: "
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <TextView
+                    android:id="@+id/payment_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chưa thanh toán"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_next" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

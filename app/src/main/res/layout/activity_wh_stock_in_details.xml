@@ -26,7 +26,8 @@
             android:layout_weight="1"
             android:contentDescription="icon_warehouse"
             android:src="@drawable/ic_back"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"
+            app:tint="@color/white" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -62,10 +63,15 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        <ImageView
+            android:id="@+id/btn_edit"
+            android:layout_width="51dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_edit"
+            app:tint="@color/white"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <LinearLayout
@@ -94,7 +100,6 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:layout_gravity="end|center_vertical"
-                android:padding="12dp"
                 android:src="@drawable/ic_delete" />
         </FrameLayout>
 

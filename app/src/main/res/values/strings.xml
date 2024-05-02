@@ -18,4 +18,5 @@
     <string name="password">Mật khẩu</string>
     <string name="haru_pharmacy">Haru Pharmacy</string>
     <string name="otp">Gửi mã OTP</string>
+    <string name="confirm">Xác nhận</string>
 </resources>
