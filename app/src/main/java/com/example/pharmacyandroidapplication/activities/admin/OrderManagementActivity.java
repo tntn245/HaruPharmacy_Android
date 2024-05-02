@@ -29,5 +29,7 @@ public class OrderManagementActivity extends AppCompatActivity {
         orderRV.setLayoutManager(layoutManager);
         orderRV.setHasFixedSize(true);
         orderRV.setAdapter(new OrderRVAdapter(this, orders));
+
+
     }
 }
