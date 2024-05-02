@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.itemClickListener.OrderItemClickListener;
 import com.example.pharmacyandroidapplication.models.ChatMessage;
 import com.example.pharmacyandroidapplication.models.Order;
 
@@ -19,10 +20,11 @@ import java.util.List;
 public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.ViewHolder> {
     private ArrayList<Order> orderArrayList;
     private Context context;
-
-    public OrderRVAdapter(Context context, ArrayList<Order> orderArrayList) {
+    private OrderItemClickListener clickListener;
+    public OrderRVAdapter(Context context, ArrayList<Order> orderArrayList,  OrderItemClickListener listener) {
         this.context = context;
         this.orderArrayList = orderArrayList;
+        this.clickListener = listener;
     }
 
     @NonNull
@@ -40,6 +42,15 @@ public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.ViewHold
         else holder.order_status.setText("Đang vận chuyển");
         if (order.isPayment_status()) holder.payment_status.setText("Đã thanh toán");
         else holder.payment_status.setText("Chưa thanh toán");
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (clickListener != null) {
+                    clickListener.onOrderItemClick(order.getId_order());
+                }
+            }
+        });
     }
 
     public int getItemCount() {
