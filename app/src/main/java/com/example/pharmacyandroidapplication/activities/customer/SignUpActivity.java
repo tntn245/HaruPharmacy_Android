@@ -3,6 +3,7 @@ package com.example.pharmacyandroidapplication.activities.customer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     TextView textViewLogin;
     Button buttonReg;
     FirebaseAuth mAuth;
-    ProgressBar progressBar;
+//    ProgressBar progressBar;
 
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -57,7 +59,7 @@ public class SignUpActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.usernameEditText);
         editTextPassword = findViewById(R.id.passwordEditText);
         buttonReg = findViewById(R.id.SignUpButton);
-        progressBar = findViewById(R.id.progressBar);
+//        progressBar = findViewById(R.id.progressBar);
 
 
         textViewLogin.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
+//                progressBar.setVisibility(View.VISIBLE);
                 String email, password;
                 email = String.valueOf(editTextName.getText());
                 password = String.valueOf(editTextPassword.getText());
@@ -90,7 +92,7 @@ public class SignUpActivity extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
+//                                progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 

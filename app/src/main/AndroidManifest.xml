@@ -32,9 +32,9 @@
         <activity
             android:name=".activities.admin.EditOrderActivity"
             android:exported="false" />
-        <activity
-            android:name=".acitivity_edit_ordermanagement"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".acitivity_edit_ordermanagement"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".activities.admin.activity_edit_category"
             android:exported="false" />
@@ -42,7 +42,7 @@
             android:name=".activities.admin.EditProductActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.admin.activity_add_category"
+            android:name=".activities.admin.AddCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".activities.admin.AddProductActivity"
@@ -103,6 +103,9 @@
             android:exported="false" />
         <activity
             android:name=".activities.customer.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.ShoppingPageActivity"
             android:exported="false" />
         <activity
             android:name=".activities.customer.PaymentActivity"
