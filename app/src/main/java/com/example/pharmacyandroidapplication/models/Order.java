@@ -1,11 +1,15 @@
 package com.example.pharmacyandroidapplication.models;
 
+import java.util.Date;
+
 public class Order {
     private String id_order, id_account;
     private int total_payment;
     private boolean payment_status, order_status;
     private String note;
     private String address;
+    private Date order_date;
+    private int total_product;
 
     public Order(String id_order, String id_account, int total_payment, boolean payment_status, boolean order_status, String note, String address) {
         this.id_order = id_order;
@@ -15,6 +19,34 @@ public class Order {
         this.order_status = order_status;
         this.note = note;
         this.address = address;
+    }
+
+    public Order(String id_order, String id_account, int total_payment, boolean payment_status, boolean order_status, String note, String address, Date order_date, int total_product) {
+        this.id_order = id_order;
+        this.id_account = id_account;
+        this.total_payment = total_payment;
+        this.payment_status = payment_status;
+        this.order_status = order_status;
+        this.note = note;
+        this.address = address;
+        this.order_date = order_date;
+        this.total_product = total_product;
+    }
+
+    public Date getOrder_date() {
+        return order_date;
+    }
+
+    public void setOrder_date(Date order_date) {
+        this.order_date = order_date;
+    }
+
+    public int getTotal_product() {
+        return total_product;
+    }
+
+    public void setTotal_product(int total_product) {
+        this.total_product = total_product;
     }
 
     public String getId_order() {

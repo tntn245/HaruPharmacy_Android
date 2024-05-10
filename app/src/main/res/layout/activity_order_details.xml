@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Chi tiết đơn hàng"
             android:textColor="@color/text_theme"
-            android:textSize="@dimen/text_size_medium"
+            android:textSize="@dimen/text_size_large"
             android:textStyle="bold" />
     </LinearLayout>
     <androidx.cardview.widget.CardView
@@ -59,12 +59,13 @@
                     android:textSize="@dimen/_13ssp" />
 
                 <TextView
+                    android:id="@+id/order_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingRight="@dimen/_25sdp"
                     android:paddingBottom="@dimen/_10sdp"
-                    android:text="#3543847"
+                    android:text="3543847"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_13ssp" />
             </LinearLayout>
@@ -86,6 +87,7 @@
                     android:textSize="@dimen/_13ssp" />
 
                 <TextView
+                    android:id="@+id/order_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_10sdp"
@@ -112,15 +114,26 @@
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_13ssp" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingRight="@dimen/_25sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="280.000 VND"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp" />
+                    android:paddingBottom="@dimen/_10sdp">
+                    <TextView
+                        android:id="@+id/order_total_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="280.000"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/_13ssp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" đ"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/_13ssp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

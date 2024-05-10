@@ -2,11 +2,19 @@ package com.example.pharmacyandroidapplication.activities.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.customer.CustomerHomepageActivity;
+import com.example.pharmacyandroidapplication.activities.customer.ProductDetailsActivity;
+import com.example.pharmacyandroidapplication.adapters.HomeCategoryAdapter;
 import com.example.pharmacyandroidapplication.adapters.ProductGVAdapter;
 import com.example.pharmacyandroidapplication.models.Product;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,6 +39,32 @@ public class ProductManagementActivity extends AppCompatActivity {
 
         ProductGVAdapter adapter = new ProductGVAdapter(this, ProductArrayList);
         productGV.setAdapter(adapter);
+
+        productGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy giá trị của item được click
+                Product productDetails = ProductArrayList.get(position);
+
+                // Truyền giá trị của item qua layout tiếp theo để hiển thị
+                Intent intent = new Intent(ProductManagementActivity.this, EditProductActivity.class);
+//                intent.putExtra("product_img", productDetails.getProductImg());
+//                intent.putExtra("product_name", productDetails.getProductName());
+//                intent.putExtra("product_price", productDetails.getProductPrice());
+                startActivity(intent);
+            }
+        });
+
+        ImageView btn_add = findViewById(R.id.btn_add);
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductManagementActivity.this, AddProductActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
 }

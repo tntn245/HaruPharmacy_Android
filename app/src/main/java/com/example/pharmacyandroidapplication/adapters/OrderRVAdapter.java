@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.itemClickListener.OrderItemClickListener;
 import com.example.pharmacyandroidapplication.models.ChatMessage;
 import com.example.pharmacyandroidapplication.models.Order;
 
@@ -19,10 +20,11 @@ import java.util.List;
 public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.ViewHolder> {
     private ArrayList<Order> orderArrayList;
     private Context context;
-
-    public OrderRVAdapter(Context context, ArrayList<Order> orderArrayList) {
+    private OrderItemClickListener clickListener;
+    public OrderRVAdapter(Context context, ArrayList<Order> orderArrayList,  OrderItemClickListener listener) {
         this.context = context;
         this.orderArrayList = orderArrayList;
+        this.clickListener = listener;
     }
 
     @NonNull
@@ -33,12 +35,22 @@ public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.ViewHold
 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Order order = orderArrayList.get(position);
-        holder.txt_order_id.setText("#ID DON HANG: " + order.getId_order());
-        holder.txt_total_payment.setText("Total payment: " + order.getTotal_payment());
-        if (order.isOrder_status()) holder.order_status.setText("Done");
-        else holder.order_status.setText("Not yet");
-        if (order.isPayment_status()) holder.payment_status.setText("Done");
-        else holder.payment_status.setText("Not yet");
+        holder.order_id.setText("124224");
+        holder.order_date.setText("2/5/2024");
+        holder.order_total_payment.setText("100000");
+        if (order.isOrder_status()) holder.order_status.setText("Đã giao");
+        else holder.order_status.setText("Đang vận chuyển");
+        if (order.isPayment_status()) holder.payment_status.setText("Đã thanh toán");
+        else holder.payment_status.setText("Chưa thanh toán");
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (clickListener != null) {
+                    clickListener.onOrderItemClick(order.getId_order());
+                }
+            }
+        });
     }
 
     public int getItemCount() {
@@ -46,17 +58,17 @@ public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txt_order_id;
-        TextView txt_staff_name;
-        TextView txt_total_payment;
-        TextView order_status;
+        TextView order_id;
+        TextView order_date;
+        TextView order_total_payment;
         TextView payment_status;
+        TextView order_status;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txt_order_id = itemView.findViewById(R.id.txt_order_id);
-            txt_staff_name = itemView.findViewById(R.id.txt_staff_name);
-            txt_total_payment = itemView.findViewById(R.id.txt_total_payment);
+            order_id = itemView.findViewById(R.id.order_id);
+            order_date = itemView.findViewById(R.id.order_date);
+            order_total_payment = itemView.findViewById(R.id.order_total_payment);
             order_status = itemView.findViewById(R.id.order_status);
             payment_status = itemView.findViewById(R.id.payment_status);
         }
