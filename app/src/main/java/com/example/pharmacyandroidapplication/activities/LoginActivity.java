@@ -100,6 +100,14 @@ public class LoginActivity extends AppCompatActivity {
         buttonLoginSMS = findViewById(R.id.loginSMSButton);
         progressBar = findViewById(R.id.progressBar);
 
+        buttonLoginSMS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, LoginSMSActivity.class);
+                startActivity(intent);
+            }
+        });
+
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,15 +196,6 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
-            }
-        });
-
-        buttonLoginSMS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, LoginSMSActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
 
