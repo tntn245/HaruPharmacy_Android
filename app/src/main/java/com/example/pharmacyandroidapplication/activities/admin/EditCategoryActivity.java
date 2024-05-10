@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.pharmacyandroidapplication.R;
 
-  public class activity_edit_category extends AppCompatActivity {
+  public class EditCategoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

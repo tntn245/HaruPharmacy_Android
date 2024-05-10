@@ -65,7 +65,7 @@
                         android:layout_height="@dimen/_16sdp" />
 
                     <Button
-                        android:id="@+id/loginButton"
+                        android:id="@+id/sendOTPButton"
                         android:layout_width="@dimen/_230sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_gravity="center"
@@ -109,7 +109,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/loginSMSButton"
+            android:id="@+id/loginButton"
             android:layout_width="@dimen/_230sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_gravity="center"

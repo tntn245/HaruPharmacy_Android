@@ -36,7 +36,7 @@
 <!--            android:name=".acitivity_edit_ordermanagement"-->
 <!--            android:exported="false" />-->
         <activity
-            android:name=".activities.admin.activity_edit_category"
+            android:name=".activities.admin.EditCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".activities.admin.EditProductActivity"
@@ -97,6 +97,9 @@
             android:exported="false" />
         <activity
             android:name=".activities.customer.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.ForgotPassActivity"
             android:exported="false" />
         <activity
             android:name=".activities.customer.ProductDetailsActivity"

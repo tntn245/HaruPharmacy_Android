@@ -182,7 +182,6 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_medium"
                         android:layout_marginBottom="@dimen/_15sdp"/>
-
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
