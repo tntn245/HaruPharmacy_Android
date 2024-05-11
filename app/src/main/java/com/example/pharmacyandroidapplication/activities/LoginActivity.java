@@ -104,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, LoginSMSActivity.class);
+                Toast.makeText(LoginActivity.this, "Database error: " , Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
@@ -113,7 +114,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
