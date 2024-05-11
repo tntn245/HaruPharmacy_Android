@@ -196,17 +196,15 @@
                         android:drawableTint="@color/black"
                         android:text="SMS"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/text_size_medium"
-                        android:layout_marginBottom="@dimen/_15sdp"/>
+                        android:textSize="@dimen/text_size_medium"/>
                     <Button
                         android:id="@+id/loginGGButton"
                         android:layout_width="@dimen/_230sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_gravity="center"
                         android:elevation="@dimen/_8sdp"
-                        android:drawableLeft="@drawable/ic_phone"
-                        android:backgroundTint="@color/pastel_light_blue"
-                        android:drawableTint="@color/black"
+                        android:drawableLeft="@drawable/ic_google"
+                        android:backgroundTint="@color/background"
                         android:text="Google"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_medium"
