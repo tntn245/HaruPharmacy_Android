@@ -56,6 +56,7 @@
             android:orientation="horizontal">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_category"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
@@ -73,6 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/category_name">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_product_of_category"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
