@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.pharmacyandroidapplication.R;
 
-public class activity_add_category extends AppCompatActivity {
+public class AddProductActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_category);
+        setContentView(R.layout.activity_add_product);
     }
 }

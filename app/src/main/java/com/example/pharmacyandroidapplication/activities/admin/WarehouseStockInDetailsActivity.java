@@ -1,7 +1,10 @@
 package com.example.pharmacyandroidapplication.activities.admin;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,5 +38,16 @@ public class WarehouseStockInDetailsActivity extends AppCompatActivity {
         // Hiển thị giá trị của item trong layout
         TextView StockInID = findViewById(R.id.id_stock_in);
         StockInID.setText(selectedStockInID);
+
+
+        ImageView btn_edit = findViewById(R.id.btn_edit);
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(WarehouseStockInDetailsActivity.this, AddStockInActivity.class);
+//                startActivity(intent);
+//                finish();
+            }
+        });
     }
 }

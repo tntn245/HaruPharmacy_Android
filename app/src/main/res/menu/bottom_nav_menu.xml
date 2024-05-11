@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/home"
         android:layout_width="wrap_content"
@@ -12,6 +13,12 @@
         android:layout_height="wrap_content"
         android:title="Tư vấn"
         android:icon="@drawable/support"/>
+<!--    <item-->
+<!--        android:id="@+id/shopping"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:title="Mua sắm"-->
+<!--        android:icon="@drawable/nav_shopping"/>-->
     <item
         android:id="@+id/cart"
         android:layout_width="wrap_content"

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:weightSum="9"
+    android:orientation="vertical"
     android:background="@color/background">
 
     <LinearLayout
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         app:layout_constraintHeight_percent="0.1"
         android:background="@color/app_theme"
         android:orientation="horizontal"
@@ -24,7 +27,8 @@
             android:layout_weight="1"
             android:contentDescription="icon_warehouse"
             android:src="@drawable/ic_back"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"
+            app:tint="@color/white" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -45,93 +49,47 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/btn_add"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:contentDescription="icon_search"
-            android:src="@drawable/ic_search"
-            tools:ignore="HardcodedText" />
+            android:src="@drawable/ic_add"
+            tools:ignore="HardcodedText"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp">
+
+            <include layout="@layout/component_search_bar" />
+
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
     <GridView
         android:id="@+id/list_item"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="7"
         android:numColumns="2"
         android:horizontalSpacing="8dp"
         android:verticalSpacing="8dp"
-        android:padding="8dp"
+        android:padding="8dp"/>
 
-        app:layout_constraintTop_toBottomOf="@id/search_bar"
-        app:layout_constraintBottom_toTopOf="@id/navigation_bar">
-
-    </GridView>
-
-    <LinearLayout
-        android:id="@+id/navigation_bar"
-        android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.1"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/list_item">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="@dimen/_10sdp">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textAllCaps="true"
-                android:text="Thêm mới"
-                android:drawableRight="@drawable/ic_add"
-                android:textSize="@dimen/_15ssp"
-                android:pointerIcon="arrow"
-                android:textColor="@color/text_theme"
-                android:backgroundTint="@color/button_color"/>
-        </LinearLayout>
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="1"-->
-<!--            android:padding="@dimen/_10sdp">-->
-<!--            <Button-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:textAllCaps="true"-->
-<!--                android:text="Sửa"-->
-<!--                android:drawableRight="@drawable/ic_edit"-->
-<!--                android:textSize="@dimen/_15ssp"-->
-<!--                android:pointerIcon="arrow"-->
-<!--                android:textColor="@color/text_theme"-->
-<!--                android:backgroundTint="@color/button_color"/>-->
-<!--        </LinearLayout>-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:src="@drawable/baseline_content_paste_search_50" />-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:src="@drawable/baseline_content_paste_search_50" />-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:src="@drawable/baseline_content_paste_search_50" />-->
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -29,9 +29,10 @@
                 android:orientation="horizontal"
                 android:gravity="start">
                 <TextView
+                    android:id="@+id/order_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="# mã đơn hàng"
+                    android:text="Mã đơn hàng"
                     android:textStyle="bold"
                     android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
@@ -44,9 +45,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ngày đặt hàng: "
+                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_medium"/>
 
                 <TextView
+                    android:id="@+id/order_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1/1/2020"
@@ -62,8 +65,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tổng tiền: "
+                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_medium"/>
                 <TextView
+                    android:id="@+id/order_total_payment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100000"
@@ -83,6 +88,7 @@
                 android:gravity="start">
 
                 <TextView
+                    android:id="@+id/order_total_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10"
@@ -94,6 +100,16 @@
                     android:text=" sản phẩm"
                     android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_next" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

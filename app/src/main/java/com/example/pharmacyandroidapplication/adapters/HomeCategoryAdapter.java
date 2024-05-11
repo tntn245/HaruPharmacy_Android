@@ -14,13 +14,30 @@ import androidx.annotation.Nullable;
 
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.models.Category;
+import com.example.pharmacyandroidapplication.models.DateFormat;
 import com.example.pharmacyandroidapplication.models.Product;
+import com.example.pharmacyandroidapplication.models.StockIn;
 
 import java.util.ArrayList;
 
 public class HomeCategoryAdapter extends ArrayAdapter<Category> {
+
+    private Context context;
+    ArrayList<Category> categoryArrayList;
+
     public HomeCategoryAdapter(@NonNull Context context, ArrayList<Category> categoryArrayList) {
         super(context, 0, categoryArrayList);
+        this.context = context;
+        this.categoryArrayList = categoryArrayList;
+    }
+
+    public interface OnButtonClickListener {
+        void onButtonClick(int position);
+    }
+    private OnButtonClickListener buttonClickListener;
+
+    public void setOnButtonClickListener(OnButtonClickListener listener) {
+        this.buttonClickListener = listener;
     }
 
     @NonNull
@@ -33,12 +50,21 @@ public class HomeCategoryAdapter extends ArrayAdapter<Category> {
             listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_category, parent, false);
         }
 
-        com.example.pharmacyandroidapplication.models.Category category = getItem(position);
-        Button btn_category = listitemView.findViewById(R.id.button_category);
+        Category category = getItem(position);
+        Button button_category = listitemView.findViewById(R.id.button_category);
 
         assert category != null;
-        btn_category.setText(category.getName());
+        button_category.setText(category.getName());
+        button_category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (buttonClickListener != null) {
+                    buttonClickListener.onButtonClick(position);
+                }
+            }
+        });
         return listitemView;
     }
+
 }
 
