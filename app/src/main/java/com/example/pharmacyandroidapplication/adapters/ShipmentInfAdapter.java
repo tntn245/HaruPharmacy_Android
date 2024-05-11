@@ -35,10 +35,10 @@ public class ShipmentInfAdapter extends ArrayAdapter<ShipmentInf> {
         }
 
         ShipmentInf shipmentInf = getItem(position);
-        TextView address_details = listitemView.findViewById(R.id.multilineTextView);
+//        TextView address_details = listitemView.findViewById(R.id.multilineTextView);
 
         assert shipmentInf != null;
-        address_details.setText(shipmentInf.getAddress_details());
+//        address_details.setText(shipmentInf.getAddress_details());
 //        DateFormat dateFormat = new DateFormat(shipmentDetails.getDate());
 //        date_stock_in.setText(dateFormat.formatDateToString());
 //        price_stock_in.setText(Integer.toString(shipmentDetails.getTotal_payment()));
