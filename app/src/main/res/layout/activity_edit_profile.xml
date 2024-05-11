@@ -61,7 +61,7 @@
             android:layout_weight="2"/>
     </LinearLayout>
     <Button
-        android:id="@+id/btn_edit_acc_info"
+        android:id="@+id/btn_saved_edit_acc_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAllCaps="true"
