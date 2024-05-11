@@ -13,7 +13,20 @@
           "package_name": "com.example.pharmacyandroidapplication"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "464697881053-jmkgb7kgl01oq2ck4ucbvkq9m6ftd68d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pharmacyandroidapplication",
+            "certificate_hash": "6ecaf109b10441fab9b1e0b0f739515d75bf951e"
+          }
+        },
+        {
+          "client_id": "464697881053-jp8u3bclc504uuv3jvsr1nksitjti83t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD5um3VKdZUp2F3zeoFpNVjzSIaJumoXDo"
@@ -21,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "464697881053-jp8u3bclc504uuv3jvsr1nksitjti83t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
