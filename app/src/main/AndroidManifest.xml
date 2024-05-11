@@ -15,6 +15,9 @@
         android:theme="@style/Theme.PharmacyAndroidApplication"
         tools:targetApi="31">
         <activity
+            android:name=".activities.customer.SendOTPActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.admin.OrderDetailsManagementActivity"
             android:exported="false" />
         <activity
@@ -31,10 +34,9 @@
             android:exported="false" />
         <activity
             android:name=".activities.admin.EditOrderActivity"
-            android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".acitivity_edit_ordermanagement"-->
-<!--            android:exported="false" />-->
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".acitivity_edit_ordermanagement" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".activities.admin.EditCategoryActivity"
             android:exported="false" />
