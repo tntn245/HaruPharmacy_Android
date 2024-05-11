@@ -52,7 +52,7 @@ public class LoginSMSActivity extends AppCompatActivity {
 
                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
                         "+84" + phoneEditText.getText().toString(),
-                        60,
+                        60L,
                         TimeUnit.SECONDS,
                         LoginSMSActivity.this,
                         new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
