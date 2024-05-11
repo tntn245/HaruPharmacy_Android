@@ -38,22 +38,46 @@ public class LoginSMSActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_sms);
 
         sendOTPButton = findViewById(R.id.sendOTPButton);
-        phoneEditText = findViewById(R.id.phoneEditText);
-        phoneNumber = String.valueOf(phoneEditText.getText());
         sendOTPButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(LoginSMSActivity.this, SendOTPActivity.class);
-//                Toast.makeText(LoginSMSActivity.this, "Mã OTP đang được gửi qua SĐT" , Toast.LENGTH_SHORT).show();
-//                intent.putExtra("phone", phoneNumber);
-//                startActivity(intent);
-
-
+                phoneEditText = findViewById(R.id.phoneEditText);
+                phoneNumber = String.valueOf(phoneEditText.getText());
                 if (phoneEditText.getText().toString().trim().isEmpty()) {
                     Toast.makeText(LoginSMSActivity.this, "Enter Mobile", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                send0tp(phoneNumber, false);
+//                send0tp(phoneNumber, false);
+
+
+                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                        "+84" + phoneEditText.getText().toString(),
+                        60,
+                        TimeUnit.SECONDS,
+                        LoginSMSActivity.this,
+                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                            @Override
+                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                            }
+
+                            @Override
+                            public void onVerificationFailed(@NonNull FirebaseException e) {
+                                Toast.makeText( LoginSMSActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onCodeSent(@NonNull String verificationID, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                Intent intent = new Intent(getApplicationContext(), SendOTPActivity.class);
+                                intent.putExtra( "phone", phoneEditText.getText().toString());
+                                intent.putExtra( "verificationID", verificationID);
+                                startActivity(intent);
+                            }
+
+                        }
+                );
+                Intent intent = new Intent(getApplicationContext(), SendOTPActivity.class);
+                intent.putExtra("phone", phoneEditText.getText().toString());
+                startActivity(intent);
             }
         });
     }
@@ -69,7 +93,7 @@ public class LoginSMSActivity extends AppCompatActivity {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
 //                                signIn(phoneAuthCredential);
-                                Toast.makeText(LoginSMSActivity.this, "AAAAAAAAAA" , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginSMSActivity.this, "AAAAAAAAAA", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
