@@ -81,14 +81,16 @@
                     android:layout_height="0dp"
                     android:layout_weight="4"
                     android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="@dimen/_10sdp">
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="@dimen/_250sdp"
+                        android:layout_width="@dimen/_230sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_gravity="center"
                         android:textColorHint="#A6A2A2"
                         android:background="@null"
                         app:hintEnabled="false"
+                        android:layout_marginTop="@dimen/_10sdp"
                         >
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/usernameEditText"
@@ -97,14 +99,18 @@
                         android:layout_gravity="center"
                         android:background="@drawable/edittext_border_radius"
                         android:gravity="center"
-                        android:hint="Username"
-                        android:textSize="@dimen/_14sdp"/>
+                        android:hint="@string/username"
+                        android:drawableLeft="@drawable/ic_user"
+                        android:drawableTint="@color/gray"
+                        android:drawablePadding="-50dp"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:textSize="@dimen/text_size_medium"/>
                     </com.google.android.material.textfield.TextInputLayout>
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_16sdp"/>
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="@dimen/_250sdp"
+                        android:layout_width="@dimen/_230sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_gravity="center"
                         app:passwordToggleEnabled="true"
@@ -116,9 +122,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:hint="Password"
-                            android:textSize="@dimen/_14sdp"
-                            android:background="@drawable/edittext_border_radius">
+                            android:hint="@string/password"
+                            android:textSize="@dimen/text_size_medium"
+                            android:background="@drawable/edittext_border_radius"
+                            android:drawableLeft="@drawable/ic_password"
+                            android:drawableTint="@color/gray"
+                            android:drawablePadding="-50dp"
+                            android:paddingLeft="@dimen/_15sdp"
+                            >
                         </com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
 
