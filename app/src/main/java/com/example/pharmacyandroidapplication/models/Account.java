@@ -5,6 +5,7 @@ public class Account {
     private String username;
     private String password;
     private String role;
+    private String img;
 
     public Account(String id, String username, String password, String role) {
         this.id = id;
@@ -17,7 +18,11 @@ public class Account {
         this.id = id;
         this.role = "customer";
     }
-
+    public Account(String id, String img) {
+        this.id = id;
+        this.role = "customer";
+        this.img = img;
+    }
     public String getId() {
         return id;
     }

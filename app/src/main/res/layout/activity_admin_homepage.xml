@@ -290,14 +290,49 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/item_logout"
                         android:layout_width="@dimen/_220sdp"
                         android:layout_height="@dimen/_120sdp"
                         android:layout_marginHorizontal="@dimen/_16sdp"
                         android:layout_marginVertical="@dimen/_14sdp"
                         android:layout_weight="1"
                         android:paddingHorizontal="@dimen/_8sdp"
-                        android:visibility="invisible"
-                        app:cardCornerRadius="@dimen/_20sdp"/>
+                        app:cardCornerRadius="@dimen/_20sdp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
+
+                            <ImageView
+                                android:id="@+id/icon_logout"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:paddingTop="@dimen/_4sdp"
+                                android:src="@drawable/nav_logout"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                tools:ignore="MissingConstraints"
+                                app:tint="@color/app_theme" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="2"
+                                android:padding="@dimen/_5sdp"
+                                android:text="Đăng xuất"
+                                android:textAlignment="center"
+                                android:textColor="@color/app_theme"
+                                android:textSize="@dimen/text_size_medium"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/icon_logout"
+                                tools:ignore="MissingConstraints" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
 
                 </LinearLayout>
 
