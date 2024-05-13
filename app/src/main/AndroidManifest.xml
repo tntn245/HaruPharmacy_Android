@@ -15,6 +15,9 @@
         android:theme="@style/Theme.PharmacyAndroidApplication"
         tools:targetApi="31">
         <activity
+            android:name=".activities.customer.LoginGGActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.customer.SendOTPActivity"
             android:exported="false" />
         <activity
@@ -93,10 +96,9 @@
             android:exported="false" />
         <activity
             android:name=".activities.ChatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.LoginActivity"
-            android:exported="false" />
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".activities.LoginActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".activities.customer.SignUpActivity"
             android:exported="false" />
@@ -134,7 +136,7 @@
             android:name=".activities.customer.OrderDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

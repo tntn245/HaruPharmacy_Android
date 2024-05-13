@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     TextView textViewLogin;
     Button buttonReg;
     FirebaseAuth mAuth;
-//    ProgressBar progressBar;
+    ProgressBar progressBar;
 
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -52,14 +52,14 @@ public class SignUpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super. onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         mAuth = FirebaseAuth.getInstance();
         textViewLogin = findViewById(R.id.textViewLogin);
         editTextName = findViewById(R.id.usernameEditText);
         editTextPassword = findViewById(R.id.passwordEditText);
         buttonReg = findViewById(R.id.SignUpButton);
-//        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
 
         textViewLogin.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +74,9 @@ public class SignUpActivity extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                buttonReg.setVisibility(View.GONE);
+
                 String email, password;
                 email = String.valueOf(editTextName.getText());
                 password = String.valueOf(editTextPassword.getText());
@@ -115,8 +117,5 @@ public class SignUpActivity extends AppCompatActivity {
                         });
             }
         });
-
-
-
     }
 }

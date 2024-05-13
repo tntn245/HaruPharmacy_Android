@@ -45,7 +45,7 @@
             <LinearLayout
                 android:id="@+id/customView"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_355sdp"
+                android:layout_height="@dimen/_400sdp"
                 android:layout_gravity="center"
                 android:background="@drawable/border_radius"
                 android:elevation="@dimen/_8sdp"
@@ -80,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/_10sdp">
                     <com.google.android.material.textfield.TextInputLayout
@@ -127,7 +127,7 @@
                             android:hint="@string/password"
                             android:textSize="@dimen/text_size_medium"
                             android:background="@drawable/edittext_border_radius"
-                            android:drawableLeft="@drawable/ic_password"
+                            android:drawableStart="@drawable/ic_password"
                             android:drawableTint="@color/gray"
                             android:drawablePadding="-20dp"
                             android:paddingLeft="@dimen/_15sdp"
@@ -158,6 +158,12 @@
                         android:text="@string/login"
                         android:textSize="@dimen/text_size_medium"
                         android:textColor="@color/text_theme"/>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -200,6 +206,17 @@
                         android:drawableTint="@color/black"
                         android:text="SMS"
                         android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_medium"/>
+                    <Button
+                        android:id="@+id/loginGGButton"
+                        android:layout_width="@dimen/_230sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_gravity="center"
+                        android:elevation="@dimen/_8sdp"
+                        android:drawableLeft="@drawable/ic_google"
+                        android:backgroundTint="@color/background"
+                        android:text="Google"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_size_medium"
                         android:layout_marginBottom="@dimen/_15sdp"/>
                 </LinearLayout>
@@ -238,9 +255,4 @@
 
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 </LinearLayout>
