@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:hint="Search"
-            android:padding="16dp" />
+            android:padding="10dp" />
     </LinearLayout>
 
     <LinearLayout
