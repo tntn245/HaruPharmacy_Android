@@ -15,9 +15,10 @@
 
         <ImageView
             android:id="@+id/img_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center"
             android:src="@drawable/icon4"/>
 
         <TextView
