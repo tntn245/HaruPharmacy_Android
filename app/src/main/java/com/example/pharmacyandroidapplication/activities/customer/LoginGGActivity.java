@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.pharmacyandroidapplication.R;
@@ -31,19 +32,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class LoginGGActivity extends AppCompatActivity {
-    Button googleAuth;
+    ProgressBar progressBar;
     FirebaseAuth auth;
     FirebaseDatabase database;
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 20;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_gg);
 
-        googleAuth = findViewById(R.id.loginGGButton);
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -55,12 +55,12 @@ public class LoginGGActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient( this,gso);
 
-        googleAuth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                googleSignIn();
-            }
-        });
+        googleSignIn();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     private void googleSignIn() {
@@ -98,11 +98,13 @@ public class LoginGGActivity extends AppCompatActivity {
                             FirebaseUser user = auth.getCurrentUser();
                             assert user != null;
                             String userID = user.getUid();
+                            String userName = user.getDisplayName();
+                            String userImg = Objects.requireNonNull(user.getPhotoUrl()).toString();
 
                             database = FirebaseDatabase.getInstance();
                             DatabaseReference reference = database.getReference("accounts");
 
-                            Account acc = new Account(userID);
+                            Account acc = new Account(userID, userName, userImg);
                             reference.child(userID).setValue(acc);
 
 

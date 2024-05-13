@@ -96,10 +96,9 @@
             android:exported="false" />
         <activity
             android:name=".activities.ChatActivity"
-            android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".activities.LoginActivity"-->
-<!--            android:exported="false" />-->
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".activities.LoginActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".activities.customer.SignUpActivity"
             android:exported="false" />

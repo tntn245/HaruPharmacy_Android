@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.pharmacyandroidapplication.R;
@@ -31,16 +32,22 @@ public class LoginSMSActivity extends AppCompatActivity {
     PhoneAuthProvider.ForceResendingToken resendingToken;
     Button sendOTPButton;
     EditText phoneEditText;
+    ProgressBar progressBar;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_sms);
 
+        progressBar = findViewById(R.id.progressBar);
+        phoneEditText = findViewById(R.id.phoneEditText);
         sendOTPButton = findViewById(R.id.sendOTPButton);
         sendOTPButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sendOTPButton.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+
                 phoneEditText = findViewById(R.id.phoneEditText);
                 phoneNumber = String.valueOf(phoneEditText.getText());
                 if (phoneEditText.getText().toString().trim().isEmpty()) {
@@ -48,7 +55,6 @@ public class LoginSMSActivity extends AppCompatActivity {
                     return;
                 }
 //                send0tp(phoneNumber, false);
-
 
                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
                         "+84" + phoneEditText.getText().toString(),
@@ -58,6 +64,9 @@ public class LoginSMSActivity extends AppCompatActivity {
                         new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                // Khong biet de lam gi
+                                Intent intent = new Intent(getApplicationContext(), SendOTPActivity.class);
+                                startActivity(intent);
                             }
 
                             @Override

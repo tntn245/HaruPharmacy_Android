@@ -18,9 +18,10 @@ public class Account {
         this.id = id;
         this.role = "customer";
     }
-    public Account(String id, String img) {
+    public Account(String id, String username, String img) {
         this.id = id;
         this.role = "customer";
+        this.username = username;
         this.img = img;
     }
     public String getId() {

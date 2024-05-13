@@ -141,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
 //                    checkUser();
 //                }
 
+                buttonLogin.setVisibility(View.GONE);
                 progressBar.setVisibility(View.VISIBLE);
                 String email, password;
                 email = String.valueOf(editTextName.getText());

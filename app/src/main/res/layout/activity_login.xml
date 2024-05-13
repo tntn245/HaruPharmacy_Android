@@ -80,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/_10sdp">
                     <com.google.android.material.textfield.TextInputLayout
@@ -125,7 +125,7 @@
                             android:hint="@string/password"
                             android:textSize="@dimen/text_size_medium"
                             android:background="@drawable/edittext_border_radius"
-                            android:drawableLeft="@drawable/ic_password"
+                            android:drawableStart="@drawable/ic_password"
                             android:drawableTint="@color/gray"
                             android:drawablePadding="-50dp"
                             android:paddingLeft="@dimen/_15sdp"
@@ -154,6 +154,12 @@
                         android:elevation="@dimen/_8sdp"
                         android:text="@string/login"
                         android:textSize="@dimen/text_size_medium"/>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -245,9 +251,4 @@
 
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 </LinearLayout>
