@@ -45,7 +45,7 @@
             <LinearLayout
                 android:id="@+id/customView"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_300sdp"
+                android:layout_height="@dimen/_310sdp"
                 android:layout_gravity="center"
                 android:background="@drawable/border_radius"
                 android:elevation="@dimen/_8sdp"
@@ -87,7 +87,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="@dimen/_230sdp"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_height="@dimen/_45sdp"
                         android:layout_gravity="center"
                         android:textColorHint="#A6A2A2"
                         android:background="@null"
@@ -113,7 +113,7 @@
                         android:layout_height="@dimen/_16sdp"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="@dimen/_230sdp"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_height="@dimen/_45sdp"
                         android:layout_gravity="center"
                         app:passwordToggleEnabled="true"
                         android:textColorHint="#A6A2A2"
@@ -148,6 +148,7 @@
                         android:backgroundTint="@color/app_theme"
                         android:elevation="@dimen/_8sdp"
                         android:text="@string/signup"
+                        android:textColor="@color/text_theme"
                         android:textSize="@dimen/text_size_medium"/>
 
                 </LinearLayout>
@@ -169,7 +170,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Nếu đã có tài khoản? "
-                android:textColor="@color/white"
+                android:textColor="@color/text_theme"
                 android:textSize="@dimen/text_size_medium"/>
             <TextView
                 android:id="@+id/textViewLogin"
@@ -179,7 +180,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:text="Đăng nhập"
-                android:textColor="@color/white"
+                android:textColor="@color/text_theme"
                 android:textSize="@dimen/text_size_medium"/>
         </LinearLayout>
 

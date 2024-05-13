@@ -47,6 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nhập mã OTP đã gửi đến SĐT của bạn"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/app_theme"
                 android:textSize="@dimen/text_size_medium"/>
 
 <!--            <EditText-->
@@ -166,6 +168,7 @@
                 android:layout_height="@dimen/_40sdp"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/app_theme"
+                android:textColor="@color/text_theme"
                 android:elevation="@dimen/_8sdp"
                 android:text="Tiếp tục"
                 android:textSize="@dimen/text_size_medium"/>
