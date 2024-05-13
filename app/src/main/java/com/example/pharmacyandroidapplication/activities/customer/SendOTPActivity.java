@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.pharmacyandroidapplication.R;
@@ -33,6 +34,7 @@ public class SendOTPActivity extends AppCompatActivity {
     private EditText inputCode5;
     private EditText inputCode6;
     private Button btnNext;
+    ProgressBar progressBar;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -47,10 +49,13 @@ public class SendOTPActivity extends AppCompatActivity {
         inputCode4 = findViewById(R.id.inputCode4);
         inputCode5 = findViewById(R.id.inputCode5);
         inputCode6 = findViewById(R.id.inputCode6);
+        progressBar = findViewById(R.id.progressBar);
         btnNext = findViewById(R.id.btnNext);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                btnNext.setVisibility(View.GONE);
 //                send0tp(phoneNumber, false);
             }
         });

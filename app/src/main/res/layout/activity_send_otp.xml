@@ -13,7 +13,7 @@
         android:id="@+id/imageViewBackground"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:layout_gravity="center"
         android:gravity="center"
         android:scaleType="centerCrop"
@@ -31,7 +31,7 @@
         android:id="@+id/gradientLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="4"
         android:weightSum="9"
         android:background="@drawable/gradient_no_radius"
         android:orientation="vertical">
@@ -47,7 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nhập mã OTP đã gửi đến SĐT của bạn"
-                android:textSize="@dimen/text_size_medium"/>
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold"/>
 
 <!--            <EditText-->
 <!--                android:id="@+id/edtOTP"-->
@@ -160,6 +161,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_16sdp" />
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <Button
                 android:id="@+id/btnNext"
                 android:layout_width="@dimen/_230sdp"
@@ -170,6 +177,19 @@
                 android:text="Tiếp tục"
                 android:textSize="@dimen/text_size_medium"/>
 
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/_230sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center"
+                android:elevation="@dimen/_8sdp"
+                android:drawableLeft="@drawable/ic_back"
+                android:backgroundTint="@color/pastel_light_blue"
+                android:drawableTint="@color/black"
+                android:text="Quay lại"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_medium"
+                android:drawablePadding="-50dp"/>
 
         </LinearLayout>
 
