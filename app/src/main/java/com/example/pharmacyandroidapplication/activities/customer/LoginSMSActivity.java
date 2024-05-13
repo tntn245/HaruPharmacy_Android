@@ -52,6 +52,8 @@ public class LoginSMSActivity extends AppCompatActivity {
                 phoneNumber = String.valueOf(phoneEditText.getText());
                 if (phoneEditText.getText().toString().trim().isEmpty()) {
                     Toast.makeText(LoginSMSActivity.this, "Enter Mobile", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    sendOTPButton.setVisibility(View.VISIBLE);
                     return;
                 }
 //                send0tp(phoneNumber, false);

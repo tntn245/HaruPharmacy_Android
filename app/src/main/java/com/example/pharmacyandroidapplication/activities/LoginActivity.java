@@ -149,10 +149,14 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email) ){
                     Toast.makeText(LoginActivity.this,"Enter email", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    buttonLogin.setVisibility(View.VISIBLE);
                     return;
                 }
                 if (TextUtils.isEmpty(password) ) {
                     Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    buttonLogin.setVisibility(View.VISIBLE);
                     return;
                 }
 
@@ -161,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
+                                buttonLogin.setVisibility(View.VISIBLE);
                                 if (task.isSuccessful()) {
                                     String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
                                     DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("accounts").child(userID);
