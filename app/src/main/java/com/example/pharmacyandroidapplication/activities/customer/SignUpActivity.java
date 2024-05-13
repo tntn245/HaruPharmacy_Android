@@ -74,21 +74,25 @@ public class SignUpActivity extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
-                buttonReg.setVisibility(View.GONE);
-
                 String email, password;
                 email = String.valueOf(editTextName.getText());
                 password = String.valueOf(editTextPassword.getText());
 
                 if (TextUtils.isEmpty(email) ){
                     Toast.makeText(SignUpActivity.this,"Enter email", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    buttonReg.setVisibility(View.VISIBLE);
                     return;
                 }
                 if (TextUtils.isEmpty(password) ) {
                     Toast.makeText(SignUpActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    buttonReg.setVisibility(View.VISIBLE);
                     return;
                 }
+
+                progressBar.setVisibility(View.VISIBLE);
+                buttonReg.setVisibility(View.GONE);
 
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
