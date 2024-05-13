@@ -6,6 +6,43 @@ public class Product {
     private int img;
     private int inventory_quantity;
     private int price;
+    private  String uses;
+    private  String ingredient;
+    private String unit;
+    private String category;
+
+    public String getUses() {
+        return uses;
+    }
+
+    public void setUses(String uses) {
+        this.uses = uses;
+    }
+
+    public String getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(String ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public Product(String name, int price, int img){
         this.id="";
         this.img = img;
