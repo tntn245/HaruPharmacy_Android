@@ -6,6 +6,33 @@ public class Account {
     private String password;
     private String role;
 
+    public Account(String id, String username, String role, String sex, String birth_day) {
+        this.id = id;
+        this.username = username;
+        this.role = role;
+        this.sex = sex;
+        this.birth_day = birth_day;
+    }
+
+    private String sex;
+    private String birth_day;
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getBirth_day() {
+        return birth_day;
+    }
+
+    public void setBirth_day(String birth_day) {
+        this.birth_day = birth_day;
+    }
+
     public Account(String id, String username, String password, String role) {
         this.id = id;
         this.username = username;
