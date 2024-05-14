@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pharmacyandroidapplication.MainActivity;
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.activities.customer.CustomerHomepageActivity;
+import com.google.firebase.auth.FirebaseAuth;
+
 import androidx.cardview.widget.CardView;
 
 public class AdminHomepageActivity extends AppCompatActivity {
@@ -61,6 +64,15 @@ public class AdminHomepageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        CardView cardViewLogout = findViewById(R.id.item_logout);
+        cardViewLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(AdminHomepageActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
