@@ -63,8 +63,10 @@ dependencies {
     implementation("com.makeramen:roundedimageview:2.3.0")
 
     //FIREBASE MESSAGE
-    implementation ("com.google.firebase:firebase-messaging:23.4.1")
+    implementation("com.google.firebase:firebase-messaging:23.4.1")
 
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation("com.google.firebase:firebase-storage:21.0.0")
 }

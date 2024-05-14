@@ -1,34 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login" />
+        android:id="@+id/toolbar"
+        app:titleCentered="true"
+        app:titleTextColor="?attr/colorSurface"
+        android:background="?attr/colorPrimary"/>
 
-    <Button
-        android:id="@+id/btnAdmin"
-        android:layout_width="wrap_content"
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Admin's Home" />
+        android:id="@+id/progress"
+        android:layout_below="@id/toolbar"/>
 
-    <Button
-        android:id="@+id/btnCustomer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Customer's Home" />
-    <Button
-        android:id="@+id/btnProductDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Product Detail" />
+    <ImageView
+        android:layout_width="300sp"
+        android:layout_height="300sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20sp"
+        android:layout_below="@id/progress"
+        android:id="@+id/imageView"/>
 
-</LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select"
+        android:id="@+id/selectImage"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageView"
+        android:layout_margin="10sp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/selectImage"
+        android:enabled="false"
+        android:text="Upload Image"
+        android:id="@+id/uploadImage"/>
+
+</RelativeLayout>
