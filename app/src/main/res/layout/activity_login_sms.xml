@@ -47,6 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vui lòng nhập số điện thoại"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/app_theme"
                 android:textSize="@dimen/text_size_medium"/>
 
                     <EditText
@@ -72,7 +74,8 @@
                         android:backgroundTint="@color/app_theme"
                         android:elevation="@dimen/_8sdp"
                         android:text="@string/otp"
-                        android:textSize="@dimen/text_size_medium"/>
+                        android:textSize="@dimen/text_size_medium"
+                        android:textColor="@color/text_theme"/>
 
 
             </LinearLayout>
@@ -97,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:text="Hoặc phương thức khác"
                 android:textSize="@dimen/text_size_medium"
-                android:textColor="@color/white"
+                android:textColor="@color/text_theme"
                 android:paddingHorizontal="8dp" />
 
             <View
