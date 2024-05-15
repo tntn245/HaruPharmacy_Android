@@ -1,6 +1,5 @@
 package com.example.pharmacyandroidapplication.activities.customer;
 
-
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
@@ -43,6 +42,16 @@ private FirebaseAuth mAuth;
             @Override
             public void onClick(View v) {
                 saveProfile();
+            }
+        });
+      
+        ImageView ic_back = findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserEditProfileActivity.this, UserProfileActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -96,3 +105,4 @@ private FirebaseAuth mAuth;
     }
 
 }
+

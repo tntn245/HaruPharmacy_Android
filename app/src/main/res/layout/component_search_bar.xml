@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/_43sdp"
     android:orientation="horizontal"
-    android:background="@drawable/background_border_linearlayout"
     android:weightSum="5">
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="4"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/edit_text_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:hint="Search"
-            android:padding="16dp" />
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:singleLine="true"/>
     </LinearLayout>
 
     <LinearLayout

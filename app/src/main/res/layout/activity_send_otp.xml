@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="7"
+    tools:context=".activities.LoginActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/imageViewBackground"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="match_parent"
+            android:src="@drawable/logo_blue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/gradientLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:weightSum="9"
+        android:background="@drawable/gradient_no_radius"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhập mã OTP đã gửi đến SĐT của bạn"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/app_theme"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold"/>
+
+<!--            <EditText-->
+<!--                android:id="@+id/edtOTP"-->
+<!--                android:layout_width="@dimen/_230sdp"-->
+<!--                android:layout_height="@dimen/_40sdp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:background="@drawable/edittext_border_radius"-->
+<!--                android:gravity="center"-->
+<!--                android:hint=""-->
+<!--                android:textSize="@dimen/text_size_medium"-->
+<!--                android:layout_marginTop="@dimen/_10sdp"/>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/inputCode1"
+                    android:layout_width="40dp"
+                    android:layout_height="45dp"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/text_theme"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:ignore="LabelFor" />
+
+                <EditText
+                    android:id="@+id/inputCode2"
+                    android:layout_width="40dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="4dp"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/text_theme"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:ignore="LabelFor" />
+
+                <EditText
+                    android:id="@+id/inputCode3"
+                    android:layout_width="40dp"
+                    android:layout_height="45dp"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/text_theme"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:ignore="LabelFor" />
+
+                <EditText
+                    android:id="@+id/inputCode4"
+                    android:layout_width="40dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="4dp"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/text_theme"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:ignore="LabelFor" />
+
+                <EditText
+                    android:id="@+id/inputCode5"
+                    android:layout_width="40dp"
+                    android:layout_height="45dp"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/text_theme"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:ignore="LabelFor" />
+
+                <EditText
+                    android:id="@+id/inputCode6"
+                    android:layout_width="40dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="4dp"
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/text_theme"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:ignore="LabelFor" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_16sdp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="@dimen/_230sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/app_theme"
+                android:textColor="@color/text_theme"
+                android:elevation="@dimen/_8sdp"
+                android:text="Tiếp tục"
+                android:textSize="@dimen/text_size_medium"/>
+
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/_230sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center"
+                android:elevation="@dimen/_8sdp"
+                android:drawableLeft="@drawable/ic_back"
+                android:backgroundTint="@color/pastel_light_blue"
+                android:drawableTint="@color/black"
+                android:text="Quay lại"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_medium"
+                android:drawablePadding="-50dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

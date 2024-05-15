@@ -12,22 +12,12 @@
         android:layout_height="wrap_content"
         android:background="@color/app_theme"
         android:gravity="center"
-        android:weightSum="9"
         android:padding="@dimen/_20sdp">
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:contentDescription="icon_warehouse"
-            android:src="@drawable/ic_back"
-            tools:ignore="HardcodedText" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Chỉnh sửa loại sản phẩm"
             android:gravity="center"
-            android:layout_weight="8"
             android:textColor="@color/text_theme"
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold" />

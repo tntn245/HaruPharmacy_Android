@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" /> <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> -->
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +20,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PharmacyAndroidApplication"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.customer.UserEditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.LoginGGActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.SendOTPActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.admin.OrderDetailsManagementActivity"
             android:exported="false" />
@@ -54,13 +69,15 @@
             android:exported="false" />
         <activity
             android:name=".activities.admin.WarehouseInventoryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.admin.WarehouseStockOutDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.admin.WarehouseStockOutActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.admin.StatisticActivity"
             android:exported="false" />
@@ -69,19 +86,23 @@
             android:exported="false" />
         <activity
             android:name=".activities.admin.WarehouseStockInActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.admin.WarehouseStockInDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.admin.ProductManagementActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.admin.CategoryManagementActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.admin.OrderManagementActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.admin.AdminHomepageActivity"
             android:exported="false" />
@@ -90,18 +111,23 @@
             android:exported="false" />
         <activity
             android:name=".activities.ChatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.LoginActivity"
-            android:exported="false" />
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".activities.LoginActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".activities.customer.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.ForgotPassActivity"
             android:exported="false" />
         <activity
             android:name=".activities.customer.ProductDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.customer.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.ShoppingPageActivity"
             android:exported="false" />
         <activity
             android:name=".activities.customer.PaymentActivity"
@@ -125,7 +151,7 @@
             android:name=".activities.customer.OrderDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -17,6 +17,7 @@ import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.activities.admin.AdminHomepageActivity;
 import com.example.pharmacyandroidapplication.activities.customer.CustomerHomepageActivity;
 import com.example.pharmacyandroidapplication.activities.customer.ForgotPassActivity;
+import com.example.pharmacyandroidapplication.activities.customer.LoginGGActivity;
 import com.example.pharmacyandroidapplication.activities.customer.LoginSMSActivity;
 import com.example.pharmacyandroidapplication.activities.customer.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,54 +39,56 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextName, editTextPassword;
     Button buttonLogin;
     Button buttonLoginSMS;
+    Button buttonLoginGG;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
+    String userID;
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            String userID = currentUser.getUid();
-            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("account").child(userID);
-            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        String userType = dataSnapshot.child("role").getValue(String.class);
-                        if ("admin".equals(userType)) {
-                            Intent intent = new Intent(getApplicationContext(), AdminHomepageActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else if ("customer".equals(userType)) {
-                            Intent intent = new Intent(getApplicationContext(), CustomerHomepageActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            // Trường hợp khác, có thể xử lý theo ý của bạn
-                        }
-                    } else {
-                        // Không có dữ liệu về người dùng
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Xử lý lỗi nếu cần
-                }
-            });
-        } else {
-            // Nếu không có người dùng đăng nhập, kiểm tra xem có redirect từ SignUpActivity không
-            // Nếu có, chuyển đến trang Login
-            Intent intent = getIntent();
-            if (intent != null && intent.getBooleanExtra("redirectFromSignUp", false)) {
-                // Redirect từ SignUpActivity
-                // Hiển thị trang đăng nhập
-            }
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if (currentUser != null) {
+//            userID = currentUser.getUid();
+//            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("accounts").child(userID);
+//            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    if (dataSnapshot.exists()) {
+//                        String userType = dataSnapshot.child("role").getValue(String.class);
+//                        if ("admin".equals(userType)) {
+//                            Intent intent = new Intent(getApplicationContext(), AdminHomepageActivity.class);
+//                            intent.putExtra("userID", userID);
+//                            startActivity(intent);
+//                            finish();
+//                        } else if ("customer".equals(userType)) {
+//                            Intent intent = new Intent(getApplicationContext(), CustomerHomepageActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        } else {
+//                            // Trường hợp khác, có thể xử lý theo ý của bạn
+//                        }
+//                    } else {
+//                        // Không có dữ liệu về người dùng
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//                    // Xử lý lỗi nếu cần
+//                }
+//            });
+//        } else {
+//            // Nếu không có người dùng đăng nhập, kiểm tra xem có redirect từ SignUpActivity không
+//            // Nếu có, chuyển đến trang Login
+//            Intent intent = getIntent();
+//            if (intent != null && intent.getBooleanExtra("redirectFromSignUp", false)) {
+//                // Redirect từ SignUpActivity
+//                // Hiển thị trang đăng nhập
+//            }
+//        }
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,14 +101,28 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.passwordEditText);
         buttonLogin = findViewById(R.id.loginButton);
         buttonLoginSMS = findViewById(R.id.loginSMSButton);
+        buttonLoginGG = findViewById(R.id.loginGGButton);
         progressBar = findViewById(R.id.progressBar);
 
+        buttonLoginSMS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, LoginSMSActivity.class);
+                startActivity(intent);
+            }
+        });
+        buttonLoginGG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, LoginGGActivity.class);
+                startActivity(intent);
+            }
+        });
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -125,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
 //                    checkUser();
 //                }
 
+                buttonLogin.setVisibility(View.GONE);
                 progressBar.setVisibility(View.VISIBLE);
                 String email, password;
                 email = String.valueOf(editTextName.getText());
@@ -132,10 +150,14 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email) ){
                     Toast.makeText(LoginActivity.this,"Enter email", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    buttonLogin.setVisibility(View.VISIBLE);
                     return;
                 }
                 if (TextUtils.isEmpty(password) ) {
                     Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    buttonLogin.setVisibility(View.VISIBLE);
                     return;
                 }
 
@@ -144,8 +166,9 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
+                                buttonLogin.setVisibility(View.VISIBLE);
                                 if (task.isSuccessful()) {
-                                    String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+                                    userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
                                     DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("accounts").child(userID);
                                     userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
@@ -159,6 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     finish();
                                                 } else if ("customer".equals(userType)) {
                                                     Intent intent = new Intent(LoginActivity.this, CustomerHomepageActivity.class);
+                                                    intent.putExtra("userID", userID);
                                                     startActivity(intent);
                                                     finish();
                                                 } else {
@@ -177,26 +201,12 @@ public class LoginActivity extends AppCompatActivity {
                                             Toast.makeText(LoginActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
-//                                    Toast.makeText(LoginActivity.this, "Login successful.",
-//                                            Toast.LENGTH_SHORT).show();
-//                                    Intent intent = new Intent(getApplicationContext(), CustomerHomepageActivity.class);
-//                                    startActivity(intent);
-//                                    finish();
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-            }
-        });
-
-        buttonLoginSMS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, LoginSMSActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
 
