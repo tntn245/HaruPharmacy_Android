@@ -48,7 +48,8 @@ public class EditProductActivity extends AppCompatActivity {
 
     private void savedEditProduct() {
         String id, name, uses, ingredient, unit;
-        int price, img_link;
+        int price;
+        String img_link;
         boolean valid_flag;
 //        id = txt_product_id.getText().toString();
         id ="#0235732";
@@ -58,11 +59,11 @@ public class EditProductActivity extends AppCompatActivity {
         ingredient = edt_txt_product_ingredient.getText().toString();
 //        unit = edt_spn_product_unit.getSelectedItem().toString();
         unit = "lọ";
-        img_link = 0;
+        img_link = "link_img";
 //        if (edt_spn_product_status.getSelectedItem().toString() == "On sale") valid_flag = true;
 //        else valid_flag = false;
         valid_flag = true;
-        Product product = new Product(id, name, img_link, price, uses, ingredient, unit, valid_flag);
+        Product product = new Product(id, "", img_link, name, 0, price, unit, uses, ingredient,  valid_flag);
 
         productRef.child(id).setValue(product);
     }

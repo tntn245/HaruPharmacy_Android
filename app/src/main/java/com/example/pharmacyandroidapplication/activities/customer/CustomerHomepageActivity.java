@@ -37,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class CustomerHomepageActivity extends AppCompatActivity {
+
     GridView categoryGV;
     GridView productGV;
     ArrayList<Product> ProductArrayList;
@@ -57,7 +58,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         openDrawer();
         closeDrawer();
         loadDataFromFirebase();
-
 
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
@@ -106,6 +106,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
 
         // Gridview Category
+
+        GridView categoryGV = findViewById(R.id.rcv_category);
+
         ArrayList<Category> CategoryArrayList = new ArrayList<Category>();
 
         CategoryArrayList.add(new Category("Cải thiện giấc ngủ"));
@@ -122,6 +125,16 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Button clicked at position: " + position, Toast.LENGTH_SHORT).show();
             }
         });
+        // Gridview Product
+        GridView productGV = findViewById(R.id.rcv_shopping);
+        ArrayList<Product> ProductArrayList = new ArrayList<Product>();
+
+        ProductArrayList.add(new Product("", "", "", "Chromium", 0, 100000));
+        ProductArrayList.add(new Product("", "", "", "Omega3", 0, 200000));
+        ProductArrayList.add(new Product("", "", "", "Thyroid-Pro Formula", 0, 150000));
+
+        HomeProductAdapter productAdapter = new HomeProductAdapter(this, ProductArrayList);
+        productGV.setAdapter(productAdapter);
 
         // Click Product
         productGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -133,9 +146,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
                 // Truyền giá trị của item qua layout tiếp theo để hiển thị
                 Intent intent = new Intent(CustomerHomepageActivity.this, ProductDetailsActivity.class);
-                intent.putExtra("product_img", productDetails.getProductImg());
-                intent.putExtra("product_name", productDetails.getProductName());
-                intent.putExtra("product_price", productDetails.getProductPrice());
+//                intent.putExtra("product_img", productDetails.getProductImg()); error_due_to_refactor_Product
+//                intent.putExtra("product_name", productDetails.getProductName());
+//                intent.putExtra("product_price", productDetails.getProductPrice());
                 startActivity(intent);
             }
         });
@@ -186,10 +199,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     // Lấy dữ liệu từ snapshot và tạo đối tượng Product
                     String productName = snapshot.child("name").getValue(String.class);
                     int productPrice = snapshot.child("price").getValue(Integer.class);
-                    int productImg = R.drawable.pro1;
-//                    int productImg = snapshot.child("image").getValue(Integer.class);
+                    //                    int productImg = snapshot.child("image").getValue(Integer.class);
 
-                    Product product = new Product(productName, productPrice, productImg);
+                    Product product = new Product("","","productImg", productName,0,productPrice);
 
                     // Sau đó, thêm sản phẩm vào danh sách productList
                     ProductArrayList.add(product);
