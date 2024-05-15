@@ -5,8 +5,8 @@ public class Product {
     private String id_category;
     private String img;
     private String name;
-    private int inventory_quantity;
     private int price;
+    private int inventory_quantity;
     private String unit;
     private String uses;
     private String ingredient;

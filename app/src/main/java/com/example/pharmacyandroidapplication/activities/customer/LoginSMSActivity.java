@@ -17,12 +17,17 @@ import android.widget.Toast;
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.utils.AndroidUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class LoginSMSActivity extends AppCompatActivity {
@@ -31,6 +36,7 @@ public class LoginSMSActivity extends AppCompatActivity {
     String verificationCode;
     PhoneAuthProvider.ForceResendingToken resendingToken;
     Button sendOTPButton;
+    Button loginButton;
     EditText phoneEditText;
     ProgressBar progressBar;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -42,103 +48,22 @@ public class LoginSMSActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         phoneEditText = findViewById(R.id.phoneEditText);
         sendOTPButton = findViewById(R.id.sendOTPButton);
-        sendOTPButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendOTPButton.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
+        loginButton = findViewById(R.id.loginButton);
 
-                phoneEditText = findViewById(R.id.phoneEditText);
-                phoneNumber = String.valueOf(phoneEditText.getText());
-                if (phoneEditText.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(LoginSMSActivity.this, "Enter Mobile", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
-                    sendOTPButton.setVisibility(View.VISIBLE);
-                    return;
-                }
-//                send0tp(phoneNumber, false);
+        progressBar.setVisibility(View.GONE);
 
-                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                        "+84" + phoneEditText.getText().toString(),
-                        60L,
-                        TimeUnit.SECONDS,
-                        LoginSMSActivity.this,
-                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                            @Override
-                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                // Khong biet de lam gi
-                                Intent intent = new Intent(getApplicationContext(), SendOTPActivity.class);
-                                startActivity(intent);
-                            }
-
-                            @Override
-                            public void onVerificationFailed(@NonNull FirebaseException e) {
-                                Toast.makeText( LoginSMSActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onCodeSent(@NonNull String verificationID, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                Intent intent = new Intent(getApplicationContext(), SendOTPActivity.class);
-                                intent.putExtra( "phone", phoneEditText.getText().toString());
-                                intent.putExtra( "verificationID", verificationID);
-                                startActivity(intent);
-                            }
-
-                        }
-                );
-                Intent intent = new Intent(getApplicationContext(), SendOTPActivity.class);
-                intent.putExtra("phone", phoneEditText.getText().toString());
-                startActivity(intent);
-            }
+        sendOTPButton.setOnClickListener((v)->{
+            String phoneNumber = "+84" + phoneEditText.getText();
+            AndroidUtil.showToast(getApplicationContext(),phoneNumber);
+            Intent intent = new Intent(LoginSMSActivity.this, SendOTPActivity.class);
+            intent.putExtra("phone", phoneNumber);
+            startActivity(intent);
         });
-    }
 
-    void send0tp(String phoneNumber, boolean isResend) {
-//        setInProgress(true);
-        PhoneAuthOptions.Builder builder =
-                PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(phoneNumber)
-                        .setTimeout(timeoutSeconds, TimeUnit.SECONDS)
-                        .setActivity(this)
-                        .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                            @Override
-                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-//                                signIn(phoneAuthCredential);
-                                Toast.makeText(LoginSMSActivity.this, "AAAAAAAAAA", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onVerificationFailed(@NonNull FirebaseException e) {
-                                AndroidUtil.showToast(getApplicationContext(), "OTP verification failed");
-                            }
-
-                            @Override
-                            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                super.onCodeSent(s, forceResendingToken);
-                                verificationCode = s;
-                                resendingToken = forceResendingToken;
-                                AndroidUtil.showToast(getApplicationContext(), "OTP sent successfully");
-                            }
-                        });
-        if (isResend) {
-            PhoneAuthProvider.verifyPhoneNumber(builder.setForceResendingToken(resendingToken).build());
-        } else {
-            PhoneAuthProvider.verifyPhoneNumber(builder.build());
-
-        }
-    }
-
-    private void signIn(PhoneAuthCredential phoneAuthCredential) {
-    }
-
-    void setInProgress(boolean inProgress) {
-//        if(inProgress){
-//            progressBar.setVisibility(View.VISIBLE);
-//            btnNext.setVisibility(View.GONE);
-//        }else{
-//            progressBar.setVisibility(View.GONE);
-//            btnNext.setVisibility(View.VISIBLE);
-//
-//        }
+        loginButton.setOnClickListener((v)->{
+            Intent intent = new Intent(LoginSMSActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 }

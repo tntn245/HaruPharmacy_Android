@@ -9,23 +9,20 @@
     android:background="@color/background">
 
     <LinearLayout
-        android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         app:layout_constraintHeight_percent="0.1"
         android:background="@color/app_theme"
         android:orientation="horizontal"
-        android:weightSum="7"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/list_item">
+        android:weightSum="7">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:contentDescription="icon_warehouse"
+            android:contentDescription="icon_back"
             android:src="@drawable/ic_back"
             tools:ignore="HardcodedText"
             app:tint="@color/white" />
@@ -41,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/product_management"
+                android:text="@string/category_management"
                 android:textAllCaps="true"
                 android:textSize="@dimen/text_size_large"
                 android:textColor="@color/text_theme"
@@ -54,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:contentDescription="icon_search"
+            android:contentDescription="icon_add"
             android:src="@drawable/ic_add"
             tools:ignore="HardcodedText"
             app:tint="@color/white" />
@@ -75,7 +72,8 @@
             android:layout_gravity="center"
             android:orientation="horizontal"
             app:cardCornerRadius="5dp"
-            app:cardElevation="5dp">
+            app:cardElevation="5dp"
+            android:layout_weight="1">
 
             <include layout="@layout/component_search_bar" />
 

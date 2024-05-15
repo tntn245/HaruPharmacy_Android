@@ -1,23 +1,23 @@
 package com.example.pharmacyandroidapplication.activities.customer;
 
-
 import static android.content.ContentValues.TAG;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pharmacyandroidapplication.R;
-import com.example.pharmacyandroidapplication.activities.admin.AdminHomepageActivity;
 import com.example.pharmacyandroidapplication.models.Account;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,14 +30,29 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class UserEditProfileActivity extends AppCompatActivity {
-    private EditText edtTxt_edit_acc_birth_day, edtTxt_edit_acc_sex;
-private FirebaseAuth mAuth;
+    private EditText edt_birth_day;
+    RadioGroup radioGroup;
+    String sexOption;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        edtTxt_edit_acc_birth_day = findViewById(R.id.edtTxt_edit_acc_birth_day);
-        edtTxt_edit_acc_sex = findViewById(R.id.edtTxt_edit_acc_sex);
+        edt_birth_day = findViewById(R.id.edtTxt_edit_acc_birth_day);
+        radioGroup = findViewById(R.id.radioGroup);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // Lấy thông tin từ RadioButton đã chọn
+                RadioButton radioButton = findViewById(checkedId);
+                sexOption = radioButton.getText().toString();
+
+                // Sử dụng thông tin đã chọn
+                Toast.makeText(getApplicationContext(), "Selected option: " + sexOption, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         Button saveBtn = findViewById(R.id.btn_saved_edit_acc_info);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,10 +60,19 @@ private FirebaseAuth mAuth;
                 saveProfile();
             }
         });
+      
+        ImageView ic_back = findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserEditProfileActivity.this, UserProfileActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
     public void saveProfile(){
-        String sex= edtTxt_edit_acc_sex.getText().toString();
-        String birth_day = edtTxt_edit_acc_birth_day.getText().toString();
+        String birth_day = edt_birth_day.getText().toString();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) {
             String userID = currentUser.getUid();
@@ -59,8 +83,9 @@ private FirebaseAuth mAuth;
                     if (dataSnapshot.exists()) {
                         String userType = dataSnapshot.child("role").getValue(String.class);
                         String userId = dataSnapshot.child("id").getValue(String.class);
+                        String userImg = dataSnapshot.child("img").getValue(String.class);
 
-                        Account account = new Account(userId, "unknown user name",userType, sex, birth_day);
+                        Account account = new Account(userId,userImg,userType, "unknown user name", sexOption, birth_day);
                         userRef.child(userID).setValue(account)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -88,7 +113,7 @@ private FirebaseAuth mAuth;
             });
         }
         Intent intent = new Intent();
-        intent.putExtra("sex", sex);
+        intent.putExtra("sex", sexOption);
         intent.putExtra("birthDay", birth_day);
         // Đặt resultCode và Intent và kết thúc hoạt động
         setResult(RESULT_OK, intent);
@@ -96,3 +121,4 @@ private FirebaseAuth mAuth;
     }
 
 }
+

@@ -14,15 +14,18 @@ import com.example.pharmacyandroidapplication.MainActivity;
 import com.example.pharmacyandroidapplication.R;
 
 public class UserActivity extends AppCompatActivity {
+    String userID;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+        userID = getIntent().getExtras().getString("userID");
 
         CardView userProfile = findViewById(R.id.user_profile);
         userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserActivity.this, UserProfileActivity.class);
+                intent.putExtra("userID", userID);
                 startActivity(intent);
             }
         });

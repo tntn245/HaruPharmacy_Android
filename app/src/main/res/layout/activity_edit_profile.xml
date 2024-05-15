@@ -1,70 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="10">
-
-    <LinearLayout
+    android:orientation="vertical">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/app_theme">
-
-        <TextView
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:background="@color/background">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Chinh sua tt" />
-    </LinearLayout>
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_theme"
+                android:padding="@dimen/_20sdp"
+                android:gravity="center"
+                android:weightSum="8">
+                <ImageView
+                    android:id="@+id/ic_back"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:contentDescription="icon_back"
+                    android:src="@drawable/ic_back"
+                    tools:ignore="HardcodedText"
+                    app:tint="@color/white" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thông tin cá nhân"
+                    android:textSize="@dimen/text_size_large"
+                    android:textColor="@color/text_theme"
+                    android:textStyle="bold"
+                    android:layout_weight="7"
+                    android:gravity="center"
+                    android:layout_marginRight="@dimen/_10sdp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="3">
+                <ImageView
+                    android:layout_width="@dimen/_130sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:src="@drawable/user_vector"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/_10sdp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thay đổi ảnh đại diện"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold"
+                    android:textColor="@color/app_theme"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    />
+            </LinearLayout>
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:rowCount="3"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+                <!-- Row 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5sdp">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Gioi tinh: " />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:layout_marginBottom="@dimen/_18sdp"
+                        android:text="Tên tài khoản"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/_13ssp" />
 
-        <EditText
-            android:id="@+id/edtTxt_edit_acc_sex"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="textEnd"
-            android:layout_weight="2"/>
+                    <EditText
+                        android:layout_width="@dimen/_285sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/input_border_radius"
+                        android:text="0866178272"
+                        android:paddingStart="@dimen/_15sdp" />
+                </LinearLayout>
+                <!-- Row 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:padding="@dimen/_5sdp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:text="Giới tính"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/text_size_medium"
+                        android:layout_weight="1"/>
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:gravity="right">
 
-    </LinearLayout>
+                        <RadioButton
+                            android:id="@+id/maleRadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nam"
+                            android:textColor="@color/app_theme"
+                            android:textSize="@dimen/text_size_medium"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:paddingRight="@dimen/_25sdp"
+                            android:textStyle="bold"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
-        android:orientation="horizontal"
-        android:weightSum="3">
+                        <RadioButton
+                            android:id="@+id/femaleRadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nữ"
+                            android:textColor="@color/app_theme"
+                            android:textSize="@dimen/text_size_medium"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:paddingRight="@dimen/_25sdp"
+                            android:textStyle="bold"/>
+                    </RadioGroup>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Ngay sinh" />
+                </LinearLayout>
+                <!-- Row 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5sdp"
+                    android:weightSum="2">
 
-        <EditText
-            android:id="@+id/edtTxt_edit_acc_birth_day"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="textEnd"
-            android:layout_weight="2"/>
-    </LinearLayout>
-    <Button
-        android:id="@+id/btn_saved_edit_acc_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAllCaps="true"
-        android:text="Lưu"
-        android:layout_gravity="center"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:text="Ngày sinh"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/text_size_medium"
+                        android:layout_weight="1"/>
+                    <!--                    Dùng DatePickerDialog để xử lý chọn ngày bên java-->
+                    <EditText
+                        android:id="@+id/edtTxt_edit_acc_birth_day"
+                        android:layout_width="@dimen/_285sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        android:hint="Chọn ngày sinh"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:layout_gravity="center"
+                        android:background="@drawable/input_border_radius"
+                        android:padding="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_20sdp"/>
+                </LinearLayout>
+            </GridLayout>
+            <Button
+                android:id="@+id/btn_saved_edit_acc_info"
+                android:layout_width="@dimen/_170sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_gravity="center"
+                android:elevation="@dimen/_8sdp"
+                android:text="Cập nhật"
+                android:textSize="@dimen/text_size_medium"
+                android:backgroundTint="@color/dark_blue"/>
+        </LinearLayout>
+    </ScrollView>
+    <include layout="@layout/bottom_navigation"/>
 </LinearLayout>
