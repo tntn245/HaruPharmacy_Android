@@ -59,7 +59,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vui lòng nhập số điện thoại"
-                android:textSize="@dimen/text_size_medium" />
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/app_theme"
+                android:textSize="@dimen/text_size_medium"/>
+
 
             <EditText
                 android:id="@+id/phoneEditText"
@@ -77,21 +80,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_16sdp" />
 
-            <Button
-                android:id="@+id/sendOTPButton"
-                android:layout_width="@dimen/_230sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/app_theme"
-                android:elevation="@dimen/_8sdp"
-                android:text="@string/otp"
-                android:textSize="@dimen/text_size_medium" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                    <Button
+                        android:id="@+id/sendOTPButton"
+                        android:layout_width="@dimen/_230sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/app_theme"
+                        android:elevation="@dimen/_8sdp"
+                        android:text="@string/otp"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textColor="@color/text_theme"/>
 
 
         </LinearLayout>
@@ -116,8 +114,9 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="8dp"
                 android:text="Hoặc phương thức khác"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_medium" />
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="@color/text_theme"
+                />
 
             <View
                 android:layout_width="0dp"
