@@ -118,6 +118,7 @@
                         android:textSize="@dimen/text_size_medium"
                         android:layout_weight="1"/>
                     <RadioGroup
+                        android:id="@+id/radioGroup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -168,6 +169,7 @@
                         android:layout_weight="1"/>
                     <!--                    Dùng DatePickerDialog để xử lý chọn ngày bên java-->
                     <EditText
+                        android:id="@+id/edtTxt_edit_acc_birth_day"
                         android:layout_width="@dimen/_285sdp"
                         android:layout_height="@dimen/_45sdp"
                         android:hint="Chọn ngày sinh"
@@ -180,6 +182,7 @@
                 </LinearLayout>
             </GridLayout>
             <Button
+                android:id="@+id/btn_saved_edit_acc_info"
                 android:layout_width="@dimen/_170sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
