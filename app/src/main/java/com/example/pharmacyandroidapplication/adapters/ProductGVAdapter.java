@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.models.Product;
 
@@ -34,10 +35,13 @@ public class ProductGVAdapter extends ArrayAdapter<Product> {
         Product product = getItem(position);
         TextView name_product = listitemView.findViewById(R.id.txt_name_product);
         ImageView img_product = listitemView.findViewById(R.id.img_product);
-
+        TextView price_product = listitemView.findViewById(R.id.product_price);
         assert product != null;
-        name_product.setText(product.getProductName());
-        img_product.setImageResource(product.getProductImg());
+        name_product.setText("TEXXT NEF");
+        price_product.setText(product.getPrice());
+        Glide.with(this.getContext().getApplicationContext())
+                .load(product.getImg())
+                .into(img_product);
         return listitemView;
     }
 }

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
@@ -15,7 +14,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -24,19 +22,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.pharmacyandroidapplication.MainActivity;
+import com.bumptech.glide.Glide;
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.models.Product;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.text.NumberFormat;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.Objects;
 
 public class ProductDetailsActivity extends AppCompatActivity {
     int quantity = 1;
@@ -55,24 +54,59 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private TextView productPriceBuy;
     private Button btnBuyNow;
     private Button btnAddToCart;
+    private Product product;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
         // Nhận giá trị của item từ Intent
-        int product_img = getIntent().getIntExtra("product_img", 0);// error_due_to_refactor_Product
-        String product_name = getIntent().getStringExtra("product_name");
-        int product_price = getIntent().getIntExtra("product_price", 0);
+        String product_id = getIntent().getStringExtra("product_id");
 
         // Hiển thị giá trị của item trong layout
         ImageView ProductImg = findViewById(R.id.product_img);
         TextView ProductName = findViewById(R.id.product_name);
         TextView ProductPrice = findViewById(R.id.product_price);
-        ProductImg.setImageResource(product_img);
-        ProductName.setText(product_name);
-        ProductPrice.setText(String.valueOf(product_price));
+        TextView Valid = findViewById(R.id.danhmuc);
+        TextView Ingredient = findViewById(R.id.ingredient);
+        TextView Info  = findViewById(R.id.info);
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("product").child(product_id);
 
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Kiểm tra xem dataSnapshot có dữ liệu hay không
+                if (dataSnapshot.exists()) {
+                    // Lấy dữ liệu từ dataSnapshot và thực hiện các thao tác cần thiết
+                    product = dataSnapshot.getValue(Product.class);
+                    // bind vao
+                    ProductPrice.setText(String.valueOf(product.getPrice()));
+                    ProductName.setText(product.getName());
+                    if(product.isFlag_valid())
+                    {
+                        Valid.setText("Thuốc không kê đơn");
+                    }else{
+                        Valid.setText("Thuốc kê đơn");
+                    }
+                    Ingredient.setText(product.getIngredient());
+                    Info.setText(product.getUses());
+                    Glide.with(ProductDetailsActivity.this)
+                            .load(product.getImg())
+                            .into(ProductImg);
+                    // Ví dụ: Hiển thị thông tin sản phẩm
+                    Log.d("Product Info", "Name: " + product.getName() + ", Price: " + product.getPrice());
+                } else {
+                    Log.d("Product Info", "Product with key '2' does not exist.");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý khi có lỗi xảy ra
+            }
+
+    });
+
+        //ProductImg.setImageResource(R.drawable.pro1);
         ImageButton btn_back = findViewById(R.id.ic_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,11 +124,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Hiển thị dialog
-                showProductDetailDialog(product_price,product_name);
+                showProductDetailDialog(product);
             }
         });
     }
-    private void showProductDetailDialog(int product_price, String product_name) {
+    private void showProductDetailDialog(Product product) {
         Dialog dialog = new Dialog(ProductDetailsActivity.this,R.style.FullScreenDialog);
         dialog.setContentView(R.layout.drawer_product_detail);
         // Lấy kích thước của màn hình
@@ -125,8 +159,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
         btnBuyNow = dialog.findViewById(R.id.btn_buy_now);
         btnAddToCart = dialog.findViewById(R.id.btn_add_to_cart);
 
-        dialogProductName.setText(product_name);
-        dialogProductPrice.setText(String.valueOf(product_price));
+        Glide.with(ProductDetailsActivity.this)
+                .load(product.getImg())
+                .into(dialogProductImg);
+        dialogProductName.setText(product.getName());
+        dialogProductPrice.setText(String.valueOf(product.getPrice()));
         float price = Integer.parseInt(dialogProductPrice.getText().toString());
         productPriceBuy.setText(String.valueOf(price));
 
