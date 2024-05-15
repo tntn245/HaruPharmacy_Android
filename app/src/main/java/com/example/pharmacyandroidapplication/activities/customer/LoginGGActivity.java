@@ -40,7 +40,7 @@ public class LoginGGActivity extends AppCompatActivity {
     FirebaseDatabase database;
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 20;
-
+    String userID;
     @Override
     protected void onStart() {
         super.onStart();
@@ -97,14 +97,14 @@ public class LoginGGActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = auth.getCurrentUser();
                             assert user != null;
-                            String userID = user.getUid();
+                            userID = user.getUid();
                             String userName = user.getDisplayName();
-                            String userImg = Objects.requireNonNull(user.getPhotoUrl()).toString();
+                            String userImg = user.getPhotoUrl().toString();
 
                             database = FirebaseDatabase.getInstance();
                             DatabaseReference reference = database.getReference("accounts");
 
-                            Account acc = new Account(userID, userName, userImg);
+                            Account acc = new Account(userID, userImg, "customer",  userName);
                             reference.child(userID).setValue(acc);
 
 
@@ -118,7 +118,9 @@ public class LoginGGActivity extends AppCompatActivity {
 //                            database.getReference().child("accounts").child(user.getUid()).setValue(map);
 
                             Intent intent = new Intent(LoginGGActivity.this,CustomerHomepageActivity.class);
+                            intent.putExtra("userID", userID);
                             startActivity(intent);
+                            finish();
                         }
                         else {
                             Toast.makeText(LoginGGActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();

@@ -22,6 +22,7 @@
             android:weightSum="10">
 
             <ImageButton
+                android:id="@+id/ic_back"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

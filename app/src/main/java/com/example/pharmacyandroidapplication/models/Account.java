@@ -3,27 +3,16 @@ package com.example.pharmacyandroidapplication.models;
 public class Account {
     private String id;
     private String username;
-    private String password;
     private String role;
     private String img;
 
-    public Account(String id, String username, String password, String role) {
+    public Account(String id, String img, String role, String username) {
         this.id = id;
-        this.username = username;
-        this.password = password;
         this.role = role;
-    }
-
-    public Account(String id) {
-        this.id = id;
-        this.role = "customer";
-    }
-    public Account(String id, String username, String img) {
-        this.id = id;
-        this.role = "customer";
         this.username = username;
         this.img = img;
     }
+
     public String getId() {
         return id;
     }
@@ -40,19 +29,19 @@ public class Account {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getRole() {
         return role;
     }
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

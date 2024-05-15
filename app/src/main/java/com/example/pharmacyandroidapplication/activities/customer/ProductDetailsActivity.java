@@ -13,6 +13,7 @@ import android.view.WindowManager.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -71,6 +72,16 @@ public class ProductDetailsActivity extends AppCompatActivity {
         ProductImg.setImageResource(product_img);
         ProductName.setText(product_name);
         ProductPrice.setText(String.valueOf(product_price));
+
+        ImageButton btn_back = findViewById(R.id.ic_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductDetailsActivity.this, CustomerHomepageActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         // Bên trong activity hoặc fragment
         @SuppressLint("ResourceType") Animation slideUp = AnimationUtils.loadAnimation(this, R.drawable.animation_slide_up);

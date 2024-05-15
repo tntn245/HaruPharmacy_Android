@@ -105,7 +105,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     database = FirebaseDatabase.getInstance();
                                     reference = database.getReference("accounts");
 
-                                    Account acc = new Account(userID);
+                                    Account acc = new Account(userID, "", "customer", email);
                                     reference.child(userID).setValue(acc);
 
                                     Toast.makeText(SignUpActivity.this, "Sign up successfully.",
