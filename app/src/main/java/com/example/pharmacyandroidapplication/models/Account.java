@@ -8,13 +8,13 @@ public class Account {
     private String sex;
     private String birth_day;
 
-    public Account(String id, String img, String role, String username) {
+    public Account(String id, String img, String role, String username, String sex, String birth_day) {
         this.id = id;
         this.role = role;
         this.username = username;
         this.img = img;
-        this.sex = "";
-        this.birth_day = "";
+        this.sex = sex;
+        this.birth_day = birth_day;
     }
 
     public String getId() {

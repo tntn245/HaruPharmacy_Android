@@ -104,7 +104,7 @@ public class LoginGGActivity extends AppCompatActivity {
                             database = FirebaseDatabase.getInstance();
                             DatabaseReference reference = database.getReference("accounts");
 
-                            Account acc = new Account(userID, userImg, "customer",  userName);
+                            Account acc = new Account(userID, userImg, "customer",  userName, "", "");
                             reference.child(userID).setValue(acc);
 
 
