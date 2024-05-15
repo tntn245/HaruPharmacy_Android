@@ -36,6 +36,7 @@ public class LoginSMSActivity extends AppCompatActivity {
     String verificationCode;
     PhoneAuthProvider.ForceResendingToken resendingToken;
     Button sendOTPButton;
+    Button loginButton;
     EditText phoneEditText;
     ProgressBar progressBar;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -47,6 +48,7 @@ public class LoginSMSActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         phoneEditText = findViewById(R.id.phoneEditText);
         sendOTPButton = findViewById(R.id.sendOTPButton);
+        loginButton = findViewById(R.id.loginButton);
 
         progressBar.setVisibility(View.GONE);
 
@@ -56,6 +58,12 @@ public class LoginSMSActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginSMSActivity.this, SendOTPActivity.class);
             intent.putExtra("phone", phoneNumber);
             startActivity(intent);
+        });
+
+        loginButton.setOnClickListener((v)->{
+            Intent intent = new Intent(LoginSMSActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 }

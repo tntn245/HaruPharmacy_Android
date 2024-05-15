@@ -40,10 +40,13 @@ public class CustomerHomepageActivity extends AppCompatActivity {
     GridView categoryGV;
     GridView productGV;
     ArrayList<Product> ProductArrayList;
+    String userID;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_homepage);
+
+        userID = getIntent().getExtras().getString("userID");
 
         ScrollView scrollView = findViewById(R.id.scroll_view);
         CardView searchBar = findViewById(R.id.search_bar);
@@ -161,8 +164,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     return true;
                 } else if (itemId == R.id.profile) {
                     // Xử lý khi người dùng chọn trang tài khoản
-                    Intent CartIntent = new Intent(CustomerHomepageActivity.this, UserActivity.class);
-                    startActivity(CartIntent);
+                    Intent intent = new Intent(CustomerHomepageActivity.this, UserActivity.class);
+                    intent.putExtra("userID", userID);
+                    startActivity(intent);
                     return true;
                 }
                 return false;
@@ -182,7 +186,8 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     // Lấy dữ liệu từ snapshot và tạo đối tượng Product
                     String productName = snapshot.child("name").getValue(String.class);
                     int productPrice = snapshot.child("price").getValue(Integer.class);
-                    int productImg = snapshot.child("image").getValue(Integer.class);
+                    int productImg = R.drawable.pro1;
+//                    int productImg = snapshot.child("image").getValue(Integer.class);
 
                     Product product = new Product(productName, productPrice, productImg);
 
