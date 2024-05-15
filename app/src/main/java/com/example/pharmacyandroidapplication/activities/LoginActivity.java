@@ -17,6 +17,7 @@ import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.activities.admin.AdminHomepageActivity;
 import com.example.pharmacyandroidapplication.activities.customer.CustomerHomepageActivity;
 import com.example.pharmacyandroidapplication.activities.customer.ForgotPassActivity;
+import com.example.pharmacyandroidapplication.activities.customer.LoginGGActivity;
 import com.example.pharmacyandroidapplication.activities.customer.LoginSMSActivity;
 import com.example.pharmacyandroidapplication.activities.customer.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextName, editTextPassword;
     Button buttonLogin;
     Button buttonLoginSMS;
+    Button buttonLoginGG;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
 
@@ -49,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userID = currentUser.getUid();
-            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("account").child(userID);
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("accounts").child(userID);
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -98,14 +100,28 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.passwordEditText);
         buttonLogin = findViewById(R.id.loginButton);
         buttonLoginSMS = findViewById(R.id.loginSMSButton);
+        buttonLoginGG = findViewById(R.id.loginGGButton);
         progressBar = findViewById(R.id.progressBar);
 
+        buttonLoginSMS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, LoginSMSActivity.class);
+                startActivity(intent);
+            }
+        });
+        buttonLoginGG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, LoginGGActivity.class);
+                startActivity(intent);
+            }
+        });
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -125,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
 //                    checkUser();
 //                }
 
+                buttonLogin.setVisibility(View.GONE);
                 progressBar.setVisibility(View.VISIBLE);
                 String email, password;
                 email = String.valueOf(editTextName.getText());
@@ -132,10 +149,14 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email) ){
                     Toast.makeText(LoginActivity.this,"Enter email", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    buttonLogin.setVisibility(View.VISIBLE);
                     return;
                 }
                 if (TextUtils.isEmpty(password) ) {
                     Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    buttonLogin.setVisibility(View.VISIBLE);
                     return;
                 }
 
@@ -144,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
+                                buttonLogin.setVisibility(View.VISIBLE);
                                 if (task.isSuccessful()) {
                                     String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
                                     DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("accounts").child(userID);
@@ -188,15 +210,6 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
-            }
-        });
-
-        buttonLoginSMS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, LoginSMSActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
 

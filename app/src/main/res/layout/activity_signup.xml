@@ -45,7 +45,7 @@
             <LinearLayout
                 android:id="@+id/customView"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_300sdp"
+                android:layout_height="@dimen/_310sdp"
                 android:layout_gravity="center"
                 android:background="@drawable/border_radius"
                 android:elevation="@dimen/_8sdp"
@@ -81,33 +81,60 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/_10sdp">
 
-                    <EditText
-                        android:id="@+id/usernameEditText"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="@dimen/_230sdp"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_height="@dimen/_45sdp"
                         android:layout_gravity="center"
-                        android:background="@drawable/edittext_border_radius"
-                        android:gravity="center"
-                        android:hint="@string/username"
-                        android:textSize="@dimen/text_size_medium"/>
-
+                        android:textColorHint="#A6A2A2"
+                        android:background="@null"
+                        app:hintEnabled="false"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/usernameEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@drawable/edittext_border_radius"
+                            android:gravity="center"
+                            android:hint="@string/username"
+                            android:drawableLeft="@drawable/ic_user"
+                            android:drawableTint="@color/gray"
+                            android:drawablePadding="-50dp"
+                            android:paddingLeft="@dimen/_15sdp"
+                            android:textSize="@dimen/text_size_medium"/>
+                    </com.google.android.material.textfield.TextInputLayout>
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_16sdp" />
-
-                    <EditText
-                        android:id="@+id/passwordEditText"
+                        android:layout_height="@dimen/_16sdp"/>
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="@dimen/_230sdp"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_height="@dimen/_45sdp"
                         android:layout_gravity="center"
-                        android:background="@drawable/edittext_border_radius"
-                        android:gravity="center"
-                        android:hint="@string/password"
-                        android:textSize="@dimen/text_size_medium"/>
+                        app:passwordToggleEnabled="true"
+                        android:textColorHint="#A6A2A2"
+                        android:background="@null"
+                        app:hintEnabled="false">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/passwordEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:hint="@string/password"
+                            android:textSize="@dimen/text_size_medium"
+                            android:background="@drawable/edittext_border_radius"
+                            android:drawableLeft="@drawable/ic_password"
+                            android:drawableTint="@color/gray"
+                            android:drawablePadding="-50dp"
+                            android:paddingLeft="@dimen/_15sdp"
+                            >
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                     <Space
                         android:layout_width="match_parent"
@@ -121,7 +148,14 @@
                         android:backgroundTint="@color/app_theme"
                         android:elevation="@dimen/_8sdp"
                         android:text="@string/signup"
+                        android:textColor="@color/text_theme"
                         android:textSize="@dimen/text_size_medium"/>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -142,7 +176,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Nếu đã có tài khoản? "
-                android:textColor="@color/white"
+                android:textColor="@color/text_theme"
                 android:textSize="@dimen/text_size_medium"/>
             <TextView
                 android:id="@+id/textViewLogin"
@@ -152,7 +186,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:text="Đăng nhập"
-                android:textColor="@color/white"
+                android:textColor="@color/text_theme"
                 android:textSize="@dimen/text_size_medium"/>
         </LinearLayout>
 

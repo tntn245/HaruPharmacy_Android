@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@drawable/background_border_linearlayout"
     android:weightSum="5">
 
     <LinearLayout
@@ -18,7 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:hint="Search"
-            android:padding="16dp" />
+            android:padding="10dp" />
     </LinearLayout>
 
     <LinearLayout
