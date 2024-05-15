@@ -5,12 +5,16 @@ public class Account {
     private String username;
     private String role;
     private String img;
+    private String sex;
+    private String birth_day;
 
     public Account(String id, String img, String role, String username) {
         this.id = id;
         this.role = role;
         this.username = username;
         this.img = img;
+        this.sex = "";
+        this.birth_day = "";
     }
 
     public String getId() {
@@ -43,5 +47,21 @@ public class Account {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getBirth_day() {
+        return birth_day;
+    }
+
+    public void setBirth_day(String birth_day) {
+        this.birth_day = birth_day;
     }
 }
