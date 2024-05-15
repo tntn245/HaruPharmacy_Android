@@ -46,6 +46,16 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivityForResult(intent, EDIT_PROFILE_REQUEST_CODE);
             }
         });
+
+        ImageView ic_back = findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserProfileActivity.this, UserActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -91,7 +101,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private void displayUserInfo(String username, String img) {
         // Hiển thị thông tin người dùng lên giao diện
         // Ví dụ: gán giá trị cho TextViews
-        txt_username = findViewById(R.id.userName);
+        txt_username = findViewById(R.id.txt_username);
         user_img = findViewById(R.id.userImg);
 
         txt_username.setText(username);
