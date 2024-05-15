@@ -1,11 +1,15 @@
 package com.example.pharmacyandroidapplication.activities.customer;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +26,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class UserProfileActivity extends AppCompatActivity {
+    private static final int EDIT_PROFILE_REQUEST_CODE = 1001;
+    private TextView txt_acc_birth_day, txt_acc_sex, txt_username;
+    ImageView user_img;
     String userID;
     Account user;
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +37,29 @@ public class UserProfileActivity extends AppCompatActivity {
         userID = getIntent().getExtras().getString("userID");
 
         loadUserInformation();
+
+        Button btnEditProfile = findViewById(R.id.btn_edit_acc_info);
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserProfileActivity.this, UserEditProfileActivity.class);
+                startActivityForResult(intent, EDIT_PROFILE_REQUEST_CODE);
+            }
+        });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDIT_PROFILE_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                txt_acc_birth_day = findViewById(R.id.txt_acc_birth_day);
+                txt_acc_sex = findViewById(R.id.txt_acc_sex);
+                String sex = data.getStringExtra("sex");
+                String birthDay = data.getStringExtra("birthDay");
+                txt_acc_sex.setText(sex);
+                txt_acc_birth_day.setText(birthDay);
+            }
+        }
     }
     private void loadUserInformation() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -61,13 +91,13 @@ public class UserProfileActivity extends AppCompatActivity {
     private void displayUserInfo(String username, String img) {
         // Hiển thị thông tin người dùng lên giao diện
         // Ví dụ: gán giá trị cho TextViews
-        TextView userName = findViewById(R.id.userName);
-        ImageView userImg = findViewById(R.id.userImg);
+        txt_username = findViewById(R.id.userName);
+        user_img = findViewById(R.id.userImg);
 
-        userName.setText(username);
+        txt_username.setText(username);
         // Tải và hiển thị ảnh từ URL lên ImageView sử dụng Glide
         Glide.with(this)
                 .load(img)
-                .into(userImg);
+                .into(user_img);
     }
 }

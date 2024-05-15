@@ -41,8 +41,17 @@
                     android:layout_width="@dimen/_130sdp"
                     android:layout_height="@dimen/_100sdp"
                     android:src="@drawable/user_vector"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="@dimen/_10sdp"/>
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thay đổi ảnh đại diện"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_large"
+                    android:padding="@dimen/_10sdp"
+                    android:textColor="@color/app_theme"
+                    android:layout_gravity="center_horizontal"/>
             </LinearLayout>
             <GridLayout
                 android:layout_width="match_parent"
@@ -98,43 +107,24 @@
                         android:textColor="@color/gray"
                         android:textSize="@dimen/text_size_medium"
                         android:layout_weight="1"/>
-                    <RadioGroup
+                    <TextView
+                        android:id="@+id/txt_acc_sex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:text="Unknown"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_size_medium"
+                        android:paddingRight="@dimen/_25sdp"
                         android:layout_weight="1"
-                        android:gravity="right">
-
-                        <RadioButton
-                            android:id="@+id/maleRadioButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nam"
-                            android:textColor="@color/app_theme"
-                            android:textSize="@dimen/text_size_medium"
-                            android:paddingTop="@dimen/_3sdp"
-                            android:paddingRight="@dimen/_25sdp"
-                            android:textStyle="bold"/>
-
-                        <RadioButton
-                            android:id="@+id/femaleRadioButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nữ"
-                            android:textColor="@color/app_theme"
-                            android:textSize="@dimen/text_size_medium"
-                            android:paddingTop="@dimen/_3sdp"
-                            android:paddingRight="@dimen/_25sdp"
-                            android:textStyle="bold"/>
-                    </RadioGroup>
-
+                        android:gravity="right"/>
                 </LinearLayout>
                 <!-- Row 2 -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
                     android:gravity="center_vertical"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:padding="@dimen/_5sdp"
                     android:weightSum="2">
 
@@ -147,21 +137,21 @@
                         android:textColor="@color/gray"
                         android:textSize="@dimen/text_size_medium"
                         android:layout_weight="1"/>
-<!--                    Dùng DatePickerDialog để xử lý chọn ngày bên java-->
-                    <EditText
-
-                        android:layout_width="@dimen/_285sdp"
-                        android:layout_height="@dimen/_45sdp"
-                        android:hint="Chọn ngày sinh"
-                        android:focusable="false"
-                        android:clickable="true"
-                        android:layout_gravity="center"
-                        android:background="@drawable/input_border_radius"
-                        android:padding="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_20sdp"/>
+                    <TextView
+                        android:id="@+id/txt_acc_birth_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:text="__/__/____"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_size_medium"
+                        android:paddingRight="@dimen/_25sdp"
+                        android:layout_weight="1"
+                        android:gravity="right"/>
                 </LinearLayout>
             </GridLayout>
             <Button
+                android:id="@+id/btn_edit_acc_info"
                 android:layout_width="@dimen/_170sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
