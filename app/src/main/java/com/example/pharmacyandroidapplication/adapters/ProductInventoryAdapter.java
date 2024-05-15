@@ -37,9 +37,9 @@ public class ProductInventoryAdapter extends ArrayAdapter<Product> {
         ImageView product_img = listitemView.findViewById(R.id.product_img);
 
         assert product != null;
-        product_name.setText(product.getProductName());
+        product_name.setText(product.getName());
         product_inventory_quantity.setText(Integer.toString(product.getInventory_quantity()));
-        product_img.setImageResource(product.getImg());
+//        product_img.setImageResource(product.getImg()); error_due_to_refactor_Product
         return listitemView;
     }
 }

@@ -32,7 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
 public class CustomerHomepageActivity extends AppCompatActivity {
-    private void openDrawer(){
+    private void openDrawer() {
         ImageView openDrawerButton = findViewById(R.id.icon_drawer_menu);
         openDrawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +43,8 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         });
 
     }
-    private void closeDrawer(){
+
+    private void closeDrawer() {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -64,7 +65,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
                     startActivity(intent);
                     return true;
-                }  else if (id == R.id.nav_cart_drawer) {
+                } else if (id == R.id.nav_cart_drawer) {
                     Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
                     startActivity(intent);
                     return true;
@@ -87,6 +88,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
             }
         });
     }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_homepage);
@@ -94,9 +96,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         openDrawer();
         closeDrawer();
 
-        ScrollView scrollView= findViewById(R.id.scroll_view);
-        CardView searchBar= findViewById(R.id.search_bar);
-        ImageView searchIcon= findViewById(R.id.ic_search);
+        ScrollView scrollView = findViewById(R.id.scroll_view);
+        CardView searchBar = findViewById(R.id.search_bar);
+        ImageView searchIcon = findViewById(R.id.ic_search);
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -143,10 +145,8 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         });
 
 
-
-
         // Gridview Category
-        GridView categoryGV= findViewById(R.id.rcv_category);
+        GridView categoryGV = findViewById(R.id.rcv_category);
         ArrayList<Category> CategoryArrayList = new ArrayList<Category>();
 
         CategoryArrayList.add(new Category("Cải thiện giấc ngủ"));
@@ -166,12 +166,12 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
 
         // Gridview Product
-        GridView productGV= findViewById(R.id.rcv_shopping);
+        GridView productGV = findViewById(R.id.rcv_shopping);
         ArrayList<Product> ProductArrayList = new ArrayList<Product>();
 
-        ProductArrayList.add(new Product("Chromium", 100000, R.drawable.pro1));
-        ProductArrayList.add(new Product("Omega3",200000, R.drawable.pro2));
-        ProductArrayList.add(new Product("Thyroid-Pro Formula",150000, R.drawable.pro3));
+        ProductArrayList.add(new Product("", "", "", "Chromium", 0, 100000));
+        ProductArrayList.add(new Product("", "", "", "Omega3", 0, 200000));
+        ProductArrayList.add(new Product("", "", "", "Thyroid-Pro Formula", 0, 150000));
 
         HomeProductAdapter productAdapter = new HomeProductAdapter(this, ProductArrayList);
         productGV.setAdapter(productAdapter);
@@ -186,9 +186,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
                 // Truyền giá trị của item qua layout tiếp theo để hiển thị
                 Intent intent = new Intent(CustomerHomepageActivity.this, ProductDetailsActivity.class);
-                intent.putExtra("product_img", productDetails.getProductImg());
-                intent.putExtra("product_name", productDetails.getProductName());
-                intent.putExtra("product_price", productDetails.getProductPrice());
+//                intent.putExtra("product_img", productDetails.getProductImg()); error_due_to_refactor_Product
+//                intent.putExtra("product_name", productDetails.getProductName());
+//                intent.putExtra("product_price", productDetails.getProductPrice());
                 startActivity(intent);
             }
         });

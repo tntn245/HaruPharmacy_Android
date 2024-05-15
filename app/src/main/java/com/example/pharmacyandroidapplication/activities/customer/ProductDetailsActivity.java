@@ -60,7 +60,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_details);
 
         // Nhận giá trị của item từ Intent
-        int product_img = getIntent().getIntExtra("product_img", 0);
+        int product_img = getIntent().getIntExtra("product_img", 0);// error_due_to_refactor_Product
         String product_name = getIntent().getStringExtra("product_name");
         int product_price = getIntent().getIntExtra("product_price", 0);
 
