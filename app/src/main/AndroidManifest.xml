@@ -47,6 +47,8 @@
         <activity
             android:name=".activities.admin.EditOrderActivity"
             android:exported="false" />
+        <activity android:name=".activities.customer.UserEditProfileActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.admin.EditCategoryActivity"
             android:exported="false" />

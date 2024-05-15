@@ -6,10 +6,53 @@ public class Product {
     private int img;
     private int inventory_quantity;
     private int price;
-    private  String uses;
-    private  String ingredient;
+    private String uses;
+    private String ingredient;
     private String unit;
-    private String category;
+
+    private boolean valid_flag;
+
+    public Product(String id, String name, int img, int price, String uses, String ingredient, String unit, boolean valid_flag) {
+        this.id = id;
+        this.name = name;
+        this.img = img;
+        this.price = price;
+        this.uses = uses;
+        this.unit = unit;
+        this.ingredient = ingredient;
+        this.valid_flag = valid_flag;
+    }
+
+    public Product(String name, int price, int img) {
+        this.id = "";
+        this.img = img;
+        this.inventory_quantity = 1;
+        this.name = name;
+        this.price = price;
+    }
+
+    public Product(String id, String name, int img, int inventory_quantity, int price) {
+        this.id = id;
+        this.name = name;
+        this.img = img;
+        this.inventory_quantity = inventory_quantity;
+        this.price = price;
+    }
+
+    public Product(String name, int price, int inventory_quantity, int img) {
+        this.name = name;
+        this.img = img;
+        this.inventory_quantity = inventory_quantity;
+        this.price = price;
+    }
+
+    public boolean isValid_flag() {
+        return valid_flag;
+    }
+
+    public void setValid_flag(boolean valid_flag) {
+        this.valid_flag = valid_flag;
+    }
 
     public String getUses() {
         return uses;
@@ -25,44 +68,6 @@ public class Product {
 
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public Product(String name, int price, int img){
-        this.id="";
-        this.img = img;
-        this.inventory_quantity = 1;
-        this.name = name;
-        this.price = price;
-    }
-
-    public Product(String id, String name, int img, int inventory_quantity, int price) {
-        this.id = id;
-        this.name = name;
-        this.img = img;
-        this.inventory_quantity = inventory_quantity;
-        this.price = price;
-    }
-    public Product(String name, int price, int inventory_quantity, int img) {
-        this.name = name;
-        this.img = img;
-        this.inventory_quantity = inventory_quantity;
-        this.price = price;
     }
 
     public int getInventory_quantity() {
