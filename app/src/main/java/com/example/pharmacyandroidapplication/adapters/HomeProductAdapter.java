@@ -39,9 +39,9 @@ public class HomeProductAdapter extends ArrayAdapter<Product> {
         ImageView img_product = listitemView.findViewById(R.id.img_product);
 
         assert product != null;
-        name_product.setText(product.getProductName());
-        price_product.setText(Integer.toString(product.getProductPrice()));
-        img_product.setImageResource(product.getProductImg());
+        name_product.setText(product.getName());
+        price_product.setText(Integer.toString(product.getPrice()));
+//        img_product.setImageResource(product.getImg());
 
         return listitemView;
     }

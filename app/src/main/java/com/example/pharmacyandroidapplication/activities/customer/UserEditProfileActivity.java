@@ -2,11 +2,13 @@ package com.example.pharmacyandroidapplication.activities.customer;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -29,19 +31,34 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class UserEditProfileActivity extends AppCompatActivity {
-    private EditText edt_birth_day;
-    RadioGroup radioGroup;
+    private EditText edt_txt_birth_day_account,edt_txt_username_account ;
+    private RadioGroup edt_radioGroup_sex_account;
+
     String sexOption;
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        edt_birth_day = findViewById(R.id.edtTxt_edit_acc_birth_day);
-        radioGroup = findViewById(R.id.radioGroup);
+        edt_txt_birth_day_account = findViewById(R.id.edt_txt_birth_day_account);
+        edt_radioGroup_sex_account = findViewById(R.id.edt_radioGroup_sex_account);
+        Button saveBtn = findViewById(R.id.btn_saved_edit_acc_info);
+        ImageView ic_back = findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserEditProfileActivity.this, UserProfileActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        edt_radioGroup_sex_account.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // Lấy thông tin từ RadioButton đã chọn
@@ -53,26 +70,22 @@ public class UserEditProfileActivity extends AppCompatActivity {
             }
         });
 
-        Button saveBtn = findViewById(R.id.btn_saved_edit_acc_info);
+        edt_txt_birth_day_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(v);
+            }
+        });
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveProfile();
             }
         });
-      
-        ImageView ic_back = findViewById(R.id.ic_back);
-        ic_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserEditProfileActivity.this, UserProfileActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
     }
+
     public void saveProfile(){
-        String birth_day = edt_birth_day.getText().toString();
+        String birth_day = edt_txt_birth_day_account.getText().toString();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) {
             String userID = currentUser.getUid();
@@ -119,6 +132,25 @@ public class UserEditProfileActivity extends AppCompatActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
+    public void showDatePickerDialog(View v) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // Khi người dùng chọn ngày, cập nhật TextView với ngày đã chọn
+                Calendar selectedCalendar = Calendar.getInstance();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                selectedCalendar.set(year, month, dayOfMonth);
+                String selectedDate = dateFormat.format(selectedCalendar.getTime());
+                edt_txt_birth_day_account.setText(selectedDate);
+            }
+        }, year, month, dayOfMonth);
+
+        datePickerDialog.show();
+    }
 }
 
