@@ -1,5 +1,7 @@
 package com.example.pharmacyandroidapplication.models;
 
+import java.util.Map;
+
 public class Product {
     private String id;
     private String id_category;
@@ -12,7 +14,7 @@ public class Product {
     private String ingredient;
     private boolean flag_valid;
     private boolean prescription;
-
+    private Map<String, Object> unitarrr;
     public Product() {
     }
 
@@ -115,6 +117,21 @@ public class Product {
         this.prescription = prescription;
     }
 
+    public Product(String id, String id_category, String img, String name, int price, int inventory_quantity, String unit, String uses, String ingredient, boolean flag_valid, boolean prescription, Map<String, Object> unitarrr) {
+        this.id = id;
+        this.id_category = id_category;
+        this.img = img;
+        this.name = name;
+        this.price = price;
+        this.inventory_quantity = inventory_quantity;
+        this.unit = unit;
+        this.uses = uses;
+        this.ingredient = ingredient;
+        this.flag_valid = flag_valid;
+        this.prescription = prescription;
+        this.unitarrr = unitarrr;
+    }
+
     public String getId() {
         return id;
     }
@@ -201,5 +218,13 @@ public class Product {
 
     public void setPrescription(boolean prescription) {
         this.prescription = prescription;
+    }
+
+    public Map<String, Object> getUnitarrr() {
+        return unitarrr;
+    }
+
+    public void setUnitarrr(Map<String, Object> unitarrr) {
+        this.unitarrr = unitarrr;
     }
 }

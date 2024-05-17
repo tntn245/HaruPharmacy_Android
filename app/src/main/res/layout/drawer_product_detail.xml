@@ -135,37 +135,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/option1RadioButton"
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:background="@drawable/custom_radio_button"
-                android:button="@null"
-                android:checked="false"
-                android:drawablePadding="16dp"
-                android:fontFamily="sans-serif-black"
-                android:gravity="center"
 
-                android:padding="@dimen/_2sdp"
-                android:text="Hộp"
-                android:textSize="@dimen/text_size_medium"/>
-
-            <RadioButton
-                android:id="@+id/option2RadioButton"
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:background="@drawable/custom_radio_button"
-                android:button="@null"
-                android:drawablePadding="16dp"
-                android:fontFamily="sans-serif-black"
-                android:gravity="center"
-
-                android:padding="@dimen/_2sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Lọ"
-                android:textSize="@dimen/text_size_medium" />
         </RadioGroup>
     </LinearLayout>
 

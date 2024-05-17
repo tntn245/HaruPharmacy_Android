@@ -132,7 +132,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 // Lấy giá trị của item được click
                 Product productDetails = ProductArrayList.get(position);
                 Toast.makeText(getApplicationContext(), "Item clicked at position: ", Toast.LENGTH_SHORT).show();
-
                 // Truyền giá trị của item qua layout tiếp theo để hiển thị
                 Intent intent = new Intent(CustomerHomepageActivity.this, ProductDetailsActivity.class);
                intent.putExtra("product_id", productDetails.getId());
