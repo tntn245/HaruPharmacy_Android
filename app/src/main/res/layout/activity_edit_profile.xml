@@ -52,12 +52,14 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/edt_img_account"
                     android:layout_width="@dimen/_130sdp"
                     android:layout_height="@dimen/_100sdp"
                     android:src="@drawable/user_vector"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="@dimen/_10sdp"/>
                 <TextView
+                    android:id="@+id/edt_txt_change_img_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Thay đổi ảnh đại diện"
@@ -92,6 +94,7 @@
                         android:textSize="@dimen/_13ssp" />
 
                     <EditText
+                        android:id="@+id/edt_txt_username_account"
                         android:layout_width="@dimen/_285sdp"
                         android:layout_height="@dimen/_45sdp"
                         android:layout_gravity="center"
@@ -118,7 +121,7 @@
                         android:textSize="@dimen/text_size_medium"
                         android:layout_weight="1"/>
                     <RadioGroup
-                        android:id="@+id/radioGroup"
+                        android:id="@+id/edt_radioGroup_sex_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -169,7 +172,7 @@
                         android:layout_weight="1"/>
                     <!--                    Dùng DatePickerDialog để xử lý chọn ngày bên java-->
                     <EditText
-                        android:id="@+id/edtTxt_edit_acc_birth_day"
+                        android:id="@+id/edt_txt_birth_day_account"
                         android:layout_width="@dimen/_285sdp"
                         android:layout_height="@dimen/_45sdp"
                         android:hint="Chọn ngày sinh"

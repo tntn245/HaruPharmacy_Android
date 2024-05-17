@@ -41,7 +41,7 @@ public class OrderDetailsAdapter extends ArrayAdapter<Product> {
         TextView product_quantity = listitemView.findViewById(R.id.product_quantity);
 
         assert product != null;
-        product_img.setImageResource(product.getImg());
+//        product_img.setImageResource(product.getImg()); error_due_to
         product_name.setText(product.getName());
         product_price.setText(Integer.toString(product.getPrice()));
         product_quantity.setText(Integer.toString(product.getInventory_quantity()));

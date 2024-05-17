@@ -224,8 +224,7 @@
                         android:id="@+id/user_profile"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40sdp"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/_5sdp">
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="@dimen/_35sdp"
@@ -247,8 +246,7 @@
                         android:id="@+id/user_addresses"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40sdp"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/_5sdp">
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="@dimen/_35sdp"

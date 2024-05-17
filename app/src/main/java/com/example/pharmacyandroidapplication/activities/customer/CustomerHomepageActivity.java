@@ -44,6 +44,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerHomepageActivity extends AppCompatActivity {
+
     GridView categoryGV;
     GridView productGV;
     ArrayList<Product> ProductArrayList;
@@ -68,7 +69,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         openDrawer();
         closeDrawer();
         loadDataFromFirebase();
-
 
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
@@ -117,6 +117,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
 
         // Gridview Category
+
+        GridView categoryGV = findViewById(R.id.rcv_category);
+
         ArrayList<Category> CategoryArrayList = new ArrayList<Category>();
 
         CategoryArrayList.add(new Category("Cải thiện giấc ngủ"));
@@ -133,7 +136,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Button clicked at position: " + position, Toast.LENGTH_SHORT).show();
             }
         });
-
         // Click Product
         productGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -144,9 +146,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
                 // Truyền giá trị của item qua layout tiếp theo để hiển thị
                 Intent intent = new Intent(CustomerHomepageActivity.this, ProductDetailsActivity.class);
-                intent.putExtra("product_img", productDetails.getProductImg());
-                intent.putExtra("product_name", productDetails.getProductName());
-                intent.putExtra("product_price", productDetails.getProductPrice());
+               intent.putExtra("product_id", productDetails.getId());
                 startActivity(intent);
             }
         });
@@ -197,11 +197,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     // Lấy dữ liệu từ snapshot và tạo đối tượng Product
                     String productName = snapshot.child("name").getValue(String.class);
                     int productPrice = snapshot.child("price").getValue(Integer.class);
-                    int productImg = R.drawable.pro1;
-//                    int productImg = snapshot.child("image").getValue(Integer.class);
-
-                    Product product = new Product(productName, productPrice, productImg);
-
+                    String productImg = snapshot.child("img").getValue(String.class);
+                    String id = snapshot.child("id").getValue(String.class);
+                    Product product = new Product(id,"",productImg, productName,0,productPrice);
                     // Sau đó, thêm sản phẩm vào danh sách productList
                     ProductArrayList.add(product);
                 }
