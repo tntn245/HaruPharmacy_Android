@@ -46,7 +46,7 @@ public class OrderDetailsManagementActivity extends AppCompatActivity {
         GridView ProductGV= findViewById(R.id.list_products);
         ArrayList<Product> ProductArrayList = new ArrayList<Product>();
 
-        ProductArrayList.add(new Product("Omega3",280000, R.drawable.pro2));
+        ProductArrayList.add(new Product("", "" , "", "Omega3",280000, R.drawable.pro2));
 
         OrderDetailsAdapter productAdapter = new OrderDetailsAdapter(this, ProductArrayList);
         ProductGV.setAdapter(productAdapter);

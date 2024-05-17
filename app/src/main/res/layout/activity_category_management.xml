@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/product_management"
+                android:text="@string/category_management"
                 android:textAllCaps="true"
                 android:textSize="@dimen/text_size_large"
                 android:textColor="@color/text_theme"

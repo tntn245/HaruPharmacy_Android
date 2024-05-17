@@ -28,75 +28,37 @@ import com.example.pharmacyandroidapplication.models.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class CustomerHomepageActivity extends AppCompatActivity {
-    private void openDrawer(){
-        ImageView openDrawerButton = findViewById(R.id.icon_drawer_menu);
-        openDrawerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-                drawerLayout.openDrawer(GravityCompat.START); // Mở Drawer từ trái sang
-            }
-        });
 
-    }
-    private void closeDrawer(){
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // Xử lý các sự kiện khi người dùng chọn các mục trong Drawer Navigation
-                int id = item.getItemId();
+    GridView categoryGV;
+    GridView productGV;
+    ArrayList<Product> ProductArrayList;
+    String userID;
 
-                if (id == R.id.nav_home_drawer) {
-                    Intent intent = new Intent(CustomerHomepageActivity.this, CustomerHomepageActivity.class);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                } else if (id == R.id.nav_support_drawer) {
-                    Intent intent = new Intent(CustomerHomepageActivity.this, ChatActivity.class);
-                    startActivity(intent);
-                    return true;
-                } else if (id == R.id.nav_shopping_drawer) {
-                    Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
-                    startActivity(intent);
-                    return true;
-                }  else if (id == R.id.nav_cart_drawer) {
-                    Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
-                    startActivity(intent);
-                    return true;
-                } else if (id == R.id.nav_info_drawer) {
-                    Intent intent = new Intent(CustomerHomepageActivity.this, UserActivity.class);
-                    startActivity(intent);
-                    return true;
-                } else if (id == R.id.nav_logout_drawer) {
-                    FirebaseAuth.getInstance().signOut();
-                    Intent intent = new Intent(CustomerHomepageActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                }
-
-                // Sau khi xử lý xong, đóng Drawer Navigation
-                DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-                drawerLayout.closeDrawer(GravityCompat.START); // Đóng Drawer từ trái sang
-                return true;
-            }
-        });
-    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_homepage);
 
+        userID = getIntent().getExtras().getString("userID");
+
+        ScrollView scrollView = findViewById(R.id.scroll_view);
+        CardView searchBar = findViewById(R.id.search_bar);
+        ImageView searchIcon = findViewById(R.id.ic_search);
+        categoryGV = findViewById(R.id.rcv_category);
+        productGV = findViewById(R.id.rcv_shopping);
+
         openDrawer();
         closeDrawer();
+        loadDataFromFirebase();
 
-        ScrollView scrollView= findViewById(R.id.scroll_view);
-        CardView searchBar= findViewById(R.id.search_bar);
-        ImageView searchIcon= findViewById(R.id.ic_search);
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -143,10 +105,10 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         });
 
 
-
-
         // Gridview Category
-        GridView categoryGV= findViewById(R.id.rcv_category);
+
+        GridView categoryGV = findViewById(R.id.rcv_category);
+
         ArrayList<Category> CategoryArrayList = new ArrayList<Category>();
 
         CategoryArrayList.add(new Category("Cải thiện giấc ngủ"));
@@ -163,19 +125,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Button clicked at position: " + position, Toast.LENGTH_SHORT).show();
             }
         });
-
-
-        // Gridview Product
-        GridView productGV= findViewById(R.id.rcv_shopping);
-        ArrayList<Product> ProductArrayList = new ArrayList<Product>();
-
-        ProductArrayList.add(new Product("Chromium", 100000, R.drawable.pro1));
-        ProductArrayList.add(new Product("Omega3",200000, R.drawable.pro2));
-        ProductArrayList.add(new Product("Thyroid-Pro Formula",150000, R.drawable.pro3));
-
-        HomeProductAdapter productAdapter = new HomeProductAdapter(this, ProductArrayList);
-        productGV.setAdapter(productAdapter);
-
         // Click Product
         productGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -186,9 +135,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
                 // Truyền giá trị của item qua layout tiếp theo để hiển thị
                 Intent intent = new Intent(CustomerHomepageActivity.this, ProductDetailsActivity.class);
-                intent.putExtra("product_img", productDetails.getProductImg());
-                intent.putExtra("product_name", productDetails.getProductName());
-                intent.putExtra("product_price", productDetails.getProductPrice());
+               intent.putExtra("product_id", productDetails.getId());
                 startActivity(intent);
             }
         });
@@ -217,8 +164,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     return true;
                 } else if (itemId == R.id.profile) {
                     // Xử lý khi người dùng chọn trang tài khoản
-                    Intent CartIntent = new Intent(CustomerHomepageActivity.this, UserActivity.class);
-                    startActivity(CartIntent);
+                    Intent intent = new Intent(CustomerHomepageActivity.this, UserActivity.class);
+                    intent.putExtra("userID", userID);
+                    startActivity(intent);
                     return true;
                 }
                 return false;
@@ -226,5 +174,90 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         });
 
     }
-}
 
+    private void loadDataFromFirebase() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference productsRef = database.getReference("product");
+        productsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ProductArrayList = new ArrayList<Product>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Lấy dữ liệu từ snapshot và tạo đối tượng Product
+                    String productName = snapshot.child("name").getValue(String.class);
+                    int productPrice = snapshot.child("price").getValue(Integer.class);
+                    String productImg = snapshot.child("img").getValue(String.class);
+                    String id = snapshot.child("id").getValue(String.class);
+                    Product product = new Product(id,"",productImg, productName,0,productPrice);
+                    // Sau đó, thêm sản phẩm vào danh sách productList
+                    ProductArrayList.add(product);
+                }
+
+                // Sau khi lấy được danh sách sản phẩm, tạo adapter và gán cho GridView
+                HomeProductAdapter productAdapter = new HomeProductAdapter(CustomerHomepageActivity.this, ProductArrayList);
+                productGV.setAdapter(productAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void openDrawer() {
+        ImageView openDrawerButton = findViewById(R.id.icon_drawer_menu);
+        openDrawerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+                drawerLayout.openDrawer(GravityCompat.START); // Mở Drawer từ trái sang
+            }
+        });
+
+    }
+
+    private void closeDrawer() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                // Xử lý các sự kiện khi người dùng chọn các mục trong Drawer Navigation
+                int id = item.getItemId();
+
+                if (id == R.id.nav_home_drawer) {
+                    Intent intent = new Intent(CustomerHomepageActivity.this, CustomerHomepageActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (id == R.id.nav_support_drawer) {
+                    Intent intent = new Intent(CustomerHomepageActivity.this, ChatActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.nav_shopping_drawer) {
+                    Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.nav_cart_drawer) {
+                    Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.nav_info_drawer) {
+                    Intent intent = new Intent(CustomerHomepageActivity.this, UserActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.nav_logout_drawer) {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(CustomerHomepageActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+
+                // Sau khi xử lý xong, đóng Drawer Navigation
+                DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+                drawerLayout.closeDrawer(GravityCompat.START); // Đóng Drawer từ trái sang
+                return true;
+            }
+        });
+    }
+}

@@ -22,6 +22,7 @@
             android:weightSum="10">
 
             <ImageButton
+                android:id="@+id/ic_back"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -150,6 +151,7 @@
                     android:layout_margin="@dimen/_1sdp">
                 </TextView>
                 <TextView
+                    android:id="@+id/danhmuc"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Thuốc không kê đơn"
@@ -173,6 +175,7 @@
                     android:layout_margin="@dimen/_1sdp">
                 </TextView>
                 <TextView
+                    android:id="@+id/ingredient"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Cafein 65 mg, Paracetamol 500 mg."
@@ -204,6 +207,7 @@
                     android:textStyle="italic|normal" />
 
                 <TextView
+                    android:id="@+id/info"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Panadol Extra (Panadol đỏ) là thuốc giảm đau, hạ sốt có thành phần chính là paracetamol (1) và caffeine.\nThuốc được sử dụng để điều trị các triệu chứng đau từ nhẹ đến vừa.

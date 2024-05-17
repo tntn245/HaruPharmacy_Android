@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ProductAdapter {
     public class ProductViewHolder extends RecyclerView.ViewHolder{
 
-
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
         }

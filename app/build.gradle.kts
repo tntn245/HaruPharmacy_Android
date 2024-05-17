@@ -54,7 +54,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database:20.3.1")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.android.gms:play-services-auth:21.1.1")
-
+    implementation ("com.firebaseui:firebase-ui-database:8.0.0")
     // Scalable Size Unit (support for different screen sizes)
     implementation("com.intuit.sdp:sdp-android:1.0.6")
     implementation("com.intuit.ssp:ssp-android:1.0.6")
@@ -63,8 +63,11 @@ dependencies {
     implementation("com.makeramen:roundedimageview:2.3.0")
 
     //FIREBASE MESSAGE
-    implementation ("com.google.firebase:firebase-messaging:23.4.1")
+    implementation("com.google.firebase:firebase-messaging:23.4.1")
 
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+    implementation("com.google.firebase:firebase-storage:21.0.0")
 }

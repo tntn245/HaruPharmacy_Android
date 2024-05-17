@@ -74,21 +74,25 @@ public class SignUpActivity extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
-                buttonReg.setVisibility(View.GONE);
-
                 String email, password;
                 email = String.valueOf(editTextName.getText());
                 password = String.valueOf(editTextPassword.getText());
 
                 if (TextUtils.isEmpty(email) ){
                     Toast.makeText(SignUpActivity.this,"Enter email", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    buttonReg.setVisibility(View.VISIBLE);
                     return;
                 }
                 if (TextUtils.isEmpty(password) ) {
                     Toast.makeText(SignUpActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    buttonReg.setVisibility(View.VISIBLE);
                     return;
                 }
+
+                progressBar.setVisibility(View.VISIBLE);
+                buttonReg.setVisibility(View.GONE);
 
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -101,7 +105,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     database = FirebaseDatabase.getInstance();
                                     reference = database.getReference("accounts");
 
-                                    Account acc = new Account(userID);
+                                    Account acc = new Account(userID, "", "customer", email, "", "");
                                     reference.child(userID).setValue(acc);
 
                                     Toast.makeText(SignUpActivity.this, "Sign up successfully.",
