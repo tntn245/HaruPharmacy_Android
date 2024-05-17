@@ -228,11 +228,4 @@ public class Product {
         this.unitarrr = unitarrr;
     }
 
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
 }
