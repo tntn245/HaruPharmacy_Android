@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.models.Product;
+import com.example.pharmacyandroidapplication.models.Unit;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddProductActivity extends AppCompatActivity {
     private TextView add_txt_product_id;
@@ -97,7 +100,11 @@ public class AddProductActivity extends AppCompatActivity {
         quantity = 0;
         flag_valid = (add_spn_product_status.getSelectedItem().toString() == "Đang kinh doanh");
 
-        Product newProduct = new Product(id, id_cate, img, name, quantity, price, unit, uses, ingredient, flag_valid);
+        // Tạo các đơn vị (units) cho sản phẩm
+        Map<String, Object> units = new HashMap<>();
+        units.put("Unit 1", new Unit("Unit 1", 1000));
+        units.put("Unit 2", new Unit("Unit 2", 2000));
+        Product newProduct = new Product(id, id_cate, img, name, quantity, price, unit, uses, ingredient, flag_valid, false, units);
         newProductRef.setValue(newProduct);
     }
 
