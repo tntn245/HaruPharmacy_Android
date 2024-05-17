@@ -96,6 +96,7 @@ public class AddProductActivity extends AppCompatActivity {
         price = Integer.valueOf(add_txt_product_price.getText().toString());
         quantity = 0;
         flag_valid = (add_spn_product_status.getSelectedItem().toString() == "Đang kinh doanh");
+
         Product newProduct = new Product(id, id_cate, img, name, quantity, price, unit, uses, ingredient, flag_valid);
         newProductRef.setValue(newProduct);
     }
