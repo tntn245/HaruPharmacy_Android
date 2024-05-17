@@ -133,4 +133,12 @@ public class Product {
     public void setProductPrice(int price) {
         this.price = price;
     }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 }
