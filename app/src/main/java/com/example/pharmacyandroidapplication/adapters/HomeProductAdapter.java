@@ -5,20 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.models.Product;
 
 import java.util.ArrayList;
 
 
-public class HomeProductAdapter extends ArrayAdapter<Product> {
+public class HomeProductAdapter extends  ArrayAdapter<Product> {
     public HomeProductAdapter(@NonNull Context context, ArrayList<Product> productArrayList) {
         super(context, 0, productArrayList);
     }
@@ -41,8 +41,9 @@ public class HomeProductAdapter extends ArrayAdapter<Product> {
         assert product != null;
         name_product.setText(product.getName());
         price_product.setText(Integer.toString(product.getPrice()));
-//        img_product.setImageResource(product.getImg());
-
+        Glide.with(this.getContext().getApplicationContext())
+                .load(product.getImg())
+                .into(img_product);
         return listitemView;
     }
 }

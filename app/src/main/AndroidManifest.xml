@@ -106,7 +106,8 @@
             android:exported="false" />
         <activity
             android:name=".activities.customer.CustomerHomepageActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.ChatActivity"
             android:exported="false" /> <!-- <activity -->
