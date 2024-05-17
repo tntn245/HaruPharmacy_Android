@@ -1046,6 +1046,7 @@
         <item>Huyện Phú Tân</item>
         <item>Huyện Ngọc Hiển</item>
     </string-array>
+
     <string-array name="array_default_commune">
         <item>Chọn phường xã</item>
     </string-array>
@@ -3115,4 +3116,25 @@
 
 
     <string-array name="array_huyenngochien_commune"><item>Chọn phường xã</item><item>Xã Tam Giang Tây</item><item>Xã Tân Ân Tây</item><item>Xã Viên An Đông</item><item>Xã Viên An</item><item>Thị trấn Rạch Gốc</item><item>Xã Tân Ân</item><item>Xã Đất Mũi</item></string-array>
+=======
+
+
+    <string-array name="months">
+        <item>Tháng 1</item>
+        <item>Tháng 2</item>
+        <item>Tháng 3</item>
+        <item>Tháng 4</item>
+        <item>Tháng 5</item>
+        <item>Tháng 6</item>
+        <item>Tháng 7</item>
+        <item>Tháng 8</item>
+        <item>Tháng 9</item>
+        <item>Tháng 10</item>
+        <item>Tháng 11</item>
+        <item>Tháng 12</item>
+    </string-array>
+
+    <string-array name="years">
+        <!-- Here you need to dynamically generate years from 1990 to current year -->
+    </string-array>
 </resources>

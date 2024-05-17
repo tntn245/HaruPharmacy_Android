@@ -50,18 +50,43 @@
             android:layout_weight="1" />
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="@dimen/_10sdp">
 
+        <!-- Spinner for Month -->
+        <Spinner
+            android:id="@+id/monthSpinner"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_weight="1"
+            android:entries="@array/months"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:background="@drawable/spinner_background"/>
+        <!-- Spinner for Year -->
+        <Spinner
+            android:id="@+id/yearSpinner"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_weight="1"
+            android:entries="@array/years"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:background="@drawable/spinner_background"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="8"
-        android:gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
         android:orientation="horizontal"
         android:padding="@dimen/_10sdp">
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="500dp" />
     </LinearLayout>
 
 </LinearLayout>

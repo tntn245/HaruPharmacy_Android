@@ -139,23 +139,22 @@
                 android:id="@+id/option1RadioButton"
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
                 android:background="@drawable/custom_radio_button"
                 android:button="@null"
-                android:checked="false"
-                android:drawablePadding="16dp"
+                android:checked="true"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
 
                 android:padding="@dimen/_2sdp"
                 android:text="Hộp"
-                android:textSize="@dimen/text_size_medium"/>
-
+                android:textSize="@dimen/text_size_medium" />
+            <TextView
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="match_parent"/>
             <RadioButton
                 android:id="@+id/option2RadioButton"
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_marginStart="@dimen/_10sdp"
                 android:background="@drawable/custom_radio_button"
                 android:button="@null"
                 android:drawablePadding="16dp"
@@ -163,7 +162,6 @@
                 android:gravity="center"
 
                 android:padding="@dimen/_2sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
                 android:text="Lọ"
                 android:textSize="@dimen/text_size_medium" />
         </RadioGroup>
@@ -188,13 +186,14 @@
             android:id="@+id/btnDecreaseQuantity"
             android:layout_width="0dp"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_weight="1"
             android:backgroundTint="@color/dark_blue"
             android:gravity="center"
             android:padding="0dp"
             android:text="-"/>
-
+        <TextView
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="match_parent"/>
         <TextView
             android:id="@+id/item_cart_quanlity"
             android:layout_width="wrap_content"
@@ -202,13 +201,14 @@
             android:layout_weight="2"
             android:background="@drawable/border_radius"
             android:gravity="center"
-            android:text="1"/>
+        <TextView
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="match_parent"/>
 
         <Button
             android:id="@+id/btnIncreaseQuantity"
             android:layout_width="0dp"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginStart="@dimen/_10sdp"
             android:layout_weight="1"
             android:backgroundTint="@color/dark_blue"
             android:gravity="center"
@@ -299,7 +299,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:layout_weight="1"
-            android:layout_marginRight="@dimen/_10sdp"
             android:backgroundTint="@color/pastel_dark_blue"
             android:elevation="@dimen/_8sdp"
             android:fontFamily="sans-serif-black"
@@ -307,14 +306,15 @@
             android:textColor="@color/app_theme"
             android:textSize="@dimen/text_size_medium"
             />
-
+        <TextView
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="match_parent"/>
         <Button
             android:id="@+id/btn_add_to_cart"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:layout_weight="1"
-            android:layout_marginLeft="@dimen/_10sdp"
             android:backgroundTint="@color/app_theme"
             android:elevation="@dimen/_8sdp"
             android:fontFamily="sans-serif-black"
