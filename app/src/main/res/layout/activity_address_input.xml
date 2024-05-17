@@ -2,24 +2,28 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_theme"
-            android:padding="@dimen/_20sdp"
-            android:gravity="center">
+            android:gravity="center"
+            android:padding="@dimen/_20sdp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thêm địa chỉ mới"
-                android:textSize="@dimen/text_size_large"
                 android:textColor="@color/text_theme"
+                android:textSize="@dimen/text_size_large"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,31 +42,36 @@
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
         </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:orientation="vertical">
-        <EditText
-            android:layout_width="@dimen/_285sdp"
-            android:layout_height="@dimen/_45sdp"
-            android:layout_gravity="center"
-            android:background="@drawable/input_border_radius"
-            android:paddingStart="@dimen/_15sdp"
-            android:hint="Họ tên" />
 
-        <Space
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_16sdp" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="2">
 
-        <EditText
-            android:layout_width="@dimen/_285sdp"
-            android:layout_height="@dimen/_45sdp"
-            android:layout_gravity="center"
-            android:background="@drawable/input_border_radius"
-            android:paddingStart="@dimen/_15sdp"
-            android:hint="Số điện thoại" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/add_address_txt_name"
+                android:layout_width="@dimen/_285sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/input_border_radius"
+                android:hint="Họ tên"
+                android:paddingStart="@dimen/_15sdp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_16sdp" />
+
+            <EditText
+                android:id="@+id/add_address_txt_phone"
+                android:layout_width="@dimen/_285sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/input_border_radius"
+                android:hint="Số điện thoại"
+                android:paddingStart="@dimen/_15sdp" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,42 +90,98 @@
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="2"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tvProvinceSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_25sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:text="Tỉnh / Thành phố *"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
             <Spinner
+                android:id="@+id/add_address_spn_province"
                 android:layout_width="@dimen/_285sdp"
-                android:layout_height="@dimen/_45sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center"
                 android:background="@drawable/input_border_radius"
-                android:paddingStart="@dimen/_15sdp"
-                android:hint="Chọn Tỉnh/Thành phố"/>
+                android:hint="Chọn Tỉnh/Thành phố"
+                android:paddingStart="@dimen/_15sdp" />
 
-            <Space
+            <TextView
+                android:id="@+id/tvDistrictSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_25sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:text="Quận/Huyện *"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/add_address_spn_district"
+                android:layout_width="@dimen/_285sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/input_border_radius"
+                android:hint="Chọn Quận/Huyện"
+                android:paddingStart="@dimen/_15sdp" />
+            <TextView
+                android:id="@+id/tvCommuneSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_25sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:text="Phường/Xã *"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/add_address_spn_commune"
+                android:layout_width="@dimen/_285sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/input_border_radius"
+                android:hint="Chọn Phường/Xã"
+                android:paddingStart="@dimen/_15sdp" />            <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_16sdp" />
 
             <EditText
                 android:layout_width="@dimen/_285sdp"
-                android:layout_height="@dimen/_45sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_gravity="center"
                 android:background="@drawable/input_border_radius"
-                android:paddingStart="@dimen/_15sdp"
-                android:hint="Nhập địa chỉ cụ thể" />
+                android:hint="Nhập địa chỉ cụ thể"
+                android:paddingStart="@dimen/_15sdp" />
         </LinearLayout>
+
         <Space
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_25sdp" />
+            android:layout_height="@dimen/_6sdp" />
+
         <Button
             android:layout_width="@dimen/_170sdp"
             android:layout_height="@dimen/_45sdp"
             android:layout_gravity="center"
+            android:backgroundTint="@color/dark_blue"
             android:elevation="@dimen/_8sdp"
             android:text="Hoàn tất"
-            android:textSize="@dimen/text_size_medium"
-            android:backgroundTint="@color/dark_blue"/>
+            android:textSize="@dimen/text_size_medium" />
     </LinearLayout>
-    <include layout="@layout/bottom_navigation"/>
+
+    <include layout="@layout/bottom_navigation" />
 </androidx.constraintlayout.widget.ConstraintLayout>
