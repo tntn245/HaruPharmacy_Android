@@ -100,11 +100,11 @@
                             android:layout_gravity="center"
                             android:background="@drawable/edittext_border_radius"
                             android:drawableLeft="@drawable/ic_user"
-                            android:drawablePadding="-50dp"
                             android:drawableTint="@color/gray"
                             android:gravity="center"
                             android:hint="@string/username"
-                            android:paddingLeft="@dimen/_15sdp"
+                            android:drawablePadding="10dp"
+                            android:paddingLeft="10dp"
                             android:textSize="@dimen/text_size_medium"
                             android:singleLine="true" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -129,11 +129,9 @@
                             android:background="@drawable/edittext_border_radius"
                             android:drawableStart="@drawable/ic_password"
                             android:drawableTint="@color/gray"
-                            android:drawablePadding="-20dp"
-                            android:paddingLeft="@dimen/_15sdp"
-                            android:singleLine="true"
-                            >
-                        </com.google.android.material.textfield.TextInputEditText>
+                            android:drawablePadding="10dp"
+                            android:paddingLeft="10dp"
+                            android:singleLine="true" />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -148,6 +146,10 @@
                         android:layout_marginBottom="@dimen/_8sdp"/>
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:gravity="center">
                     <Button
                         android:id="@+id/loginButton"
                         android:layout_width="@dimen/_230sdp"
@@ -164,6 +166,7 @@
                         android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"

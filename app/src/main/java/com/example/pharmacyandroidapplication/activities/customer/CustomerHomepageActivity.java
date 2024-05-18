@@ -58,7 +58,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer_homepage);
 
         userID = getIntent().getExtras().getString("userID");
-//        getToken();
+        getToken();
 
         ScrollView scrollView = findViewById(R.id.scroll_view);
         CardView searchBar = findViewById(R.id.search_bar);
@@ -244,7 +244,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_shopping_drawer) {
-                    Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
+                    Intent intent = new Intent(CustomerHomepageActivity.this, ShoppingPageActivity.class);
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_cart_drawer) {
