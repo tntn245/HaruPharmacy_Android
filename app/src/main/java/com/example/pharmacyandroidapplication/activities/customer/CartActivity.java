@@ -99,7 +99,7 @@ public class CartActivity extends AppCompatActivity {
                     Integer price = cartSnapshot.child("price").getValue(Integer.class);
                     Log.i("PRICE"," "+quantity+" "+unit+" "+price);
                     // Tách prd_id từ productId
-                    String[] productIdParts = productId_unit.split("_");
+                    String[] productIdParts = productId_unit.split("@");
                     String prd_id = productIdParts[0];
                     Log.i("PRD_ID",prd_id);
                     DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("product").child(prd_id);
@@ -108,13 +108,12 @@ public class CartActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
                                 product = dataSnapshot.getValue(Product.class);
-                                carts.add(new Cart(userId,prd_id,product.getName(),price,quantity,false,unit,product.getImg()));
+                                carts.add(new Cart(userId,productId_unit,product.getName(),price,quantity,false,unit,product.getImg()));
                                 Log.i("Carrt",carts.toString());
                                 // Cập nhật lại Adapter để hiển thị danh sách giỏ hàng mới
                                 mcartadapter.notifyDataSetChanged();
                             }
                         }
-
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                             // Xử lý khi có lỗi xảy ra
