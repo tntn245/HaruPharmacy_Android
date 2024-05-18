@@ -148,6 +148,10 @@
                         android:layout_marginBottom="@dimen/_8sdp"/>
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:gravity="center">
                     <Button
                         android:id="@+id/loginButton"
                         android:layout_width="@dimen/_230sdp"
@@ -164,6 +168,7 @@
                         android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"

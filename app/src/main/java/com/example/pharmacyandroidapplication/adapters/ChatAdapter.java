@@ -1,6 +1,7 @@
 package com.example.pharmacyandroidapplication.adapters;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,11 +61,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ReceivedMessageViewHolder) holder).setData(chatMessages.get(position), receiverProfileImage);
         }
     }
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ChatMessage message = chatMessages.get(position);
-        holder.textMessage.setText(message.getMessage());
-        holder.textDateTime.setText(message.getDateTime());
-    }
 
     public int getItemCount() {
         return chatMessages.size();
@@ -76,17 +72,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return VIEW_TYPE_SENT;
         } else {
             return VIEW_TYPE_RECEIVED;
-        }
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textMessage;
-        TextView textDateTime;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textMessage = itemView.findViewById(R.id.textMessage);
-            textDateTime = itemView.findViewById(R.id.textDateTime);
         }
     }
 
@@ -111,7 +96,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         void setData(ChatMessage chatMessage, Bitmap receiverProfileImage) {
             binding.textMessage.setText(chatMessage.message);
             binding.textDateTime.setText(chatMessage.dateTime);
-//            binding.imageProfile.setImageBitmap(receiverProfileImage);
+            binding.imageProfile.setImageBitmap(receiverProfileImage);
         }
     }
 }
