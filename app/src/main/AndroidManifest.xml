@@ -110,7 +110,7 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.ChatActivity"
-            android:exported="false" /> <!-- <activity -->
+            android:windowSoftInputMode="adjustResize" /> <!-- <activity -->
         <!-- android:name=".activities.LoginActivity" -->
         <!-- android:exported="false" /> -->
         <activity

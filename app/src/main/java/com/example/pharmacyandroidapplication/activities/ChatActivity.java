@@ -2,9 +2,7 @@ package com.example.pharmacyandroidapplication.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -26,26 +24,32 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity {
-    private ActivityChatBinding binding;
-    private Account receiverUser;
-    private List<ChatMessage> chatMessages;
-    private ChatAdapter chatAdapter;
-    private PreferenceManager preferenceManager;
-//    private FirebaseFirestore database;
+    ActivityChatBinding binding;
+    Account receiverUser;
+    List<ChatMessage> chatMessages;
+    ChatAdapter chatAdapter;
+//    PreferenceManager preferenceManager;
+//    FirebaseFirestore database;
+    String senderID;
+    String receiverID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        senderID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setListeners();
         loadReceiverDetails();
+        init();
 
 //        RecyclerView chatRV = findViewById(R.id.chatRecyclerView);
 //        ArrayList<ChatMessage> ChatMessageArrayList = new ArrayList<ChatMessage>();
@@ -55,29 +59,47 @@ public class ChatActivity extends AppCompatActivity {
 //        ChatAdapter adapter = new ChatAdapter(ChatMessageArrayList);
 //        chatRV.setAdapter(adapter);
     }
-
-    private void setListeners() {
-        binding.imageBack.setOnClickListener(v->onBackPressed());
+    private void init() {
+        chatMessages = new ArrayList<>();
+        chatAdapter = new ChatAdapter(
+                chatMessages,
+//                getBitmapFromEncodedString(receiverUser.getImg()),
+                BitmapFactory.decodeResource(getResources(), R.drawable.ic_ava),
+                senderID);
+        binding.chatRecyclerView.setAdapter(chatAdapter);
     }
-
     private Bitmap getBitmapFromEncodedString(String encodedImage) {
         byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
         return BitmapFactory. decodeByteArray(bytes, 0, bytes.length);
     }
+//    private void sendMessage() {
+//        HashMap<String, Object> message = new HashMap<>();
+//        message.put("senderID", senderID);
+//        message.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
+//        message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
+//        message.put(Constants.KEY_TIMESTAMP, new Date());
+//        database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+//        binding.inputMessage.setText(null);
+//    }
+    private void setListeners() {
+        binding.imageBack.setOnClickListener(v->onBackPressed());
+    }
     private void loadReceiverDetails() {
-//        receiverUser = (Account) getIntent().getSerializableExtra("user");
-//        binding.textName.setText(receiverUser.getUsername());
-
-        String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("accounts").child(userID);
+        receiverID = "zDVjeEon70POnmT25BdJbEmB5jG3";
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("accounts").child(receiverID);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-//                    String userName = dataSnapshot.child("username").getValue(String.class);
-//                    TextView username = findViewById(R.id.textName);
-//                    username.setText(userName);
+                    String userName = dataSnapshot.child("username").getValue(String.class);
+                    String userImg = dataSnapshot.child("img").getValue(String.class);
+                    String userRole = dataSnapshot.child("role").getValue(String.class);
+                    String userSex = dataSnapshot.child("sex").getValue(String.class);
+                    String userBirthDay = dataSnapshot.child("birth_day").getValue(String.class);
 
+                    receiverUser = new Account(receiverID, "", userRole, "", "", "");
+                    TextView receiverName = findViewById(R.id.textName);
+                    receiverName.setText(receiverUser.getRole());
 
                 } else {
                     // Không có dữ liệu về người dùng
