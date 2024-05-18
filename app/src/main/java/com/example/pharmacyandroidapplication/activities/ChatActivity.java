@@ -47,6 +47,7 @@ public class ChatActivity extends AppCompatActivity {
     DatabaseReference database;
     String senderID;
     String receiverID;
+    String receiverImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +61,16 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setListeners();
         loadReceiverDetails();
-        init();
         listenMessages();
     }
 
     private void init() {
         chatMessages = new ArrayList<>();
+        Log.d("AAAAAABBBBBB", receiverImg);
         chatAdapter = new ChatAdapter(
                 chatMessages,
-//                getBitmapFromEncodedString(receiverUser.getImg()),
-                BitmapFactory.decodeResource(getResources(), R.drawable.ic_ava),
+                receiverImg,
+//                BitmapFactory.decodeResource(getResources(), R.drawable.ic_ava),
                 senderID);
         binding.chatRecyclerView.setAdapter(chatAdapter);
     }
@@ -115,22 +116,23 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void loadReceiverDetails() {
-        receiverID = "zDVjeEon70POnmT25BdJbEmB5jG3";
+        receiverID = getIntent().getExtras().getString("userID");
+
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("accounts").child(receiverID);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String userName = dataSnapshot.child("username").getValue(String.class);
-                    String userImg = dataSnapshot.child("img").getValue(String.class);
+                    receiverImg = dataSnapshot.child("img").getValue(String.class);
                     String userRole = dataSnapshot.child("role").getValue(String.class);
                     String userSex = dataSnapshot.child("sex").getValue(String.class);
                     String userBirthDay = dataSnapshot.child("birth_day").getValue(String.class);
 
-                    receiverUser = new Account(receiverID, "", userRole, "", "", "");
+                    receiverUser = new Account(receiverID, receiverImg, userRole, userName, userSex, userBirthDay);
                     TextView receiverName = findViewById(R.id.textName);
-                    receiverName.setText(receiverUser.getRole());
-
+                    receiverName.setText(receiverUser.getUsername());
+                    init();
                 } else {
                     // Không có dữ liệu về người dùng
                     Toast.makeText(ChatActivity.this, "User data not found", Toast.LENGTH_SHORT).show();
@@ -172,10 +174,8 @@ public class ChatActivity extends AppCompatActivity {
             Collections.sort(chatMessages, (obj1, obj2) -> obj1.dateObject.compareTo(obj2.dateObject));
 
             if (chatMessages.size() == 0) {
-                Log.d("AAAAA00000", "Message");
                 chatAdapter.notifyDataSetChanged();
             } else {
-                Log.d("AAAAA11111", String.valueOf(chatMessages.size()));
                 chatAdapter.notifyItemRangeInserted(chatMessages.size(), chatMessages.size());
                 binding.chatRecyclerView.smoothScrollToPosition(chatMessages.size() - 1);
                 binding.chatRecyclerView.setVisibility(View.VISIBLE);

@@ -17,7 +17,7 @@
     <color name="pastel_light_blue">#C4E4FF</color>
     <color name="received_message_background">#387ADF</color>
     <color name="button_color">#3861D7</color>
-    <color name="test1">#FF1414</color>
+    <color name="error">#EE4E4E</color>
     <color name="test2">#FFEB3B</color>
     <color name="test3">#4CAF50</color>
     <color name="test4">#CDDC39</color>

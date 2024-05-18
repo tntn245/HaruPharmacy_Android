@@ -26,7 +26,7 @@ public class AdminHomepageActivity extends AppCompatActivity {
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomepageActivity.this, ChatActivity.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
+                Intent intent = new Intent(AdminHomepageActivity.this, ChatHomepageActivity.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
                 startActivity(intent);
             }
         });

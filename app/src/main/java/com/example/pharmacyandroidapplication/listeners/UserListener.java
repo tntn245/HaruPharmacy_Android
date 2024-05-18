@@ -1,7 +1,7 @@
 package com.example.pharmacyandroidapplication.listeners;
 
-import com.example.pharmacyandroidapplication.models.Account;
+import com.example.pharmacyandroidapplication.models.User;
 
 public interface UserListener {
-    void onUserClicked(Account acc);
+    void onUserClicked(User user);
 }
