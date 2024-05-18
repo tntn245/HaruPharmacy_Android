@@ -23,16 +23,6 @@
                 android:layout_height="wrap_content"
                 android:background="@color/app_theme"
                 android:padding="@dimen/_20sdp">
-
-                <ImageView
-                    android:id="@+id/icon_shopping_cart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_add_shopping_cart_24"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_10sdp"/>
-
                 <TextView
                     android:id="@+id/header_shopping"
                     android:layout_width="wrap_content"

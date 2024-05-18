@@ -118,16 +118,21 @@
                     android:backgroundTint="@color/button_color">
                 </Button>
                 <TextView
+                    android:layout_width="@dimen/_3sdp"
+                    android:layout_height="match_parent"/>
+                <TextView
                     android:id="@+id/item_cart_quanlity"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
                     android:text="1 "
                     android:gravity="center"
                     android:background="@drawable/border_radius"
                     >
-
                 </TextView>
+                <TextView
+                    android:layout_width="@dimen/_3sdp"
+                    android:layout_height="match_parent"/>
                 <Button
                     android:id="@+id/item_cart_increase"
                     android:layout_width="0dp"

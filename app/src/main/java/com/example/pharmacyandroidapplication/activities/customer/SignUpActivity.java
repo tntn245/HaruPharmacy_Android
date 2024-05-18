@@ -79,13 +79,13 @@ public class SignUpActivity extends AppCompatActivity {
                 password = String.valueOf(editTextPassword.getText());
 
                 if (TextUtils.isEmpty(email) ){
-                    Toast.makeText(SignUpActivity.this,"Enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this,"Vui lòng nhập email", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                     buttonReg.setVisibility(View.VISIBLE);
                     return;
                 }
                 if (TextUtils.isEmpty(password) ) {
-                    Toast.makeText(SignUpActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Vui lòng nhập mật khẩu", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                     buttonReg.setVisibility(View.VISIBLE);
                     return;

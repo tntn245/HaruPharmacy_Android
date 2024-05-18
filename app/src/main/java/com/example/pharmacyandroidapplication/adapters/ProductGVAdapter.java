@@ -37,7 +37,7 @@ public class ProductGVAdapter extends ArrayAdapter<Product> {
         ImageView img_product = listitemView.findViewById(R.id.img_product);
         TextView price_product = listitemView.findViewById(R.id.product_price);
         assert product != null;
-        name_product.setText("TEXXT NEF");
+        name_product.setText(product.getName());
         price_product.setText(product.getPrice());
         Glide.with(this.getContext().getApplicationContext())
                 .load(product.getImg())
