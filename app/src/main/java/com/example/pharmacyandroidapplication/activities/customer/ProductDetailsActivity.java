@@ -196,14 +196,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
         btnBuyNow = dialog.findViewById(R.id.btn_buy_now);
         btnAddToCart = dialog.findViewById(R.id.btn_add_to_cart);
         quantity = Integer.parseInt((String) itemCartQuantity.getText());
-
         Glide.with(ProductDetailsActivity.this)
                 .load(product.getImg())
                 .into(dialogProductImg);
         dialogProductName.setText(product.getName());
         dialogProductPrice.setText(String.valueOf(product.getPrice()));
-        Integer price = Integer.parseInt(dialogProductPrice.getText().toString());
-        productPriceBuy.setText(String.valueOf(price));
+        productPriceBuy.setText(String.valueOf(product.getPrice()));
 
         // Gán vào RadioButton
         for (int i = 0; i < UnitArr.size(); i++) {
@@ -347,7 +345,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         user_cart.put("quantity", prd_quantity);
         user_cart.put("unit", unit);
         user_cart.put("price",price);
-        String cartKey = prd_id + "_" + unit;
+        String cartKey = prd_id + "@" + unit;
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("cart");
         mDatabase.child(uid).child(cartKey).setValue(user_cart)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

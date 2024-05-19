@@ -168,6 +168,7 @@
             android:id="@+id/item_cart_quanlity"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_30sdp"
+            android:text="1"
             android:layout_weight="2"
             android:background="@drawable/border_radius"
             android:gravity="center"/>

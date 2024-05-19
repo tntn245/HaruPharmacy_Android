@@ -15,11 +15,35 @@
       },
       "oauth_client": [
         {
+          "client_id": "464697881053-7qnn0aqlioh5lsvadjk3igfif2bgrthk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pharmacyandroidapplication",
+            "certificate_hash": "42035d3496ddb31d7fdbe927591326d0d4325bd4"
+          }
+        },
+        {
           "client_id": "464697881053-jmkgb7kgl01oq2ck4ucbvkq9m6ftd68d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.pharmacyandroidapplication",
             "certificate_hash": "6ecaf109b10441fab9b1e0b0f739515d75bf951e"
+          }
+        },
+        {
+          "client_id": "464697881053-rp0ehfcubcor63k626mund0o4mepuhf6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pharmacyandroidapplication",
+            "certificate_hash": "94dc045628a7cfb98114a7ec558b45a70dd442fd"
+          }
+        },
+        {
+          "client_id": "464697881053-t2ssnqvtsu5riqesii6opa4q1nassp23.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pharmacyandroidapplication",
+            "certificate_hash": "699f52cb1e5edd20e7ad8c9e2bca92c262730002"
           }
         },
         {
