@@ -26,6 +26,8 @@ import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.adapters.ItemPayAdapter;
 import com.example.pharmacyandroidapplication.models.ItemPay;
 import com.example.pharmacyandroidapplication.models.ShipmentInf;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,7 +39,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import io.reactivex.rxjava3.annotations.NonNull;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class PaymentActivity extends AppCompatActivity {
@@ -45,6 +50,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     // Lấy ngày hiện tại
     LocalDate currentDate = LocalDate.now();
+    String DayNow = currentDate.format(formatter);
 
     // Thêm 3 ngày
     LocalDate datePlus3Days = currentDate.plusDays(3);
@@ -71,7 +77,9 @@ public class PaymentActivity extends AppCompatActivity {
     private Button close_button, btn_confirm, btn_add_address;
     private RadioGroup group_unit;
     private TextView sumhang,ship,sumprice;
-
+    private RadioGroup radioGroup;
+    private RadioButton radioCash, radioMomo, radioVNPay;
+    private LinearLayout layoutCash, layoutMomo, layoutVNPay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,6 +171,55 @@ public class PaymentActivity extends AppCompatActivity {
                 // Thêm log để kiểm tra
                 Log.e("PaymentActivity", "Address list is empty, cannot show dialog");
             }
+        });
+        Button pay = findViewById(R.id.pay);
+        pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog1 = new Dialog(PaymentActivity.this, R.style.FullScreenDialog);
+                dialog1.setContentView(R.layout.dialog_choose_pay);
+
+                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                layoutParams.copyFrom(dialog1.getWindow().getAttributes());
+                layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+                layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                layoutParams.gravity = Gravity.BOTTOM;
+                dialog1.getWindow().setAttributes(layoutParams);
+
+                // Khởi tạo các thành phần giao diện người dùng
+                radioGroup = dialog1.findViewById(R.id.group_pay); // Đảm bảo rằng ID này là chính xác
+                radioCash = dialog1.findViewById(R.id.radio_cash);
+                radioMomo = dialog1.findViewById(R.id.radio_momo);
+                radioVNPay = dialog1.findViewById(R.id.radio_VNPay);
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        Log.i("đã chuyển","checkedId");
+                        // Kiểm tra xem RadioButton nào đã được chọn
+                        if (checkedId == R.id.radio_cash) {
+                            radioMomo.setChecked(false);
+                            radioVNPay.setChecked(false);
+                        } else if (checkedId == R.id.radio_momo) {
+                            radioCash.setChecked(false);
+                            radioVNPay.setChecked(false);
+                        } else if (checkedId == R.id.radio_VNPay) {
+                            radioMomo.setChecked(false);
+                            radioCash.setChecked(false);
+                        }
+                    }
+                });
+                dialog1.show();
+                Button Confirm = dialog1.findViewById(R.id.btn_confirm);
+                Confirm.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("ĐÃ NHẤN CONFIRM", "OK");
+                        add_payment(itemList);
+                    }
+                });
+            }
+
         });
 
         recyclerView = findViewById(R.id.recycler_view);
@@ -267,6 +324,54 @@ public class PaymentActivity extends AppCompatActivity {
         });
         //Hiển thi
         dialog.show();
+    }
+    private void add_payment(List<ItemPay> itp){
+        // Tham chiếu đến Firebase Realtime Database
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+
+        // Tham chiếu đến nút "order" và tạo một id mới cho đơn hàng
+        String orderId = databaseRef.child("order").child(userId).push().getKey();
+
+        // Tạo một HashMap để lưu thông tin đơn hàng
+        HashMap<String, Object> orderMap = new HashMap<>();
+        orderMap.put("address", address.getText().toString());
+        orderMap.put("name_receiver", name_receiver.getText().toString());
+        orderMap.put("noted", detail.getText().toString());
+        orderMap.put("order_date", DayNow);
+        orderMap.put("order_status", "Đang xử lý");
+        orderMap.put("payment_status", "Chưa thanh toán");
+        orderMap.put("phone", phone.getText().toString());
+        orderMap.put("total_payment", String.valueOf(finalTotalPrice));
+        // Thêm đơn hàng mới vào Firebase Realtime Database
+        databaseRef.child("order").child(userId).child(orderId).setValue(orderMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.i("THEM DON HANG","THANH CONG");
+                        for (ItemPay item : itp) {
+                            // Tạo một HashMap để lưu thông tin của chi tiết đơn hàng
+                            HashMap<String, Object> orderDetailMap = new HashMap<>();
+                            String unit = item.getUnit();
+                            String productId = item.getId_product().split("@"+unit)[0];
+                            String cartkey= productId+"@"+unit;
+                            orderDetailMap.put("lot_number", "12"); // Số lô, bạn cần thay thế bằng thông tin thực tế
+                            orderDetailMap.put("quantity", String.valueOf(item.getQuantity()) ); // Số lượng sản phẩm
+                            orderDetailMap.put("unit_price", String.valueOf(item.getPrice())); // Đơn giá
+                            orderDetailMap.put("unit_sell_price", String.valueOf(item.getPrice() + 3000)); // Giá bán, bạn cần thay thế bằng thông tin thực tế
+                            // Thêm chi tiết đơn hàng vào Firebase Realtime Database
+                            databaseRef.child("orderdetail").child(orderId).child(productId).child(unit).setValue(orderDetailMap);
+                            databaseRef.child("cart").child(userId).child(cartkey).setValue(null);
+                        }
+                        Intent intent = new Intent(PaymentActivity.this, CustomerHomepageActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("THEM DON HANG","THAt BAI");                                    }
+                });
+
     }
 
     public interface OnAddressesReceivedCallback {
