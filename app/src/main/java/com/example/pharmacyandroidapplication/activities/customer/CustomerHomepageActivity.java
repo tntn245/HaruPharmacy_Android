@@ -164,8 +164,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     return true;
                 } else if (itemId == R.id.support) {
                     // Xử lý khi người dùng chọn trang tư vấn
-                    Intent supportIntent = new Intent(CustomerHomepageActivity.this, ChatActivity.class);
-                    startActivity(supportIntent);
+                    Intent intent = new Intent(CustomerHomepageActivity.this, ChatActivity.class);
+                    intent.putExtra("userID", "zDVjeEon70POnmT25BdJbEmB5jG3");
+                    startActivity(intent);
                     return true;
                 } else if (itemId == R.id.cart) {
                     // Xử lý khi người dùng chọn trang giỏ hàng

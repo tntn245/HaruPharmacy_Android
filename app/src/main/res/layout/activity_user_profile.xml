@@ -57,16 +57,7 @@
                     android:src="@drawable/user_vector"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="@dimen/_10sdp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Thay đổi ảnh đại diện"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/_15sdp"
-                    android:textStyle="bold"
-                    android:textColor="@color/app_theme"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    />
+
             </LinearLayout>
             <GridLayout
                 android:layout_width="match_parent"
