@@ -28,7 +28,7 @@
                 android:textSize="@dimen/text_size_large">
             </TextView>
         </LinearLayout>
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/scrolview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -36,47 +36,7 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:background="@color/white"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    android:weightSum="2">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Hình thức nhận hàng"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:textSize="@dimen/_13sdp"
-                        android:fontFamily="sans-serif-black"
-                        android:gravity="center_vertical"
-                        >
-                    </TextView>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.9"
-                        android:text="Giao hàng tận nơi"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:textSize="@dimen/_13sdp"
-                        android:fontFamily="sans-serif-black"
-                        android:gravity="center_vertical"
-                        android:paddingStart="@dimen/_20sdp"
-                        android:textColor="@color/app_theme"
-                        >
-                    </TextView>
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:src="@drawable/ic_next"
-                        android:layout_gravity="center"
-                        android:background="?attr/selectableItemBackgroundBorderless" />
-                </LinearLayout>
+                android:layout_height="wrap_content">
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -95,6 +55,7 @@
                         >
                     </TextView>
                     <TextView
+                        android:id="@+id/change"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -110,19 +71,141 @@
                 </LinearLayout>
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_150sdp"
+                    android:layout_height="wrap_content"
                     android:padding="@dimen/_10sdp"
                     android:background="@color/white">
+                    <FrameLayout
+                        android:id="@+id/frame"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                     <ImageView
+                        android:id="@+id/imgmap"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_130sdp"
                         android:src="@drawable/background_map"
                         android:scaleType="centerCrop">
                     </ImageView>
-                <LinearLayout
+                    <LinearLayout
+                            android:id="@+id/haveaddress"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible">
+                        <TextView
+                            android:id="@+id/detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tổ 9, Ấp Tân Thới Nhất"
+                            android:fontFamily="sans-serif-black"
+                            android:textSize="@dimen/_18sdp"
+                            android:padding="@dimen/_1sdp"
+                            android:gravity="start">
+                        </TextView>
+                        <TextView
+                            android:id="@+id/address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Thôn Mỹ Tân, Huyện Củ Chi, Thành phố Hồ Chí Minh"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/_14sdp"
+                            android:padding="@dimen/_1sdp"
+                            android:gravity="start">
+                        </TextView>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/name_receiver"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Duy"
+                                android:fontFamily="sans-serif"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14sdp"
+                                android:padding="@dimen/_1sdp"
+                                android:gravity="start">
+                            </TextView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" | "
+                                android:fontFamily="sans-serif"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_14sdp"
+                                android:padding="@dimen/_1sdp"
+                                android:gravity="start">
+                            </TextView>
+                            <TextView
+                                android:id="@+id/phone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0397187493"
+                                android:fontFamily="sans-serif"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_14sdp"
+                                android:padding="@dimen/_1sdp"
+                                android:gravity="start">
+                            </TextView>
+                        </LinearLayout>
+                        <EditText
+                            android:id="@+id/noted"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_50sdp"
+                            android:background="@drawable/background_border_linearlayout"
+                            android:hint="Thêm ghi chú"                            android:layout_marginTop="@dimen/_10sdp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/_14sdp"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:gravity="center_vertical">
+                        </EditText>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:text=""
+                            android:layout_marginTop="@dimen/_7sdp"
+                            android:background="@color/gray"
+                            android:gravity="start">
+                        </TextView>
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingTop="@dimen/_7sdp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Thời gian nhận hàng dự kiến"
+                                android:fontFamily="sans-serif"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_14sdp"
+                                android:padding="@dimen/_1sdp"
+                                android:gravity="start">
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/day_receiver"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Từ 8:00 đến 16:00 ngày 12/5/2024"
+                                android:fontFamily="sans-serif"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:gravity="start">
+                            </TextView>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                    android:id="@+id/noaddress"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_130sdp"
+                    android:visibility="gone"
                     android:weightSum="2">
                     <TextView
                         android:layout_width="@dimen/_150sdp"
@@ -135,6 +218,7 @@
                         android:gravity="center">
                     </TextView>
                     <Button
+                        android:id="@+id/add_address"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -145,7 +229,8 @@
                         android:layout_marginBottom="@dimen/_25sdp"
                         android:backgroundTint="@color/button_color">
                     </Button>
-                </LinearLayout>
+                    </LinearLayout>
+                </FrameLayout>
             </FrameLayout>
                 <Switch
                     android:id="@+id/switch_button"
@@ -162,31 +247,24 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
-                    android:padding="@dimen/_5sdp"
-                    android:weightSum="2">
+                    android:padding="@dimen/_5sdp">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
                         android:text="Danh sách sản phẩm"
                         android:fontFamily="sans-serif-black"
                         android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/_10sdp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Thêm sản phẩm khác"
-                        android:fontFamily="sans-serif-black"
-                        android:gravity="end|center"
-                        android:paddingRight="@dimen/_10sdp"
-                        android:textColor="@color/app_theme" />
+                        android:paddingLeft="@dimen/_15sdp" />
                 </LinearLayout>
-                <include layout="@layout/item_pay"></include>
-                <include layout="@layout/item_pay"></include>
-                <include layout="@layout/item_pay"></include>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_5sdp"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@color/white" />
                 <LinearLayout
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -209,6 +287,7 @@
                             android:paddingLeft="@dimen/_10sdp" />
 
                         <TextView
+                            android:id="@+id/sumhang"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_weight="1"
@@ -231,6 +310,7 @@
                             android:paddingLeft="@dimen/_10sdp" />
 
                         <TextView
+                            android:id="@+id/ship"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_weight="1"
@@ -263,6 +343,7 @@
                             android:paddingLeft="@dimen/_10sdp" />
 
                         <TextView
+                            android:id="@+id/sumprice"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_weight="1"
@@ -274,7 +355,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
         <LinearLayout
             android:orientation="horizontal"
             android:background="@color/white"
