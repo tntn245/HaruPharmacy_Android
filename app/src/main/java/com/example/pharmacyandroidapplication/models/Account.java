@@ -8,6 +8,7 @@ public class Account {
     private String sex;
     private String birth_day;
 
+    public Account(){}
     public Account(String id, String img, String role, String username, String sex, String birth_day) {
         this.id = id;
         this.role = role;
