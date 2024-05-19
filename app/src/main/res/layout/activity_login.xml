@@ -100,7 +100,7 @@
                             android:layout_gravity="center"
                             android:background="@drawable/edittext_border_radius"
                             android:drawableLeft="@drawable/ic_user"
-                            android:drawablePadding="-50dp"
+                            android:drawablePadding="-20dp"
                             android:drawableTint="@color/gray"
                             android:gravity="center"
                             android:hint="@string/username"
