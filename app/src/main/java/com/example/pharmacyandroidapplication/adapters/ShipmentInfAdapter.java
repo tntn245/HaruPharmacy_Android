@@ -4,44 +4,54 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.models.ShipmentInf;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class ShipmentInfAdapter extends ArrayAdapter<ShipmentInf> {
+public class ShipmentInfAdapter extends BaseAdapter {
     private Context context;
-    ArrayList<ShipmentInf> shipmentInfArrayList;
-    public ShipmentInfAdapter(@NonNull Context context, ArrayList<ShipmentInf> shipmentInfArrayList) {
-        super(context, 0, shipmentInfArrayList);
+    private List<ShipmentInf> ShipmentInfList;
+
+    public ShipmentInfAdapter(Context context, List<ShipmentInf> ShipmentInfList) {
         this.context = context;
-        this.shipmentInfArrayList = shipmentInfArrayList;
+        this.ShipmentInfList = ShipmentInfList;
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public int getCount() {
+        return ShipmentInfList.size();
+    }
 
-        View listitemView = convertView;
-        if (listitemView == null) {
-            // Layout Inflater inflates each item to be displayed in GridView.
-            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_address, parent, false);
+    @Override
+    public Object getItem(int position) {
+        return ShipmentInfList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_address, parent, false);
         }
 
-        ShipmentInf shipmentInf = getItem(position);
-//        TextView address_details = listitemView.findViewById(R.id.multilineTextView);
+        ShipmentInf ShipmentInf = ShipmentInfList.get(position);
 
-        assert shipmentInf != null;
-//        address_details.setText(shipmentInf.getAddress_details());
-//        DateFormat dateFormat = new DateFormat(shipmentDetails.getDate());
-//        date_stock_in.setText(dateFormat.formatDateToString());
-//        price_stock_in.setText(Integer.toString(shipmentDetails.getTotal_payment()));
-        return listitemView;
+        TextView txtName = convertView.findViewById(R.id.txt_name_receiver_address);
+        TextView txtPhone = convertView.findViewById(R.id.txt_phone_address);
+        TextView txtAddress = convertView.findViewById(R.id.txt_total_address_address);
+
+        txtName.setText(ShipmentInf.getReceiverName());
+        txtPhone.setText(ShipmentInf.getPhone());
+        txtAddress.setText(ShipmentInf.getAddress_details() + ", " + ShipmentInf.getCommune() + ", " + ShipmentInf.getDistrict() + ", " + ShipmentInf.getProvince());
+
+        return convertView;
     }
 }

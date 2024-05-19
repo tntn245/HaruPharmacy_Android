@@ -161,6 +161,7 @@
                 android:layout_height="@dimen/_16sdp" />
 
             <EditText
+                android:id="@+id/add_address_txt_address_detail"
                 android:layout_width="@dimen/_285sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_gravity="center"
@@ -174,6 +175,7 @@
             android:layout_height="@dimen/_6sdp" />
 
         <Button
+            android:id="@+id/btn_save_add_address"
             android:layout_width="@dimen/_170sdp"
             android:layout_height="@dimen/_45sdp"
             android:layout_gravity="center"

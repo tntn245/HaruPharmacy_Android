@@ -36,6 +36,7 @@
             android:weightSum="1">
 
             <CheckBox
+                android:id="@+id/check_all"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -45,7 +46,6 @@
 
             </CheckBox>
         </LinearLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclercart"
             android:layout_width="match_parent"

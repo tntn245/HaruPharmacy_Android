@@ -21,6 +21,9 @@
         android:theme="@style/Theme.PharmacyAndroidApplication"
         tools:targetApi="31">
         <activity
+            android:name=".activities.admin.ChatHomepageActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.customer.UserEditProfileActivity"
             android:exported="false" />
         <activity
@@ -68,14 +71,14 @@
         <activity
             android:name=".activities.admin.WarehouseInventoryActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.admin.WarehouseStockOutDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.admin.WarehouseStockOutActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.admin.StatisticActivity"
             android:exported="false" />
@@ -85,32 +88,32 @@
         <activity
             android:name=".activities.admin.WarehouseStockInActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.admin.WarehouseStockInDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.admin.ProductManagementActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.admin.CategoryManagementActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.admin.OrderManagementActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.admin.AdminHomepageActivity"
             android:exported="false" />
         <activity
             android:name=".activities.customer.CustomerHomepageActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.ChatActivity"
-            android:exported="false" /> <!-- <activity -->
+            android:windowSoftInputMode="adjustResize" /> <!-- <activity -->
         <!-- android:name=".activities.LoginActivity" -->
         <!-- android:exported="false" /> -->
         <activity

@@ -4,15 +4,45 @@ public class Cart {
     private String id_account;
     private String id_product;
     private String name_product;
+    private String unit;
     private int price_product;
     private int quanlity;
-    public Cart(){}
-    public Cart(String id_account, String id_product, String name_product, int price_product, int quanlity) {
+    private boolean isChecked;
+    private String img;
+    public Cart(String userId, String productId, String productName, float price, int quantity, boolean isChecked,String unit, String imageURL){}
+    public Cart(String id_account, String id_product,String name_product, int price_product, int quanlity, boolean isChecked,String unit,String img) {
         this.id_account = id_account;
         this.id_product = id_product;
         this.name_product = name_product;
         this.price_product = price_product;
         this.quanlity = quanlity;
+        this.isChecked = isChecked;
+        this.img = img;
+        this.unit = unit;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.isChecked = checked;
     }
 
     public String getId_account() {

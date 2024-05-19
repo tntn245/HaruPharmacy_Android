@@ -1,8 +1,11 @@
 package com.example.pharmacyandroidapplication.activities.customer;
 
+import static com.example.pharmacyandroidapplication.utils.AndroidUtil.showToast;
+
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,7 @@ import com.example.pharmacyandroidapplication.activities.ChatActivity;
 import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.adapters.HomeCategoryAdapter;
 import com.example.pharmacyandroidapplication.adapters.HomeProductAdapter;
+import com.example.pharmacyandroidapplication.databinding.ActivityMainBinding;
 import com.example.pharmacyandroidapplication.models.Category;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,8 +37,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomerHomepageActivity extends AppCompatActivity {
 
@@ -43,11 +50,15 @@ public class CustomerHomepageActivity extends AppCompatActivity {
     ArrayList<Product> ProductArrayList;
     String userID;
 
+    ActivityMainBinding binding;
+    PreferenceManager preferenceManager;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_homepage);
 
         userID = getIntent().getExtras().getString("userID");
+        getToken();
 
         ScrollView scrollView = findViewById(R.id.scroll_view);
         CardView searchBar = findViewById(R.id.search_bar);
@@ -132,7 +143,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 // Lấy giá trị của item được click
                 Product productDetails = ProductArrayList.get(position);
                 Toast.makeText(getApplicationContext(), "Item clicked at position: ", Toast.LENGTH_SHORT).show();
-
                 // Truyền giá trị của item qua layout tiếp theo để hiển thị
                 Intent intent = new Intent(CustomerHomepageActivity.this, ProductDetailsActivity.class);
                intent.putExtra("product_id", productDetails.getId());
@@ -234,7 +244,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_shopping_drawer) {
-                    Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
+                    Intent intent = new Intent(CustomerHomepageActivity.this, ShoppingPageActivity.class);
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_cart_drawer) {
@@ -260,4 +270,23 @@ public class CustomerHomepageActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void getToken() {
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this::updateToken);
+    }
+
+    private void updateToken(String token) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = database.getReference("accounts").child(userID);
+
+        // Tạo một Map để chứa dữ liệu cần cập nhật
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("fcmToken", token);
+
+        // Cập nhật token trong Realtime Database
+        userReference.updateChildren(updates)
+                .addOnSuccessListener(aVoid -> showToast(CustomerHomepageActivity.this, "Token updated successfully"))
+                .addOnFailureListener(e -> showToast(CustomerHomepageActivity.this, "Unable to update token"));
+    }
+
 }

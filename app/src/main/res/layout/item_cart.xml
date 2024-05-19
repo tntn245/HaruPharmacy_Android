@@ -19,6 +19,7 @@
     app:layout_constraintTop_toTopOf="parent"
     tools:ignore="MissingConstraints">
     <CheckBox
+        android:id="@+id/item_check_box"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1">
@@ -30,7 +31,7 @@
         android:layout_weight="9"
         android:orientation="horizontal"
         android:padding="@dimen/_8sdp"
-        android:weightSum="8">
+        android:weightSum="9">
 
         <ImageView
             android:id="@+id/img_item_cart"
@@ -49,7 +50,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="6"
             android:orientation="vertical"
             android:padding="@dimen/_8sdp"
             android:weightSum="4">
@@ -62,16 +63,41 @@
                 android:fontFamily="sans-serif-black"
                 android:textSize="@dimen/_12sdp">
             </TextView>
-            <TextView
-                android:id="@+id/item_cart_price"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="100.000đ"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                android:id="@+id/item_cart_price"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="100.000"
                 android:textColor="@color/dark_blue"
                 android:fontFamily="sans-serif-black"
                 android:textSize="@dimen/_13sdp">
-            </TextView>
+                </TextView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text=" đ"
+                    android:textColor="@color/dark_blue"
+                    android:fontFamily="sans-serif-black"
+                    android:textSize="@dimen/_13sdp">
+                </TextView>
+                <TextView
+                    android:id="@+id/unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Đơn vị"
+                    android:gravity="end"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:textColor="@color/gray"
+                    android:fontFamily="sans-serif-black"
+                    android:textSize="@dimen/_13sdp">
+                </TextView>
+        </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -81,6 +107,7 @@
                 android:weightSum="6"
                 >
                 <Button
+                    android:id="@+id/item_cart_decrease"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -107,6 +134,7 @@
                     android:layout_width="@dimen/_3sdp"
                     android:layout_height="match_parent"/>
                 <Button
+                    android:id="@+id/item_cart_increase"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
