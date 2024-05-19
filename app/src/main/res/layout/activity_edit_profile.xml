@@ -99,7 +99,6 @@
                         android:layout_height="@dimen/_45sdp"
                         android:layout_gravity="center"
                         android:background="@drawable/input_border_radius"
-                        android:text="0866178272"
                         android:paddingStart="@dimen/_15sdp" />
                 </LinearLayout>
                 <!-- Row 2 -->

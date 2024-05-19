@@ -58,7 +58,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer_homepage);
 
         userID = getIntent().getExtras().getString("userID");
-//        getToken();
+        getToken();
 
         ScrollView scrollView = findViewById(R.id.scroll_view);
         CardView searchBar = findViewById(R.id.search_bar);
@@ -164,8 +164,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     return true;
                 } else if (itemId == R.id.support) {
                     // Xử lý khi người dùng chọn trang tư vấn
-                    Intent supportIntent = new Intent(CustomerHomepageActivity.this, ChatActivity.class);
-                    startActivity(supportIntent);
+                    Intent intent = new Intent(CustomerHomepageActivity.this, ChatActivity.class);
+                    intent.putExtra("userID", "zDVjeEon70POnmT25BdJbEmB5jG3");
+                    startActivity(intent);
                     return true;
                 } else if (itemId == R.id.cart) {
                     // Xử lý khi người dùng chọn trang giỏ hàng
@@ -244,7 +245,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_shopping_drawer) {
-                    Intent intent = new Intent(CustomerHomepageActivity.this, CartActivity.class);
+                    Intent intent = new Intent(CustomerHomepageActivity.this, ShoppingPageActivity.class);
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_cart_drawer) {

@@ -1,8 +1,11 @@
 package com.example.pharmacyandroidapplication.models;
 
+import java.util.Date;
+
 public class ChatMessage {
     public String senderId, receiverId, message, dateTime;
-
+    public Date dateObject;
+    public ChatMessage() {}
     public ChatMessage(String senderId, String receiverId, String message, String dateTime) {
         this.senderId = senderId;
         this.receiverId = receiverId;
