@@ -81,9 +81,11 @@ public class UserProfileActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     String username = snapshot.child("username").getValue(String.class);
                     String img = snapshot.child("img").getValue(String.class);
+                    String sex = snapshot.child("sex").getValue(String.class);
+                    String birthday = snapshot.child("birth_day").getValue(String.class);
 
                     // Hiển thị thông tin người dùng lên giao diện
-                    displayUserInfo(username, img);
+                    displayUserInfo(username, img, sex, birthday);
                 } else {
                     // Người dùng không tồn tại trong cơ sở dữ liệu
                     Toast.makeText(UserProfileActivity.this, "User not found", Toast.LENGTH_SHORT).show();
@@ -98,13 +100,17 @@ public class UserProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void displayUserInfo(String username, String img) {
+    private void displayUserInfo(String username, String img, String sex, String birthday) {
         // Hiển thị thông tin người dùng lên giao diện
         // Ví dụ: gán giá trị cho TextViews
         txt_username = findViewById(R.id.txt_username);
+        txt_acc_birth_day = findViewById(R.id.txt_acc_birth_day);
+        txt_acc_sex = findViewById(R.id.txt_acc_sex);
         user_img = findViewById(R.id.userImg);
 
         txt_username.setText(username);
+        txt_acc_sex.setText(sex);
+        txt_acc_birth_day.setText(birthday);
         // Tải và hiển thị ảnh từ URL lên ImageView sử dụng Glide
         Glide.with(this)
                 .load(img)

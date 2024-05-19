@@ -66,7 +66,6 @@ public class ChatActivity extends AppCompatActivity {
 
     private void init() {
         chatMessages = new ArrayList<>();
-        Log.d("AAAAAABBBBBB", receiverImg);
         chatAdapter = new ChatAdapter(
                 chatMessages,
                 receiverImg,
