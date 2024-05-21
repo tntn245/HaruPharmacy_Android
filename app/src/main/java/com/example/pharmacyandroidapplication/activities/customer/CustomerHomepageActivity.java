@@ -165,6 +165,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 } else if (itemId == R.id.support) {
                     // Xử lý khi người dùng chọn trang tư vấn
                     Intent supportIntent = new Intent(CustomerHomepageActivity.this, ChatActivity.class);
+                    supportIntent.putExtra("userID", "zDVjeEon70POnmT25BdJbEmB5jG3");
                     startActivity(supportIntent);
                     return true;
                 } else if (itemId == R.id.cart) {
