@@ -1,6 +1,7 @@
 package com.example.pharmacyandroidapplication.activities.customer;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -24,6 +26,8 @@ public class ShoppingPageActivity extends AppCompatActivity {
     GridView shoppingGV;
     String categoryID = "";
     String categoryName;
+    String searchStr = "";
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +38,19 @@ public class ShoppingPageActivity extends AppCompatActivity {
 
         categoryID = getIntent().getExtras().getString("categoryID");
         categoryName = getIntent().getExtras().getString("categoryName");
+        searchStr = getIntent().getExtras().getString("searchQuery");
+        database = FirebaseDatabase.getInstance();
+        Toast.makeText(getApplicationContext(), categoryID +"///"+ searchStr, Toast.LENGTH_SHORT).show();
 
         loadDataFromFirebase();
 
         TextView header_shopping = findViewById(R.id.header_shopping);
-        header_shopping.setText(categoryName);
+        if(!categoryName.equals("")) {
+            header_shopping.setText(categoryName);
+        }
     }
 
     private void loadDataFromFirebase() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference productsRef = database.getReference("product");
         productsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -54,11 +62,24 @@ public class ShoppingPageActivity extends AppCompatActivity {
                     String productImg = snapshot.child("img").getValue(String.class);
                     String id = snapshot.child("id").getValue(String.class);
                     String id_category = snapshot.child("id_category").getValue(String.class);
+                    String uses = snapshot.child("uses").getValue(String.class);
+                    String ingredient = snapshot.child("ingredient").getValue(String.class);
 
-                    Product product = new Product(id, "", productImg, productName, 0, productPrice);
+                    Product product = new Product(id, id_category, productImg, productName, 0, productPrice);
 
-                    if (categoryID.equals("")) {
-                        ProductArrayList.add(product);
+                    if (categoryID.equals("")) { // Nếu không chọn lsp
+                        if(searchStr.equals("")){ // Nếu không tìm kiếm => trường hợp chọn "mua sắm"
+                            ProductArrayList.add(product);
+                        }
+                        else{ //Nếu tìm kiếm
+                            // Kiểm tra xem các trường có chứa chuỗi tìm kiếm không
+                            if (productName.toLowerCase().contains(searchStr.toLowerCase())
+                                    || Integer.toString(productPrice).contains(searchStr)
+                                    || uses.toLowerCase().contains(searchStr.toLowerCase())
+                                    || ingredient.toLowerCase().contains(searchStr.toLowerCase())) {
+                                ProductArrayList.add(product);
+                            }
+                        }
                     } else if (categoryID.equals(id_category)) {
                         ProductArrayList.add(product);
                     }

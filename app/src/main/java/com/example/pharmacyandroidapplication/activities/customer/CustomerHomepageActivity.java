@@ -6,11 +6,15 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -36,6 +40,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -45,7 +50,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class CustomerHomepageActivity extends AppCompatActivity {
-
+    ImageButton imageSearch;
+    EditText editTextSearch;
     GridView categoryGV;
     GridView productGV;
     ArrayList<Category> CategoryArrayList;
@@ -59,7 +65,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_homepage);
 
-//        userID = getIntent().getExtras().getString("userID");
         userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         getToken();
 
@@ -68,11 +73,35 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         ImageView searchIcon = findViewById(R.id.ic_search);
         categoryGV = findViewById(R.id.rcv_category);
         productGV = findViewById(R.id.rcv_shopping);
+        imageSearch = findViewById(R.id.image_search);
 
         openDrawer();
         closeDrawer();
         loadProductFromFirebase();
         loadCategoryFromFirebase();
+
+
+        editTextSearch = findViewById(R.id.edit_text_search);
+        editTextSearch.setText("");
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchProducts(s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        imageSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performSearch();
+            }
+        });
 
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
@@ -118,8 +147,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 }
             }
         });
-
-
 
         // Click Product
         productGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -167,6 +194,19 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
     }
 
+    private void searchProducts(String searchQuery) {
+//        Toast.makeText(getApplicationContext(), searchQuery, Toast.LENGTH_SHORT).show();
+
+    }
+    private void performSearch() {
+        String searchQuery = editTextSearch.getText().toString().trim();
+
+        Intent intent = new Intent(CustomerHomepageActivity.this, ShoppingPageActivity.class);
+        intent.putExtra("categoryID", "");
+        intent.putExtra("categoryName", "");
+        intent.putExtra("searchQuery", searchQuery);
+        startActivity(intent);
+    }
     private void loadCategoryFromFirebase() {
         DatabaseReference categoryRef = database.getReference("category");
         categoryRef.addValueEventListener(new ValueEventListener() {
@@ -216,6 +256,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 Intent intent = new Intent(CustomerHomepageActivity.this, ShoppingPageActivity.class);
                 intent.putExtra("categoryID", categoryID);
                 intent.putExtra("categoryName", categoryName);
+                intent.putExtra("searchQuery", "");
                 startActivity(intent);
             }
 
@@ -286,6 +327,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     Intent intent = new Intent(CustomerHomepageActivity.this, ShoppingPageActivity.class);
                     intent.putExtra("categoryID", "");
                     intent.putExtra("categoryName", "");
+                    intent.putExtra("searchQuery", "");
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_cart_drawer) {
