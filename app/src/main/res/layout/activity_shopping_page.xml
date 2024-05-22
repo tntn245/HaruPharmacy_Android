@@ -47,7 +47,7 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginVertical="@dimen/_10sdp">
-                <include layout="@layout/component_search_bar" />
+                <include layout="@layout/component_search_bar_shopping_page" />
             </androidx.cardview.widget.CardView>
             <RelativeLayout
                 android:layout_width="match_parent"

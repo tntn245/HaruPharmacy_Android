@@ -83,18 +83,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
         editTextSearch = findViewById(R.id.edit_text_search);
         editTextSearch.setText("");
-        editTextSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchProducts(s.toString());
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
 
         imageSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,10 +182,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
     }
 
-    private void searchProducts(String searchQuery) {
-//        Toast.makeText(getApplicationContext(), searchQuery, Toast.LENGTH_SHORT).show();
-
-    }
     private void performSearch() {
         String searchQuery = editTextSearch.getText().toString().trim();
 
