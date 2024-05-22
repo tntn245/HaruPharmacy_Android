@@ -182,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     finish();
                                                 } else if ("customer".equals(userType)) {
                                                     Intent intent = new Intent(LoginActivity.this, CustomerHomepageActivity.class);
-                                                    intent.putExtra("userID", userID);
+//                                                    intent.putExtra("userID", userID);
                                                     startActivity(intent);
                                                     finish();
                                                 } else {

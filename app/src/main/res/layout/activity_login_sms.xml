@@ -74,6 +74,7 @@
                 android:layout_marginBottom="@dimen/_16sdp"
                 android:background="@drawable/edittext_border_radius"
                 android:gravity="center"
+                android:maxLength="9"
                 android:hint=""
                 android:singleLine="true"
                 android:textSize="@dimen/text_size_medium" />

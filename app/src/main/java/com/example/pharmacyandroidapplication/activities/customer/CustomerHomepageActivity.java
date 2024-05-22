@@ -42,6 +42,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class CustomerHomepageActivity extends AppCompatActivity {
 
@@ -57,7 +58,8 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_homepage);
 
-        userID = getIntent().getExtras().getString("userID");
+//        userID = getIntent().getExtras().getString("userID");
+        userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         getToken();
 
         ScrollView scrollView = findViewById(R.id.scroll_view);
@@ -117,7 +119,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
 
         // Gridview Category
-
         GridView categoryGV = findViewById(R.id.rcv_category);
 
         ArrayList<Category> CategoryArrayList = new ArrayList<Category>();
@@ -131,9 +132,8 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
         categoryAdapter.setOnButtonClickListener(new HomeCategoryAdapter.OnButtonClickListener() {
             @Override
-            public void onButtonClick(int position) {
-                // Xử lý sự kiện click tại vị trí position
-                Toast.makeText(getApplicationContext(), "Button clicked at position: " + position, Toast.LENGTH_SHORT).show();
+            public void onButtonClick(int position, String text) {
+                Toast.makeText(CustomerHomepageActivity.this, "Button clicked at position: " + text, Toast.LENGTH_SHORT).show();
             }
         });
         // Click Product

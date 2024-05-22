@@ -228,7 +228,7 @@ public class SendOTPActivity extends AppCompatActivity {
                 setInProgress(false);
                 if(task.isSuccessful()){
                     Intent intent = new Intent(SendOTPActivity.this,CustomerHomepageActivity.class);
-                    intent.putExtra("phone",phoneNumber);
+//                    intent.putExtra("phone",phoneNumber);
                     startActivity(intent);
                 }else{
                     AndroidUtil.showToast(getApplicationContext(),"OTP verification failed");
