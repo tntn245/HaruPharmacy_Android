@@ -6,11 +6,15 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -36,28 +40,32 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class CustomerHomepageActivity extends AppCompatActivity {
-
+    ImageButton imageSearch;
+    EditText editTextSearch;
     GridView categoryGV;
     GridView productGV;
+    ArrayList<Category> CategoryArrayList;
     ArrayList<Product> ProductArrayList;
     String userID;
+    String categoryID = "";
 
-    ActivityMainBinding binding;
-    PreferenceManager preferenceManager;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_homepage);
 
-        userID = getIntent().getExtras().getString("userID");
+        userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         getToken();
 
         ScrollView scrollView = findViewById(R.id.scroll_view);
@@ -65,10 +73,23 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         ImageView searchIcon = findViewById(R.id.ic_search);
         categoryGV = findViewById(R.id.rcv_category);
         productGV = findViewById(R.id.rcv_shopping);
+        imageSearch = findViewById(R.id.image_search);
 
         openDrawer();
         closeDrawer();
-        loadDataFromFirebase();
+        loadProductFromFirebase();
+        loadCategoryFromFirebase();
+
+
+        editTextSearch = findViewById(R.id.edit_text_search);
+        editTextSearch.setText("");
+
+        imageSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performSearch();
+            }
+        });
 
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
@@ -115,37 +136,15 @@ public class CustomerHomepageActivity extends AppCompatActivity {
             }
         });
 
-
-        // Gridview Category
-
-        GridView categoryGV = findViewById(R.id.rcv_category);
-
-        ArrayList<Category> CategoryArrayList = new ArrayList<Category>();
-
-        CategoryArrayList.add(new Category("Cải thiện giấc ngủ"));
-        CategoryArrayList.add(new Category("Hỗ trợ gan"));
-        CategoryArrayList.add(new Category("Hỗ trợ tim mạch"));
-
-        HomeCategoryAdapter categoryAdapter = new HomeCategoryAdapter(this, CategoryArrayList);
-        categoryGV.setAdapter(categoryAdapter);
-
-        categoryAdapter.setOnButtonClickListener(new HomeCategoryAdapter.OnButtonClickListener() {
-            @Override
-            public void onButtonClick(int position) {
-                // Xử lý sự kiện click tại vị trí position
-                Toast.makeText(getApplicationContext(), "Button clicked at position: " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
         // Click Product
         productGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Lấy giá trị của item được click
                 Product productDetails = ProductArrayList.get(position);
-                Toast.makeText(getApplicationContext(), "Item clicked at position: ", Toast.LENGTH_SHORT).show();
                 // Truyền giá trị của item qua layout tiếp theo để hiển thị
                 Intent intent = new Intent(CustomerHomepageActivity.this, ProductDetailsActivity.class);
-               intent.putExtra("product_id", productDetails.getId());
+                intent.putExtra("product_id", productDetails.getId());
                 startActivity(intent);
             }
         });
@@ -157,10 +156,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.home) {
-                    // Xử lý khi người dùng chọn trang chủ
-                    Intent supportIntent = new Intent(CustomerHomepageActivity.this, CustomerHomepageActivity.class);
-                    startActivity(supportIntent);
-                    finish();
                     return true;
                 } else if (itemId == R.id.support) {
                     // Xử lý khi người dùng chọn trang tư vấn
@@ -186,8 +181,75 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
     }
 
-    private void loadDataFromFirebase() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private void performSearch() {
+        String searchQuery = editTextSearch.getText().toString().trim();
+
+        Intent intent = new Intent(CustomerHomepageActivity.this, ShoppingPageActivity.class);
+        intent.putExtra("categoryID", "");
+        intent.putExtra("categoryName", "");
+        intent.putExtra("searchQuery", searchQuery);
+        startActivity(intent);
+    }
+    private void loadCategoryFromFirebase() {
+        DatabaseReference categoryRef = database.getReference("category");
+        categoryRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                CategoryArrayList = new ArrayList<Category>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String id = snapshot.child("id").getValue(String.class);
+                    String name = snapshot.child("name").getValue(String.class);
+                    boolean flagValid = Boolean.TRUE.equals(snapshot.child("flag_valid").getValue(Boolean.class));
+                    if(flagValid){
+                        Category category = new Category(id,name, flagValid);
+                        CategoryArrayList.add(category);
+                    }
+                }
+                // Click Category
+                HomeCategoryAdapter categoryAdapter = new HomeCategoryAdapter(CustomerHomepageActivity.this, CategoryArrayList);
+                categoryGV.setAdapter(categoryAdapter);
+                categoryAdapter.setOnButtonClickListener(new HomeCategoryAdapter.OnButtonClickListener() {
+                    @Override
+                    public void onButtonClick(int position, String text) {
+                        navCategory(text);
+                    }
+                });
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+    }
+
+    private void navCategory(String categoryName){
+        DatabaseReference categoryRef = database.getReference("category");
+        categoryRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String name = snapshot.child("name").getValue(String.class);
+                    String id = snapshot.child("id").getValue(String.class);
+                    if(name.equals(categoryName)){
+                        categoryID = id;
+                        break;
+                    }
+                }
+
+                Intent intent = new Intent(CustomerHomepageActivity.this, ShoppingPageActivity.class);
+                intent.putExtra("categoryID", categoryID);
+                intent.putExtra("categoryName", categoryName);
+                intent.putExtra("searchQuery", "");
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void loadProductFromFirebase() {
         DatabaseReference productsRef = database.getReference("product");
         productsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -199,7 +261,13 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     int productPrice = snapshot.child("price").getValue(Integer.class);
                     String productImg = snapshot.child("img").getValue(String.class);
                     String id = snapshot.child("id").getValue(String.class);
-                    Product product = new Product(id,"",productImg, productName,0,productPrice);
+                    String id_category = snapshot.child("id_category").getValue(String.class);
+                    String unit = snapshot.child("unit").getValue(String.class);
+                    String uses = snapshot.child("uses").getValue(String.class);
+                    String ingredient = snapshot.child("ingredient").getValue(String.class);
+                    Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
+
+                    Product product = new Product(id,id_category,productImg, productName,0,productPrice,unit,uses, ingredient, prescription);
                     // Sau đó, thêm sản phẩm vào danh sách productList
                     ProductArrayList.add(product);
                 }
@@ -242,10 +310,14 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     return true;
                 } else if (id == R.id.nav_support_drawer) {
                     Intent intent = new Intent(CustomerHomepageActivity.this, ChatActivity.class);
+                    intent.putExtra("userID", "zDVjeEon70POnmT25BdJbEmB5jG3");
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_shopping_drawer) {
                     Intent intent = new Intent(CustomerHomepageActivity.this, ShoppingPageActivity.class);
+                    intent.putExtra("categoryID", "");
+                    intent.putExtra("categoryName", "");
+                    intent.putExtra("searchQuery", "");
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_cart_drawer) {

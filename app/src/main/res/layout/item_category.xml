@@ -8,4 +8,5 @@
     android:backgroundTint="@color/pastel_dark_blue"
     android:text="Text"
     android:textColor="@color/black"
+    android:clickable="true"
     />

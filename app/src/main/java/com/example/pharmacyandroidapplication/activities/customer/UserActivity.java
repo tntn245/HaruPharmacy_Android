@@ -2,6 +2,7 @@ package com.example.pharmacyandroidapplication.activities.customer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -12,6 +13,8 @@ import androidx.cardview.widget.CardView;
 
 import com.example.pharmacyandroidapplication.MainActivity;
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.ChatActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class UserActivity extends AppCompatActivity {
     String userID;
@@ -54,6 +57,37 @@ public class UserActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Thực hiện hành động khi LinearLayout được click
                 // Ví dụ: Chuyển sang trang khác
+            }
+        });
+
+
+        // Click Bottom nav
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.home) {
+                    // Xử lý khi người dùng chọn trang chủ
+                    Intent supportIntent = new Intent(UserActivity.this, CustomerHomepageActivity.class);
+                    startActivity(supportIntent);
+                    finish();
+                    return true;
+                } else if (itemId == R.id.support) {
+                    // Xử lý khi người dùng chọn trang tư vấn
+                    Intent intent = new Intent(UserActivity.this, ChatActivity.class);
+                    intent.putExtra("userID", "zDVjeEon70POnmT25BdJbEmB5jG3");
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.cart) {
+                    // Xử lý khi người dùng chọn trang giỏ hàng
+                    Intent CartIntent = new Intent(UserActivity.this, CartActivity.class);
+                    startActivity(CartIntent);
+                    return true;
+                } else if (itemId == R.id.profile) {
+                    return true;
+                }
+                return false;
             }
         });
 

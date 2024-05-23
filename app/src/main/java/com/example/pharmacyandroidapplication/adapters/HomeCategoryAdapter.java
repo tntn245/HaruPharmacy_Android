@@ -19,11 +19,11 @@ import com.example.pharmacyandroidapplication.models.Product;
 import com.example.pharmacyandroidapplication.models.StockIn;
 
 import java.util.ArrayList;
-
 public class HomeCategoryAdapter extends ArrayAdapter<Category> {
 
     private Context context;
     ArrayList<Category> categoryArrayList;
+    private OnButtonClickListener buttonClickListener;
 
     public HomeCategoryAdapter(@NonNull Context context, ArrayList<Category> categoryArrayList) {
         super(context, 0, categoryArrayList);
@@ -32,9 +32,8 @@ public class HomeCategoryAdapter extends ArrayAdapter<Category> {
     }
 
     public interface OnButtonClickListener {
-        void onButtonClick(int position);
+        void onButtonClick(int position, String text);
     }
-    private OnButtonClickListener buttonClickListener;
 
     public void setOnButtonClickListener(OnButtonClickListener listener) {
         this.buttonClickListener = listener;
@@ -59,7 +58,7 @@ public class HomeCategoryAdapter extends ArrayAdapter<Category> {
             @Override
             public void onClick(View v) {
                 if (buttonClickListener != null) {
-                    buttonClickListener.onButtonClick(position);
+                    buttonClickListener.onButtonClick(position, category.getName());
                 }
             }
         });
@@ -67,4 +66,3 @@ public class HomeCategoryAdapter extends ArrayAdapter<Category> {
     }
 
 }
-

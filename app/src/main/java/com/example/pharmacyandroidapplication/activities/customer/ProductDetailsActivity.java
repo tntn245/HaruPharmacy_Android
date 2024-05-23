@@ -52,6 +52,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private TextView dialogProductName;
     private TextView dialogProductPrice;
     private Button btnCloseDialog;
+    private Button btnChooseToBuy;
     private RadioGroup radiogroup_unit;
     private RadioButton option1RadioButton;
     private RadioButton option2RadioButton;
@@ -95,10 +96,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     // bind vao
                     ProductPrice.setText(String.valueOf(product.getPrice()));
                     ProductName.setText(product.getName());
-                    if (product.isFlag_valid()) {
-                        Valid.setText("Thuốc không kê đơn");
-                    } else {
+                    if (product.isPrescription()) {
                         Valid.setText("Thuốc kê đơn");
+                        btnChooseToBuy.setVisibility(View.INVISIBLE);
+                    } else {
+                        Valid.setText("Thuốc không kê đơn");
                     }
                     Ingredient.setText(product.getIngredient());
                     Info.setText(product.getUses());
@@ -155,7 +157,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         // Bên trong activity hoặc fragment
         @SuppressLint("ResourceType") Animation slideUp = AnimationUtils.loadAnimation(this, R.drawable.animation_slide_up);
-        Button btnChooseToBuy = findViewById(R.id.btn_Chonmua);
+        btnChooseToBuy = findViewById(R.id.btn_Chonmua);
         btnChooseToBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
