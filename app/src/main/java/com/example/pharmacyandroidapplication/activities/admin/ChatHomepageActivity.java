@@ -30,6 +30,7 @@ import java.util.Objects;
 public class ChatHomepageActivity extends AppCompatActivity implements UserListener {
     private ActivityChatHomepageBinding binding;
     private List<User> users;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +39,11 @@ public class ChatHomepageActivity extends AppCompatActivity implements UserListe
         setListeners();
         getUsers();
     }
+
     private void setListeners() {
         binding.imageBack.setOnClickListener(v -> onBackPressed());
     }
+
     private void getUsers() {
         loading(true);
 
@@ -55,36 +58,17 @@ public class ChatHomepageActivity extends AppCompatActivity implements UserListe
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String userId = snapshot.getKey();
                     String role = snapshot.child("role").getValue(String.class);
-                    if (!currentUserId.equals(userId) && role.equals("customer")) {
-//                        messageRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(DataSnapshot dataSnapshotMess) {
-//                                for (DataSnapshot snapshotMess : dataSnapshotMess.getChildren()) {
-//                                    String senderID = snapshotMess.child("senderID").getValue(String.class);
-//                                    Log.d("AAAAAAA", senderID);
-//                                    if (senderID.equals(userId)) {
-                                        User user = new User();
-                                        user.name = snapshot.child("username").getValue(String.class);
-                                        user.image = snapshot.child("img").getValue(String.class);
-                                        user.id = snapshot.child("id").getValue(String.class);
-                                        users.add(user);
-//                                        Log.d("AAAAABB", userId);
-//                                        break;
-//                                    }
-//                                }
-                            }
-
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError error) {
-//                                loading(false);
-//                                showErrorMessage();
-//                            }
-//                        });
-//                    }
+                    if (!currentUserId.equals(userId) && role != null && role.equals("customer")) {
+                        User user = new User();
+                        user.name = snapshot.child("username").getValue(String.class);
+                        user.image = snapshot.child("img").getValue(String.class);
+                        user.id = snapshot.child("id").getValue(String.class);
+                        users.add(user);
+                    }
                 }
 
                 if (!users.isEmpty()) {
-                    AdminChatAdapter usersAdapter = new AdminChatAdapter(users,ChatHomepageActivity.this);
+                    AdminChatAdapter usersAdapter = new AdminChatAdapter(users, ChatHomepageActivity.this);
                     binding.usersRecyclerView.setAdapter(usersAdapter);
                 } else {
                     showErrorMessage();
@@ -111,6 +95,7 @@ public class ChatHomepageActivity extends AppCompatActivity implements UserListe
             binding.progressBar.setVisibility(View.INVISIBLE);
         }
     }
+
     @Override
     public void onUserClicked(User user) {
         Intent intent = new Intent(getApplicationContext(), ChatActivity.class);

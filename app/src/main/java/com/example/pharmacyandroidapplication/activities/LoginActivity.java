@@ -178,11 +178,12 @@ public class LoginActivity extends AppCompatActivity {
                                                 // Kiểm tra và điều hướng người dùng tới trang tương ứng
                                                 if ("admin".equals(userType)) {
                                                     Intent intent = new Intent(LoginActivity.this, AdminHomepageActivity.class);
+                                                    intent.putExtra("userID", userID);
                                                     startActivity(intent);
                                                     finish();
                                                 } else if ("customer".equals(userType)) {
                                                     Intent intent = new Intent(LoginActivity.this, CustomerHomepageActivity.class);
-                                                    intent.putExtra("userID", userID);
+//                                                    intent.putExtra("userID", userID);
                                                     startActivity(intent);
                                                     finish();
                                                 } else {

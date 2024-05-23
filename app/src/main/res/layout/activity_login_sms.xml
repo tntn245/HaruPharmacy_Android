@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:text="Vui lòng nhập số điện thoại"
-                android:textColor="@color/app_theme"
+                android:textColor="@color/black"
                 android:textSize="@dimen/text_size_medium"
                 android:layout_marginTop="@dimen/_5sdp"/>
 
@@ -91,7 +91,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:gravity="center_vertical"
                     android:text="+84"
-                    android:textColor="@color/app_theme"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/text_size_medium"
                     android:paddingStart="@dimen/_5sdp"
                     android:paddingEnd="@dimen/_15sdp" />

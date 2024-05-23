@@ -2,37 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_43sdp"
-    android:orientation="horizontal"
-    android:weightSum="5">
+    android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4"
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/edit_text_search"
+            android:id="@+id/edit_text_search_shopping_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:hint="Search"
             android:layout_marginLeft="@dimen/_10sdp"
             android:singleLine="true"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/image_search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_search"
-            android:backgroundTint="@color/white" />
     </LinearLayout>
 
 </LinearLayout>
