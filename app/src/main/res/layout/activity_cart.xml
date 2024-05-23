@@ -90,10 +90,11 @@
                             android:layout_marginStart="@dimen/_10sdp">
                         </TextView>
                         <TextView
+                            android:id="@+id/sum_price"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="2"
-                            android:text="987.000đ"
+                            android:text="0đ"
                             android:gravity="end"
                             android:fontFamily="sans-serif-black"
                             android:textSize="@dimen/_17sdp"
