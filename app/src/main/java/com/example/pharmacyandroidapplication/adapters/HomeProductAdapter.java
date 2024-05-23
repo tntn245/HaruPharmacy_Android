@@ -37,10 +37,15 @@ public class HomeProductAdapter extends  ArrayAdapter<Product> {
         TextView name_product = listitemView.findViewById(R.id.item_name);
         TextView price_product = listitemView.findViewById(R.id.item_price);
         ImageView img_product = listitemView.findViewById(R.id.img_product);
+        TextView prescription_tag = listitemView.findViewById(R.id.prescription_tag);
 
         assert product != null;
         name_product.setText(product.getName());
         price_product.setText(Integer.toString(product.getPrice()));
+        if(product.isPrescription()){
+            prescription_tag.setVisibility(View.VISIBLE);
+        }
+
         Glide.with(this.getContext().getApplicationContext())
                 .load(product.getImg())
                 .into(img_product);
