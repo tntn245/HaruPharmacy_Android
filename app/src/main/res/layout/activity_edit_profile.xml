@@ -24,17 +24,17 @@
                 android:background="@color/app_theme"
                 android:padding="@dimen/_20sdp"
                 android:gravity="center"
-                android:weightSum="8">
-                <ImageView
-                    android:id="@+id/ic_back"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:contentDescription="icon_back"
-                    android:src="@drawable/ic_back"
-                    tools:ignore="HardcodedText"
-                    app:tint="@color/white" />
+                android:weightSum="7">
+<!--                <ImageView-->
+<!--                    android:id="@+id/ic_back"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:contentDescription="icon_back"-->
+<!--                    android:src="@drawable/ic_back"-->
+<!--                    tools:ignore="HardcodedText"-->
+<!--                    app:tint="@color/white" />-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,9 +95,10 @@
 
                     <EditText
                         android:id="@+id/edt_txt_username_account"
-                        android:layout_width="@dimen/_285sdp"
+                        android:layout_width="@dimen/_270sdp"
                         android:layout_height="@dimen/_45sdp"
                         android:layout_gravity="center"
+                        android:singleLine="true"
                         android:background="@drawable/input_border_radius"
                         android:paddingStart="@dimen/_15sdp" />
                 </LinearLayout>
@@ -172,7 +173,7 @@
                     <!--                    Dùng DatePickerDialog để xử lý chọn ngày bên java-->
                     <EditText
                         android:id="@+id/edt_txt_birth_day_account"
-                        android:layout_width="@dimen/_285sdp"
+                        android:layout_width="@dimen/_270sdp"
                         android:layout_height="@dimen/_45sdp"
                         android:hint="Chọn ngày sinh"
                         android:focusable="false"

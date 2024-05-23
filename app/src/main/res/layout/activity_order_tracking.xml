@@ -102,18 +102,18 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <GridView
                 android:id="@+id/list_orders"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="577dp"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:horizontalSpacing="@dimen/_8sdp"
                 android:numColumns="1"
                 android:padding="@dimen/_8sdp"
-                android:verticalSpacing="@dimen/_8sdp">
-            </GridView>
+                android:verticalSpacing="@dimen/_8sdp"></GridView>
         </LinearLayout>
     </ScrollView>
-    <include layout="@layout/bottom_navigation"/>
+<!--    <include layout="@layout/bottom_navigation"/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
