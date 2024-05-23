@@ -330,9 +330,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         }
                     });
 
-
-
-
                 } else {
                     // Không có RadioButton nào được chọn
                     Log.d("Selected Option", "None selected");

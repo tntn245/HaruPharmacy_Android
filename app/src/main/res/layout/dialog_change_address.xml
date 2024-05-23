@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_500sdp"
+    android:layout_gravity="bottom"
+    android:background="@android:color/white"
+    android:gravity="top"
+    android:weightSum="10"
+    android:orientation="vertical">
+    <!-- Các thành phần trong drawer -->
+
+    <TextView
+        android:id="@+id/chon_dia_chi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="Chọn địa chỉ nhận hàng"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_large"
+        android:layout_margin="@dimen/_10sdp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray">
+    </TextView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_weight="9"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/group_unit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </RadioGroup>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:backgroundTint="@color/app_theme"
+            android:elevation="@dimen/_8sdp"
+            android:fontFamily="sans-serif-black"
+            android:text="Xác nhận"
+            android:textColor="@color/text_theme"
+            android:textSize="@dimen/text_size_medium" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2sdp"/>
+        <Button
+            android:id="@+id/btn_add_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:backgroundTint="@color/pastel_dark_blue"
+            android:elevation="@dimen/_8sdp"
+            android:fontFamily="sans-serif-black"
+            android:text="Thêm địa chỉ mới"
+            android:textColor="@color/app_theme"
+            android:textSize="@dimen/text_size_medium"
+            />
+    </LinearLayout>
+</LinearLayout>

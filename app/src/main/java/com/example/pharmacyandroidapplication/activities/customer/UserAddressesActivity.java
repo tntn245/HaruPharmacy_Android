@@ -7,8 +7,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pharmacyandroidapplication.R;
@@ -27,6 +31,8 @@ public class UserAddressesActivity extends AppCompatActivity {
     private DatabaseReference addressRef = database.getReference("shipment details");
     private String address_id, user_id, receiverName, phone, province, district, commune, address_details;
     private ArrayList<ShipmentInf> shipmentInfArrayList = new ArrayList<>();
+
+    private ShipmentInf shipmentInfSelected;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +71,6 @@ public class UserAddressesActivity extends AppCompatActivity {
                     address_details = snapshot.child("address_details").getValue().toString();
                     ShipmentInf shipmentInf = new ShipmentInf(address_id, user_id, receiverName, phone, province, district, commune, address_details);
                     shipmentInfArrayList.add(shipmentInf);
-                    Log.e("Hẻ", shipmentInfArrayList.get(0).getReceiverName());
                 }
 
                 ShipmentInfAdapter adapter = new ShipmentInfAdapter(UserAddressesActivity.this, shipmentInfArrayList);
@@ -77,15 +82,56 @@ public class UserAddressesActivity extends AppCompatActivity {
                 // Xử lý lỗi nếu cần
             }
         });
+//        ShipmentInfAdapter adapter = new ShipmentInfAdapter(UserAddressesActivity.this, shipmentInfArrayList);
+//        addressGV.setAdapter(adapter);
 
+//        adapter.setOnDeleteClickListener(new ShipmentInfAdapter.OnDeleteClickListener() {
+//            @Override
+//            public void onDeleteClick(String addressId) {
+//                // Gọi phương thức để xóa địa chỉ trong Firebase
+//                deleteAddressFromFirebase(addressId);
+//            }
+//        });
         // Đặt sự kiện click cho mỗi item trong GridView
         addressGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Lấy giá trị của item được click
                 ShipmentInf item = shipmentInfArrayList.get(position);
-                // Xử lý sự kiện khi item được click
+                shipmentInfSelected = shipmentInfArrayList.get(position);
+                String addressId =item.getAddress_id();
+                Log.e("?", "item đã được click");
+                //Xử lý sự kiện khi item được click
+                ImageView img_edit_address = findViewById(R.id.img_edit_address_item);
+                img_edit_address.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.e("?", "onClick: đã xóa " );
+                        deleteAddressFromFirebase(addressId);
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void deleteAddressFromFirebase(String addressId) {
+        // Thực hiện xóa địa chỉ từ Firebase dựa trên addressId
+        DatabaseReference addressToDeleteRef = addressRef.child(addressId);
+        addressToDeleteRef.removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error == null) {
+                    // Xóa thành công
+                    // Thực hiện các hành động sau khi xóa, ví dụ: hiển thị thông báo, cập nhật giao diện, vv.
+                    Toast.makeText(UserAddressesActivity.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Xóa thất bại
+                    // Xử lý lỗi nếu cần
+                    Toast.makeText(UserAddressesActivity.this, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
+
 }
