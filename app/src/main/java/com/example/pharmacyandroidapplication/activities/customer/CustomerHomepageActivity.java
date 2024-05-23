@@ -310,6 +310,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     return true;
                 } else if (id == R.id.nav_support_drawer) {
                     Intent intent = new Intent(CustomerHomepageActivity.this, ChatActivity.class);
+                    intent.putExtra("userID", "zDVjeEon70POnmT25BdJbEmB5jG3");
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_shopping_drawer) {
