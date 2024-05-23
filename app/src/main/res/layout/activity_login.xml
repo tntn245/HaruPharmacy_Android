@@ -103,8 +103,7 @@
                             android:drawableTint="@color/gray"
                             android:gravity="center"
                             android:hint="@string/username"
-                            android:drawablePadding="10dp"
-                            android:paddingLeft="10dp"
+                            android:drawablePadding="-20dp"
                             android:textSize="@dimen/text_size_medium"
                             android:singleLine="true" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -209,7 +208,8 @@
                         android:drawableTint="@color/black"
                         android:text="SMS"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/text_size_medium"/>
+                        android:textSize="@dimen/text_size_medium"
+                        android:paddingRight="@dimen/_35sdp"/>
                     <Button
                         android:id="@+id/loginGGButton"
                         android:layout_width="@dimen/_230sdp"
@@ -221,7 +221,8 @@
                         android:text="Google"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_medium"
-                        android:layout_marginBottom="@dimen/_15sdp"/>
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:paddingRight="@dimen/_35sdp"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

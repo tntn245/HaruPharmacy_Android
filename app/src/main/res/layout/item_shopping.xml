@@ -7,11 +7,27 @@
     android:layout_margin="@dimen/_10sdp"
     android:elevation="10dp"
     app:cardCornerRadius="20dp">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
+        <TextView
+            android:id="@+id/prescription_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:background="@drawable/tag_background"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:text="Thuốc kê đơn"
+            android:textColor="@color/text_theme"
+            android:textSize="@dimen/text_size_small"
+            android:textStyle="bold"
+            />
         <ImageView
             android:id="@+id/img_product"
             android:layout_width="@dimen/_180sdp"
@@ -19,7 +35,6 @@
             android:scaleType="fitCenter"
             android:layout_gravity="center"
             android:src="@drawable/icon4"/>
-
         <TextView
             android:id="@+id/item_name"
             android:layout_width="match_parent"
@@ -40,6 +55,6 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:textAlignment="center" />
-
     </LinearLayout>
+    </FrameLayout>
 </androidx.cardview.widget.CardView>

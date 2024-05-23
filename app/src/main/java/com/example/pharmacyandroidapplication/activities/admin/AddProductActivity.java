@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -61,7 +62,7 @@ public class AddProductActivity extends AppCompatActivity {
         retrieveCategoryData("category_name");
         add_spn_product_type.setAdapter(adapter);
 
-        ArrayList <String> statusList = new ArrayList<>();
+        ArrayList<String> statusList = new ArrayList<>();
         statusList.add("Đang kinh doanh");
         statusList.add("Ngừng kinh doanh");
         ArrayAdapter<String> statusAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, statusList);
@@ -85,11 +86,9 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     public void saveNewProduct() {
-        String id, id_cate, name, unit, ingredient, uses, img;
+        String id_cate, name, unit, ingredient, uses, img;
         int price, quantity;
         boolean flag_valid;
-        DatabaseReference newProductRef = productRef.push();
-        id = newProductRef.getKey().toString();
         id_cate = add_spn_product_type.getSelectedItem().toString();
         name = add_txt_product_name.getText().toString();
         img = "img_link";
@@ -99,13 +98,40 @@ public class AddProductActivity extends AppCompatActivity {
         price = Integer.valueOf(add_txt_product_price.getText().toString());
         quantity = 0;
         flag_valid = (add_spn_product_status.getSelectedItem().toString() == "Đang kinh doanh");
-
-        // Tạo các đơn vị (units) cho sản phẩm
+        DatabaseReference newProductRef = productRef.push();
+        String id = newProductRef.getKey().toString();
         Map<String, Object> units = new HashMap<>();
-        units.put("Unit 1", new Unit("Unit 1", 1000));
-        units.put("Unit 2", new Unit("Unit 2", 2000));
-        Product newProduct = new Product(id, id_cate, img, name, quantity, price, unit, uses, ingredient, flag_valid, false, units);
-        newProductRef.setValue(newProduct);
+//        units.put(unit, new Unit(unit, price));
+//        Product newProduct = new Product(id, id_cate, img, name, quantity, price, unit, uses, ingredient, flag_valid, false, units);
+//        newProductRef.setValue(newProduct);
+        // Tạo các đơn vị (units) cho sản phẩm
+
+        productRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Lấy dữ liệu từ snapshot và tạo đối tượng Product
+                    String nameInFirebase = snapshot.child("name").getValue(String.class);
+                    if (name.equals(nameInFirebase)) {
+//                        Map<String, Object> units = new HashMap<>();
+//                        units.put(unit, new Unit(unit, price));
+//                        DatabaseReference unitRef = snapshot.getRef().child("units").getRef();
+//                        unitRef.setValue(units);
+//                        break;
+                        Log.e("?", "onDataChange: ");
+                    } else {
+                        Log.e("chay bn", "onDataChange: " );
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     public void setDefaultView() {
@@ -130,12 +156,14 @@ public class AddProductActivity extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 throw databaseError.toException(); // don't ignore errors
             }
         });
     }
+
     public void retrieveUnitData(String attr) {
         unitRef.addValueEventListener(new ValueEventListener() {
 

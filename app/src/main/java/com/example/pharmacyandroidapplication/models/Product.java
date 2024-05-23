@@ -227,5 +227,4 @@ public class Product {
     public void setUnitarrr(Map<String, Object> unitarrr) {
         this.unitarrr = unitarrr;
     }
-
 }

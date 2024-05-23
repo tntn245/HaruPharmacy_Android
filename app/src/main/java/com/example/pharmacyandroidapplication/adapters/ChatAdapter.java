@@ -97,7 +97,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         void setData(ChatMessage chatMessage, String receiverProfileImage) {
             binding.textMessage.setText(chatMessage.message);
             binding.textDateTime.setText(chatMessage.dateTime);
-//            binding.imageProfile.setImageBitmap(receiverProfileImage);
             Picasso.get().load(receiverProfileImage).into(binding.imageProfile);
         }
     }

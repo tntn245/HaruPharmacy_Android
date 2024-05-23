@@ -61,23 +61,47 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:text="Vui lòng nhập số điện thoại"
-                android:textColor="@color/app_theme"
-                android:textSize="@dimen/text_size_medium" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_medium"
+                android:layout_marginTop="@dimen/_5sdp"/>
 
-
-            <EditText
-                android:id="@+id/phoneEditText"
-                android:layout_width="@dimen/_230sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_gravity="center"
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/_16sdp"
-                android:background="@drawable/edittext_border_radius"
-                android:gravity="center"
-                android:maxLength="9"
-                android:hint=""
-                android:singleLine="true"
-                android:textSize="@dimen/text_size_medium" />
+                android:layout_gravity="center">
+
+                <EditText
+                    android:id="@+id/phoneEditText"
+                    android:layout_width="@dimen/_230sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/edittext_border_radius"
+                    android:gravity="center"
+                    android:inputType="phone"
+                    android:textSize="@dimen/text_size_medium"
+                    android:singleLine="true"
+                    android:paddingStart="@dimen/_5sdp" />
+
+                <TextView
+                    android:id="@+id/countryCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:gravity="center_vertical"
+                    android:text="+84"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_medium"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_15sdp" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginStart="@dimen/_45sdp"
+                    android:background="@color/app_theme"
+                    android:layout_gravity="center_vertical"/>
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -142,7 +166,7 @@
             android:backgroundTint="@color/pastel_light_blue"
             android:elevation="@dimen/_8sdp"
             android:text="Tài khoản đã đăng ký"
-            android:textColor="@color/black"
+            android:textColor="@color/dark_brown_blue"
             android:textSize="@dimen/text_size_medium" />
     </LinearLayout>
 
