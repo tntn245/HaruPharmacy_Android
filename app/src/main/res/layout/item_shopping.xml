@@ -27,6 +27,7 @@
             android:textColor="@color/text_theme"
             android:textSize="@dimen/text_size_small"
             android:textStyle="bold"
+            android:visibility="invisible"
             />
         <ImageView
             android:id="@+id/img_product"

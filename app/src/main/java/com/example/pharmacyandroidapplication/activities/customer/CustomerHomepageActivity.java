@@ -261,7 +261,13 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     int productPrice = snapshot.child("price").getValue(Integer.class);
                     String productImg = snapshot.child("img").getValue(String.class);
                     String id = snapshot.child("id").getValue(String.class);
-                    Product product = new Product(id,"",productImg, productName,0,productPrice);
+                    String id_category = snapshot.child("id_category").getValue(String.class);
+                    String unit = snapshot.child("unit").getValue(String.class);
+                    String uses = snapshot.child("uses").getValue(String.class);
+                    String ingredient = snapshot.child("ingredient").getValue(String.class);
+                    Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
+
+                    Product product = new Product(id,id_category,productImg, productName,0,productPrice,unit,uses, ingredient, prescription);
                     // Sau đó, thêm sản phẩm vào danh sách productList
                     ProductArrayList.add(product);
                 }
