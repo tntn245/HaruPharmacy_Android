@@ -308,10 +308,11 @@ public class PaymentActivity extends AppCompatActivity {
                 // Lấy address_id từ tag của RadioButton được chọn
 //                String selectedAddressId = (String) selectedRadioButton.getTag();
                 // Tìm địa chỉ trong addressList dựa trên address_id được chọn
+//                Toast.makeText(getApplicationContext(),  addressList.size(), Toast.LENGTH_SHORT).show();
+
                 for (ShipmentInf address_ship : addressList) {
                     if (String.valueOf(selectedRadioButtonId).equals(address_ship.getAddress_id())) {
                         // Cập nhật các thành phần UI
-                        Toast.makeText(getApplicationContext(),  address_ship.getAddress_details(), Toast.LENGTH_SHORT).show();
 
                         detail.setText(address_ship.getAddress_details());
                         address.setText(address_ship.getCommune() + ", " + address_ship.getDistrict() + ", " + address_ship.getProvince());
