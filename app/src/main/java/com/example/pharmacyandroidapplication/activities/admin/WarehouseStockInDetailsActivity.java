@@ -22,10 +22,12 @@ public class WarehouseStockInDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wh_stock_in_details);
+
+
         GridView StockInDetails = findViewById(R.id.list_product_stock_in);
         ArrayList<ProductStockInDetails> productStockInDetails = new ArrayList<ProductStockInDetails>();
 
-        productStockInDetails.add(new ProductStockInDetails("","Omega3", "UDXFDG", "1/1/2020", "1/1/2024", 10, 5, 100000, "chai", ""));
+        productStockInDetails.add(new ProductStockInDetails("","Omega3", "UDXFDG", "1/1/2020", "1/1/2024", 15, 15,100000, "chai", ""));
 
         ProductStockInDetailsAdapter adapter = new ProductStockInDetailsAdapter(this, productStockInDetails, false);
         StockInDetails.setAdapter(adapter);

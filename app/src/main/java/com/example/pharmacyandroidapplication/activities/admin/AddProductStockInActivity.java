@@ -140,6 +140,13 @@ public class AddProductStockInActivity extends AppCompatActivity {
                 }
             }
         });
+        btn_cancel = findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     private void loadUnits(String productID) {
         DatabaseReference unitsRef = FirebaseDatabase.getInstance().getReference().child("product").child(productID).child("unitarrr");

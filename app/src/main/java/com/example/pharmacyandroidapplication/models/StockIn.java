@@ -7,6 +7,7 @@ public class StockIn {
     private Date date;
     private int total_payment;
 
+
     public StockIn(Date date, int total_payment) {
         this.id = "";
         this.date = date;

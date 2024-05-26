@@ -31,25 +31,25 @@ public class ProductStockInDetails {
         this.img = img;
     }
 
-//    public ProductStockInDetails(String product_id, String product_name, String lot_number, String production_date, String expiration_date, int in_quantity, int quantity_in_stock, int unit_price, String unit, String img) {
-//        this.product_id = product_id;
-//        this.product_name = product_name;
-//        this.unit = unit;
-//        this.lot_number = lot_number;
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//        try {
-//            Date date = dateFormat.parse(production_date);
-//            this.production_date = date;
-//            date = dateFormat.parse(expiration_date);
-//            this.expiration_date = date;
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        this.in_quantity = in_quantity;
-//        this.quantity_in_stock = quantity_in_stock;
-//        this.unit_price = unit_price;
-//        this.img = img;
-//    }
+    public String getProduction_date() {
+        return production_date;
+    }
+
+    public void setProduction_date(String production_date) {
+        this.production_date = production_date;
+    }
+
+    public String getExpiration_date() {
+        return expiration_date;
+    }
+
+    public void setExpiration_date(String expiration_date) {
+        this.expiration_date = expiration_date;
+    }
+
+    public int getIn_quantity() {
+        return in_quantity;
+    }
 
     public int getQuantity_in_stock() {
         return quantity_in_stock;
@@ -83,25 +83,6 @@ public class ProductStockInDetails {
         this.lot_number = lot_number;
     }
 
-    public String getProduction_date() {
-        return production_date;
-    }
-
-    public void setProduction_date(String production_date) {
-        this.production_date = production_date;
-    }
-
-    public String getExpiration_date() {
-        return expiration_date;
-    }
-
-    public void setExpiration_date(String expiration_date) {
-        this.expiration_date = expiration_date;
-    }
-
-    public int getIn_quantity() {
-        return in_quantity;
-    }
 
     public void setIn_quantity(int in_quantity) {
         this.in_quantity = in_quantity;

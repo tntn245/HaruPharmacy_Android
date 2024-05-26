@@ -10,11 +10,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.adapters.ProductStockInDetailsAdapter;
 import com.example.pharmacyandroidapplication.models.ProductStockInDetails;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +26,9 @@ import java.util.Date;
 import java.util.Locale;
 
 public class AddStockInActivity extends AppCompatActivity {
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    int total_stockin_price = 0;
+    TextView txt_total_stockin_price;
     String productID, productName, lotNumber, unitName, productionDate, expirationDate;
     int inQuantity, unitPrice;
     ArrayList<ProductStockInDetails> productStockInDetails;
@@ -39,7 +45,12 @@ public class AddStockInActivity extends AppCompatActivity {
         adapter = new ProductStockInDetailsAdapter(this, productStockInDetails, true);
         StockInDetails.setAdapter(adapter);
 
+        txt_total_stockin_price = findViewById(R.id.total_stockin_price);
         date_stock_in = findViewById(R.id.date_stock_in);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String currentDate = dateFormat.format(calendar.getTime());
+        date_stock_in.setText(currentDate);
         date_stock_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +64,24 @@ public class AddStockInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AddStockInActivity.this, AddProductStockInActivity.class);
                 startActivityForResult(intent, 1);
+            }
+        });
+
+        Button btn_add_stockin =findViewById(R.id.btn_add_stockin);
+        btn_add_stockin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFirebase();
+                Intent intent = new Intent(AddStockInActivity.this, WarehouseStockInActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btn_cancel = findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -71,8 +100,17 @@ public class AddStockInActivity extends AppCompatActivity {
             Toast.makeText(this, "Đã chọn " + productName, Toast.LENGTH_LONG).show();
         }
 
-        productStockInDetails.add(new ProductStockInDetails(productID,productName, lotNumber, productionDate, expirationDate, inQuantity, 0, unitPrice, unitName, ""));
+        total_stockin_price = total_stockin_price+ inQuantity*unitPrice;
+        txt_total_stockin_price.setText(String.valueOf(total_stockin_price));
+
+        productStockInDetails.add(new ProductStockInDetails(productID,productName, lotNumber, productionDate, expirationDate, inQuantity,inQuantity, unitPrice, unitName, ""));
         adapter.notifyDataSetChanged();
+    }
+    private void addFirebase(){
+        DatabaseReference stockInRef = database.child("stockIn").push();
+        stockInRef.child("productStockInInf").setValue(productStockInDetails);
+        stockInRef.child("totalPrice").setValue(total_stockin_price);
+        stockInRef.child("stockInDate").setValue(date_stock_in.getText().toString());
     }
 
     public void showDatePickerDialog(View v) {
