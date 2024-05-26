@@ -303,7 +303,6 @@ public class PaymentActivity extends AppCompatActivity {
                 address.setText(shipment.getCommune() + ", " + shipment.getDistrict() + ", " + shipment.getProvince());
                 name_receiver.setText(shipment.getReceiverName());
                 phone.setText(shipment.getPhone());
-
                 // Đóng dialog sau khi cập nhật thông tin
                 dialog.dismiss();
             } else {
