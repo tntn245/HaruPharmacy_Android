@@ -21,6 +21,12 @@
         android:theme="@style/Theme.PharmacyAndroidApplication"
         tools:targetApi="31">
         <activity
+            android:name=".activities.admin.EditProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.AddNewProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.admin.ChatHomepageActivity"
             android:exported="false" />
         <activity
@@ -52,9 +58,6 @@
             android:exported="false" />
         <activity
             android:name=".activities.admin.EditCategoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.admin.EditProductActivity"
             android:exported="false" />
         <activity
             android:name=".activities.admin.AddCategoryActivity"
@@ -161,6 +164,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".firebase.MessagingService"
             android:exported="false">

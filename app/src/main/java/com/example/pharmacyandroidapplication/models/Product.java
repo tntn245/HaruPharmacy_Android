@@ -1,5 +1,7 @@
 package com.example.pharmacyandroidapplication.models;
 
+import androidx.annotation.NonNull;
+
 import java.util.Map;
 
 public class Product {
@@ -15,9 +17,6 @@ public class Product {
     private boolean flag_valid;
     private boolean prescription;
     private Map<String, Object> unitarrr;
-    public Product() {
-    }
-
     public Product(String id) {
         this.id = id;
     }
@@ -226,5 +225,10 @@ public class Product {
 
     public void setUnitarrr(Map<String, Object> unitarrr) {
         this.unitarrr = unitarrr;
+    }
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
     }
 }

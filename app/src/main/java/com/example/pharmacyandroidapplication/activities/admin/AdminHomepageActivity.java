@@ -26,7 +26,7 @@ public class AdminHomepageActivity extends AppCompatActivity {
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomepageActivity.this, ChatHomepageActivity.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
+                Intent intent = new Intent(AdminHomepageActivity.this, ChatHomepageActivity.class);
                 startActivity(intent);
             }
         });
@@ -35,7 +35,7 @@ public class AdminHomepageActivity extends AppCompatActivity {
         cardViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomepageActivity.this, ProductManagementActivity.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
+                Intent intent = new Intent(AdminHomepageActivity.this, ProductManagementActivity.class);
                 startActivity(intent);
             }
         });
@@ -44,7 +44,7 @@ public class AdminHomepageActivity extends AppCompatActivity {
         cardViewCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomepageActivity.this, CategoryManagementActivity.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
+                Intent intent = new Intent(AdminHomepageActivity.this, CategoryManagementActivity.class);
                 startActivity(intent);
             }
         });
@@ -53,7 +53,7 @@ public class AdminHomepageActivity extends AppCompatActivity {
         cardViewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomepageActivity.this, OrderManagementActivity.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
+                Intent intent = new Intent(AdminHomepageActivity.this, OrderManagementActivity.class);
                 startActivity(intent);
             }
         });
@@ -62,7 +62,7 @@ public class AdminHomepageActivity extends AppCompatActivity {
         cardViewWH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomepageActivity.this, WarehouseHomeActivity.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
+                Intent intent = new Intent(AdminHomepageActivity.this, WarehouseHomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -71,7 +71,7 @@ public class AdminHomepageActivity extends AppCompatActivity {
         cardViewStatistic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomepageActivity.this, StatisticActivity.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
+                Intent intent = new Intent(AdminHomepageActivity.this, StatisticActivity.class);
                 startActivity(intent);
             }
         });

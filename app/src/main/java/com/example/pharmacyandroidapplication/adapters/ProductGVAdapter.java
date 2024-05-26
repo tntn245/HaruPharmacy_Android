@@ -38,7 +38,7 @@ public class ProductGVAdapter extends ArrayAdapter<Product> {
         TextView price_product = listitemView.findViewById(R.id.product_price);
         assert product != null;
         name_product.setText(product.getName());
-        price_product.setText(product.getPrice());
+        price_product.setText(String.valueOf(product.getPrice()));
         Glide.with(this.getContext().getApplicationContext())
                 .load(product.getImg())
                 .into(img_product);

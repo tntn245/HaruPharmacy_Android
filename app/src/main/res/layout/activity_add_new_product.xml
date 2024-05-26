@@ -13,22 +13,12 @@
         android:layout_height="wrap_content"
         android:background="@color/app_theme"
         android:gravity="center"
-        android:weightSum="9"
         android:padding="@dimen/_20sdp">
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:contentDescription="icon_warehouse"
-            android:src="@drawable/ic_back"
-            tools:ignore="HardcodedText" />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Thêm sản phẩm"
             android:gravity="center"
-            android:layout_weight="8"
             android:textColor="@color/text_theme"
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold" />
@@ -119,66 +109,66 @@
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="3">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="3">-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="Số lượng"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:paddingLeft="@dimen/_25sdp"-->
+<!--                    android:paddingTop="@dimen/_10sdp"-->
+<!--                    android:paddingBottom="@dimen/_10sdp"-->
+<!--                    android:text="Số lượng"-->
+<!--                    android:textColor="@color/gray"-->
+<!--                    android:textSize="@dimen/_13ssp"-->
+<!--                    android:textStyle="bold" />-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="0"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="2"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingLeft="@dimen/_25sdp"-->
+<!--                    android:paddingTop="@dimen/_10sdp"-->
+<!--                    android:paddingBottom="@dimen/_10sdp"-->
+<!--                    android:text="0"-->
+<!--                    android:textColor="@color/gray"-->
+<!--                    android:textSize="@dimen/_13ssp"-->
+<!--                    android:textStyle="bold" />-->
+<!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="Giá bán"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:paddingLeft="@dimen/_25sdp"-->
+<!--                    android:paddingTop="@dimen/_10sdp"-->
+<!--                    android:paddingBottom="@dimen/_10sdp"-->
+<!--                    android:text="Giá bán"-->
+<!--                    android:textColor="@color/gray"-->
+<!--                    android:textSize="@dimen/_13ssp"-->
+<!--                    android:textStyle="bold" />-->
 
-                <EditText
-                    android:id="@+id/add_txt_product_price"
-                    android:layout_width="@dimen/_285sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/input_border_radius"
-                    android:hint="Giá bán"
-                    android:inputType="number"
-                    android:paddingStart="@dimen/_15sdp" />
-            </LinearLayout>
+<!--                <EditText-->
+<!--                    android:id="@+id/add_txt_product_price"-->
+<!--                    android:layout_width="@dimen/_285sdp"-->
+<!--                    android:layout_height="@dimen/_45sdp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:background="@drawable/input_border_radius"-->
+<!--                    android:hint="Giá bán"-->
+<!--                    android:inputType="number"-->
+<!--                    android:paddingStart="@dimen/_15sdp" />-->
+<!--            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -197,14 +187,23 @@
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
 
-                <Spinner
-                    android:id="@+id/add_spn_product_unit"
-                    android:layout_width="@dimen/_285sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/input_border_radius"
-                    android:hint="Chọn đơn vị"
-                    android:paddingStart="@dimen/_15sdp" />
+<!--                <RadioGroup-->
+<!--                    android:id="@+id/radioGroupUnits"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:paddingLeft="@dimen/_25sdp"-->
+<!--                    android:paddingTop="@dimen/_10sdp"-->
+<!--                    android:paddingBottom="@dimen/_10sdp">-->
+<!--                </RadioGroup>-->
+                <LinearLayout
+                    android:id="@+id/checkboxContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingRight="@dimen/_25sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:orientation="vertical">
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -286,9 +285,9 @@
                     android:hint="Chọn tình trang kinh doanh"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
-<!--            <Space-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="@dimen/_25sdp" />-->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_25sdp" />
         </LinearLayout>
     </ScrollView>
     <LinearLayout
