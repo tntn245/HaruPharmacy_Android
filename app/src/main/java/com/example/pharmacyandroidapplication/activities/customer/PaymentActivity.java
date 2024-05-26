@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -234,6 +235,7 @@ public class PaymentActivity extends AppCompatActivity {
         adapter = new ItemPayAdapter(this, itemList);
         recyclerView.setAdapter(adapter);
     }
+    int ii;
 
     private void ShowDialogChangeAddress() {
         Dialog dialog = new Dialog(PaymentActivity.this, R.style.FullScreenDialog);
@@ -271,10 +273,17 @@ public class PaymentActivity extends AppCompatActivity {
                 if (isChecked) {
                     for (int i = 0; i < group_unit.getChildCount(); i++) {
                         View child = group_unit.getChildAt(i);
+//                        Toast.makeText(this, i, Toast.LENGTH_SHORT).show();
+
+
                         if (child instanceof LinearLayout) {
                             RadioButton rb = ((LinearLayout) child).findViewById(R.id.radioButton);
                             if (rb != radioButton) {
                                 rb.setChecked(false);
+                            }
+                            else{
+                                ii= i;
+                                Toast.makeText(getApplicationContext(),  String.valueOf(ii), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -292,15 +301,18 @@ public class PaymentActivity extends AppCompatActivity {
 
         btn_confirm.setOnClickListener(v -> {
             // Lấy id của RadioButton được chọn
-            int selectedRadioButtonId = group_unit.getCheckedRadioButtonId();
+            int selectedRadioButtonId = ii;
+
             if (selectedRadioButtonId != -1) {
                 RadioButton selectedRadioButton = findViewById(selectedRadioButtonId);
                 // Lấy address_id từ tag của RadioButton được chọn
-                String selectedAddressId = (String) selectedRadioButton.getTag();
+//                String selectedAddressId = (String) selectedRadioButton.getTag();
                 // Tìm địa chỉ trong addressList dựa trên address_id được chọn
+//                Toast.makeText(getApplicationContext(),  addressList.size(), Toast.LENGTH_SHORT).show();
                 for (ShipmentInf address_ship : addressList) {
-                    if (selectedAddressId.equals(address_ship.getAddress_id())) {
+                    if (String.valueOf(selectedRadioButtonId).equals(address_ship.getAddress_id())) {
                         // Cập nhật các thành phần UI
+
                         detail.setText(address_ship.getAddress_details());
                         address.setText(address_ship.getCommune() + ", " + address_ship.getDistrict() + ", " + address_ship.getProvince());
                         name_receiver.setText(address_ship.getReceiverName());

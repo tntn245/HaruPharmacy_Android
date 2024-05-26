@@ -118,9 +118,7 @@ public class AddProductActivity extends AppCompatActivity {
 //                        DatabaseReference unitRef = snapshot.getRef().child("units").getRef();
 //                        unitRef.setValue(units);
 //                        break;
-                        Log.e("?", "onDataChange: ");
                     } else {
-                        Log.e("chay bn", "onDataChange: " );
                         break;
                     }
                 }
