@@ -1,6 +1,7 @@
 package com.example.pharmacyandroidapplication.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +38,8 @@ public class ProductGVAdapter extends ArrayAdapter<Product> {
         ImageView img_product = listitemView.findViewById(R.id.img_product);
         TextView price_product = listitemView.findViewById(R.id.product_price);
         assert product != null;
+
         name_product.setText(product.getName());
-        price_product.setText(product.getPrice());
         Glide.with(this.getContext().getApplicationContext())
                 .load(product.getImg())
                 .into(img_product);

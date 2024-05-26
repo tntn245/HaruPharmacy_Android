@@ -38,10 +38,9 @@ public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.ViewHold
         holder.order_id.setText("124224");
         holder.order_date.setText("2/5/2024");
         holder.order_total_payment.setText("100000");
-        if (order.isOrder_status()) holder.order_status.setText("Đã giao");
-        else holder.order_status.setText("Đang vận chuyển");
-        if (order.isPayment_status()) holder.payment_status.setText("Đã thanh toán");
-        else holder.payment_status.setText("Chưa thanh toán");
+        holder.order_status.setText(order.getOrder_status());
+        holder.payment_status.setText(order.getPayment_status());
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

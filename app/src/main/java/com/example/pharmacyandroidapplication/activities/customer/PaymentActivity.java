@@ -309,7 +309,6 @@ public class PaymentActivity extends AppCompatActivity {
 //                String selectedAddressId = (String) selectedRadioButton.getTag();
                 // Tìm địa chỉ trong addressList dựa trên address_id được chọn
 //                Toast.makeText(getApplicationContext(),  addressList.size(), Toast.LENGTH_SHORT).show();
-
                 for (ShipmentInf address_ship : addressList) {
                     if (String.valueOf(selectedRadioButtonId).equals(address_ship.getAddress_id())) {
                         // Cập nhật các thành phần UI
