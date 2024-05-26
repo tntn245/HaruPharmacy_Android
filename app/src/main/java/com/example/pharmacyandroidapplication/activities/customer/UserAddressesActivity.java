@@ -82,16 +82,7 @@ public class UserAddressesActivity extends AppCompatActivity {
                 // Xử lý lỗi nếu cần
             }
         });
-//        ShipmentInfAdapter adapter = new ShipmentInfAdapter(UserAddressesActivity.this, shipmentInfArrayList);
-//        addressGV.setAdapter(adapter);
 
-//        adapter.setOnDeleteClickListener(new ShipmentInfAdapter.OnDeleteClickListener() {
-//            @Override
-//            public void onDeleteClick(String addressId) {
-//                // Gọi phương thức để xóa địa chỉ trong Firebase
-//                deleteAddressFromFirebase(addressId);
-//            }
-//        });
         // Đặt sự kiện click cho mỗi item trong GridView
         addressGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -100,13 +91,11 @@ public class UserAddressesActivity extends AppCompatActivity {
                 ShipmentInf item = shipmentInfArrayList.get(position);
                 shipmentInfSelected = shipmentInfArrayList.get(position);
                 String addressId =item.getAddress_id();
-                Log.e("?", "item đã được click");
                 //Xử lý sự kiện khi item được click
                 ImageView img_edit_address = findViewById(R.id.img_edit_address_item);
                 img_edit_address.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.e("?", "onClick: đã xóa " );
                         deleteAddressFromFirebase(addressId);
                     }
                 });

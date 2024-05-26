@@ -47,15 +47,15 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        ImageView ic_back = findViewById(R.id.ic_back);
-        ic_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserProfileActivity.this, UserActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        ImageView ic_back = findViewById(R.id.ic_back);
+//        ic_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(UserProfileActivity.this, UserActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

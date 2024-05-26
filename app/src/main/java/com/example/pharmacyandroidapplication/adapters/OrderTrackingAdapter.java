@@ -13,17 +13,16 @@ import androidx.annotation.Nullable;
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.models.DateFormat;
 import com.example.pharmacyandroidapplication.models.Order;
-import com.example.pharmacyandroidapplication.models.StockIn;
 
 import java.util.ArrayList;
 
 public class OrderTrackingAdapter extends ArrayAdapter<Order> {
     private Context context;
-    ArrayList<Order> OrderArrayList;
+    ArrayList<Order> orderArrayList;
     public OrderTrackingAdapter(@NonNull Context context, ArrayList<Order> OrderArrayList) {
         super(context, 0, OrderArrayList);
         this.context = context;
-        this.OrderArrayList = OrderArrayList;
+        this.orderArrayList = OrderArrayList;
     }
 
     @NonNull

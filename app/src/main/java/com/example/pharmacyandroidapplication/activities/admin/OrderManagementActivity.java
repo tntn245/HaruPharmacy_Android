@@ -23,11 +23,11 @@ public class OrderManagementActivity extends AppCompatActivity implements OrderI
         setContentView(R.layout.activity_order_management);
 
         ArrayList<Order> orders = new ArrayList<>();
-        orders.add(new Order("#1", "1", 200000, true, false, "blacklist", "QNam"));
-        orders.add(new Order("#2", "3", 50000, true, false, "ok", "QNam"));
-        orders.add(new Order("#3", "4", 850000, false, false, "ok", "QNam"));
-        orders.add(new Order("#4", "5", 240000, true, false, "ok", "QNam"));
-        orders.add(new Order("#5", "1", 200000, true, false, "ok", "QNam"));
+        orders.add(new Order("#1", "1", 200000, "Đã thanh toán", "Chưa xử lý", "blacklist", "QNam"));
+        orders.add(new Order("#2", "3", 50000, "Đã thanh toán", "Chưa xử lý", "ok", "QNam"));
+        orders.add(new Order("#3", "4", 850000, "Chưa thanh toán", "Chưa xử lý", "ok", "QNam"));
+        orders.add(new Order("#4", "5", 240000, "Đã thanh toán", "Chưa xử lý", "ok", "QNam"));
+        orders.add(new Order("#5", "1", 200000, "Đã thanh toán", "Chưa xử lý", "ok", "QNam"));
         orderRV = (RecyclerView) findViewById(R.id.orderRV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         orderRV.setLayoutManager(layoutManager);

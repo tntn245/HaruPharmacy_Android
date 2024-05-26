@@ -325,7 +325,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_info_drawer) {
+                    // Xử lý khi người dùng chọn trang tài khoản
                     Intent intent = new Intent(CustomerHomepageActivity.this, UserActivity.class);
+                    intent.putExtra("userID", userID);
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_logout_drawer) {
