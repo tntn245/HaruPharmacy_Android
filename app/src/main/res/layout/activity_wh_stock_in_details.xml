@@ -25,14 +25,13 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:contentDescription="icon_warehouse"
-            android:src="@drawable/ic_back"
             tools:ignore="HardcodedText"
             app:tint="@color/white" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="6"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -112,7 +111,7 @@
                 android:layout_height="match_parent"
                 android:horizontalSpacing="8dp"
                 android:numColumns="1"
-                android:padding="8dp"
+                android:padding="@dimen/_16sdp"
                 android:verticalSpacing="8dp" />
         </RelativeLayout>
 
