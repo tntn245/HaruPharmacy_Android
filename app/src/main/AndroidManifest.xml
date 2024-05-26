@@ -153,6 +153,9 @@
             android:name=".activities.customer.OrderDetailsActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.customer.UserEditAddressActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -161,6 +164,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".firebase.MessagingService"
             android:exported="false">

@@ -40,37 +40,37 @@ public class UserActivity extends AppCompatActivity {
         txt_delivered_order_quantity = findViewById(R.id.txt_delivered_order);
         DatabaseReference orderByIdRef = database.getReference("order").child(userID).getRef();
         DatabaseReference orderDetailRef = database.getReference("orderdetail");
-        orderByIdRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot: snapshot.getChildren())
-                {
-                    String idOrder = dataSnapshot.child("id_order").getValue().toString();
-                    orderDetailRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for(DataSnapshot dataSnapshot1: snapshot.getChildren()){
-                            if(idOrder.equals(dataSnapshot1.getKey().toString()))
-                            {
-                                // Tạo DatabaseRef tới Product để lấy ra tất cả product để lấy ra key product
-                                    // Tạo DatabaseRef tới tới Unit để lấy ra tất cả unit để lấy ra key unit
-                                       // Lấy được lotnumber, quantity, unitprice,...
-                            }}
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        orderByIdRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for(DataSnapshot dataSnapshot: snapshot.getChildren())
+//                {
+//                    String idOrder = dataSnapshot.child("id_order").getValue().toString();
+//                    orderDetailRef.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            for(DataSnapshot dataSnapshot1: snapshot.getChildren()){
+//                            if(idOrder.equals(dataSnapshot1.getKey().toString()))
+//                            {
+//                                // Tạo DatabaseRef tới Product để lấy ra tất cả product để lấy ra key product
+//                                    // Tạo DatabaseRef tới tới Unit để lấy ra tất cả unit để lấy ra key unit
+//                                       // Lấy được lotnumber, quantity, unitprice,...
+//                            }}
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
         //Click User Profile
         CardView userProfile = findViewById(R.id.user_profile);
