@@ -162,16 +162,14 @@
                 android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:layout_marginBottom="@dimen/_15sdp"
-                android:src="@drawable/ic_edit" />
+                android:layout_marginBottom="@dimen/_15sdp" />
 
             <ImageView
                 android:id="@+id/img_delete_address_item"
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_delete" />
+                android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

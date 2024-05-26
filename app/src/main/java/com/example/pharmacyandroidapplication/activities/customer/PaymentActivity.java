@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -235,6 +236,7 @@ public class PaymentActivity extends AppCompatActivity {
         adapter = new ItemPayAdapter(this, itemList);
         recyclerView.setAdapter(adapter);
     }
+    int ii;
 
     private void ShowDialogChangeAddress() {
         Dialog dialog = new Dialog(PaymentActivity.this, R.style.FullScreenDialog);
@@ -280,6 +282,10 @@ public class PaymentActivity extends AppCompatActivity {
                             RadioButton rb = ((LinearLayout) child).findViewById(R.id.radioButton);
                             if (rb != radioButton) {
                                 rb.setChecked(false);
+                            }
+                            else{
+                                ii= i;
+                                Toast.makeText(getApplicationContext(),  String.valueOf(ii), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
