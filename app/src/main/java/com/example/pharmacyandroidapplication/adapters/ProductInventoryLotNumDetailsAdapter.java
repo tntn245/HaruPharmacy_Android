@@ -42,11 +42,11 @@ public class ProductInventoryLotNumDetailsAdapter extends ArrayAdapter<ProductSt
         assert productStockInDetails != null;
         lot_number.setText(productStockInDetails.getLot_number());
 
-        DateFormat dateFormat = new DateFormat(productStockInDetails.getProduction_date());
-        production_date.setText(dateFormat.formatDateToString());
+//        DateFormat dateFormat = new DateFormat(productStockInDetails.getProduction_date());
+        production_date.setText(productStockInDetails.getProduction_date());
 
-        dateFormat = new DateFormat(productStockInDetails.getExpiration_date());
-        expiration_date.setText(dateFormat.formatDateToString());
+//        dateFormat = new DateFormat(productStockInDetails.getExpiration_date());
+        expiration_date.setText(productStockInDetails.getExpiration_date());
 
         lotnum_quantity_in_stock.setText(Integer.toString(productStockInDetails.getQuantity_in_stock()));
 

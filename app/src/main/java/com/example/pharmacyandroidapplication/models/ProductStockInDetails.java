@@ -1,19 +1,27 @@
 package com.example.pharmacyandroidapplication.models;
 
+import android.util.Log;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ProductStockInDetails {
+    private String product_id;
     private String product_name;
+    private String unit;
     private String lot_number;
-    private Date production_date;
-    private Date expiration_date;
+    private String production_date;
+    private String expiration_date;
     private int in_quantity;
     private int quantity_in_stock;
     private int unit_price;
-    private int img;
+    private String img;
 
-    public ProductStockInDetails(String product_name, String lot_number, Date production_date, Date expiration_date, int in_quantity, int quantity_in_stock, int unit_price, int img) {
+    public ProductStockInDetails(String product_id, String product_name, String lot_number, String production_date, String expiration_date, int in_quantity, int quantity_in_stock, int unit_price, String unit, String img) {
+        this.product_id = product_id;
         this.product_name = product_name;
+        this.unit = unit;
         this.lot_number = lot_number;
         this.production_date = production_date;
         this.expiration_date = expiration_date;
@@ -23,12 +31,40 @@ public class ProductStockInDetails {
         this.img = img;
     }
 
+//    public ProductStockInDetails(String product_id, String product_name, String lot_number, String production_date, String expiration_date, int in_quantity, int quantity_in_stock, int unit_price, String unit, String img) {
+//        this.product_id = product_id;
+//        this.product_name = product_name;
+//        this.unit = unit;
+//        this.lot_number = lot_number;
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        try {
+//            Date date = dateFormat.parse(production_date);
+//            this.production_date = date;
+//            date = dateFormat.parse(expiration_date);
+//            this.expiration_date = date;
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        this.in_quantity = in_quantity;
+//        this.quantity_in_stock = quantity_in_stock;
+//        this.unit_price = unit_price;
+//        this.img = img;
+//    }
+
     public int getQuantity_in_stock() {
         return quantity_in_stock;
     }
 
     public void setQuantity_in_stock(int quantity_in_stock) {
         this.quantity_in_stock = quantity_in_stock;
+    }
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
     }
 
     public String getProduct_name() {
@@ -47,19 +83,19 @@ public class ProductStockInDetails {
         this.lot_number = lot_number;
     }
 
-    public Date getProduction_date() {
+    public String getProduction_date() {
         return production_date;
     }
 
-    public void setProduction_date(Date production_date) {
+    public void setProduction_date(String production_date) {
         this.production_date = production_date;
     }
 
-    public Date getExpiration_date() {
+    public String getExpiration_date() {
         return expiration_date;
     }
 
-    public void setExpiration_date(Date expiration_date) {
+    public void setExpiration_date(String expiration_date) {
         this.expiration_date = expiration_date;
     }
 
@@ -79,11 +115,19 @@ public class ProductStockInDetails {
         this.unit_price = unit_price;
     }
 
-    public int getImg() {
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getImg() {
         return img;
     }
 
-    public void setImg(int img) {
+    public void setImg(String img) {
         this.img = img;
     }
 

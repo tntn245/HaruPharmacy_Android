@@ -27,9 +27,7 @@ public class WarehouseInventoryDetailsActivity extends AppCompatActivity {
         GridView lotnumGV= findViewById(R.id.list_lotnum);
         ArrayList<ProductStockInDetails> productStockInDetails = new ArrayList<ProductStockInDetails>();
 
-        productStockInDetails.add(new ProductStockInDetails("Chromium", "SDGDSE", new Date(2023, 1, 1), new Date(2024, 4, 2), 10, 8, 100000, R.drawable.pro1));
-        productStockInDetails.add(new ProductStockInDetails("Omega3", "UDXFDG", new Date(2023, 1, 1), new Date(2024, 4, 1), 10, 5, 100000, R.drawable.pro2));
-        productStockInDetails.add(new ProductStockInDetails("Thyroid-Pro Formula", "DGBDFS", new Date(2023, 1, 1), new Date(2024, 3, 29), 10, 3, 100000, R.drawable.pro3));
+        productStockInDetails.add(new ProductStockInDetails("","Chromium", "SDGDSE", "1/1/2020", "2/2/2020", 10, 8, 100000, "lọ", ""));
 
         ProductInventoryLotNumDetailsAdapter adapter = new ProductInventoryLotNumDetailsAdapter(this, productStockInDetails);
         lotnumGV.setAdapter(adapter);

@@ -25,11 +25,9 @@ public class WarehouseStockInDetailsActivity extends AppCompatActivity {
         GridView StockInDetails = findViewById(R.id.list_product_stock_in);
         ArrayList<ProductStockInDetails> productStockInDetails = new ArrayList<ProductStockInDetails>();
 
-        productStockInDetails.add(new ProductStockInDetails("Chromium", "SDGDSE", new Date(2023, 1, 1), new Date(2024, 4, 2), 10, 8, 100000, R.drawable.pro1));
-        productStockInDetails.add(new ProductStockInDetails("Omega3", "UDXFDG", new Date(2023, 1, 1), new Date(2024, 4, 1), 10, 5, 100000, R.drawable.pro2));
-        productStockInDetails.add(new ProductStockInDetails("Thyroid-Pro Formula", "DGBDFS", new Date(2023, 1, 1), new Date(2024, 3, 29), 10, 3, 100000, R.drawable.pro3));
+        productStockInDetails.add(new ProductStockInDetails("","Omega3", "UDXFDG", "1/1/2020", "1/1/2024", 10, 5, 100000, "chai", ""));
 
-        ProductStockInDetailsAdapter adapter = new ProductStockInDetailsAdapter(this, productStockInDetails);
+        ProductStockInDetailsAdapter adapter = new ProductStockInDetailsAdapter(this, productStockInDetails, false);
         StockInDetails.setAdapter(adapter);
 
         // Nhận giá trị của item từ Intent

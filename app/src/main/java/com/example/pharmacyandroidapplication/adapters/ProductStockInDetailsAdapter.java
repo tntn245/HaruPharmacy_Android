@@ -11,15 +11,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.customer.UserEditProfileActivity;
 import com.example.pharmacyandroidapplication.models.DateFormat;
 import com.example.pharmacyandroidapplication.models.ProductStockInDetails;
 
 import java.util.ArrayList;
 
 public class ProductStockInDetailsAdapter extends ArrayAdapter<ProductStockInDetails> {
-    public ProductStockInDetailsAdapter(@NonNull Context context, ArrayList<ProductStockInDetails> productStockInDetailsArrayList) {
+    private Context context;
+    private boolean flagAddProductArr;
+    public ProductStockInDetailsAdapter(@NonNull Context context, ArrayList<ProductStockInDetails> productStockInDetailsArrayList, boolean flagAddProductArr) {
         super(context, 0, productStockInDetailsArrayList);
+        this.context = context;
+        this.flagAddProductArr = flagAddProductArr;
     }
 
     @NonNull
@@ -29,7 +35,12 @@ public class ProductStockInDetailsAdapter extends ArrayAdapter<ProductStockInDet
         View listitemView = convertView;
         if (listitemView == null) {
             // Layout Inflater inflates each item to be displayed in GridView.
-            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_product_stock_in, parent, false);
+            if(flagAddProductArr){
+                listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_add_product_stock_in, parent, false);
+            }
+            else {
+                listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_product_stock_in, parent, false);
+            }
         }
 
         ProductStockInDetails productStockInDetails = getItem(position);
@@ -46,17 +57,21 @@ public class ProductStockInDetailsAdapter extends ArrayAdapter<ProductStockInDet
         name_product.setText(productStockInDetails.getProduct_name());
         lot_number.setText(productStockInDetails.getLot_number());
 
-        DateFormat dateFormat = new DateFormat(productStockInDetails.getProduction_date());
-        production_date.setText(dateFormat.formatDateToString());
+//        DateFormat dateFormat = new DateFormat(productStockInDetails.getProduction_date());
+        production_date.setText(productStockInDetails.getProduction_date());
 
-        dateFormat = new DateFormat(productStockInDetails.getExpiration_date());
-        expiration_date.setText(dateFormat.formatDateToString());
+//        dateFormat = new DateFormat(productStockInDetails.getExpiration_date());
+        expiration_date.setText(productStockInDetails.getExpiration_date());
 
         name_product.setText(productStockInDetails.getProduct_name());
         product_unit_price.setText(Integer.toString(productStockInDetails.getUnit_price()));
         product_quantity.setText(Integer.toString(productStockInDetails.getIn_quantity()));
         product_total_price.setText(Integer.toString(productStockInDetails.totalPrice()));
-        img_product.setImageResource(productStockInDetails.getImg());
+        Glide.with(context)
+                .load(productStockInDetails.getImg())
+//                .placeholder(R.drawable.placeholder) // Hình ảnh hiển thị trong khi tải
+//                .error(R.drawable.error) // Hình ảnh hiển thị khi lỗi
+                .into(img_product);
 
         return listitemView;
     }
