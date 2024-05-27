@@ -81,25 +81,7 @@
                     android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="start">
 
-                <TextView
-                    android:id="@+id/order_total_quantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10"
-                    android:textSize="@dimen/text_size_medium" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" sản phẩm"
-                    android:textSize="@dimen/text_size_medium" />
-            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"

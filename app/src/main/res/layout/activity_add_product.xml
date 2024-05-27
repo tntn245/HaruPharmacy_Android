@@ -68,40 +68,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="Mã sản phẩm"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/add_txt_product_id"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="#FFFFF"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -210,6 +176,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
                     android:hint="Giá bán"
+                    android:inputType="number"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
 
@@ -319,9 +286,9 @@
                     android:hint="Chọn tình trang kinh doanh"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_25sdp" />
+<!--            <Space-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/_25sdp" />-->
         </LinearLayout>
     </ScrollView>
     <LinearLayout

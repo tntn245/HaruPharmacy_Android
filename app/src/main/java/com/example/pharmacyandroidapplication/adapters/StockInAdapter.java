@@ -44,8 +44,8 @@ public class StockInAdapter extends ArrayAdapter<StockIn> {
 
         assert stockIn != null;
         id_stock_in.setText(stockIn.getId());
-        DateFormat dateFormat = new DateFormat(stockIn.getDate());
-        date_stock_in.setText(dateFormat.formatDateToString());
+//        DateFormat dateFormat = new DateFormat(stockIn.getDate());
+        date_stock_in.setText(stockIn.getDate());
         price_stock_in.setText(Integer.toString(stockIn.getTotal_payment()));
         return listitemView;
     }

@@ -20,13 +20,15 @@
         app:layout_constraintHeight_percent="0.1">
 
         <ImageView
+            android:id="@+id/ic_back"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:contentDescription="icon_warehouse"
             android:src="@drawable/ic_back"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"
+            app:tint="@color/white" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -50,16 +52,32 @@
                     android:layout_gravity="center"
                     android:src="@mipmap/ic_launcher" />
 
-                <TextView
-                    android:id="@+id/product_name"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:text="FFFFFFFFFFFF"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_theme"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/product_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:text="FFFFFFFFFFFF"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_theme"/>
+                    <TextView
+                        android:id="@+id/unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:text="FFFFFFFFFFFF"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_theme"/>
+
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

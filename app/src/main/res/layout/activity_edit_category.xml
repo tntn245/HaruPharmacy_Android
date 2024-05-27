@@ -49,6 +49,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/edit_category_txt_id"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -56,7 +57,6 @@
                     android:paddingLeft="@dimen/_25sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
-                    android:text="#FFFFF"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
@@ -80,6 +80,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/edit_category_txt_name"
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
@@ -105,6 +106,7 @@
                     android:textStyle="bold" />
 
                 <Spinner
+                    android:id="@+id/edit_category_spn_status"
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
@@ -124,6 +126,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btn_save_edit_category"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -136,6 +139,7 @@
                     android:layout_margin="@dimen/_8sdp"/>
 
                 <Button
+                    android:id="@+id/btn_cancel_edit_category"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
