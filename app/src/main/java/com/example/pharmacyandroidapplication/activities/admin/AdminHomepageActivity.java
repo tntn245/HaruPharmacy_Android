@@ -75,8 +75,16 @@ public class AdminHomepageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        CardView cardViewLogout = findViewById(R.id.item_logout);
-        cardViewLogout.setOnClickListener(new View.OnClickListener() {
+        CardView cardViewChange = findViewById(R.id.item_change);
+        cardViewChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminHomepageActivity.this, ChangeRulesActivity.class);
+                startActivity(intent);
+            }
+        });
+        ImageView iconLogout = findViewById(R.id.icon_logout);
+        iconLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();

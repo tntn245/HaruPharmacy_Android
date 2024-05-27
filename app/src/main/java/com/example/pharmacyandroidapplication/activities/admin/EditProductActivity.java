@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.example.pharmacyandroidapplication.models.Unit;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -64,9 +65,10 @@ public class EditProductActivity extends AppCompatActivity {
     Map<String, EditText> editTextPriceMap = new HashMap<>();
     Map<String, EditText> editTextSellPriceMap = new HashMap<>();
     Product product;
-//    Integer percentProfit;
+    Integer percentProfit;
     StorageReference storageReference;
     Uri image;
+    String imageStr;
     private ArrayList typeList;
     private ArrayAdapter<String> adapter;
 
@@ -74,7 +76,9 @@ public class EditProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
+
         productID = getIntent().getExtras().getString("productID");
+        loadPercentProfit();
 
         storageReference = FirebaseStorage.getInstance().getReference();
         txt_product_name = findViewById(R.id.spinner_product_name);
@@ -155,6 +159,7 @@ public class EditProductActivity extends AppCompatActivity {
                     public void onSuccess(Uri downloadUri) {
                         // Đường dẫn của ảnh
                         image = downloadUri;
+                        imageStr = image.toString();
                         Toast.makeText(EditProductActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -162,6 +167,21 @@ public class EditProductActivity extends AppCompatActivity {
         });
     }
 
+    private void loadPercentProfit() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        ref.child("attribute").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                percentProfit = dataSnapshot.child("percent_profit").getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Xử lý khi có lỗi xảy ra trong quá trình đọc dữ liệu
+            }
+        });
+
+    }
     private String getCategoryID(String cateName) {
         // Tạo một DatabaseReference để tham chiếu đến node chứa dữ liệu sản phẩm trong Firebase
         DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("product");
@@ -299,7 +319,7 @@ public class EditProductActivity extends AppCompatActivity {
                     if (product_id.equals(productID)) {
                         String productName = snapshot.child("name").getValue(String.class);
                         int productPrice = snapshot.child("price").getValue(Integer.class);
-                        String productImg = snapshot.child("img").getValue(String.class);
+                        imageStr = snapshot.child("img").getValue(String.class);
                         categoryID = snapshot.child("id_category").getValue(String.class);
                         String unit = snapshot.child("unit").getValue(String.class);
                         int inventory_quantity = snapshot.child("inventory_quantity").getValue(Integer.class);
@@ -329,7 +349,7 @@ public class EditProductActivity extends AppCompatActivity {
                             unitArr.put(unitName, unitData);
                         }
 
-                        product = new Product(productID, categoryID, productImg, productName, productPrice,inventory_quantity, unit, uses, ingredient, flagValid, prescription, unitArr);
+                        product = new Product(productID, categoryID, imageStr, productName, productPrice,inventory_quantity, unit, uses, ingredient, flagValid, prescription, unitArr);
 
                         txt_product_name.setText(product.getName());
                         categoryName = getCategoryName(categoryID);
@@ -346,7 +366,7 @@ public class EditProductActivity extends AppCompatActivity {
                         else{
                             spinner_status.setSelection(1);
                         }
-                        Glide.with(getApplicationContext()).load(productImg).into(img_product);
+                        Glide.with(getApplicationContext()).load(image).into(img_product);
 
                         resetCheckBoxStates();
                         for (String unitName : unitArr.keySet()) {
@@ -418,29 +438,24 @@ public class EditProductActivity extends AppCompatActivity {
                 }
             }
         }
-        String img = image.toString();
+        String img = imageStr;
         String name = txt_product_name.getText().toString();
         String ingredient = txt_product_ingredient.getText().toString();
         String uses = txt_product_uses.getText().toString();
         boolean flagValid = (spinner_status.getSelectedItem().toString() == "Đang kinh doanh");
-        Map<String, Object> updateValues = new HashMap<>();
-        updateValues.put("img", img);
-        updateValues.put("name", name);
-        updateValues.put("ingredient", ingredient);
-        updateValues.put("uses", uses);
-//        updateValues.put("flagValid", flagValid);
 
-        database.getReference("product").child(productID).
-                updateChildren(updateValues, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError != null) {
-                    // Xử lý khi có lỗi xảy ra trong quá trình cập nhật
-                } else {
-                    // Xử lý khi cập nhật thành công
-                }
-            }
-        });
+        // Thực hiện cập nhật thông tin đơn vị vào cơ sở dữ liệu Firebase
+        DatabaseReference productRef = database.getReference("product").child(productID);
+        productRef.child("img").setValue(img);
+        productRef.child("name").setValue(name);
+        productRef.child("ingredient").setValue(ingredient);
+        productRef.child("uses").setValue(uses);
+        productRef.child("flag_valid").setValue(flagValid);
+
+        Toast.makeText(EditProductActivity.this, "Chỉnh sửa sản phẩm thành công", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(EditProductActivity.this, ProductManagementActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void saveUnitToDatabase(String unitName, int unitPrice) {
@@ -450,9 +465,6 @@ public class EditProductActivity extends AppCompatActivity {
         // Thực hiện cập nhật thông tin đơn vị vào cơ sở dữ liệu Firebase
         DatabaseReference unitRef = database.getReference("product").child(productID).child("unitarrr");
         unitRef.child(unitName).setValue(unit);
-        Intent intent = new Intent(EditProductActivity.this, ProductManagementActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     public void retrieveCategoryData(String attr) {
