@@ -65,13 +65,36 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
                 String id, id_category, img, name;
                 int quantity_ordered, sell_price;
-                id = orderDetailRef.child(orderID).toString();
-                id_category = "";
-                img = "";
-                name = "Omega3";
-
                 for (DataSnapshot item : snapshot.getChildren()) {
-                    ProductArrayList.add(new Product("", "", "", "Omega3", 1, 100000));
+                    id = item.getKey().toString();
+                    DatabaseReference orderDetailByIdProductRef = orderdetailByIdRef.child(id).getRef();
+                    orderDetailByIdProductRef.addValueEventListener(new ValueEventListener() {
+                        String unit;
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                            for (DataSnapshot item: snapshot1.getChildren())
+                            {
+                                unit = item.getKey().toString();
+                                DatabaseReference orderDetailByIdProductUnitRef = orderDetailByIdProductRef.child(unit).getRef();
+                                orderDetailByIdProductUnitRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                        id
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                })
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    })
                 }
                 OrderDetailsAdapter productAdapter = new OrderDetailsAdapter(OrderDetailsActivity.this, ProductArrayList);
                 ProductGV.setAdapter(productAdapter);
