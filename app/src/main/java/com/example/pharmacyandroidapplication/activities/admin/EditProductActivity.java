@@ -94,6 +94,13 @@ public class EditProductActivity extends AppCompatActivity {
 
         retrieveUnitData("unit_name");
 
+        ArrayList<String> statusList = new ArrayList<>();
+        statusList.add("Đang kinh doanh");
+        statusList.add("Ngừng kinh doanh");
+        ArrayAdapter<String> statusAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, statusList);
+        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_status.setAdapter(statusAdapter);
+
         productList = new ArrayList<>();
         loadProductFromFirebase();
         Button btn_save_add_product = findViewById(R.id.btn_save_add_product);
@@ -325,15 +332,20 @@ public class EditProductActivity extends AppCompatActivity {
                         product = new Product(productID, categoryID, productImg, productName, productPrice,inventory_quantity, unit, uses, ingredient, flagValid, prescription, unitArr);
 
                         txt_product_name.setText(product.getName());
-                        String cateName = getCategoryName(categoryID);
-                        int position = typeList.indexOf(cateName);
+                        categoryName = getCategoryName(categoryID);
+                        int position = typeList.indexOf(categoryName);
                         if (position >= 0) {
                             spinner_category_name.setSelection(position);
                         }
                         txt_product_ingredient.setText(product.getIngredient());
                         txt_product_uses.setText(product.getUses());
                         boolean productStatus = product.isFlag_valid();
-//                        spinner_status.setText(productStatus ? "Đang kinh doanh" : "Ngừng kinh doanh");
+                        if(productStatus){
+                            spinner_status.setSelection(0);
+                        }
+                        else{
+                            spinner_status.setSelection(1);
+                        }
                         Glide.with(getApplicationContext()).load(productImg).into(img_product);
 
                         resetCheckBoxStates();
@@ -389,7 +401,7 @@ public class EditProductActivity extends AppCompatActivity {
                     // Kiểm tra và lấy giá trị của EditText giá
                     if (childView instanceof EditText && j == 1) {
                         EditText editTextPrice = (EditText) childView;
-                        String priceText = editTextPrice.getText().toString();
+                        String priceText = (editTextPrice.getText().toString() == "") ? "0" :editTextPrice.getText().toString();
                         unitPrice = Integer.parseInt(priceText);
                     }
 
@@ -406,14 +418,29 @@ public class EditProductActivity extends AppCompatActivity {
                 }
             }
         }
-//        String cate_id = getCategoryID(cate_name);
-//        String img = image.toString();
-//        String name = add_txt_product_name.getText().toString();
-//        String ingredient = add_txt_product_ingredient.getText().toString();
-//        String uses = add_txt_product_uses.getText().toString();
-//        boolean flagValid = (add_spn_product_status.getSelectedItem().toString() == "Đang kinh doanh");
-//        boolean isAnyCheckboxChecked = false;
+        String img = image.toString();
+        String name = txt_product_name.getText().toString();
+        String ingredient = txt_product_ingredient.getText().toString();
+        String uses = txt_product_uses.getText().toString();
+        boolean flagValid = (spinner_status.getSelectedItem().toString() == "Đang kinh doanh");
+        Map<String, Object> updateValues = new HashMap<>();
+        updateValues.put("img", img);
+        updateValues.put("name", name);
+        updateValues.put("ingredient", ingredient);
+        updateValues.put("uses", uses);
+//        updateValues.put("flagValid", flagValid);
 
+        database.getReference("product").child(productID).
+                updateChildren(updateValues, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                    // Xử lý khi có lỗi xảy ra trong quá trình cập nhật
+                } else {
+                    // Xử lý khi cập nhật thành công
+                }
+            }
+        });
     }
 
     private void saveUnitToDatabase(String unitName, int unitPrice) {
