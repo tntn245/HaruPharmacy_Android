@@ -161,7 +161,6 @@
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
-                    android:enabled="false"
                     android:hint="Thành phần"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
@@ -189,7 +188,6 @@
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
-                    android:enabled="false"
                     android:hint="Công dụng"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
