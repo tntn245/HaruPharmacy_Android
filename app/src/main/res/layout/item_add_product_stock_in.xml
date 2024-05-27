@@ -35,14 +35,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Số lô: "
-                            android:textAlignment="center"
-                            android:textSize="@dimen/text_size_medium" />
-                        <TextView
+<TextView
                             android:id="@+id/lot_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

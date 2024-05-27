@@ -124,7 +124,7 @@
                 android:paddingLeft="@dimen/_25sdp"
                 android:paddingTop="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp"
-                android:text="Tồn kho hiện tại"
+                android:text="Tổng tồn kho của sản phẩm theo đơn vị"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
@@ -151,13 +151,13 @@
                 android:paddingLeft="@dimen/_25sdp"
                 android:paddingTop="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp"
-                android:text="Hạn sử dụng"
+                android:text="Tồn kho hiện tại"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/expiration_date"
+                android:id="@+id/lot_stock_quantity"
                 android:layout_width="@dimen/_285sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"

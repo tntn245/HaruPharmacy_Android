@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,8 +17,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.pharmacyandroidapplication.R;
-import com.example.pharmacyandroidapplication.activities.LoginActivity;
-import com.example.pharmacyandroidapplication.models.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class AddProductStockOutActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -36,14 +34,14 @@ public class AddProductStockOutActivity extends AppCompatActivity {
     ArrayList<String> unitList;
     ArrayList<String> lotNumList;
     Spinner spinnerProductName, spinnerUnit, spinnerLotNumber;
-    EditText stockout_quantity;
+    EditText stockout_quantity, lot_stock_quantity, inventory_quantity;
     String selectedProductID;
     String selectedProductName;
     String selectedUnitName;
     String selectedLotNum;
     String outQuantity;
     Button btn_add, btn_cancel;
-    int inventory_quantity;
+    int stockQuantity, minInventory, inventoryQuantity;
     HashMap<String, String> productMap = new HashMap<>();
 
     @Override
@@ -55,6 +53,9 @@ public class AddProductStockOutActivity extends AppCompatActivity {
         spinnerUnit = findViewById(R.id.spinner_unit);
         spinnerLotNumber = findViewById(R.id.spinner_lot_number);
         stockout_quantity = findViewById(R.id.stockout_quantity);
+        lot_stock_quantity = findViewById(R.id.lot_stock_quantity);
+        inventory_quantity = findViewById(R.id.inventory_quantity);
+
         productMap = new HashMap<>();
 
         btn_add = findViewById(R.id.btn_add);
@@ -112,6 +113,13 @@ public class AddProductStockOutActivity extends AppCompatActivity {
                         ArrayAdapter<String> unitAdapter = new ArrayAdapter<>(AddProductStockOutActivity.this, android.R.layout.simple_spinner_item, unitList);
                         unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinnerUnit.setAdapter(unitAdapter);
+
+                        if(unitList.size()==0){
+                            lotNumList = new ArrayList<>();
+                            ArrayAdapter<String> lotnumberAdapter = new ArrayAdapter<>(AddProductStockOutActivity.this, android.R.layout.simple_spinner_item, lotNumList);
+                            lotnumberAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerLotNumber.setAdapter(lotnumberAdapter);
+                        }
                     }
 
                     @Override
@@ -142,13 +150,19 @@ public class AddProductStockOutActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         lotNumList = new ArrayList<>();
                         for (DataSnapshot lotnumberSnapshot : dataSnapshot.getChildren()) {
-                            lotNumList.add(lotnumberSnapshot.getKey());
+                            String key = lotnumberSnapshot.getKey();
+                            if(key.equals("inventory_quantity")){
+                                inventoryQuantity = lotnumberSnapshot.getValue(Integer.class);
+                                inventory_quantity.setText(String.valueOf(inventoryQuantity));
+                            }
+                            else{
+                                lotNumList.add(key);
+                            }
                         }
                         // Cập nhật danh sách lotnumber vào Spinner Lotnumber
                         ArrayAdapter<String> lotnumberAdapter = new ArrayAdapter<>(AddProductStockOutActivity.this, android.R.layout.simple_spinner_item, lotNumList);
                         lotnumberAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinnerLotNumber.setAdapter(lotnumberAdapter);
-
                     }
 
                     @Override
@@ -161,6 +175,18 @@ public class AddProductStockOutActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Xử lý khi không có gì được chọn
+            }
+        });
+        database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    minInventory = dataSnapshot.child("min_inventory").getValue(Integer.class);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý khi có lỗi
             }
         });
 
@@ -181,8 +207,8 @@ public class AddProductStockOutActivity extends AppCompatActivity {
                 quantityRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        inventory_quantity = dataSnapshot.getValue(Integer.class);
-//                        stockout_quantity.setText(String.valueOf(quantity));
+                        stockQuantity = dataSnapshot.getValue(Integer.class);
+                        lot_stock_quantity.setText(String.valueOf(stockQuantity));
                     }
 
                     @Override
@@ -206,8 +232,13 @@ public class AddProductStockOutActivity extends AppCompatActivity {
                 }
                 else {
                     int outQuantity = Integer.parseInt(stockout_quantity.getText().toString());
-                    if(inventory_quantity < outQuantity){
+                    if(stockQuantity < outQuantity){
                         Toast.makeText(AddProductStockOutActivity.this, "Số lượng vượt quá tồn kho", Toast.LENGTH_LONG).show();
+                        Log.d("thongbaone", "Số lượng vượt quá tồn kho");
+                    }
+                    else if((stockQuantity - outQuantity) < inventoryQuantity){
+                        Toast.makeText(AddProductStockOutActivity.this, "Phải đảm bảo tồn kho tối thiểu là: "+ minInventory, Toast.LENGTH_LONG).show();
+                        Log.d("thongbaone", "Phải đảm bảo tồn kho tối thiểu là: "+ minInventory);
                     }
                     else {
                         Intent intent = new Intent(AddProductStockOutActivity.this, AddStockOutActivity.class);
@@ -225,6 +256,8 @@ public class AddProductStockOutActivity extends AppCompatActivity {
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                setResult(RESULT_CANCELED, intent);
                 finish();
             }
         });

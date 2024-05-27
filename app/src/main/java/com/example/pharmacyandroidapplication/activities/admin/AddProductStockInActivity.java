@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -49,6 +50,7 @@ public class AddProductStockInActivity extends AppCompatActivity {
     String selectedUnitName;
     String lotNum;
     String inQuantity;
+    Integer minStockIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,19 @@ public class AddProductStockInActivity extends AppCompatActivity {
         lotNum = uniqueID.toString();
         lot_number.setText(lotNum);
         loadProductFromFirebase();
+
+        database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    minStockIn = dataSnapshot.child("min_stock_in").getValue(Integer.class);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý khi có lỗi
+            }
+        });
 
         spinnerProductName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -124,6 +139,11 @@ public class AddProductStockInActivity extends AppCompatActivity {
                         expiration_date.getText().toString().isEmpty()||
                         unit_price.getText().toString().isEmpty()){
                     Toast.makeText(AddProductStockInActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_LONG).show();
+                    Log.d("thongbaone","Vui lòng điền đầy đủ thông tin" );
+                }
+                else if(Integer.parseInt(in_quantity.getText().toString()) < minStockIn){
+                    Toast.makeText(AddProductStockInActivity.this, "Số lượng nhập kho tối thiểu là: " +minStockIn, Toast.LENGTH_LONG).show();
+                    Log.d("thongbaone","Số lượng nhập kho tối thiểu là: " +minStockIn );
                 }
                 else {
                     Intent intent = new Intent(AddProductStockInActivity.this, AddStockInActivity.class);
@@ -144,8 +164,9 @@ public class AddProductStockInActivity extends AppCompatActivity {
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-            }
+                Intent intent = new Intent();
+                setResult(RESULT_CANCELED, intent);
+                finish();            }
         });
     }
     private void loadUnits(String productID) {
