@@ -32,46 +32,66 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         userID = getIntent().getExtras().getString("userID");
-//        DatabaseReference orderByIdRef = database.getReference("order").child(userID).getRef();
         //Load quantity of Orders
         TextView txt_processing_order_quantity, txt_delivering_order_quantity, txt_delivered_order_quantity;
-        txt_processing_order_quantity = findViewById(R.id.txt_processing_order);
-        txt_delivering_order_quantity = findViewById(R.id.txt_delivering_order);
-        txt_delivered_order_quantity = findViewById(R.id.txt_delivered_order);
+        LinearLayout order_processing, order_delivering, order_delivered;
+        txt_processing_order_quantity = findViewById(R.id.txt_processing_order_quantity);
+        txt_delivering_order_quantity = findViewById(R.id.txt_delivering_order_quantity);
+        txt_delivered_order_quantity = findViewById(R.id.txt_delivered_order_quantity);
+        order_processing = findViewById(R.id.order_processing);
+        order_delivering = findViewById(R.id.order_delivering);
+        order_delivered = findViewById(R.id.order_delivered);
         DatabaseReference orderByIdRef = database.getReference("order").child(userID).getRef();
         DatabaseReference orderDetailRef = database.getReference("orderdetail");
-//        orderByIdRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for(DataSnapshot dataSnapshot: snapshot.getChildren())
-//                {
-//                    String idOrder = dataSnapshot.child("id_order").getValue().toString();
-//                    orderDetailRef.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            for(DataSnapshot dataSnapshot1: snapshot.getChildren()){
-//                            if(idOrder.equals(dataSnapshot1.getKey().toString()))
-//                            {
-//                                // Tạo DatabaseRef tới Product để lấy ra tất cả product để lấy ra key product
-//                                    // Tạo DatabaseRef tới tới Unit để lấy ra tất cả unit để lấy ra key unit
-//                                       // Lấy được lotnumber, quantity, unitprice,...
-//                            }}
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        orderByIdRef.addValueEventListener(new ValueEventListener() {
+            int countProcessingOrder = 0, countDeliveringOrder = 0, countDeliveredOrder = 0;
 
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot.child("order_status").getValue(String.class).equals("Đang xử lý"))
+                        countProcessingOrder++;
+                    if (dataSnapshot.child("order_status").getValue(String.class).equals("Đang giao"))
+                        countDeliveringOrder++;
+                    if (dataSnapshot.child("order_status").getValue(String.class).equals("Đã giao"))
+                        countDeliveredOrder++;
+                }
+                txt_processing_order_quantity.setText("(" + countProcessingOrder + ")");
+                txt_delivering_order_quantity.setText("(" + countDeliveringOrder + ")");
+                txt_delivered_order_quantity.setText("(" + countDeliveredOrder + ")");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //Click Orders
+        order_processing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, OrdersTrackingActivity.class);
+                intent.putExtra("orderStatus", 1);
+                startActivity(intent);
+            }
+        });
+        order_delivering.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, OrdersTrackingActivity.class);
+                intent.putExtra("orderStatus", 2);
+                startActivity(intent);
+            }
+        });
+        order_delivered.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, OrdersTrackingActivity.class);
+                intent.putExtra("orderStatus", 3);
+                startActivity(intent);
+            }
+        });
         //Click User Profile
         CardView userProfile = findViewById(R.id.user_profile);
         userProfile.setOnClickListener(new View.OnClickListener() {
@@ -98,15 +118,6 @@ public class UserActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(UserActivity.this, OrdersTrackingActivity.class);
                 startActivity(intent);
-            }
-        });
-
-        LinearLayout linearLayout = findViewById(R.id.order_processing);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Thực hiện hành động khi LinearLayout được click
-                // Ví dụ: Chuyển sang trang khác
             }
         });
 

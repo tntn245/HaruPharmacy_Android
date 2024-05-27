@@ -27,7 +27,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.pharmacyandroidapplication.R;
-import com.example.pharmacyandroidapplication.activities.ChatActivity;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.example.pharmacyandroidapplication.models.Unit;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -104,7 +103,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     // Lấy dữ liệu từ dataSnapshot và thực hiện các thao tác cần thiết
                     product = dataSnapshot.getValue(Product.class);
-
                     // bind vao
                     ProductPrice.setText(String.valueOf(product.getPrice()));
                     ProductName.setText(product.getName());

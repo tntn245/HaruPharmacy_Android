@@ -57,8 +57,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Đang xử lý"
-                            android:textStyle="bold"
                             android:textColor="@color/gray"
+                            android:clickable="true"
                             android:textSize="@dimen/text_size_medium"
                             android:layout_gravity="center_horizontal"
                             android:paddingTop="@dimen/_5sdp"/>
@@ -77,8 +77,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Đang giao"
+                            android:clickable="true"
                             android:textSize="@dimen/text_size_medium"
-                            android:textStyle="bold"
                             android:textColor="@color/gray"
                             android:layout_gravity="center_horizontal"
                             android:paddingTop="@dimen/_5sdp"/>
@@ -98,7 +98,7 @@
                             android:layout_height="wrap_content"
                             android:text="Đã giao"
                             android:textSize="@dimen/text_size_medium"
-                            android:textStyle="bold"
+                            android:clickable="true"
                             android:textColor="@color/gray"
                             android:layout_gravity="center_horizontal"
                             android:paddingTop="@dimen/_5sdp"/>
