@@ -3,22 +3,23 @@ package com.example.pharmacyandroidapplication.activities.admin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.pharmacyandroidapplication.R;
-import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.models.Product;
+import com.example.pharmacyandroidapplication.models.Unit;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,21 +36,20 @@ public class EditProductActivity extends AppCompatActivity {
     private ArrayAdapter<Product> productNameAdapter;
     private ArrayList<Product> productList;
     String productID;
+    Map<String, Object> unitArr;
     String categoryID;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     Map<String, CheckBox> checkBoxMap = new HashMap<>();
     Map<String, EditText> editTextPriceMap = new HashMap<>();
     Map<String, EditText> editTextSellPriceMap = new HashMap<>();
     Product product;
+//    Integer percentProfit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
-
         productID = getIntent().getExtras().getString("productID");
-        Toast.makeText(this, productID, Toast.LENGTH_SHORT).show();
-
 
         txt_product_name = findViewById(R.id.spinner_product_name);
         txt_category_name = findViewById(R.id.txt_category_name);
@@ -62,6 +62,13 @@ public class EditProductActivity extends AppCompatActivity {
 
         productList = new ArrayList<>();
         loadProductFromFirebase();
+        Button btn_save_add_product = findViewById(R.id.btn_save_add_product);
+        btn_save_add_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveProduct();
+            }
+        });
     }
 
     // Phương thức để đặt lại trạng thái của tất cả CheckBox và EditText
@@ -156,7 +163,7 @@ public class EditProductActivity extends AppCompatActivity {
                         Boolean flagValid = Boolean.TRUE.equals(snapshot.child("flag_valid").getValue(Boolean.class));
                         Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
 
-                        Map<String, Object> unitArr = new HashMap<>();
+                        unitArr = new HashMap<>();
                         // Lấy dữ liệu từ unitarr
                         for (DataSnapshot unitSnapshot : snapshot.child("unitarrr").getChildren()) {
                             String unitName = unitSnapshot.getKey();
@@ -191,7 +198,7 @@ public class EditProductActivity extends AppCompatActivity {
                             Map<String, Object> unitData = (Map<String, Object>) unitArr.get(unitName);
 
                             int price = (int) unitData.get("price");
-                            int sellPrice = (int) unitData.get("sell_price");
+                            int sellPrice = (int) (price + price*50/100) ;
                             int quantity = (int) unitData.get("quantity");
 
                             // Checked checkbox
@@ -210,6 +217,65 @@ public class EditProductActivity extends AppCompatActivity {
         });
     }
 
+    public void saveProduct(){
+        int childCount = checkboxContainer.getChildCount();
+
+        for (int i = 0; i < childCount; i++) {
+            View view = checkboxContainer.getChildAt(i);
+
+            // Kiểm tra nếu view là LinearLayout chứa CheckBox và EditText
+            if (view instanceof LinearLayout) {
+                LinearLayout unitLayout = (LinearLayout) view;
+                int layoutChildCount = unitLayout.getChildCount();
+
+                String unitName = null;
+                int unitPrice = 0;
+                int sellPrice = 0;
+
+                for (int j = 0; j < layoutChildCount; j++) {
+                    View childView = unitLayout.getChildAt(j);
+
+                    // Lấy tên đơn vị từ CheckBox được chọn
+                    if (childView instanceof CheckBox) {
+                        CheckBox checkBox = (CheckBox) childView;
+                        if (checkBox.isChecked()) {
+                            unitName = checkBox.getText().toString();
+                        }
+                    }
+
+                    // Kiểm tra và lấy giá trị của EditText giá
+                    if (childView instanceof EditText && j == 1) {
+                        EditText editTextPrice = (EditText) childView;
+                        String priceText = editTextPrice.getText().toString();
+                        unitPrice = Integer.parseInt(priceText);
+                    }
+
+                    // Kiểm tra và lấy giá trị của EditText giá bán
+                    if (childView instanceof EditText && j == 2) {
+                        EditText editTextSellPrice = (EditText) childView;
+//                        String priceText = editTextSellPrice.getText().toString();
+//                        sellPrice = Integer.parseInt(priceText);
+                    }
+                }
+
+                if (unitName != null) {
+                    saveUnitToDatabase(unitName, unitPrice);
+                }
+            }
+        }
+    }
+
+    private void saveUnitToDatabase(String unitName, int unitPrice) {
+        // Tạo một đối tượng Unit để lưu vào cơ sở dữ liệu Firebase
+        Unit unit = new Unit(unitName, unitPrice, 0);
+
+        // Thực hiện cập nhật thông tin đơn vị vào cơ sở dữ liệu Firebase
+        DatabaseReference unitRef = database.getReference("product").child(productID).child("unitarrr");
+        unitRef.child(unitName).setValue(unit);
+        Intent intent = new Intent(EditProductActivity.this, ProductManagementActivity.class);
+        startActivity(intent);
+        finish();
+    }
     public void retrieveUnitData(String attr) {
         DatabaseReference unitRef = database.getReference("unit");
         unitRef.addValueEventListener(new ValueEventListener() {
@@ -293,8 +359,8 @@ public class EditProductActivity extends AppCompatActivity {
                         @Override
                         public void afterTextChanged(Editable s) {
                             try {
-                                double price = Double.parseDouble(s.toString());
-                                double price150Percent = price * 1.5;
+                                int price = Integer.parseInt(s.toString());
+                                int price150Percent = (int) (price + price*50/100);
                                 editTextSellPrice.setText(String.valueOf(price150Percent));
                             } catch (NumberFormatException e) {
                                 editTextSellPrice.setText("");

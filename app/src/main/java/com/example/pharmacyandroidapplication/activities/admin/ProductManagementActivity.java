@@ -36,20 +36,6 @@ public class ProductManagementActivity extends AppCompatActivity implements OnPr
 
         loadProductFromFirebase();
 
-        productGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Lấy giá trị của item được click
-                Product productDetails = ProductArrayList.get(position);
-
-//                Toast.makeText(ProductManagementActivity.this, productDetails.getName(), Toast.LENGTH_SHORT).show();
-//
-//                // Truyền giá trị của item qua layout tiếp theo để hiển thị
-//                Intent intent = new Intent(ProductManagementActivity.this, EditProductActivity.class);
-////                intent.putExtra("productID", productDetails.getId());
-//                startActivity(intent);
-            }
-        });
 
         ImageView btn_add = findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new View.OnClickListener() {
