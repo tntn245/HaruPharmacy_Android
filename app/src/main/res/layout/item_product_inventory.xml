@@ -35,17 +35,31 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:orientation="vertical"
+            android:gravity="center"
             android:layout_gravity="center">
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FFFFFFFFFFFFFFFFFFFF"
+                android:textSize="@dimen/text_size_medium"
+                android:textAlignment="center" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center">
                 <TextView
-                    android:id="@+id/product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FFFFFFFFFFFFFFFFFFFF"
+                    android:text="Đơn vị: "
+                    android:textSize="@dimen/text_size_medium"
+                    android:textAlignment="center" />
+                <TextView
+                    android:id="@+id/unit_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="lọ"
                     android:textSize="@dimen/text_size_medium"
                     android:textAlignment="center" />
             </LinearLayout>
