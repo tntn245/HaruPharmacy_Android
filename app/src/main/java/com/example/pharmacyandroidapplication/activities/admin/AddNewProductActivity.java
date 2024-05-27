@@ -317,7 +317,6 @@ public class AddNewProductActivity extends AppCompatActivity {
 
     public void retrieveUnitData(String attr) {
         unitRef.addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 checkboxContainer.removeAllViews();

@@ -1,67 +1,219 @@
 package com.example.pharmacyandroidapplication.activities.admin;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.pharmacyandroidapplication.R;
-import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.models.Product;
+import com.example.pharmacyandroidapplication.models.Unit;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class EditProductActivity extends AppCompatActivity {
-    private EditText txt_product_name, txt_category_name, txt_product_ingredient, txt_product_uses, txt_product_status;
+    private EditText txt_product_name, txt_product_ingredient, txt_product_uses;
+    Spinner spinner_category_name, spinner_status;
     private LinearLayout checkboxContainer;
     private ArrayAdapter<Product> productNameAdapter;
     private ArrayList<Product> productList;
+    private ImageButton add_img_product_img;
+    private ImageView img_product;
     String productID;
+    Map<String, Object> unitArr;
     String categoryID;
+    String categoryName;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     Map<String, CheckBox> checkBoxMap = new HashMap<>();
     Map<String, EditText> editTextPriceMap = new HashMap<>();
     Map<String, EditText> editTextSellPriceMap = new HashMap<>();
     Product product;
+//    Integer percentProfit;
+    StorageReference storageReference;
+    Uri image;
+    private ArrayList typeList;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
-
         productID = getIntent().getExtras().getString("productID");
-        Toast.makeText(this, productID, Toast.LENGTH_SHORT).show();
 
-
+        storageReference = FirebaseStorage.getInstance().getReference();
         txt_product_name = findViewById(R.id.spinner_product_name);
-        txt_category_name = findViewById(R.id.txt_category_name);
+        spinner_category_name = findViewById(R.id.spinner_category_name);
         txt_product_ingredient = findViewById(R.id.txt_product_ingredient);
         txt_product_uses = findViewById(R.id.txt_product_uses);
-        txt_product_status = findViewById(R.id.txt_product_status);
+        spinner_status = findViewById(R.id.spinner_status);
         checkboxContainer = findViewById(R.id.checkboxContainer);
+        add_img_product_img = findViewById(R.id.add_img_product_img);
+        img_product=findViewById(R.id.img);
+
+        typeList = new ArrayList<>();
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        retrieveCategoryData("name");
+        spinner_category_name.setAdapter(adapter);
 
         retrieveUnitData("unit_name");
 
+        ArrayList<String> statusList = new ArrayList<>();
+        statusList.add("Đang kinh doanh");
+        statusList.add("Ngừng kinh doanh");
+        ArrayAdapter<String> statusAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, statusList);
+        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_status.setAdapter(statusAdapter);
+
         productList = new ArrayList<>();
         loadProductFromFirebase();
+        Button btn_save_add_product = findViewById(R.id.btn_save_add_product);
+        btn_save_add_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveProduct();
+            }
+        });
+
+        add_img_product_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                activityResultLauncher.launch(intent);
+            }
+        });
+    }
+
+    private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == RESULT_OK) {
+                if (result.getData() != null) {
+                    image = result.getData().getData();
+                    Glide.with(getApplicationContext()).load(image).into(img_product);
+                    uploadImage(image);
+                }
+            } else {
+                Toast.makeText(EditProductActivity.this, "Please select an image", Toast.LENGTH_SHORT).show();
+            }
+        }
+    });
+
+    private void uploadImage(Uri file) {
+        StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+        ref.putFile(file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(EditProductActivity.this, "Failed!" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri downloadUri) {
+                        // Đường dẫn của ảnh
+                        image = downloadUri;
+                        Toast.makeText(EditProductActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+
+    private String getCategoryID(String cateName) {
+        // Tạo một DatabaseReference để tham chiếu đến node chứa dữ liệu sản phẩm trong Firebase
+        DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("product");
+        // Thêm một ChildEventListener để lắng nghe sự thay đổi dữ liệu
+        productsRef.orderByChild("name").equalTo(cateName).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                categoryID = dataSnapshot.getKey();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+                // Xử lý sự thay đổi dữ liệu nếu cần
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                // Xử lý sự xóa dữ liệu nếu cần
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+                // Xử lý sự di chuyển dữ liệu nếu cần
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Xử lý lỗi nếu có
+            }
+        });
+        return categoryID;
+    }
+
+    private String getCategoryName(String cateID) {
+        // Tạo một DatabaseReference để tham chiếu đến node chứa dữ liệu sản phẩm trong Firebase
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference categoryRef = database.getReference("category");        // Thêm một ChildEventListener để lắng nghe sự thay đổi dữ liệu
+        categoryRef.child(cateID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    categoryName = dataSnapshot.child("name").getValue(String.class);
+                } else {
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Xử lý sự kiện onCancelled
+            }
+        });
+        return categoryName;
     }
 
     // Phương thức để đặt lại trạng thái của tất cả CheckBox và EditText
@@ -148,7 +300,7 @@ public class EditProductActivity extends AppCompatActivity {
                         String productName = snapshot.child("name").getValue(String.class);
                         int productPrice = snapshot.child("price").getValue(Integer.class);
                         String productImg = snapshot.child("img").getValue(String.class);
-                        String id_category = snapshot.child("id_category").getValue(String.class);
+                        categoryID = snapshot.child("id_category").getValue(String.class);
                         String unit = snapshot.child("unit").getValue(String.class);
                         int inventory_quantity = snapshot.child("inventory_quantity").getValue(Integer.class);
                         String uses = snapshot.child("uses").getValue(String.class);
@@ -156,7 +308,7 @@ public class EditProductActivity extends AppCompatActivity {
                         Boolean flagValid = Boolean.TRUE.equals(snapshot.child("flag_valid").getValue(Boolean.class));
                         Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
 
-                        Map<String, Object> unitArr = new HashMap<>();
+                        unitArr = new HashMap<>();
                         // Lấy dữ liệu từ unitarr
                         for (DataSnapshot unitSnapshot : snapshot.child("unitarrr").getChildren()) {
                             String unitName = unitSnapshot.getKey();
@@ -177,21 +329,31 @@ public class EditProductActivity extends AppCompatActivity {
                             unitArr.put(unitName, unitData);
                         }
 
-                        product = new Product(productID, id_category, productImg, productName, productPrice,inventory_quantity, unit, uses, ingredient, flagValid, prescription, unitArr);
+                        product = new Product(productID, categoryID, productImg, productName, productPrice,inventory_quantity, unit, uses, ingredient, flagValid, prescription, unitArr);
 
                         txt_product_name.setText(product.getName());
-                        txt_category_name.setText(product.getId_category());
+                        categoryName = getCategoryName(categoryID);
+                        int position = typeList.indexOf(categoryName);
+                        if (position >= 0) {
+                            spinner_category_name.setSelection(position);
+                        }
                         txt_product_ingredient.setText(product.getIngredient());
                         txt_product_uses.setText(product.getUses());
                         boolean productStatus = product.isFlag_valid();
-                        txt_product_status.setText(productStatus ? "Đang kinh doanh" : "Ngừng kinh doanh");
+                        if(productStatus){
+                            spinner_status.setSelection(0);
+                        }
+                        else{
+                            spinner_status.setSelection(1);
+                        }
+                        Glide.with(getApplicationContext()).load(productImg).into(img_product);
 
                         resetCheckBoxStates();
                         for (String unitName : unitArr.keySet()) {
                             Map<String, Object> unitData = (Map<String, Object>) unitArr.get(unitName);
 
                             int price = (int) unitData.get("price");
-                            int sellPrice = (int) unitData.get("sell_price");
+                            int sellPrice = (int) (price + price*50/100) ;
                             int quantity = (int) unitData.get("quantity");
 
                             // Checked checkbox
@@ -206,6 +368,108 @@ public class EditProductActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void saveProduct(){
+        int childCount = checkboxContainer.getChildCount();
+
+        for (int i = 0; i < childCount; i++) {
+            View view = checkboxContainer.getChildAt(i);
+
+            // Kiểm tra nếu view là LinearLayout chứa CheckBox và EditText
+            if (view instanceof LinearLayout) {
+                LinearLayout unitLayout = (LinearLayout) view;
+                int layoutChildCount = unitLayout.getChildCount();
+
+                String unitName = null;
+                int unitPrice = 0;
+                int sellPrice = 0;
+
+                for (int j = 0; j < layoutChildCount; j++) {
+                    View childView = unitLayout.getChildAt(j);
+
+                    // Lấy tên đơn vị từ CheckBox được chọn
+                    if (childView instanceof CheckBox) {
+                        CheckBox checkBox = (CheckBox) childView;
+                        if (checkBox.isChecked()) {
+                            unitName = checkBox.getText().toString();
+                        }
+                    }
+
+                    // Kiểm tra và lấy giá trị của EditText giá
+                    if (childView instanceof EditText && j == 1) {
+                        EditText editTextPrice = (EditText) childView;
+                        String priceText = (editTextPrice.getText().toString() == "") ? "0" :editTextPrice.getText().toString();
+                        unitPrice = Integer.parseInt(priceText);
+                    }
+
+                    // Kiểm tra và lấy giá trị của EditText giá bán
+                    if (childView instanceof EditText && j == 2) {
+                        EditText editTextSellPrice = (EditText) childView;
+//                        String priceText = editTextSellPrice.getText().toString();
+//                        sellPrice = Integer.parseInt(priceText);
+                    }
+                }
+
+                if (unitName != null) {
+                    saveUnitToDatabase(unitName, unitPrice);
+                }
+            }
+        }
+        String img = image.toString();
+        String name = txt_product_name.getText().toString();
+        String ingredient = txt_product_ingredient.getText().toString();
+        String uses = txt_product_uses.getText().toString();
+        boolean flagValid = (spinner_status.getSelectedItem().toString() == "Đang kinh doanh");
+        Map<String, Object> updateValues = new HashMap<>();
+        updateValues.put("img", img);
+        updateValues.put("name", name);
+        updateValues.put("ingredient", ingredient);
+        updateValues.put("uses", uses);
+//        updateValues.put("flagValid", flagValid);
+
+        database.getReference("product").child(productID).
+                updateChildren(updateValues, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                    // Xử lý khi có lỗi xảy ra trong quá trình cập nhật
+                } else {
+                    // Xử lý khi cập nhật thành công
+                }
+            }
+        });
+    }
+
+    private void saveUnitToDatabase(String unitName, int unitPrice) {
+        // Tạo một đối tượng Unit để lưu vào cơ sở dữ liệu Firebase
+        Unit unit = new Unit(unitName, unitPrice, 0);
+
+        // Thực hiện cập nhật thông tin đơn vị vào cơ sở dữ liệu Firebase
+        DatabaseReference unitRef = database.getReference("product").child(productID).child("unitarrr");
+        unitRef.child(unitName).setValue(unit);
+        Intent intent = new Intent(EditProductActivity.this, ProductManagementActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void retrieveCategoryData(String attr) {
+        DatabaseReference categoryRef = database.getReference("category");
+        categoryRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                typeList.clear();
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    typeList.add(item.child(attr).getValue(String.class));
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                throw databaseError.toException(); // don't ignore errors
             }
         });
     }
@@ -293,8 +557,8 @@ public class EditProductActivity extends AppCompatActivity {
                         @Override
                         public void afterTextChanged(Editable s) {
                             try {
-                                double price = Double.parseDouble(s.toString());
-                                double price150Percent = price * 1.5;
+                                int price = Integer.parseInt(s.toString());
+                                int price150Percent = (int) (price + price*50/100);
                                 editTextSellPrice.setText(String.valueOf(price150Percent));
                             } catch (NumberFormatException e) {
                                 editTextSellPrice.setText("");
