@@ -27,7 +27,6 @@ public class ProductManagementActivity extends AppCompatActivity implements OnPr
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     ArrayList<Product> ProductArrayList;
     GridView productGV;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_management);
@@ -40,7 +39,7 @@ public class ProductManagementActivity extends AppCompatActivity implements OnPr
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Lấy giá trị của item được click
-                Product productDetails = ProductArrayList.get(position);
+                Product productDetails = productArrayList.get(position);
 
 //                Toast.makeText(ProductManagementActivity.this, productDetails.getName(), Toast.LENGTH_SHORT).show();
 //

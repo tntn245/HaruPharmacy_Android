@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.ChatActivity;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.example.pharmacyandroidapplication.models.Unit;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -49,6 +50,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     String unit;
     // Ánh xạ các phần tử trong dialog
     private ImageView dialogProductImg;
+    private ImageButton chat;
     private TextView dialogProductName;
     private TextView dialogProductPrice;
     private Button btnCloseDialog;
@@ -84,6 +86,16 @@ public class ProductDetailsActivity extends AppCompatActivity {
         TextView Valid = findViewById(R.id.danhmuc);
         TextView Ingredient = findViewById(R.id.ingredient);
         TextView Info = findViewById(R.id.info);
+//        chat = findViewById(R.id.chat);
+//        chat.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Xử lý khi người dùng chọn trang tư vấn
+//                Intent intent = new Intent(ProductDetailsActivity.this, ChatActivity.class);
+//                intent.putExtra("userID", "zDVjeEon70POnmT25BdJbEmB5jG3");
+//                startActivity(intent);
+//            }
+//        });
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("product").child(product_id);
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

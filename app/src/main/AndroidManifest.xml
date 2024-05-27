@@ -25,6 +25,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.admin.AddNewProductActivity"
+            android:name=".CustomerBillingActivity"
             android:exported="false" />
         <activity
             android:name=".activities.admin.ChatHomepageActivity"
@@ -154,6 +155,9 @@
             android:exported="false" />
         <activity
             android:name=".activities.customer.OrderDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.customer.UserEditAddressActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"

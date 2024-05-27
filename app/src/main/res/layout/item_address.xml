@@ -12,14 +12,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="4">
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:orientation="vertical"
             android:weightSum="3">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,9 +28,8 @@
                 android:weightSum="4">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_110sdp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:padding="@dimen/_3sdp">
 
                     <TextView
@@ -46,7 +43,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="4"
                     android:padding="@dimen/_3sdp"
                     android:layout_gravity="center">
                 <TextView
@@ -55,14 +52,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:text="#FFFFF"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_13ssp"
                     />
                 </LinearLayout>
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,9 +68,8 @@
                 android:weightSum="4">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_110sdp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:padding="@dimen/_3sdp">
 
                     <TextView
@@ -89,7 +83,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="4"
                     android:padding="@dimen/_3sdp">
                     <TextView
                         android:id="@+id/txt_phone_address"
@@ -97,7 +91,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:text="0123456789"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/_13ssp"
@@ -114,9 +107,8 @@
                 android:weightSum="4">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_110sdp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:padding="@dimen/_3sdp">
 
                     <TextView
@@ -128,9 +120,9 @@
                         android:textStyle="bold" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="4"
                     android:padding="@dimen/_3sdp">
                     <TextView
                         android:id="@+id/txt_total_address_address"
@@ -138,40 +130,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:text="Khu phố 3, phường Linh Trung, Thủ Đức"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/_13ssp"
                         />
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="@dimen/_8sdp"
-            android:weightSum="2">
-
-            <ImageView
-                android:id="@+id/img_edit_address_item"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:layout_marginBottom="@dimen/_15sdp"
-                android:src="@drawable/ic_edit" />
-
-            <ImageView
-                android:id="@+id/img_delete_address_item"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_delete" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

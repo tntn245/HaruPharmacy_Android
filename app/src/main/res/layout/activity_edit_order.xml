@@ -52,6 +52,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/order_id"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -85,6 +86,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/user_id"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -117,6 +119,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/order_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -149,6 +152,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/total_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -157,38 +161,6 @@
                 android:paddingTop="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp"
                 android:text="500000"
-                android:textColor="@color/gray"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:paddingLeft="@dimen/_25sdp"
-                android:paddingTop="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_10sdp"
-                android:text="Số lượng"
-                android:textColor="@color/gray"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingTop="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_25sdp"
-                android:paddingBottom="@dimen/_10sdp"
-                android:text="5"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
@@ -211,6 +183,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -236,31 +209,20 @@
                 android:paddingLeft="@dimen/_25sdp"
                 android:paddingTop="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp"
-                android:text="Chi tiết đơn hàng"
+                android:text="Tình trạng thanh toán"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
         </LinearLayout>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_15sdp"
-            app:cardCornerRadius="@dimen/_15sdp"
-            android:elevation="@dimen/_10sdp"
-            android:layout_margin="@dimen/_5sdp">
-<!--            Cái này gọi đến item_product_orderdetail.xml chung với chi tiết đơn của khách hàng nha-->
-            <GridView
-                android:id="@+id/list_products"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:horizontalSpacing="@dimen/_8sdp"
-                android:numColumns="1"
-                android:padding="@dimen/_8sdp"
-                android:verticalSpacing="@dimen/_8sdp">
-            </GridView>
-        </androidx.cardview.widget.CardView>
+        <Spinner
+            android:id="@+id/spinner_payment"
+            android:layout_width="@dimen/_285sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_gravity="center"
+            android:background="@drawable/input_border_radius"
+            android:hint="Đang xử lý/Đang giao/Đã giao"
+            android:paddingStart="@dimen/_15sdp" >
+        </Spinner>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -278,12 +240,15 @@
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
             <Spinner
+                android:id="@+id/spinner_order"
                 android:layout_width="@dimen/_285sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
                 android:background="@drawable/input_border_radius"
                 android:hint="Đang xử lý/Đang giao/Đã giao"
-                android:paddingStart="@dimen/_15sdp" />
+                android:paddingStart="@dimen/_15sdp" >
+            </Spinner>
+
         </LinearLayout>
     </LinearLayout>
     </ScrollView>
@@ -295,6 +260,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/finish"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -307,6 +273,7 @@
             android:layout_margin="@dimen/_8sdp"/>
 
         <Button
+            android:id="@+id/cancel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
