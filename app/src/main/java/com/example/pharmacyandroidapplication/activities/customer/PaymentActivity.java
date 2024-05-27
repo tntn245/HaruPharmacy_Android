@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pharmacyandroidapplication.CustomerBillingActivity;
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.adapters.ItemPayAdapter;
 import com.example.pharmacyandroidapplication.models.ItemPay;
@@ -62,6 +64,7 @@ public class PaymentActivity extends AppCompatActivity {
     String Tinh;
     int finalTotalPrice = 0;
     private RecyclerView recyclerView;
+    private boolean bill;
     private ItemPayAdapter adapter;
     private List<ItemPay> itemList;
     private ArrayList<ShipmentInf> addressList;
@@ -78,6 +81,7 @@ public class PaymentActivity extends AppCompatActivity {
     private Button close_button, btn_confirm, btn_add_address;
     private RadioGroup group_unit;
     private TextView sumhang,ship,sumprice;
+    private Switch switchButton ;
     private int selectedAddressPosition = -1;
     private RadioGroup radioGroup;
     private RadioButton radioCash, radioMomo, radioVNPay;
@@ -88,7 +92,7 @@ public class PaymentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
 
         itemList = getIntent().getParcelableArrayListExtra("selectedItems");
-
+        switchButton = findViewById(R.id.switch_button);
 // Kiểm tra xem selectedItems có rỗng hay không
         if (itemList != null && !itemList.isEmpty()) {
             // Ở đây bạn có thể sử dụng selectedItems theo nhu cầu của bạn
@@ -174,10 +178,12 @@ public class PaymentActivity extends AppCompatActivity {
                 Log.e("PaymentActivity", "Address list is empty, cannot show dialog");
             }
         });
+        switchButton = findViewById(R.id.switch_button);
         Button pay = findViewById(R.id.pay);
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bill = switchButton.isChecked();
                 Dialog dialog1 = new Dialog(PaymentActivity.this, R.style.FullScreenDialog);
                 dialog1.setContentView(R.layout.dialog_choose_pay);
 
@@ -218,6 +224,7 @@ public class PaymentActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Log.i("ĐÃ NHẤN CONFIRM", "OK");
                         add_payment(itemList);
+                        finish();
                     }
                 });
             }
@@ -332,6 +339,7 @@ public class PaymentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PaymentActivity.this, UserAddAddressesActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         //Hiển thi
@@ -375,8 +383,24 @@ public class PaymentActivity extends AppCompatActivity {
                             Log.i("THEM DON HANG","THANH CONG");
 
                         }
-                        Intent intent = new Intent(PaymentActivity.this, CustomerHomepageActivity.class);
-                        startActivity(intent);
+                        if(bill){
+                            Intent intent = new Intent(PaymentActivity.this, CustomerBillingActivity.class);
+                            intent.putExtra("id_order", orderId );
+                            intent.putExtra("order_date",DayNow);
+                            intent.putExtra("name",name_receiver.getText().toString());
+                            intent.putExtra("phone", phone.getText().toString());
+                            intent.putExtra("address",address.getText().toString());
+                            intent.putExtra("sumhang",String.valueOf(finalTotalPrice));
+                            intent.putParcelableArrayListExtra("selectedItems", (ArrayList<ItemPay>) itp);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "Đơn hàng của bạn đang được xử lý", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PaymentActivity.this, CustomerHomepageActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

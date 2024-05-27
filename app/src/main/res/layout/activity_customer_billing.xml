@@ -19,7 +19,7 @@
         android:textSize="@dimen/text_size_large"
         android:textStyle="bold"
         android:textColor="@color/text_theme"
-        android:padding="@dimen/_15sdp"
+        android:padding="@dimen/_10sdp"
         />
 </LinearLayout>
     <androidx.core.widget.NestedScrollView
@@ -47,6 +47,7 @@
                 android:textColor="@color/gray"
                 android:layout_weight="1"/>
             <TextView
+                android:id="@+id/id_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/_3sdp"
@@ -74,6 +75,7 @@
                     android:textColor="@color/gray"
                     android:layout_weight="1"/>
                 <TextView
+                    android:id="@+id/date_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_3sdp"
@@ -143,6 +145,7 @@
                 android:padding="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_10sdp">
                 <TextView
+                    android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_3sdp"
@@ -168,7 +171,7 @@
                 android:layout_weight="1"/>
         </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
+                android:id="@+id/recycler_view_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/_5sdp"
@@ -191,7 +194,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_weight="1"
-                        android:text="Thành tiền"
+                        android:text="Tổng tiền"
                         android:textSize="@dimen/text_size_medium"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/_10sdp" />
@@ -207,6 +210,35 @@
                         android:gravity="end|center"
                         android:paddingRight="@dimen/_10sdp" />
                 </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_backcart"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Quay lại giỏ hàng"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:fontFamily="sans-serif-black"
+                    android:backgroundTint="@color/dark_blue" />
+
+                <Button
+                    android:id="@+id/btn_continuebuy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tiếp tục mua sắm"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="@color/test9"
+                    android:layout_marginStart="8dp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
