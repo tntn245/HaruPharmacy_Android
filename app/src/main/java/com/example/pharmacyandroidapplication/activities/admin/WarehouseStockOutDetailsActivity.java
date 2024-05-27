@@ -25,9 +25,9 @@ public class WarehouseStockOutDetailsActivity extends AppCompatActivity {
         GridView StockOutDetails = findViewById(R.id.list_product_stock_out);
         ArrayList<ProductStockOutDetails> productStockOutDetails = new ArrayList<ProductStockOutDetails>();
 
-        productStockOutDetails.add(new ProductStockOutDetails("Chromium", "SDGDSE", 10, R.drawable.pro1));
-        productStockOutDetails.add(new ProductStockOutDetails("Omega3", "UDXFDG", 10, R.drawable.pro2));
-        productStockOutDetails.add(new ProductStockOutDetails("Thyroid-Pro Formula", "DGBDFS",10, R.drawable.pro3));
+//        productStockOutDetails.add(new ProductStockOutDetails("Chromium", "SDGDSE", 10, R.drawable.pro1));
+//        productStockOutDetails.add(new ProductStockOutDetails("Omega3", "UDXFDG", 10, R.drawable.pro2));
+//        productStockOutDetails.add(new ProductStockOutDetails("Thyroid-Pro Formula", "DGBDFS",10, R.drawable.pro3));
 
         ProductStockOutDetailsAdapter adapter = new ProductStockOutDetailsAdapter(this, productStockOutDetails);
         StockOutDetails.setAdapter(adapter);

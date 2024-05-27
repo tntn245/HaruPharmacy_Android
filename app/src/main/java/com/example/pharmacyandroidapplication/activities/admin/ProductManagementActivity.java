@@ -2,11 +2,10 @@ package com.example.pharmacyandroidapplication.activities.admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.pharmacyandroidapplication.R;
-import com.example.pharmacyandroidapplication.activities.customer.CustomerHomepageActivity;
-import com.example.pharmacyandroidapplication.activities.customer.ProductDetailsActivity;
-import com.example.pharmacyandroidapplication.adapters.HomeCategoryAdapter;
 import com.example.pharmacyandroidapplication.adapters.ProductGVAdapter;
+import com.example.pharmacyandroidapplication.listeners.OnProductClickListener;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,74 +23,72 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ProductManagementActivity extends AppCompatActivity {
-    private ArrayList<Product> productArrayList;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference productRef = database.getReference("product");
-
+public class ProductManagementActivity extends AppCompatActivity implements OnProductClickListener {
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    ArrayList<Product> ProductArrayList;
+    GridView productGV;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_management);
-        GridView productGV= findViewById(R.id.list_item);
-        productArrayList = new ArrayList<Product>();
+        productGV = findViewById(R.id.list_item);
+        ProductArrayList = new ArrayList<Product>();
 
-        productRef.addValueEventListener(new ValueEventListener() {
-            String id, id_category, unit, name, img, uses, ingredient;
-            int price, inventory_quantity;
-            boolean flag_valid, prescription;
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    id = dataSnapshot.getKey().toString();
-                    id_category = dataSnapshot.child("id_category").getValue(String.class);
-                    name = dataSnapshot.child("name").getValue(String.class);
-                    img = dataSnapshot.child("img").getValue(String.class);
-                    price = dataSnapshot.child("price").getValue(Integer.class);
-                    inventory_quantity = Integer.valueOf(dataSnapshot.child("inventory_quantity").getValue().toString());
-                    unit = dataSnapshot.child("unit").getValue(String.class);
-                    uses = dataSnapshot.child("uses").getValue(String.class);
-                    ingredient = dataSnapshot.child("ingredient").getValue(String.class);
-                    flag_valid = dataSnapshot.child("flag_valid").getValue(Boolean.class);
-                    prescription  = dataSnapshot.child("prescription").getValue(Boolean.class);
-
-                    Product product = new Product(id, id_category, img, name, inventory_quantity ,price, unit, uses, ingredient, flag_valid, prescription);
-                    productArrayList.add(product);
-                }
-                ProductGVAdapter adapter = new ProductGVAdapter(ProductManagementActivity.this, productArrayList);
-                productGV.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        productGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Lấy giá trị của item được click
-                Product productDetails = productArrayList.get(position);
-
-                // Truyền giá trị của item qua layout tiếp theo để hiển thị
-                Intent intent = new Intent(ProductManagementActivity.this, EditProductActivity.class);
-//                intent.putExtra("product_img", productDetails.getProductImg());
-//                intent.putExtra("product_name", productDetails.getProductName());
-//                intent.putExtra("product_price", productDetails.getProductPrice());
-                startActivity(intent);
-            }
-        });
+        loadProductFromFirebase();
 
         ImageView btn_add = findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProductManagementActivity.this, AddProductActivity.class);
+                Intent intent = new Intent(ProductManagementActivity.this, AddNewProductActivity.class);
                 startActivity(intent);
-                finish();
+//                finish();
             }
         });
 
+    }
+
+    @Override
+    public void onProductClick(String productId) {
+        Intent intent = new Intent(ProductManagementActivity.this, EditProductActivity.class);
+        intent.putExtra("productID",productId);
+        startActivity(intent);
+    }
+
+    private void loadProductFromFirebase() {
+        DatabaseReference productsRef = database.getReference("product");
+        productsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Lấy dữ liệu từ snapshot và tạo đối tượng Product
+                    String productName = snapshot.child("name").getValue(String.class);
+                    int productPrice = snapshot.child("price").getValue(Integer.class);
+                    String productImg = snapshot.child("img").getValue(String.class);
+                    String id = snapshot.child("id").getValue(String.class);
+                    String id_category = snapshot.child("id_category").getValue(String.class);
+                    String unit = snapshot.child("unit").getValue(String.class);
+                    String inventory_quantity = snapshot.child("uses").getValue(String.class);
+                    String uses = snapshot.child("uses").getValue(String.class);
+                    String ingredient = snapshot.child("ingredient").getValue(String.class);
+                    Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
+
+                    Product product = new Product(id, id_category, productImg, productName, 0, productPrice, unit, uses, ingredient, prescription);
+                    // Sau đó, thêm sản phẩm vào danh sách productList
+                    ProductArrayList.add(product);
+                }
+//                Toast.makeText(ProductManagementActivity.this,ProductArrayList.size() , Toast.LENGTH_SHORT).show();
+
+                ProductGVAdapter adapter = new ProductGVAdapter(ProductManagementActivity.this, ProductArrayList);
+                adapter.setOnProductClickListener(ProductManagementActivity.this);
+                productGV.setAdapter(adapter);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
 }

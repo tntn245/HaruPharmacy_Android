@@ -57,7 +57,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         DatabaseReference orderdetailByIdRef = orderDetailRef.child(orderID);
         ProductArrayList = new ArrayList<Product>();
-        Product newProduct = new Product();
 
         orderdetailByIdRef.addValueEventListener(new ValueEventListener() {
             @Override

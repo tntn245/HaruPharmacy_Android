@@ -49,6 +49,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     String unit;
     // Ánh xạ các phần tử trong dialog
     private ImageView dialogProductImg;
+    private ImageButton chat;
     private TextView dialogProductName;
     private TextView dialogProductPrice;
     private Button btnCloseDialog;
@@ -84,6 +85,16 @@ public class ProductDetailsActivity extends AppCompatActivity {
         TextView Valid = findViewById(R.id.danhmuc);
         TextView Ingredient = findViewById(R.id.ingredient);
         TextView Info = findViewById(R.id.info);
+//        chat = findViewById(R.id.chat);
+//        chat.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Xử lý khi người dùng chọn trang tư vấn
+//                Intent intent = new Intent(ProductDetailsActivity.this, ChatActivity.class);
+//                intent.putExtra("userID", "zDVjeEon70POnmT25BdJbEmB5jG3");
+//                startActivity(intent);
+//            }
+//        });
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("product").child(product_id);
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -92,7 +103,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     // Lấy dữ liệu từ dataSnapshot và thực hiện các thao tác cần thiết
                     product = dataSnapshot.getValue(Product.class);
-
                     // bind vao
                     ProductPrice.setText(String.valueOf(product.getPrice()));
                     ProductName.setText(product.getName());
@@ -120,7 +130,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         for (DataSnapshot unitSnapshot : dataSnapshot.getChildren()) {
                             String name = unitSnapshot.child("name").getValue(String.class);
                             int price = unitSnapshot.child("price").getValue(Integer.class);
-                            Unit unittt = new Unit(name, price);
+                            int quantity = unitSnapshot.child("quantity").getValue(Integer.class);
+                            Unit unittt = new Unit(name, price, quantity);
                             // Thêm đối tượng Unit vào ArrayList
                             // Thực hiện các hành động với dữ liệu đã lấy được, ví dụ: hiển thị dữ liệu lên giao diện người dùng
                             Log.i("Unit ADD", "Name: " + unittt.getName() + ", Price: " + unittt.getPrice());

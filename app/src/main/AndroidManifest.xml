@@ -21,6 +21,15 @@
         android:theme="@style/Theme.PharmacyAndroidApplication"
         tools:targetApi="31">
         <activity
+            android:name=".activities.admin.EditProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.admin.AddNewProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CustomerBillingActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.admin.ChatHomepageActivity"
             android:exported="false" />
         <activity
@@ -52,9 +61,6 @@
             android:exported="false" />
         <activity
             android:name=".activities.admin.EditCategoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.admin.EditProductActivity"
             android:exported="false" />
         <activity
             android:name=".activities.admin.AddCategoryActivity"

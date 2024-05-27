@@ -1,5 +1,6 @@
 package com.example.pharmacyandroidapplication.activities.admin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,28 +13,33 @@ import android.widget.ImageView;
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.activities.customer.SignUpActivity;
+import com.example.pharmacyandroidapplication.adapters.ProductGVAdapter;
 import com.example.pharmacyandroidapplication.adapters.StockInAdapter;
+import com.example.pharmacyandroidapplication.models.Product;
 import com.example.pharmacyandroidapplication.models.StockIn;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class WarehouseStockInActivity extends AppCompatActivity {
-
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    ArrayList<StockIn> StockArrayList;
+    GridView StockInWH;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wh_stock_in);
-        GridView StockInWH= findViewById(R.id.list_stock_in);
-        ArrayList<StockIn> StockArrayList = new ArrayList<StockIn>();
+        StockInWH= findViewById(R.id.list_stock_in);
 
-        StockArrayList.add(new StockIn("FDSFGFSG",new Date(2024, 4, 2), 100000));
-        StockArrayList.add(new StockIn("MEFGFSGG",new Date(2024, 4, 1),100000));
-        StockArrayList.add(new StockIn("ODSAXVSG",new Date(2024, 3, 29),100000));
-        StockArrayList.add(new StockIn("EKUGFSYG",new Date(2024, 3, 18),100000));
-
-        StockInAdapter adapter = new StockInAdapter(this, StockArrayList);
-        StockInWH.setAdapter(adapter);
+        StockArrayList = new ArrayList<StockIn>();
+        loadStockInFromFirebase();
 
         // Đặt sự kiện click cho mỗi item trong GridView
         StockInWH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -59,5 +65,38 @@ public class WarehouseStockInActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void loadStockInFromFirebase() {
+
+        DatabaseReference productsRef = database.getReference("stockIn");
+        productsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String stockInID = snapshot.getKey();
+                    Integer totalPrice = snapshot.child("totalPrice").getValue(Integer.class);
+                    if(totalPrice==null){
+                        totalPrice = 0;
+                    }
+                    String stockInDate = snapshot.child("stockInDate").getValue(String.class);
+//                    String pattern = "dd/MM/yyyy"; // Định dạng của chuỗi ngày tháng
+//                    SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+//                    try {
+//                        Date date = dateFormat.parse(stockInDate);
+                        StockArrayList.add(new StockIn(stockInID,stockInDate, totalPrice));
+//                    } catch (ParseException e) {
+//                        System.out.println("Error parsing date: " + e.getMessage());
+//                    }
+
+                }
+                StockInAdapter adapter = new StockInAdapter(WarehouseStockInActivity.this, StockArrayList);
+                StockInWH.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 }

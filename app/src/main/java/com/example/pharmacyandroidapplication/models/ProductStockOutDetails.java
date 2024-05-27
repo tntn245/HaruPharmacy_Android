@@ -6,9 +6,9 @@ public class ProductStockOutDetails {
     private String product_name;
     private String lot_number;
     private int out_quantity;
-    private int product_img;
+    private String product_img;
 
-    public ProductStockOutDetails(String product_name, String lot_number, int out_quantity, int product_img) {
+    public ProductStockOutDetails(String product_name, String lot_number, int out_quantity, String product_img) {
         this.product_name = product_name;
         this.lot_number = lot_number;
         this.out_quantity = out_quantity;
@@ -39,11 +39,11 @@ public class ProductStockOutDetails {
         this.out_quantity = out_quantity;
     }
 
-    public int getProduct_img() {
+    public String getProduct_img() {
         return product_img;
     }
 
-    public void setProduct_img(int product_img) {
+    public void setProduct_img(String product_img) {
         this.product_img = product_img;
     }
 }

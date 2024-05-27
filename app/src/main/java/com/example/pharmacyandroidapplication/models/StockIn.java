@@ -4,15 +4,11 @@ import java.util.Date;
 
 public class StockIn {
     private String id;
-    private Date date;
+    private String date;
     private int total_payment;
 
-    public StockIn(Date date, int total_payment) {
-        this.id = "";
-        this.date = date;
-        this.total_payment = total_payment;
-    }
-    public StockIn(String id, Date date, int total_payment) {
+
+    public StockIn(String id, String date, int total_payment) {
         this.id = id;
         this.date = date;
         this.total_payment = total_payment;
@@ -26,11 +22,11 @@ public class StockIn {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

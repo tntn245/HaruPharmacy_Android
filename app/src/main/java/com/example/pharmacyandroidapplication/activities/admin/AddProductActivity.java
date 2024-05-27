@@ -1,11 +1,12 @@
 package com.example.pharmacyandroidapplication.activities.admin;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,10 +14,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pharmacyandroidapplication.R;
-import com.example.pharmacyandroidapplication.models.Product;
 import com.example.pharmacyandroidapplication.models.Unit;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,7 +47,6 @@ public class AddProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-        add_txt_product_id = findViewById(R.id.add_txt_product_id);
         add_txt_product_name = findViewById(R.id.add_txt_product_name);
         add_img_product_img = findViewById(R.id.add_img_product_img);
         add_txt_product_price = findViewById(R.id.add_txt_product_price);
@@ -59,7 +61,7 @@ public class AddProductActivity extends AppCompatActivity {
         typeList = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        retrieveCategoryData("category_name");
+        retrieveCategoryData("name");
         add_spn_product_type.setAdapter(adapter);
 
         ArrayList<String> statusList = new ArrayList<>();
@@ -78,57 +80,146 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveNewProduct();
-                setDefaultView();
+//                setDefaultView();
                 Intent intent = new Intent(AddProductActivity.this, ProductManagementActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
 
+    boolean flag_produnit_exist;
     public void saveNewProduct() {
-        String id_cate, name, unit, ingredient, uses, img;
-        int price, quantity;
-        boolean flag_valid;
-        id_cate = add_spn_product_type.getSelectedItem().toString();
-        name = add_txt_product_name.getText().toString();
-        img = "img_link";
-        unit = add_spn_product_unit.getSelectedItem().toString();
-        ingredient = add_txt_product_ingredient.getText().toString();
-        uses = add_txt_product_uses.getText().toString();
-        price = Integer.valueOf(add_txt_product_price.getText().toString());
-        quantity = 0;
-        flag_valid = (add_spn_product_status.getSelectedItem().toString() == "Đang kinh doanh");
-        DatabaseReference newProductRef = productRef.push();
-        String id = newProductRef.getKey().toString();
-        Map<String, Object> units = new HashMap<>();
-//        units.put(unit, new Unit(unit, price));
-//        Product newProduct = new Product(id, id_cate, img, name, quantity, price, unit, uses, ingredient, flag_valid, false, units);
-//        newProductRef.setValue(newProduct);
-        // Tạo các đơn vị (units) cho sản phẩm
+        String cate_name = add_spn_product_type.getSelectedItem().toString();
+        String name = add_txt_product_name.getText().toString();
+        String img = "img_link";
+        String unit = add_spn_product_unit.getSelectedItem().toString();
+        String ingredient = add_txt_product_ingredient.getText().toString();
+        String uses = add_txt_product_uses.getText().toString();
+        String priceStr = add_txt_product_price.getText().toString();
+        int price = priceStr.isEmpty() ? 0 : Integer.parseInt(priceStr);
+        int quantity = 0;
+        boolean flag_valid = (add_spn_product_status.getSelectedItem().toString() == "Đang kinh doanh");
 
+        if (name.isEmpty() || img.isEmpty() ||
+                unit.isEmpty() || ingredient.isEmpty() || uses.isEmpty() ||
+                priceStr.isEmpty() ) {
+            Toast.makeText(AddProductActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+        flag_produnit_exist = false;
         productRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     // Lấy dữ liệu từ snapshot và tạo đối tượng Product
-                    String nameInFirebase = snapshot.child("name").getValue(String.class);
-                    if (name.equals(nameInFirebase)) {
-//                        Map<String, Object> units = new HashMap<>();
-//                        units.put(unit, new Unit(unit, price));
-//                        DatabaseReference unitRef = snapshot.getRef().child("units").getRef();
-//                        unitRef.setValue(units);
-//                        break;
-                    } else {
-                        break;
+                    String productID = snapshot.getKey();
+                    String productName = snapshot.child("name").getValue(String.class);
+
+                    if(productName.equals(name)){
+                        for (DataSnapshot unitSnapshot : snapshot.child("unitarr").getChildren()) {
+                            String unitName = unitSnapshot.getKey().toString();
+                            if (unit.equals(unitName)) {
+                                flag_produnit_exist = true;
+                                break;
+                            }
+                        }
+
+                        if(!flag_produnit_exist){
+                            // Add new unit in unitarr
+                            DatabaseReference unitArrRef = snapshot.getRef().child("unitarr");
+                            // Sử dụng setValue() để đặt dữ liệu trực tiếp cho đơn vị mới
+                            unitArrRef.child(unit).child("name").setValue(unit);
+                            unitArrRef.child(unit).child("price").setValue(price);
+                            unitArrRef.child(unit).child("quantity").setValue(quantity);
+
+                            // Tạo và hiển thị hộp thoại
+                            AlertDialog.Builder builder = new AlertDialog.Builder(AddProductActivity.this);
+                            builder.setTitle("Sản phẩm đang có mô tả về thành phần và công dụng");
+                            builder.setMessage("Bạn có muốn sử dụng mô tả (thành phần, công dụng) mới hay không?");
+
+                            // Thêm nút "Đồng ý" vào hộp thoại
+                            builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    productRef.child(productID).child("name").setValue("newName").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                // Ghi đè thành công
+                                                Toast.makeText(getApplicationContext(), "Name updated successfully", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                // Xử lý khi ghi đè không thành công
+                                                Toast.makeText(getApplicationContext(), "Failed to update name", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });                                }
+                            });
+
+                            // Thêm nút "Hủy" vào hộp thoại
+                            builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Xử lý khi người dùng nhấn nút "Hủy"
+                                    // Ví dụ: đóng hộp thoại hoặc thực hiện hành động khác
+                                }
+                            });
+
+                            // Hiển thị hộp thoại
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                        else{
+                            Toast.makeText(AddProductActivity.this, "Sản phẩm với đơn vị "+unit+ " đã tồn tại", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+
+
+
+
+
+
+
+
+
+
+        // Tạo các đơn vị (units) cho sản phẩm
+
+//        productRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    // Lấy dữ liệu từ snapshot và tạo đối tượng Product
+//                    String nameInFirebase = snapshot.child("name").getValue(String.class);
+//                    if (name.equals(nameInFirebase)) {
+////                        Map<String, Object> units = new HashMap<>();
+////                        units.put(unit, new Unit(unit, price));
+////                        DatabaseReference unitRef = snapshot.getRef().child("units").getRef();
+////                        unitRef.setValue(units);
+////                        break;
+//                        Log.e("trung ten roi", "onDataChange: ");
+//                    } else {
+//                        Log.e("chay bn", "onDataChange: " );
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
     }
 
