@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.itemClickListener.OrderItemClickListener;
-import com.example.pharmacyandroidapplication.models.ChatMessage;
 import com.example.pharmacyandroidapplication.models.Order;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.ViewHolder> {
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private ArrayList<Order> orderArrayList;
     private Context context;
     private OrderItemClickListener clickListener;
@@ -35,9 +36,9 @@ public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.ViewHold
 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Order order = orderArrayList.get(position);
-        holder.order_id.setText("124224");
-        holder.order_date.setText("2/5/2024");
-        holder.order_total_payment.setText("100000");
+        holder.order_id.setText(order.getId_order());
+        holder.order_date.setText(formatDate(order.getOrder_date()));
+        holder.order_total_payment.setText(String.valueOf(order.getTotal_payment()));
         holder.order_status.setText(order.getOrder_status());
         holder.payment_status.setText(order.getPayment_status());
 
@@ -46,7 +47,7 @@ public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.ViewHold
             @Override
             public void onClick(View view) {
                 if (clickListener != null) {
-                    clickListener.onOrderItemClick(order.getId_order());
+                    clickListener.onOrderItemClick(order.getId_order(), order.getId_account());
                 }
             }
         });
@@ -71,5 +72,8 @@ public class OrderRVAdapter extends RecyclerView.Adapter<OrderRVAdapter.ViewHold
             order_status = itemView.findViewById(R.id.order_status);
             payment_status = itemView.findViewById(R.id.payment_status);
         }
+    }
+    private String formatDate(Date date) {
+        return dateFormat.format(date);
     }
 }

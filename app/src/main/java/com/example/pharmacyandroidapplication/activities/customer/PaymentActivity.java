@@ -284,7 +284,7 @@ public class PaymentActivity extends AppCompatActivity {
                                 rb.setChecked(false);
                             }
                             else{
-                                ii= i;
+                                ii= j;
                                 Toast.makeText(getApplicationContext(),  String.valueOf(ii), Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -309,6 +309,16 @@ public class PaymentActivity extends AppCompatActivity {
                 address.setText(shipment.getCommune() + ", " + shipment.getDistrict() + ", " + shipment.getProvince());
                 name_receiver.setText(shipment.getReceiverName());
                 phone.setText(shipment.getPhone());
+                Tinh = shipment.getProvince();
+                if(Tinh.equals("Thành phố Hồ Chí Minh")){
+                    day_receiver.setText("Đơn của bạn sẽ được giao trong 2 tiếng");
+                    ship.setText("15000");
+                    sumprice.setText(String.valueOf(finalTotalPrice + 15000));
+                }else{
+                    day_receiver.setText("Từ 8:00 đến 16h00 ngày "+formattedDate);
+                    ship.setText("30000");
+                    sumprice.setText(String.valueOf(finalTotalPrice + 30000));
+                }
                 // Đóng dialog sau khi cập nhật thông tin
                 dialog.dismiss();
             } else {
