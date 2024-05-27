@@ -1,12 +1,14 @@
 package com.example.pharmacyandroidapplication.activities.customer;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,26 +44,57 @@ public class OrdersTrackingActivity extends AppCompatActivity {
         txt_processing_order = findViewById(R.id.txt_processing_order);
         txt_delivering_order = findViewById(R.id.txt_delivering_order);
         txt_delivered_order = findViewById(R.id.txt_delivered_order);
-        retrieveOrderDataByStatus("Đang xử lý");
         orderArrayList = new ArrayList<Order>();
+        retrieveOrderDataByStatus("Đang xử lý");
         adapter = new OrderTrackingAdapter(OrdersTrackingActivity.this, orderArrayList);
         listOrders.setAdapter(adapter);
+        Bundle extras = getIntent().getExtras();
+        txt_processing_order.setTypeface(null, Typeface.BOLD);
+        if (extras != null) {
+            int orderStatus = extras.getInt("orderStatus");
+            Log.e("status", "status: " + orderStatus );
+            if (orderStatus == 2) {
+                        txt_processing_order.setTypeface(null, Typeface.NORMAL);
+                        txt_delivered_order.setTypeface(null, Typeface.NORMAL);
+                        txt_delivering_order.setTypeface(null, Typeface.BOLD);
+                        retrieveOrderDataByStatus("Đang giao");
+
+            } else if (orderStatus == 3) {
+                        txt_processing_order.setTypeface(null, Typeface.NORMAL);
+                        txt_delivering_order.setTypeface(null, Typeface.NORMAL);
+                        txt_delivered_order.setTypeface(null, Typeface.BOLD);
+                        retrieveOrderDataByStatus("Đã giao");
+            } else {
+                        txt_delivering_order.setTypeface(null, Typeface.NORMAL);
+                        txt_delivered_order.setTypeface(null, Typeface.NORMAL);
+                        txt_processing_order.setTypeface(null, Typeface.BOLD);
+                        retrieveOrderDataByStatus("Đang xử lý");
+            }
+        }
         txt_processing_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                txt_delivering_order.setTypeface(null, Typeface.NORMAL);
+                txt_delivered_order.setTypeface(null, Typeface.NORMAL);
+                txt_processing_order.setTypeface(null, Typeface.BOLD);
                 retrieveOrderDataByStatus("Đang xử lý");
-
             }
         });
         txt_delivering_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                txt_processing_order.setTypeface(null, Typeface.NORMAL);
+                txt_delivered_order.setTypeface(null, Typeface.NORMAL);
+                txt_delivering_order.setTypeface(null, Typeface.BOLD);
                 retrieveOrderDataByStatus("Đang giao");
             }
         });
         txt_delivered_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                txt_processing_order.setTypeface(null, Typeface.NORMAL);
+                txt_delivering_order.setTypeface(null, Typeface.NORMAL);
+                txt_delivered_order.setTypeface(null, Typeface.BOLD);
                 retrieveOrderDataByStatus("Đã giao");
             }
         });
@@ -113,4 +146,5 @@ public class OrdersTrackingActivity extends AppCompatActivity {
             }
         });
     }
+
 }
