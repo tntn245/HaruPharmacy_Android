@@ -220,16 +220,13 @@ public class EditProductActivity extends AppCompatActivity {
         return categoryID;
     }
 
-    private String getCategoryName(String cateID) {
-        // Tạo một DatabaseReference để tham chiếu đến node chứa dữ liệu sản phẩm trong Firebase
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private void getCategoryName(String cateID) {
         DatabaseReference categoryRef = database.getReference("category");        // Thêm một ChildEventListener để lắng nghe sự thay đổi dữ liệu
         categoryRef.child(cateID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     categoryName = dataSnapshot.child("name").getValue(String.class);
-                } else {
                 }
             }
 
@@ -238,10 +235,8 @@ public class EditProductActivity extends AppCompatActivity {
                 // Xử lý sự kiện onCancelled
             }
         });
-        return categoryName;
     }
 
-    // Phương thức để đặt lại trạng thái của tất cả CheckBox và EditText
     private void resetCheckBoxStates() {
         int childCount = checkboxContainer.getChildCount();
 
@@ -349,11 +344,31 @@ public class EditProductActivity extends AppCompatActivity {
                         product = new Product(productID, categoryID, imageStr, productName, productPrice, inventory_quantity, unit, uses, ingredient, flagValid, prescription, unitArr);
 
                         txt_product_name.setText(product.getName());
-                        categoryName = getCategoryName(categoryID);
-                        int position = typeList.indexOf(categoryName);
-                        if (position >= 0) {
-                            spinner_category_name.setSelection(position);
-                        }
+
+                        DatabaseReference categoryRef = database.getReference("category");
+                        categoryRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                                    String id = item.getKey();
+                                    String name = item.child("name").getValue(String.class);
+                                    if(id.equals(categoryID)){
+                                        int position = typeList.indexOf(name);
+                                        if (position >= 0) {
+                                            spinner_category_name.setSelection(position);
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                throw databaseError.toException(); // don't ignore errors
+                            }
+                        });
+
+
+
                         txt_product_ingredient.setText(product.getIngredient());
                         txt_product_uses.setText(product.getUses());
                         boolean productStatus = product.isFlag_valid();
@@ -425,8 +440,27 @@ public class EditProductActivity extends AppCompatActivity {
         String ingredient = txt_product_ingredient.getText().toString();
         String uses = txt_product_uses.getText().toString();
         boolean flagValid = (spinner_status.getSelectedItem().toString() == "Đang kinh doanh");
+        String category_name = spinner_category_name.getSelectedItem().toString();
 
         // Thực hiện cập nhật thông tin đơn vị vào cơ sở dữ liệu Firebase
+        DatabaseReference categoryRef = database.getReference("category");
+        categoryRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    String id = item.getKey();
+                    String name = item.child("name").getValue(String.class);
+                    if(name.equals(category_name)){
+                        productRef.child("id_category").setValue(id);
+                        break;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                throw databaseError.toException(); // don't ignore errors
+            }
+        });
         productRef.child("img").setValue(img);
         productRef.child("name").setValue(name);
         productRef.child("ingredient").setValue(ingredient);
