@@ -75,16 +75,19 @@ public class WarehouseStockInActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String stockInID = snapshot.getKey();
-                    int totalPrice = snapshot.child("totalPrice").getValue(Integer.class);
-                    String stockInDate = snapshot.child("stockInDate").getValue(String.class);
-                    String pattern = "dd/MM/yyyy"; // Định dạng của chuỗi ngày tháng
-                    SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-                    try {
-                        Date date = dateFormat.parse(stockInDate);
-                        StockArrayList.add(new StockIn(stockInID,date, totalPrice));
-                    } catch (ParseException e) {
-                        System.out.println("Error parsing date: " + e.getMessage());
+                    Integer totalPrice = snapshot.child("totalPrice").getValue(Integer.class);
+                    if(totalPrice==null){
+                        totalPrice = 0;
                     }
+                    String stockInDate = snapshot.child("stockInDate").getValue(String.class);
+//                    String pattern = "dd/MM/yyyy"; // Định dạng của chuỗi ngày tháng
+//                    SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+//                    try {
+//                        Date date = dateFormat.parse(stockInDate);
+                        StockArrayList.add(new StockIn(stockInID,stockInDate, totalPrice));
+//                    } catch (ParseException e) {
+//                        System.out.println("Error parsing date: " + e.getMessage());
+//                    }
 
                 }
                 StockInAdapter adapter = new StockInAdapter(WarehouseStockInActivity.this, StockArrayList);

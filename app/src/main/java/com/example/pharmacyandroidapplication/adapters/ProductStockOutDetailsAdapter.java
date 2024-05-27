@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.models.DateFormat;
 import com.example.pharmacyandroidapplication.models.ProductStockInDetails;
@@ -19,8 +20,10 @@ import com.example.pharmacyandroidapplication.models.ProductStockOutDetails;
 import java.util.ArrayList;
 
 public class ProductStockOutDetailsAdapter extends ArrayAdapter<ProductStockOutDetails> {
+    Context context;
     public ProductStockOutDetailsAdapter(@NonNull Context context, ArrayList<ProductStockOutDetails> productStockOutDetailsArrayList) {
         super(context, 0, productStockOutDetailsArrayList);
+        this.context = context;
     }
 
     @NonNull
@@ -43,7 +46,12 @@ public class ProductStockOutDetailsAdapter extends ArrayAdapter<ProductStockOutD
         name_product.setText(productStockOutDetails.getProduct_name());
         lot_number.setText(productStockOutDetails.getLot_number());
         quantity.setText(Integer.toString(productStockOutDetails.getOut_quantity()));
-        img_product.setImageResource(productStockOutDetails.getProduct_img());
+//        img_product.setImageResource(productStockOutDetails.getProduct_img());
+        Glide.with(context)
+                .load(productStockOutDetails.getProduct_img())
+//                .placeholder(R.drawable.placeholder) // Hình ảnh hiển thị trong khi tải
+//                .error(R.drawable.error) // Hình ảnh hiển thị khi lỗi
+                .into(img_product);
 
         return listitemView;
     }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,19 +32,25 @@ public class ProductStockInDetailsAdapter extends ArrayAdapter<ProductStockInDet
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        ProductStockInDetails productStockInDetails = getItem(position);
 
         View listitemView = convertView;
         if (listitemView == null) {
             // Layout Inflater inflates each item to be displayed in GridView.
             if(flagAddProductArr){
                 listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_add_product_stock_in, parent, false);
+
             }
             else {
                 listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_product_stock_in, parent, false);
             }
         }
 
-        ProductStockInDetails productStockInDetails = getItem(position);
+        ImageButton deleteButton = listitemView.findViewById(R.id.btn_del_arr); // Nút xóa
+        deleteButton.setOnClickListener(v -> {
+            remove(productStockInDetails);
+            notifyDataSetChanged();
+        });
         TextView lot_number = listitemView.findViewById(R.id.lot_number);
         TextView production_date = listitemView.findViewById(R.id.production_date);
         TextView expiration_date = listitemView.findViewById(R.id.expiration_date);

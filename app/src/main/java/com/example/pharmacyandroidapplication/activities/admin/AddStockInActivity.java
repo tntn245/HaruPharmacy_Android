@@ -1,11 +1,14 @@
 package com.example.pharmacyandroidapplication.activities.admin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -14,16 +17,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.adapters.ProductStockInDetailsAdapter;
 import com.example.pharmacyandroidapplication.models.ProductStockInDetails;
+import com.example.pharmacyandroidapplication.models.StockIn;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class AddStockInActivity extends AppCompatActivity {
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -35,6 +47,7 @@ public class AddStockInActivity extends AppCompatActivity {
     GridView StockInDetails;
     ProductStockInDetailsAdapter adapter;
     EditText date_stock_in;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +57,15 @@ public class AddStockInActivity extends AppCompatActivity {
         productStockInDetails = new ArrayList<ProductStockInDetails>();
         adapter = new ProductStockInDetailsAdapter(this, productStockInDetails, true);
         StockInDetails.setAdapter(adapter);
+        StockInDetails.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ProductStockInDetails selectedProduct = productStockInDetails.get(position);
+                String productId = selectedProduct.getProduct_id();
+                Toast.makeText(AddStockInActivity.this, "Selected product ID: " + productId, Toast.LENGTH_SHORT).show();
+                // Perform actions based on the selected product ID
+            }
+        });
 
         txt_total_stockin_price = findViewById(R.id.total_stockin_price);
         date_stock_in = findViewById(R.id.date_stock_in);
@@ -67,13 +89,14 @@ public class AddStockInActivity extends AppCompatActivity {
             }
         });
 
-        Button btn_add_stockin =findViewById(R.id.btn_add_stockin);
+        Button btn_add_stockin = findViewById(R.id.btn_add_stockin);
         btn_add_stockin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addFirebase();
                 Intent intent = new Intent(AddStockInActivity.this, WarehouseStockInActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -85,6 +108,7 @@ public class AddStockInActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -100,17 +124,65 @@ public class AddStockInActivity extends AppCompatActivity {
             Toast.makeText(this, "Đã chọn " + productName, Toast.LENGTH_LONG).show();
         }
 
-        total_stockin_price = total_stockin_price+ inQuantity*unitPrice;
+        total_stockin_price = total_stockin_price + inQuantity * unitPrice;
         txt_total_stockin_price.setText(String.valueOf(total_stockin_price));
 
-        productStockInDetails.add(new ProductStockInDetails(productID,productName, lotNumber, productionDate, expirationDate, inQuantity,inQuantity, unitPrice, unitName, ""));
+        productStockInDetails.add(new ProductStockInDetails(productID, productName, lotNumber, productionDate, expirationDate, inQuantity, inQuantity, unitPrice, unitName, ""));
         adapter.notifyDataSetChanged();
     }
-    private void addFirebase(){
+
+    private void addFirebase() {
         DatabaseReference stockInRef = database.child("stockIn").push();
         stockInRef.child("productStockInInf").setValue(productStockInDetails);
         stockInRef.child("totalPrice").setValue(total_stockin_price);
         stockInRef.child("stockInDate").setValue(date_stock_in.getText().toString());
+
+        DatabaseReference databaseInventory = FirebaseDatabase.getInstance().getReference("inventory");
+        DatabaseReference quantityRef = databaseInventory.child(productID).child(unitName).child("inventory_quantity");
+
+        quantityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    updateInventoryQuantity(productID, unitName);
+                } else {
+                    databaseInventory.child(productID).child(unitName).child("inventory_quantity").setValue(inQuantity);
+                    databaseInventory.child(productID).child(unitName).child(lotNumber).child("stock_quantity").setValue(inQuantity);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý khi có lỗi xảy ra
+            }
+        });
+
+    }
+
+    private void updateInventoryQuantity(String productID, String unitName) {
+        DatabaseReference inventoryQuantityRef = FirebaseDatabase.getInstance().getReference("inventory").
+                child(productID).child(unitName).child("inventory_quantity");
+
+        inventoryQuantityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Integer currentInventoryQuantity = dataSnapshot.getValue(Integer.class);
+                if (currentInventoryQuantity == null) {
+                    currentInventoryQuantity = 0;
+                }
+                int newInventoryQuantity = currentInventoryQuantity + inQuantity;
+                inventoryQuantityRef.setValue(newInventoryQuantity).addOnSuccessListener(aVoid -> {
+                    Toast.makeText(AddStockInActivity.this, "Inventory quantity updated successfully.", Toast.LENGTH_SHORT).show();
+                }).addOnFailureListener(e -> {
+                    Toast.makeText(AddStockInActivity.this, "Failed to update inventory quantity: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(AddStockInActivity.this, "Failed to read inventory quantity: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void showDatePickerDialog(View v) {

@@ -14,6 +14,7 @@ import com.example.pharmacyandroidapplication.activities.customer.CustomerHomepa
 import com.example.pharmacyandroidapplication.adapters.HomeProductAdapter;
 import com.example.pharmacyandroidapplication.adapters.ProductGVAdapter;
 import com.example.pharmacyandroidapplication.adapters.ProductInventoryAdapter;
+import com.example.pharmacyandroidapplication.models.Inventory;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.example.pharmacyandroidapplication.models.StockIn;
 import com.google.firebase.database.DataSnapshot;
@@ -23,29 +24,28 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WarehouseInventoryActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    ArrayList<Product> ProductArrayList;
+    ArrayList<Inventory> InventoryArrayList;
+    GridView productGV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wh_inventory);
 
-        GridView productGV= findViewById(R.id.list_inventory);
-        ProductArrayList = new ArrayList<Product>();
+        productGV= findViewById(R.id.list_inventory);
+        InventoryArrayList = new ArrayList<Inventory>();
 
         loadProductFromFirebase();
-
-        ProductInventoryAdapter adapter = new ProductInventoryAdapter(this, ProductArrayList);
-        productGV.setAdapter(adapter);
 
         // Đặt sự kiện click cho mỗi item trong GridView
         productGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Lấy giá trị của item được click
-                Product item = ProductArrayList.get(position);
+                Inventory item = InventoryArrayList.get(position);
 
                 // Truyền giá trị của item qua layout tiếp theo để hiển thị
                 Intent intent = new Intent(WarehouseInventoryActivity.this, WarehouseInventoryDetailsActivity.class);
@@ -59,34 +59,50 @@ public class WarehouseInventoryActivity extends AppCompatActivity {
     }
 
     private void loadProductFromFirebase() {
-        DatabaseReference productsRef = database.getReference("product");
-        productsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ProductArrayList = new ArrayList<Product>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    // Lấy dữ liệu từ snapshot và tạo đối tượng Product
-                    String productName = snapshot.child("name").getValue(String.class);
-                    int productPrice = snapshot.child("price").getValue(Integer.class);
-                    String productImg = snapshot.child("img").getValue(String.class);
-                    String id = snapshot.child("id").getValue(String.class);
-                    String id_category = snapshot.child("id_category").getValue(String.class);
-                    String unit = snapshot.child("unit").getValue(String.class);
-                    String inventory_quantity = snapshot.child("uses").getValue(String.class);
-                    String uses = snapshot.child("uses").getValue(String.class);
-                    String ingredient = snapshot.child("ingredient").getValue(String.class);
-                    Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
+        DatabaseReference databaseInventory = database.getReference("inventory");
 
-                    Product product = new Product(id,id_category,productImg, productName,0,productPrice,unit,uses, ingredient, prescription);
-                    // Sau đó, thêm sản phẩm vào danh sách productList
-                    ProductArrayList.add(product);
+        databaseInventory.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot inventorySnapshot) {
+                if (inventorySnapshot.exists()) {
+                    for (DataSnapshot productSnapshot : inventorySnapshot.getChildren()) {
+                        String productID = productSnapshot.getKey();
+
+                        DatabaseReference databaseProduct = database.getReference("product").child(productID);
+                        databaseProduct.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                String productName = dataSnapshot.child("name").getValue(String.class);
+                                String img = dataSnapshot.child("img").getValue(String.class);
+
+                                for (DataSnapshot unitSnapshot : productSnapshot.getChildren()) {
+                                    String unitName = unitSnapshot.getKey();
+                                    Integer inventoryQuantity = unitSnapshot.child("inventory_quantity").getValue(Integer.class);
+
+                                    Inventory item = new Inventory(productID,productName, unitName, img,inventoryQuantity);
+                                    InventoryArrayList.add(item);
+                                }
+
+                                ProductInventoryAdapter adapter = new ProductInventoryAdapter(WarehouseInventoryActivity.this, InventoryArrayList);
+                                productGV.setAdapter(adapter);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                // Xử lý khi có lỗi xảy ra
+                            }
+                        });
+
+
+                    }
                 }
-
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
+
+
     }
 }
