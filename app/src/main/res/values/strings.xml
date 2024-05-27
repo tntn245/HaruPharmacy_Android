@@ -15104,6 +15104,8 @@
     </string-array>
 
     <string-array name="years">
-        <!-- Here you need to dynamically generate years from 1990 to current year -->
+        <item>Năm 2022</item>
+        <item>Năm 2023</item>
+        <item>Năm 2024</item>
     </string-array>
 </resources>
