@@ -48,7 +48,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class EditProductActivity extends AppCompatActivity {
-    private EditText txt_product_name, txt_product_ingredient, txt_product_uses, txt_product_status;
+    private EditText txt_product_name, txt_product_ingredient, txt_product_uses;
     Spinner spinner_category_name, spinner_status;
     private LinearLayout checkboxContainer;
     private ArrayAdapter<Product> productNameAdapter;
@@ -333,7 +333,7 @@ public class EditProductActivity extends AppCompatActivity {
                         txt_product_ingredient.setText(product.getIngredient());
                         txt_product_uses.setText(product.getUses());
                         boolean productStatus = product.isFlag_valid();
-                        txt_product_status.setText(productStatus ? "Đang kinh doanh" : "Ngừng kinh doanh");
+//                        spinner_status.setText(productStatus ? "Đang kinh doanh" : "Ngừng kinh doanh");
                         Glide.with(getApplicationContext()).load(productImg).into(img_product);
 
                         resetCheckBoxStates();
