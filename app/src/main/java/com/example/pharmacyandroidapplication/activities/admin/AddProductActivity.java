@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -80,8 +81,9 @@ public class AddProductActivity extends AppCompatActivity {
             public void onClick(View v) {
                 saveNewProduct();
 //                setDefaultView();
-//                Intent intent = new Intent(AddProductActivity.this, ProductManagementActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(AddProductActivity.this, ProductManagementActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

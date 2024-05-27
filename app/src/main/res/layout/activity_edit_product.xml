@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Thêm sản phẩm"
+            android:text="Sửa sản phẩm"
             android:gravity="center"
             android:textColor="@color/text_theme"
             android:textSize="@dimen/text_size_large"
@@ -66,12 +66,13 @@
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold" />
 
-                <Spinner
+                <EditText
                     android:id="@+id/spinner_product_name"
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
+                    android:enabled="false"
                     android:hint="Chọn sản phẩm"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
@@ -232,7 +233,7 @@
             android:layout_gravity="center"
             android:backgroundTint="@color/button_color"
             android:elevation="@dimen/_8sdp"
-            android:text="Thêm"
+            android:text="Lưu"
             android:textSize="@dimen/text_size_medium"
             android:padding="@dimen/_10sdp"
             android:layout_margin="@dimen/_8sdp"/>

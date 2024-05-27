@@ -14,10 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,22 +30,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EditProductActivity extends AppCompatActivity {
-    private Spinner spinner_product_name;
-    private EditText txt_category_name, txt_product_ingredient, txt_product_uses, txt_product_status;
+    private EditText txt_product_name, txt_category_name, txt_product_ingredient, txt_product_uses, txt_product_status;
     private LinearLayout checkboxContainer;
     private ArrayAdapter<Product> productNameAdapter;
     private ArrayList<Product> productList;
+    String productID;
     String categoryID;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     Map<String, CheckBox> checkBoxMap = new HashMap<>();
     Map<String, EditText> editTextPriceMap = new HashMap<>();
     Map<String, EditText> editTextSellPriceMap = new HashMap<>();
+    Product product;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
 
-        spinner_product_name = findViewById(R.id.spinner_product_name);
+        productID = getIntent().getExtras().getString("productID");
+        Toast.makeText(this, productID, Toast.LENGTH_SHORT).show();
+
+
+        txt_product_name = findViewById(R.id.spinner_product_name);
         txt_category_name = findViewById(R.id.txt_category_name);
         txt_product_ingredient = findViewById(R.id.txt_product_ingredient);
         txt_product_uses = findViewById(R.id.txt_product_uses);
@@ -56,40 +62,8 @@ public class EditProductActivity extends AppCompatActivity {
 
         productList = new ArrayList<>();
         loadProductFromFirebase();
-        spinner_product_name.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Lấy sản phẩm được chọn từ danh sách productList
-                Product selectedProduct = productList.get(position);
-
-                // Hiển thị thông tin sản phẩm lên các TextView
-                txt_category_name.setText(selectedProduct.getId_category());
-                txt_product_ingredient.setText(selectedProduct.getIngredient());
-                txt_product_uses.setText(selectedProduct.getUses());
-                boolean productStatus = selectedProduct.isFlag_valid();
-                txt_product_status.setText(productStatus ? "Đang kinh doanh" : "Ngừng kinh doanh");
-
-                // Lấy giá trị trong unitarr
-                Map<String, Object> unitArr = selectedProduct.getUnitarrr();
-                resetCheckBoxStates();
-                for (String unitName : unitArr.keySet()) {
-                    Map<String, Object> unitData = (Map<String, Object>) unitArr.get(unitName);
-
-                    int price = (int) unitData.get("price");
-                    int sellPrice = (int) unitData.get("sell_price");
-                    int quantity = (int) unitData.get("quantity");
-
-                    // Checked checkbox
-                    checkCheckBoxStates(unitName, price, sellPrice);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Xử lý khi không có sản phẩm nào được chọn
-            }
-        });
     }
+
     // Phương thức để đặt lại trạng thái của tất cả CheckBox và EditText
     private void resetCheckBoxStates() {
         int childCount = checkboxContainer.getChildCount();
@@ -121,6 +95,7 @@ public class EditProductActivity extends AppCompatActivity {
             }
         }
     }
+
     private void checkCheckBoxStates(String unitNameToCheck, int unitPrice, int sellPrice) {
         int childCount = checkboxContainer.getChildCount();
 
@@ -140,7 +115,7 @@ public class EditProductActivity extends AppCompatActivity {
                         CheckBox checkBox = (CheckBox) childView;
                         String unitName = checkBox.getText().toString();
 
-                        if(unitName.equals(unitNameToCheck)){
+                        if (unitName.equals(unitNameToCheck)) {
                             checkBox.setChecked(true);
                             checkBox.setEnabled(false);
                         }
@@ -148,18 +123,19 @@ public class EditProductActivity extends AppCompatActivity {
                     // Kiểm tra và lấy giá trị của EditText giá
                     if (childView instanceof EditText && j == 1) {
                         EditText editTextPrice = (EditText) childView;
-                        editTextPrice.setText( String.valueOf(unitPrice));
+                        editTextPrice.setText(String.valueOf(unitPrice));
                     }
 
                     // Kiểm tra và lấy giá trị của EditText giá bán
                     if (childView instanceof EditText && j == 2) {
                         EditText editTextSellPrice = (EditText) childView;
-                        editTextSellPrice.setText( String.valueOf(sellPrice));
+                        editTextSellPrice.setText(String.valueOf(sellPrice));
                     }
                 }
             }
         }
     }
+
     private void loadProductFromFirebase() {
         DatabaseReference productsRef = database.getReference("product");
         productsRef.addValueEventListener(new ValueEventListener() {
@@ -167,46 +143,65 @@ public class EditProductActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     // Lấy dữ liệu từ snapshot và tạo đối tượng Product
-                    String productName = snapshot.child("name").getValue(String.class);
-                    int productPrice = snapshot.child("price").getValue(Integer.class);
-                    String productImg = snapshot.child("img").getValue(String.class);
-                    String id = snapshot.child("id").getValue(String.class);
-                    String id_category = snapshot.child("id_category").getValue(String.class);
-                    String unit = snapshot.child("unit").getValue(String.class);
-//                    int inventory_quantity = snapshot.child("inventory_quantity").getValue(Integer.class);
-                    String uses = snapshot.child("uses").getValue(String.class);
-                    String ingredient = snapshot.child("ingredient").getValue(String.class);
-                    Boolean flagValid = Boolean.TRUE.equals(snapshot.child("flag_valid").getValue(Boolean.class));
-                    Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
+                    String product_id = snapshot.child("id").getValue(String.class);
+                    if (product_id.equals(productID)) {
+                        String productName = snapshot.child("name").getValue(String.class);
+                        int productPrice = snapshot.child("price").getValue(Integer.class);
+                        String productImg = snapshot.child("img").getValue(String.class);
+                        String id_category = snapshot.child("id_category").getValue(String.class);
+                        String unit = snapshot.child("unit").getValue(String.class);
+                        int inventory_quantity = snapshot.child("inventory_quantity").getValue(Integer.class);
+                        String uses = snapshot.child("uses").getValue(String.class);
+                        String ingredient = snapshot.child("ingredient").getValue(String.class);
+                        Boolean flagValid = Boolean.TRUE.equals(snapshot.child("flag_valid").getValue(Boolean.class));
+                        Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
 
-                    Map<String, Object> unitArr = new HashMap<>();
-                    // Lấy dữ liệu từ unitarr
-                    for (DataSnapshot unitSnapshot : snapshot.child("unitarrr").getChildren()) {
-                        String unitName = unitSnapshot.getKey();
-                        Integer price = (unitSnapshot.child("price").getValue(Integer.class) != null)
-                                ? unitSnapshot.child("price").getValue(Integer.class) : 0;
-                        Integer sell_price = (unitSnapshot.child("sell_price").getValue(Integer.class) != null)
-                                ? unitSnapshot.child("sell_price").getValue(Integer.class) : 0;
-                        Integer quantity = (unitSnapshot.child("quantity").getValue(Integer.class) != null)
-                                ? unitSnapshot.child("quantity").getValue(Integer.class) :0;
+                        Map<String, Object> unitArr = new HashMap<>();
+                        // Lấy dữ liệu từ unitarr
+                        for (DataSnapshot unitSnapshot : snapshot.child("unitarrr").getChildren()) {
+                            String unitName = unitSnapshot.getKey();
+                            Integer price = (unitSnapshot.child("price").getValue(Integer.class) != null)
+                                    ? unitSnapshot.child("price").getValue(Integer.class) : 0;
+                            Integer sell_price = (unitSnapshot.child("sell_price").getValue(Integer.class) != null)
+                                    ? unitSnapshot.child("sell_price").getValue(Integer.class) : 0;
+                            Integer quantity = (unitSnapshot.child("quantity").getValue(Integer.class) != null)
+                                    ? unitSnapshot.child("quantity").getValue(Integer.class) : 0;
 
-                        // Tạo một map để chứa giá và số lượng của đơn vị
-                        Map<String, Object> unitData = new HashMap<>();
-                        unitData.put("price", price);
-                        unitData.put("sell_price", sell_price);
-                        unitData.put("quantity", quantity);
+                            // Tạo một map để chứa giá và số lượng của đơn vị
+                            Map<String, Object> unitData = new HashMap<>();
+                            unitData.put("price", price);
+                            unitData.put("sell_price", sell_price);
+                            unitData.put("quantity", quantity);
 
-                        // Thêm đơn vị vào unitArr
-                        unitArr.put(unitName, unitData);
+                            // Thêm đơn vị vào unitArr
+                            unitArr.put(unitName, unitData);
+                        }
+
+                        product = new Product(productID, id_category, productImg, productName, productPrice,inventory_quantity, unit, uses, ingredient, flagValid, prescription, unitArr);
+
+                        txt_product_name.setText(product.getName());
+                        txt_category_name.setText(product.getId_category());
+                        txt_product_ingredient.setText(product.getIngredient());
+                        txt_product_uses.setText(product.getUses());
+                        boolean productStatus = product.isFlag_valid();
+                        txt_product_status.setText(productStatus ? "Đang kinh doanh" : "Ngừng kinh doanh");
+
+                        resetCheckBoxStates();
+                        for (String unitName : unitArr.keySet()) {
+                            Map<String, Object> unitData = (Map<String, Object>) unitArr.get(unitName);
+
+                            int price = (int) unitData.get("price");
+                            int sellPrice = (int) unitData.get("sell_price");
+                            int quantity = (int) unitData.get("quantity");
+
+                            // Checked checkbox
+                            checkCheckBoxStates(unitName, price, sellPrice);
+                        }
+
+                        break;
                     }
-                    Product product = new Product(id,id_category,productImg, productName,0,productPrice,unit,uses, ingredient,flagValid, prescription,unitArr);
-                    // Sau đó, thêm sản phẩm vào danh sách productList
-                    productList.add(product);
                 }
 
-                productNameAdapter = new ArrayAdapter<Product>(EditProductActivity.this, android.R.layout.simple_spinner_item, productList);
-                productNameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner_product_name.setAdapter(productNameAdapter);
             }
 
             @Override
@@ -288,10 +283,12 @@ public class EditProductActivity extends AppCompatActivity {
                     // Lắng nghe thay đổi trong editTextPrice để cập nhật editText150Percent
                     editTextPrice.addTextChangedListener(new TextWatcher() {
                         @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
 
                         @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
 
                         @Override
                         public void afterTextChanged(Editable s) {

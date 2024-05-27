@@ -52,6 +52,7 @@ public class WarehouseInventoryActivity extends AppCompatActivity {
                 intent.putExtra("selectedProductID", item.getId());
                 intent.putExtra("selectedProductImg", item.getImg());
                 intent.putExtra("selectedProductName", item.getName());
+                intent.putExtra("selectedProductUnit", item.getUnit());
                 intent.putExtra("selectedProductInventoryQuantity", item.getInventory_quantity());
                 startActivity(intent);
             }

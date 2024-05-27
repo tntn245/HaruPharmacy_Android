@@ -76,9 +76,9 @@ public class AddStockOutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addFirebase();
-//                Intent intent = new Intent(AddStockInActivity.this, WarehouseStockInActivity.class);
-//                startActivity(intent);
-//                finish();
+                Intent intent = new Intent(AddStockOutActivity.this, WarehouseStockOutActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

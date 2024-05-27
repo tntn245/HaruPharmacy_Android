@@ -14,12 +14,13 @@ import androidx.annotation.Nullable;
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.models.DateFormat;
 import com.example.pharmacyandroidapplication.models.Product;
+import com.example.pharmacyandroidapplication.models.ProductInventoryDetails;
 import com.example.pharmacyandroidapplication.models.ProductStockInDetails;
 
 import java.util.ArrayList;
 
-public class ProductInventoryLotNumDetailsAdapter extends ArrayAdapter<ProductStockInDetails> {
-    public ProductInventoryLotNumDetailsAdapter(@NonNull Context context, ArrayList<ProductStockInDetails> productStockInDetailsArrayList) {
+public class ProductInventoryLotNumDetailsAdapter extends ArrayAdapter<ProductInventoryDetails> {
+    public ProductInventoryLotNumDetailsAdapter(@NonNull Context context, ArrayList<ProductInventoryDetails> productStockInDetailsArrayList) {
         super(context, 0, productStockInDetailsArrayList);
     }
 
@@ -33,7 +34,7 @@ public class ProductInventoryLotNumDetailsAdapter extends ArrayAdapter<ProductSt
             listitemView = LayoutInflater.from(getContext()).inflate(R.layout.item_product_inventory_lotnum_details, parent, false);
         }
 
-        ProductStockInDetails productStockInDetails = getItem(position);
+        ProductInventoryDetails productStockInDetails = getItem(position);
         TextView lot_number = listitemView.findViewById(R.id.lot_number);
         TextView production_date = listitemView.findViewById(R.id.production_date);
         TextView expiration_date = listitemView.findViewById(R.id.expiration_date);
@@ -41,13 +42,8 @@ public class ProductInventoryLotNumDetailsAdapter extends ArrayAdapter<ProductSt
 
         assert productStockInDetails != null;
         lot_number.setText(productStockInDetails.getLot_number());
-
-//        DateFormat dateFormat = new DateFormat(productStockInDetails.getProduction_date());
         production_date.setText(productStockInDetails.getProduction_date());
-
-//        dateFormat = new DateFormat(productStockInDetails.getExpiration_date());
         expiration_date.setText(productStockInDetails.getExpiration_date());
-
         lotnum_quantity_in_stock.setText(Integer.toString(productStockInDetails.getQuantity_in_stock()));
 
         return listitemView;

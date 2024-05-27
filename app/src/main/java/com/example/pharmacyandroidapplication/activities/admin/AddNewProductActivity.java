@@ -1,11 +1,16 @@
 package com.example.pharmacyandroidapplication.activities.admin;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -16,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -24,10 +30,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.customer.UserEditProfileActivity;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.example.pharmacyandroidapplication.models.Unit;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +45,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +56,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class AddNewProductActivity extends AppCompatActivity {
-    private ImageView add_img_product_img;
+    private ImageButton add_img_product_img;
+    private ImageView img_product;
     private EditText add_txt_product_name, add_txt_product_ingredient, add_txt_product_uses;
     private Spinner add_spn_product_type, add_spn_product_status;
     private LinearLayout checkboxContainer;
@@ -55,11 +70,14 @@ public class AddNewProductActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     String categoryID;
     boolean flag_exist;
+    StorageReference storageReference;
+    Uri image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_product);
+        storageReference = FirebaseStorage.getInstance().getReference();
         add_txt_product_name = findViewById(R.id.add_txt_product_name);
         add_img_product_img = findViewById(R.id.add_img_product_img);
         add_txt_product_ingredient = findViewById(R.id.add_txt_product_ingredient);
@@ -69,6 +87,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         add_spn_product_type = findViewById(R.id.add_spn_product_type);
         btn_save_add_product = findViewById(R.id.btn_save_add_product);
         btn_cancel_add_product = findViewById(R.id.btn_cancel_saved_add_product);
+        img_product=findViewById(R.id.img);
 
         typeList = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeList);
@@ -89,8 +108,55 @@ public class AddNewProductActivity extends AppCompatActivity {
             public void onClick(View v) {
                 saveNewProduct();
 //                setDefaultView();
-                Intent intent = new Intent(AddNewProductActivity.this, ProductManagementActivity.class);
-                startActivity(intent);
+            }
+        });
+        add_img_product_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                activityResultLauncher.launch(intent);
+            }
+        });
+    }
+
+    private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == RESULT_OK) {
+                if (result.getData() != null) {
+                    image = result.getData().getData();
+                    Glide.with(getApplicationContext()).load(image).into(img_product);
+                    uploadImage(image);
+                }
+            } else {
+                Toast.makeText(AddNewProductActivity.this, "Please select an image", Toast.LENGTH_SHORT).show();
+            }
+        }
+    });
+
+    private void uploadImage(Uri file) {
+        StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+        ref.putFile(file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddNewProductActivity.this, "Failed!" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri downloadUri) {
+                        // Đường dẫn của ảnh
+                        image = downloadUri;
+                        Toast.makeText(AddNewProductActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
@@ -99,7 +165,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         String cate_name = add_spn_product_type.getSelectedItem().toString();
         String cate_id = getCategoryID(cate_name);
         String name = add_txt_product_name.getText().toString();
-        String img = "img_link";
+        String img = image.toString();
         String ingredient = add_txt_product_ingredient.getText().toString();
         String uses = add_txt_product_uses.getText().toString();
         boolean flagValid = (add_spn_product_status.getSelectedItem().toString() == "Đang kinh doanh");
@@ -123,7 +189,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         String nameInFirebase = snapshot.child("name").getValue(String.class);
                         if (name.equals(nameInFirebase)) {
-                            Toast.makeText(AddNewProductActivity.this, "Sản phẩm đã tồn tại!", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(AddNewProductActivity.this, "Sản phẩm đã tồn tại!", Toast.LENGTH_SHORT).show();
                             flag_exist = true;
                             break;
                         }
@@ -176,12 +242,16 @@ public class AddNewProductActivity extends AppCompatActivity {
                 // Thêm product vào Firebase
                 productRef.child(productID).setValue(product).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(AddNewProductActivity.this, "Product added successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddNewProductActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(AddNewProductActivity.this, "Failed to add product", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddNewProductActivity.this, "Thêm sản phẩm thất bại", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
+
+            Intent intent = new Intent(AddNewProductActivity.this, ProductManagementActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -300,11 +370,11 @@ public class AddNewProductActivity extends AppCompatActivity {
                         if (isChecked) {
                             editTextPrice.setVisibility(EditText.VISIBLE);
                             editTextSellPrice.setVisibility(EditText.VISIBLE);
-                            Toast.makeText(AddNewProductActivity.this, unitName + " checked", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(AddNewProductActivity.this, unitName + " checked", Toast.LENGTH_SHORT).show();
                         } else {
                             editTextPrice.setVisibility(EditText.GONE);
                             editTextSellPrice.setVisibility(EditText.GONE);
-                            Toast.makeText(AddNewProductActivity.this, unitName + " unchecked", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(AddNewProductActivity.this, unitName + " unchecked", Toast.LENGTH_SHORT).show();
                         }
                     });
 

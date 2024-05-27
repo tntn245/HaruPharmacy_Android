@@ -2,8 +2,10 @@ package com.example.pharmacyandroidapplication.activities.admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.adapters.ProductGVAdapter;
+import com.example.pharmacyandroidapplication.listeners.OnProductClickListener;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,17 +19,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ProductManagementActivity extends AppCompatActivity {
+public class ProductManagementActivity extends AppCompatActivity implements OnProductClickListener {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     ArrayList<Product> ProductArrayList;
     GridView productGV;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_management);
-        productGV= findViewById(R.id.list_item);
+        productGV = findViewById(R.id.list_item);
         ProductArrayList = new ArrayList<Product>();
 
         loadProductFromFirebase();
@@ -38,10 +42,12 @@ public class ProductManagementActivity extends AppCompatActivity {
                 // Lấy giá trị của item được click
                 Product productDetails = ProductArrayList.get(position);
 
-                // Truyền giá trị của item qua layout tiếp theo để hiển thị
-                Intent intent = new Intent(ProductManagementActivity.this, EditProductActivityOld.class);
-//                intent.putExtra("productID", productDetails.getId());
-                startActivity(intent);
+//                Toast.makeText(ProductManagementActivity.this, productDetails.getName(), Toast.LENGTH_SHORT).show();
+//
+//                // Truyền giá trị của item qua layout tiếp theo để hiển thị
+//                Intent intent = new Intent(ProductManagementActivity.this, EditProductActivity.class);
+////                intent.putExtra("productID", productDetails.getId());
+//                startActivity(intent);
             }
         });
 
@@ -49,12 +55,19 @@ public class ProductManagementActivity extends AppCompatActivity {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProductManagementActivity.this, EditProductActivity.class);
+                Intent intent = new Intent(ProductManagementActivity.this, AddNewProductActivity.class);
                 startActivity(intent);
 //                finish();
             }
         });
 
+    }
+
+    @Override
+    public void onProductClick(String productId) {
+        Intent intent = new Intent(ProductManagementActivity.this, EditProductActivity.class);
+        intent.putExtra("productID",productId);
+        startActivity(intent);
     }
 
     private void loadProductFromFirebase() {
@@ -75,13 +88,14 @@ public class ProductManagementActivity extends AppCompatActivity {
                     String ingredient = snapshot.child("ingredient").getValue(String.class);
                     Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
 
-                    Product product = new Product(id,id_category,productImg, productName,0,productPrice,unit,uses, ingredient, prescription);
+                    Product product = new Product(id, id_category, productImg, productName, 0, productPrice, unit, uses, ingredient, prescription);
                     // Sau đó, thêm sản phẩm vào danh sách productList
                     ProductArrayList.add(product);
                 }
 //                Toast.makeText(ProductManagementActivity.this,ProductArrayList.size() , Toast.LENGTH_SHORT).show();
 
                 ProductGVAdapter adapter = new ProductGVAdapter(ProductManagementActivity.this, ProductArrayList);
+                adapter.setOnProductClickListener(ProductManagementActivity.this);
                 productGV.setAdapter(adapter);
 
 
