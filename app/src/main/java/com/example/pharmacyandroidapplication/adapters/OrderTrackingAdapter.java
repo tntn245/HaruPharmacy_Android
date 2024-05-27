@@ -39,14 +39,14 @@ public class OrderTrackingAdapter extends ArrayAdapter<Order> {
         TextView order_id = listitemView.findViewById(R.id.order_id);
         TextView order_date = listitemView.findViewById(R.id.order_date);
         TextView order_total_payment = listitemView.findViewById(R.id.order_total_payment);
-        TextView order_total_quantity = listitemView.findViewById(R.id.order_total_quantity);
+//        TextView order_total_quantity = listitemView.findViewById(R.id.order_total_quantity);
 
         assert order != null;
         order_id.setText(order.getId_order());
         DateFormat dateFormat = new DateFormat(order.getOrder_date());
         order_date.setText(dateFormat.formatDateToString());
         order_total_payment.setText(Integer.toString(order.getTotal_payment()));
-        order_total_quantity.setText(Integer.toString(order.getTotal_product()));
+//        order_total_quantity.setText(Integer.toString(order.getTotal_product()));
         return listitemView;
     }
 }
