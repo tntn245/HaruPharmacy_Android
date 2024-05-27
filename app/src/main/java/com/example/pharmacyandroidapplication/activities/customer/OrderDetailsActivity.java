@@ -61,31 +61,57 @@ public class OrderDetailsActivity extends AppCompatActivity {
         orderdetailByIdRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                String id, id_category, img, name;
-                int quantity_ordered, sell_price;
+                Product product = new Product("");
+                String id;
                 for (DataSnapshot item : snapshot.getChildren()) {
                     id = item.getKey().toString();
+                    product.setId(id);
                     DatabaseReference orderDetailByIdProductRef = orderdetailByIdRef.child(id).getRef();
                     orderDetailByIdProductRef.addValueEventListener(new ValueEventListener() {
                         String unit;
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                            for (DataSnapshot item: snapshot1.getChildren())
+                            for (DataSnapshot item1: snapshot1.getChildren())
                             {
-                                unit = item.getKey().toString();
-                                DatabaseReference orderDetailByIdProductUnitRef = orderDetailByIdProductRef.child(unit).getRef();
-                                orderDetailByIdProductUnitRef.addValueEventListener(new ValueEventListener() {
+                                DatabaseReference productByIdRef = productRef.child(product.getId()).getRef();
+                                productByIdRef.addValueEventListener(new ValueEventListener() {
+                                    String namePro, imgPro;
                                     @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                        id
+                                    public void onDataChange(@NonNull DataSnapshot snapshotPro) {
+                                        namePro = snapshotPro.child("name").getValue().toString();
+                                        imgPro = snapshotPro.child("img").getValue().toString();
+                                        product.setName(namePro);
+                                        product.setImg(imgPro);
                                     }
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
 
                                     }
-                                })
+                                });
+                                unit = item.getKey().toString();
+                                product.setUnit(unit);
+                                DatabaseReference orderDetailByIdProductUnitRef = orderDetailByIdProductRef.child(unit).getRef();
+                                orderDetailByIdProductUnitRef.addValueEventListener(new ValueEventListener() {
+                                    int quantity_ordered, sell_price;
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                                        Log.e("?", product.getName().toString() );
+                                        for (DataSnapshot item2: snapshot2.getChildren())
+                                        {
+                                            quantity_ordered = item2.child("quantity").getValue(Integer.class);
+                                            sell_price = item2.child("unit_sell_price").getValue(Integer.class);
+                                            product.setInventory_quantity(quantity_ordered);
+                                            product.setPrice(sell_price);
+                                            ProductArrayList.add(product);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                         }
 
@@ -93,7 +119,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError error) {
 
                         }
-                    })
+                    });
                 }
                 OrderDetailsAdapter productAdapter = new OrderDetailsAdapter(OrderDetailsActivity.this, ProductArrayList);
                 ProductGV.setAdapter(productAdapter);
