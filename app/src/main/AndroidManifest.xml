@@ -25,6 +25,8 @@
             android:exported="false" />
         <activity
             android:name=".activities.admin.AddNewProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".CustomerBillingActivity"
             android:exported="false" />
         <activity
