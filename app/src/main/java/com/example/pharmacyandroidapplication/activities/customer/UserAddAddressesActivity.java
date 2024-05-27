@@ -1,9 +1,11 @@
 package com.example.pharmacyandroidapplication.activities.customer;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -3134,7 +3136,6 @@ public class UserAddAddressesActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser != null) {
             String userId = firebaseUser.getUid();
-            Log.i("address", "savedAddress: " + userId);
             String name = add_address_txt_name.getText().toString();
             String phone = add_address_txt_phone.getText().toString();
             String province = add_address_spn_province.getSelectedItem().toString();

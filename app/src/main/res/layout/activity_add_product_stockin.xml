@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingLeft="@dimen/_17sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
                     android:text="Số lô"
@@ -51,11 +51,13 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/lot_number"
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
                     android:hint="Số lô"
+                    android:enabled="false"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
 
@@ -68,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingLeft="@dimen/_17sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
                     android:text="Tên sản phẩm"
@@ -77,6 +79,7 @@
                     android:textStyle="bold" />
 
                 <Spinner
+                    android:id="@+id/spinnerProductName"
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
@@ -93,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingLeft="@dimen/_17sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
                     android:text="Số lượng"
@@ -102,11 +105,13 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/in_quantity"
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
                     android:hint="Số lượng"
+                    android:inputType="number"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
             <LinearLayout
@@ -118,7 +123,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingLeft="@dimen/_17sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
                     android:text="Đơn vị"
@@ -127,6 +132,7 @@
                     android:textStyle="bold" />
 
                 <Spinner
+                    android:id="@+id/spinnerUnit"
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
@@ -137,13 +143,41 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_17sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="Tồn kho hiện tại"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/quantity_in_stock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="0"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingLeft="@dimen/_17sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
                     android:text="Đơn giá nhập"
@@ -152,11 +186,14 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/unit_price"
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/input_border_radius"
                     android:hint="Đơn giá nhập"
+                    android:enabled="false"
+                    android:inputType="number"
                     android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
 
@@ -169,7 +206,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingLeft="@dimen/_17sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
                     android:text="Ngày sản xuất"
@@ -178,7 +215,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/edit_text_date"
+                    android:id="@+id/production_date"
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:hint="Chọn ngày sản xuất"
@@ -199,7 +236,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
+                    android:paddingLeft="@dimen/_17sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
                     android:text="Ngày hết hạn"
@@ -208,6 +245,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/expiration_date"
                     android:layout_width="@dimen/_285sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:hint="Chọn ngày hết hạn"
@@ -217,31 +255,6 @@
                     android:background="@drawable/input_border_radius"
                     android:paddingStart="@dimen/_15sdp"/>
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="Tình trạng kinh doanh"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:layout_width="@dimen/_285sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/input_border_radius"
-                    android:hint="Chọn tình trang kinh doanh"
-                    android:paddingStart="@dimen/_15sdp" />
             </LinearLayout>
             <Space
                 android:layout_width="match_parent"
@@ -256,6 +269,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_add_product_stockin"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -268,6 +282,7 @@
             android:layout_margin="@dimen/_8sdp"/>
 
         <Button
+            android:id="@+id/btn_cancel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

@@ -5,9 +5,6 @@ import static com.example.pharmacyandroidapplication.utils.AndroidUtil.showToast
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +14,6 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +26,6 @@ import com.example.pharmacyandroidapplication.activities.ChatActivity;
 import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.adapters.HomeCategoryAdapter;
 import com.example.pharmacyandroidapplication.adapters.HomeProductAdapter;
-import com.example.pharmacyandroidapplication.databinding.ActivityMainBinding;
 import com.example.pharmacyandroidapplication.models.Category;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,7 +35,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -257,24 +251,17 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 ProductArrayList = new ArrayList<Product>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     // Lấy dữ liệu từ snapshot và tạo đối tượng Product
-//                    String productName = snapshot.child("name").getValue(String.class);
-//                    int productPrice = snapshot.child("price").getValue(Integer.class);
-//                    String productImg = snapshot.child("img").getValue(String.class);
-//                    String id = snapshot.child("id").getValue(String.class);
-//                    String id_category = snapshot.child("id_category").getValue(String.class);
-//                    String unit = snapshot.child("unit").getValue(String.class);
-//                    String uses = snapshot.child("uses").getValue(String.class);
-//                    String ingredient = snapshot.child("ingredient").getValue(String.class);
-//                    Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
-                    String productName = snapshot.hasChild("name") ? snapshot.child("name").getValue(String.class) : "Unknown";
-                    int productPrice = snapshot.hasChild("price") ? snapshot.child("price").getValue(Integer.class) : 0;
-                    String productImg = snapshot.hasChild("img") ? snapshot.child("img").getValue(String.class) : "";
-                    String id = snapshot.hasChild("id") ? snapshot.child("id").getValue(String.class) : "";
-                    String id_category = snapshot.hasChild("id_category") ? snapshot.child("id_category").getValue(String.class) : "";
-                    String unit = snapshot.hasChild("unit") ? snapshot.child("unit").getValue(String.class) : "";
-                    String uses = snapshot.hasChild("uses") ? snapshot.child("uses").getValue(String.class) : "";
-                    String ingredient = snapshot.hasChild("ingredient") ? snapshot.child("ingredient").getValue(String.class) : "";
-                    Boolean prescription = snapshot.hasChild("prescription") && Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
+                    String productName = snapshot.child("name").getValue(String.class);
+                    int productPrice = snapshot.child("price").getValue(Integer.class);
+                    String productImg = snapshot.child("img").getValue(String.class);
+                    String id = snapshot.child("id").getValue(String.class);
+                    String id_category = snapshot.child("id_category").getValue(String.class);
+                    String unit = snapshot.child("unit").getValue(String.class);
+                    String inventory = snapshot.child("unit").getValue(String.class);
+                    String uses = snapshot.child("uses").getValue(String.class);
+                    String ingredient = snapshot.child("ingredient").getValue(String.class);
+                    Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
+
 
                     Product product = new Product(id,id_category,productImg, productName,0,productPrice,unit,uses, ingredient, prescription);
                     // Sau đó, thêm sản phẩm vào danh sách productList

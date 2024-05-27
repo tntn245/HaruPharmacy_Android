@@ -136,17 +136,19 @@
                             android:textStyle="bold"
                             android:layout_gravity="center_horizontal"
                             />
+
                         <TextView
                             android:id="@+id/txt_processing_order_quantity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
                             android:text="(3)"
-                            android:textStyle="bold"
-                            android:gravity="center_horizontal"                                />
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Column 2 -->
                     <LinearLayout
+                        android:id="@+id/order_delivering"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -178,6 +180,7 @@
 
                     <!-- Column 3 -->
                     <LinearLayout
+                        android:id="@+id/order_delivered"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

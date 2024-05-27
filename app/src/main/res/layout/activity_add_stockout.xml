@@ -7,178 +7,159 @@
     android:background="@color/background"
     android:orientation="vertical"
     tools:context=".activities.admin.AddStockOutActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/app_theme"
         android:gravity="center"
         android:padding="@dimen/_20sdp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thêm phiếu xuất kho"
             android:gravity="center"
+            android:text="Thêm phiếu xuất kho"
             android:textColor="@color/text_theme"
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/_25sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:text="Ngày xuất"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="Ngày xuất"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-                <EditText
-                    android:layout_width="@dimen/_285sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:hint="Chọn ngày xuất"
-                    android:focusable="false"
-                    android:clickable="true"
-                    android:layout_gravity="center"
-                    android:background="@drawable/input_border_radius"
-                    android:paddingStart="@dimen/_15sdp"/>
+            <EditText
+                android:id="@+id/stockout_date"
+                android:layout_width="@dimen/_285sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/input_border_radius"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Chọn ngày xuất"
+                android:paddingStart="@dimen/_15sdp" />
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="Ghi chú"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-                <EditText
-                    android:layout_width="@dimen/_285sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:hint="Ghi chú"
-                    android:layout_gravity="center"
-                    android:background="@drawable/input_border_radius"
-                    android:paddingStart="@dimen/_15sdp"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="Sản phẩm xuất"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btn_add_product_stockout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:backgroundTint="@color/button_color"
-                    android:elevation="@dimen/_8sdp"
-                    android:text="Xuất sản phẩm"
-                    android:textSize="@dimen/text_size_medium"
-                    android:padding="@dimen/_10sdp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/_25sdp"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:text="Phiếu xuất"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold" />
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_15sdp"
-                    app:cardCornerRadius="@dimen/_15sdp"
-                    android:elevation="@dimen/_10sdp"
-                    android:layout_margin="@dimen/_10sdp">
-                    <!--                    layout item chắc dùng cái item_product_stock_out chăng-->
-                    <GridView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:horizontalSpacing="@dimen/_8sdp"
-                        android:numColumns="1"
-                        android:padding="@dimen/_8sdp"
-                        android:verticalSpacing="@dimen/_8sdp">
-                    </GridView>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/_25sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:text="Ghi chú"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/noted"
+                android:layout_width="@dimen/_285sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/input_border_radius"
+                android:hint="Ghi chú"
+                android:paddingStart="@dimen/_15sdp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_add_product_stockout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/button_color"
+            android:elevation="@dimen/_8sdp"
+            android:padding="@dimen/_10sdp"
+            android:text="Xuất sản phẩm"
+            android:textSize="@dimen/text_size_medium" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/_25sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:text="Phiếu xuất"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+            <GridView
+                android:id="@+id/list_product_stock_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:horizontalSpacing="@dimen/_8sdp"
+                android:numColumns="1"
+                android:padding="@dimen/_8sdp"
+                android:verticalSpacing="@dimen/_8sdp"/>
+        </LinearLayout>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:weightSum="2"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <Button
+            android:id="@+id/btn_add_stockout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_margin="@dimen/_8sdp"
+            android:layout_weight="1"
             android:backgroundTint="@color/button_color"
             android:elevation="@dimen/_8sdp"
-            android:text="Thêm"
-            android:textSize="@dimen/text_size_medium"
             android:padding="@dimen/_10sdp"
-            android:layout_margin="@dimen/_8sdp"/>
+            android:text="Thêm"
+            android:textSize="@dimen/text_size_medium" />
 
         <Button
+            android:id="@+id/btn_cancel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_margin="@dimen/_8sdp"
+            android:layout_weight="1"
             android:backgroundTint="@color/test9"
             android:elevation="@dimen/_8sdp"
             android:text="Hủy"
-            android:textSize="@dimen/text_size_medium"
-            android:layout_margin="@dimen/_8sdp"/>
+            android:textSize="@dimen/text_size_medium" />
     </LinearLayout>
 </LinearLayout>
