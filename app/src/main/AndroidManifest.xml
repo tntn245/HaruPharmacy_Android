@@ -107,9 +107,9 @@
             android:name=".activities.admin.OrderManagementActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
-<!--        <activity-->
-<!--            android:name=".activities.admin.AdminHomepageActivity"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".activities.admin.AdminHomepageActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.customer.CustomerHomepageActivity"
             android:exported="false"
@@ -156,7 +156,7 @@
             android:name=".activities.customer.OrderDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.admin.AdminHomepageActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
