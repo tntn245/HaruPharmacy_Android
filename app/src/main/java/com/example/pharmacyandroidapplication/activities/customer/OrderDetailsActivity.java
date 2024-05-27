@@ -28,7 +28,9 @@ import java.util.Date;
 public class OrderDetailsActivity extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference orderDetailRef = database.getReference("orderdetail");
+    private DatabaseReference productRef = database.getReference("product");
     private ArrayList<Product> ProductArrayList;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
@@ -54,10 +56,12 @@ public class OrderDetailsActivity extends AppCompatActivity {
         GridView ProductGV = findViewById(R.id.list_products);
 
         DatabaseReference orderdetailByIdRef = orderDetailRef.child(orderID);
+        ProductArrayList = new ArrayList<Product>();
+
         orderdetailByIdRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ProductArrayList = new ArrayList<Product>();
+
                 String id, id_category, img, name;
                 int quantity_ordered, sell_price;
                 id = orderDetailRef.child(orderID).toString();
@@ -65,8 +69,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 img = "";
                 name = "Omega3";
 
-                for (DataSnapshot item: snapshot.getChildren()){
-                    ProductArrayList.add(new Product("","","","Omega3",1,100000));
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    ProductArrayList.add(new Product("", "", "", "Omega3", 1, 100000));
                 }
                 OrderDetailsAdapter productAdapter = new OrderDetailsAdapter(OrderDetailsActivity.this, ProductArrayList);
                 ProductGV.setAdapter(productAdapter);
@@ -77,6 +81,19 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
             }
 
+        });
+        productRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    dataSnapshot.getValue().toString().equals("");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
     }
 }

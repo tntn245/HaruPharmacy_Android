@@ -19,7 +19,7 @@
         android:gravity="center"
         android:padding="@dimen/_10sdp"
         android:text="Phương thức thanh toán"
-        android:textColor="@color/black"
+        android:textColor="@color/dark_blue"
         android:textSize="@dimen/text_size_large" />
 
     <TextView
@@ -36,7 +36,7 @@
         android:gravity="start"
         android:padding="@dimen/_5sdp"
         android:text="Chọn phương thức thanh toán"
-        android:textColor="@color/black"
+        android:textColor="@color/dark_brown_blue"
         android:textSize="@dimen/_13sdp" />
 
     <LinearLayout
@@ -83,7 +83,6 @@
                         android:layout_width="@dimen/_60sdp"
                         android:layout_height="@dimen/_60sdp"
                         android:layout_gravity="center"
-                        android:background="@drawable/border_radius"
                         android:padding="@dimen/_10sdp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/money" />
@@ -131,7 +130,6 @@
                         android:layout_width="@dimen/_60sdp"
                         android:layout_height="@dimen/_60sdp"
                         android:layout_gravity="center"
-                        android:background="@drawable/border_radius"
                         android:padding="@dimen/_10sdp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/momo" />
@@ -179,7 +177,6 @@
                         android:layout_width="@dimen/_60sdp"
                         android:layout_height="@dimen/_60sdp"
                         android:layout_gravity="center"
-                        android:background="@drawable/border_radius"
                         android:padding="@dimen/_10sdp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/vnpay" />

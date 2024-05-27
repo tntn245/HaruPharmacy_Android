@@ -262,6 +262,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     String ingredient = snapshot.child("ingredient").getValue(String.class);
                     Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
 
+
                     Product product = new Product(id,id_category,productImg, productName,0,productPrice,unit,uses, ingredient, prescription);
                     // Sau đó, thêm sản phẩm vào danh sách productList
                     ProductArrayList.add(product);
@@ -320,7 +321,9 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_info_drawer) {
+                    // Xử lý khi người dùng chọn trang tài khoản
                     Intent intent = new Intent(CustomerHomepageActivity.this, UserActivity.class);
+                    intent.putExtra("userID", userID);
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.nav_logout_drawer) {

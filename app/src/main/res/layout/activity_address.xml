@@ -63,5 +63,5 @@
         </LinearLayout>
     </LinearLayout>
 
-    <include layout="@layout/bottom_navigation" />
+<!--    <include layout="@layout/bottom_navigation" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

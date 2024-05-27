@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -77,6 +78,7 @@ public class PaymentActivity extends AppCompatActivity {
     private Button close_button, btn_confirm, btn_add_address;
     private RadioGroup group_unit;
     private TextView sumhang,ship,sumprice;
+    private int selectedAddressPosition = -1;
     private RadioGroup radioGroup;
     private RadioButton radioCash, radioMomo, radioVNPay;
     private LinearLayout layoutCash, layoutMomo, layoutVNPay;
@@ -234,6 +236,7 @@ public class PaymentActivity extends AppCompatActivity {
         adapter = new ItemPayAdapter(this, itemList);
         recyclerView.setAdapter(adapter);
     }
+    int ii;
 
     private void ShowDialogChangeAddress() {
         Dialog dialog = new Dialog(PaymentActivity.this, R.style.FullScreenDialog);
@@ -253,7 +256,8 @@ public class PaymentActivity extends AppCompatActivity {
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        for (ShipmentInf shipment : addressList) {
+        for (int i = 0; i < addressList.size(); i++) {
+            ShipmentInf shipment = addressList.get(i);
             LinearLayout customRadioButtonLayout = (LinearLayout) inflater.inflate(R.layout.radiobutton_change_address, group_unit, false);
             RadioButton radioButton = customRadioButtonLayout.findViewById(R.id.radioButton);
             TextView tenNguoiNhan = customRadioButtonLayout.findViewById(R.id.tennguoinhan);
@@ -267,20 +271,26 @@ public class PaymentActivity extends AppCompatActivity {
 
             customRadioButtonLayout.setOnClickListener(v -> radioButton.setChecked(true));
 
+            int finalI = i;
             radioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
-                    for (int i = 0; i < group_unit.getChildCount(); i++) {
-                        View child = group_unit.getChildAt(i);
+                    selectedAddressPosition = finalI;
+                    Log.i("Selected",String.valueOf(selectedAddressPosition));
+                    for (int j = 0; j < group_unit.getChildCount(); j++) {
+                        View child = group_unit.getChildAt(j);
                         if (child instanceof LinearLayout) {
                             RadioButton rb = ((LinearLayout) child).findViewById(R.id.radioButton);
                             if (rb != radioButton) {
                                 rb.setChecked(false);
                             }
+                            else{
+                                ii= j;
+                                Toast.makeText(getApplicationContext(),  String.valueOf(ii), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 }
             });
-
             suaButton.setOnClickListener(v -> {
                 // Thực hiện hành động khi nút "Sửa" được bấm
 
@@ -292,26 +302,28 @@ public class PaymentActivity extends AppCompatActivity {
 
         btn_confirm.setOnClickListener(v -> {
             // Lấy id của RadioButton được chọn
-            int selectedRadioButtonId = group_unit.getCheckedRadioButtonId();
-            if (selectedRadioButtonId != -1) {
-                RadioButton selectedRadioButton = findViewById(selectedRadioButtonId);
-                // Lấy address_id từ tag của RadioButton được chọn
-                String selectedAddressId = (String) selectedRadioButton.getTag();
-                // Tìm địa chỉ trong addressList dựa trên address_id được chọn
-                for (ShipmentInf address_ship : addressList) {
-                    if (selectedAddressId.equals(address_ship.getAddress_id())) {
-                        // Cập nhật các thành phần UI
-                        detail.setText(address_ship.getAddress_details());
-                        address.setText(address_ship.getCommune() + ", " + address_ship.getDistrict() + ", " + address_ship.getProvince());
-                        name_receiver.setText(address_ship.getReceiverName());
-                        phone.setText(address_ship.getPhone());
-                        // Thoát khỏi vòng lặp vì đã tìm thấy địa chỉ được chọn
-                        break;
-                    }
+            Log.i("CHON ADDRESS",String.valueOf(selectedAddressPosition));
+            if (selectedAddressPosition != -1) {
+                ShipmentInf shipment = addressList.get(selectedAddressPosition);
+                detail.setText(shipment.getAddress_details());
+                address.setText(shipment.getCommune() + ", " + shipment.getDistrict() + ", " + shipment.getProvince());
+                name_receiver.setText(shipment.getReceiverName());
+                phone.setText(shipment.getPhone());
+                Tinh = shipment.getProvince();
+                if(Tinh.equals("Thành phố Hồ Chí Minh")){
+                    day_receiver.setText("Đơn của bạn sẽ được giao trong 2 tiếng");
+                    ship.setText("15000");
+                    sumprice.setText(String.valueOf(finalTotalPrice + 15000));
+                }else{
+                    day_receiver.setText("Từ 8:00 đến 16h00 ngày "+formattedDate);
+                    ship.setText("30000");
+                    sumprice.setText(String.valueOf(finalTotalPrice + 30000));
                 }
                 // Đóng dialog sau khi cập nhật thông tin
                 dialog.dismiss();
             } else {
+                Log.i("CHON ADDRESS","Khong chon duoc");
+
                 // Hiển thị thông báo hoặc xử lý khác khi không có radiobutton nào được chọn
             }
         });
@@ -347,7 +359,6 @@ public class PaymentActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.i("THEM DON HANG","THANH CONG");
                         for (ItemPay item : itp) {
                             // Tạo một HashMap để lưu thông tin của chi tiết đơn hàng
                             HashMap<String, Object> orderDetailMap = new HashMap<>();
@@ -361,6 +372,8 @@ public class PaymentActivity extends AppCompatActivity {
                             // Thêm chi tiết đơn hàng vào Firebase Realtime Database
                             databaseRef.child("orderdetail").child(orderId).child(productId).child(unit).setValue(orderDetailMap);
                             databaseRef.child("cart").child(userId).child(cartkey).setValue(null);
+                            Log.i("THEM DON HANG","THANH CONG");
+
                         }
                         Intent intent = new Intent(PaymentActivity.this, CustomerHomepageActivity.class);
                         startActivity(intent);

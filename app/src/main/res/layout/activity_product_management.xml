@@ -69,10 +69,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:orientation="horizontal"
             app:cardCornerRadius="5dp"
-            app:cardElevation="5dp"
-            android:layout_weight="1">
+            app:cardElevation="5dp">
 
             <include layout="@layout/component_search_bar" />
 

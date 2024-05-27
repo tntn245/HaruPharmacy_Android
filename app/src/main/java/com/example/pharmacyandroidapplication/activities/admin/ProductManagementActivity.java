@@ -27,7 +27,6 @@ public class ProductManagementActivity extends AppCompatActivity implements OnPr
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     ArrayList<Product> ProductArrayList;
     GridView productGV;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_management);
@@ -35,7 +34,6 @@ public class ProductManagementActivity extends AppCompatActivity implements OnPr
         ProductArrayList = new ArrayList<Product>();
 
         loadProductFromFirebase();
-
 
         ImageView btn_add = findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new View.OnClickListener() {

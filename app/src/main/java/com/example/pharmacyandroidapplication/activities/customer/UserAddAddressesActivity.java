@@ -3134,7 +3134,6 @@ public class UserAddAddressesActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser != null) {
             String userId = firebaseUser.getUid();
-            Log.i("address", "savedAddress: " + userId);
             String name = add_address_txt_name.getText().toString();
             String phone = add_address_txt_phone.getText().toString();
             String province = add_address_spn_province.getSelectedItem().toString();

@@ -80,16 +80,16 @@ public class UserEditProfileActivity extends AppCompatActivity {
         radioButtonFemale = findViewById(R.id.femaleRadioButton);
 
         Button saveBtn = findViewById(R.id.btn_saved_edit_acc_info);
-        ImageView ic_back = findViewById(R.id.ic_back);
-
-        ic_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserEditProfileActivity.this, UserProfileActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        ImageView ic_back = findViewById(R.id.ic_back);
+//
+//        ic_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(UserEditProfileActivity.this, UserProfileActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
         radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
