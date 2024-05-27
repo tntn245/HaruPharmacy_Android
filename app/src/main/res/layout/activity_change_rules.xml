@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".activities.admin.AddStockOutActivity">
+    tools:context=".activities.admin.AddProductActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,13 +16,13 @@
         android:padding="@dimen/_20sdp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Thêm phiếu xuất kho"
-            android:textAllCaps="true"
+            android:text="Thay đổi quy định"
             android:textColor="@color/text_theme"
             android:textSize="@dimen/text_size_large"
+            android:textAllCaps="true"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
@@ -44,22 +45,20 @@
                 android:paddingLeft="@dimen/_25sdp"
                 android:paddingTop="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp"
-                android:text="Ngày xuất"
+                android:text="Phần trăm lợi nhuận"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/stockout_date"
+                android:id="@+id/percent_profit"
                 android:layout_width="@dimen/_285sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
                 android:background="@drawable/input_border_radius"
-                android:clickable="true"
-                android:focusable="false"
-                android:hint="Chọn ngày xuất"
                 android:paddingStart="@dimen/_15sdp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -74,36 +73,25 @@
                 android:paddingLeft="@dimen/_25sdp"
                 android:paddingTop="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp"
-                android:text="Ghi chú"
+                android:text="Tồn kho tối thiểu"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/noted"
+                android:id="@+id/min_inventory"
                 android:layout_width="@dimen/_285sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
                 android:background="@drawable/input_border_radius"
-                android:hint="Ghi chú"
                 android:paddingStart="@dimen/_15sdp" />
-
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_add_product_stockout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/button_color"
-            android:elevation="@dimen/_8sdp"
-            android:padding="@dimen/_10sdp"
-            android:text="Xuất sản phẩm"
-            android:textSize="@dimen/text_size_medium" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -113,21 +101,20 @@
                 android:paddingLeft="@dimen/_25sdp"
                 android:paddingTop="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_10sdp"
-                android:text="Phiếu xuất"
+                android:text="Nhập kho tối thiểu"
                 android:textColor="@color/gray"
+                android:inputType="number"
+                android:maxLines="1"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
-            <GridView
-                android:id="@+id/list_product_stock_out"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:horizontalSpacing="@dimen/_8sdp"
-                android:numColumns="1"
-                android:padding="@dimen/_8sdp"
-                android:verticalSpacing="@dimen/_8sdp"/>
+            <EditText
+                android:id="@+id/min_stockin"
+                android:layout_width="@dimen/_285sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/input_border_radius"
+                android:paddingStart="@dimen/_15sdp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -139,7 +126,7 @@
         android:weightSum="2">
 
         <Button
-            android:id="@+id/btn_add_stockout"
+            android:id="@+id/btn_update"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -148,7 +135,7 @@
             android:backgroundTint="@color/button_color"
             android:elevation="@dimen/_8sdp"
             android:padding="@dimen/_10sdp"
-            android:text="Thêm"
+            android:text="Lưu"
             android:textSize="@dimen/text_size_medium" />
 
         <Button
