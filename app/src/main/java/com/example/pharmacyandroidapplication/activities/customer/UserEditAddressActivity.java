@@ -3127,12 +3127,15 @@ public class UserEditAddressActivity extends AppCompatActivity {
                             if (name.equals("") || phone.equals("") || detail_address.equals(""))
                                 Toast.makeText(UserEditAddressActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                             else {
-
-                                if (getIntent().getExtras().getString("previousActivity").equals("UserAddressesActivity")) {
-                                    savedEditAddress();
-                                    Intent intent = new Intent(UserEditAddressActivity.this, UserAddressesActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                if (!phone.startsWith("0") || phone.length() != 10)
+                                    Toast.makeText(UserEditAddressActivity.this, "Vui lòng nhập số điện thoại đúng cú pháp", Toast.LENGTH_SHORT).show();
+                                else {
+                                    if (getIntent().getExtras().getString("previousActivity").equals("UserAddressesActivity")) {
+                                        savedEditAddress();
+                                        Intent intent = new Intent(UserEditAddressActivity.this, UserAddressesActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
                             }
                         }
