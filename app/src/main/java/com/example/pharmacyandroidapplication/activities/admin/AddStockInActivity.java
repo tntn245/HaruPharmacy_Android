@@ -122,13 +122,13 @@ public class AddStockInActivity extends AppCompatActivity {
             inQuantity = data.getIntExtra("inQuantity", 0);
             unitPrice = data.getIntExtra("unitPrice", 0);
             Toast.makeText(this, "Đã chọn " + productName, Toast.LENGTH_LONG).show();
+
+            total_stockin_price = total_stockin_price + inQuantity * unitPrice;
+            txt_total_stockin_price.setText(String.valueOf(total_stockin_price));
+
+            productStockInDetails.add(new ProductStockInDetails(productID, productName, lotNumber, productionDate, expirationDate, inQuantity, inQuantity, unitPrice, unitName, ""));
+            adapter.notifyDataSetChanged();
         }
-
-        total_stockin_price = total_stockin_price + inQuantity * unitPrice;
-        txt_total_stockin_price.setText(String.valueOf(total_stockin_price));
-
-        productStockInDetails.add(new ProductStockInDetails(productID, productName, lotNumber, productionDate, expirationDate, inQuantity, inQuantity, unitPrice, unitName, ""));
-        adapter.notifyDataSetChanged();
     }
 
     private void addFirebase() {

@@ -68,7 +68,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/ic_edit"
             app:tint="@color/white"
             tools:ignore="HardcodedText" />
     </LinearLayout>

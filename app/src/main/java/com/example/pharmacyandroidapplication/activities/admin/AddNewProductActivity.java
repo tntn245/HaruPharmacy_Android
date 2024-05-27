@@ -339,7 +339,7 @@ public class AddNewProductActivity extends AppCompatActivity {
 
                     // Tạo một EditText mới để nhập giá và thiết lập ẩn ban đầu
                     EditText editTextPrice = new EditText(AddNewProductActivity.this);
-                    editTextPrice.setHint("Enter price");
+                    editTextPrice.setHint("Nhập đơn giá nhập kho");
                     editTextPrice.setInputType(InputType.TYPE_CLASS_NUMBER);
                     editTextPrice.setVisibility(EditText.GONE);
                     editTextPrice.setLayoutParams(new ViewGroup.LayoutParams(
@@ -388,9 +388,22 @@ public class AddNewProductActivity extends AppCompatActivity {
                         @Override
                         public void afterTextChanged(Editable s) {
                             try {
-                                double price = Double.parseDouble(s.toString());
-                                double price150Percent = price * 1.5;
-                                editTextSellPrice.setText(String.valueOf(price150Percent));
+                                database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            Integer percent_profit = dataSnapshot.child("percent_profit").getValue(Integer.class);
+
+                                            int price = Integer.parseInt(s.toString());
+                                            int pricePercent = (int) (price + price * percent_profit / 100);
+                                            editTextSellPrice.setText(String.valueOf(pricePercent));
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        // Xử lý khi có lỗi
+                                    }
+                                });
                             } catch (NumberFormatException e) {
                                 editTextSellPrice.setText("");
                             }

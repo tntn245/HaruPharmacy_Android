@@ -316,11 +316,21 @@ public class EditProductActivity extends AppCompatActivity {
 
                                     editTextPrice.setText(String.valueOf(price));
 
-                                    int sellPrice = price + 50 * price / 100;
-                                    editTextSellPrice.setText(String.valueOf(sellPrice));
+                                    database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                Integer percent_profit = dataSnapshot.child("percent_profit").getValue(Integer.class);
 
-                                    Log.d("aaaaa", String.valueOf(checkboxData.size()));
-
+                                                int sellPrice = price + percent_profit * price / 100;
+                                                editTextSellPrice.setText(String.valueOf(sellPrice));
+                                            }
+                                        }
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            // Xử lý khi có lỗi
+                                        }
+                                    });
 
                                 }
                                 ViewGroup parent = (ViewGroup) item.getCheckBox().getParent();
@@ -352,7 +362,7 @@ public class EditProductActivity extends AppCompatActivity {
                                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                                     String id = item.getKey();
                                     String name = item.child("name").getValue(String.class);
-                                    if(id.equals(categoryID)){
+                                    if (id.equals(categoryID)) {
                                         int position = typeList.indexOf(name);
                                         if (position >= 0) {
                                             spinner_category_name.setSelection(position);
@@ -361,12 +371,12 @@ public class EditProductActivity extends AppCompatActivity {
                                     }
                                 }
                             }
+
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                 throw databaseError.toException(); // don't ignore errors
                             }
                         });
-
 
 
                         txt_product_ingredient.setText(product.getIngredient());
@@ -450,12 +460,13 @@ public class EditProductActivity extends AppCompatActivity {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     String id = item.getKey();
                     String name = item.child("name").getValue(String.class);
-                    if(name.equals(category_name)){
+                    if (name.equals(category_name)) {
                         productRef.child("id_category").setValue(id);
                         break;
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 throw databaseError.toException(); // don't ignore errors
@@ -555,9 +566,22 @@ public class EditProductActivity extends AppCompatActivity {
                         @Override
                         public void afterTextChanged(Editable s) {
                             try {
-                                int price = Integer.parseInt(s.toString());
-                                int price150Percent = (int) (price + price * 50 / 100);
-                                editTextSellPrice.setText(String.valueOf(price150Percent));
+                                database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            Integer percent_profit = dataSnapshot.child("percent_profit").getValue(Integer.class);
+
+                                            int price = Integer.parseInt(s.toString());
+                                            int pricePercent = (int) (price + price * percent_profit / 100);
+                                            editTextSellPrice.setText(String.valueOf(pricePercent));
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        // Xử lý khi có lỗi
+                                    }
+                                });
                             } catch (NumberFormatException e) {
                                 editTextSellPrice.setText("");
                             }

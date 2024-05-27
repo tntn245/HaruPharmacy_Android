@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -76,9 +77,6 @@ public class AddStockOutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addFirebase();
-                Intent intent = new Intent(AddStockOutActivity.this, WarehouseStockOutActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
 
@@ -101,41 +99,54 @@ public class AddStockOutActivity extends AppCompatActivity {
             outQuantity = data.getIntExtra("outQuantity", 0);
             noted = data.getStringExtra("noted");
             Toast.makeText(this, "Đã chọn " + productName, Toast.LENGTH_LONG).show();
-        }
 
-        productStockOutDetails.add(new ProductStockOutDetails(productName, lotNumber,outQuantity,""));
-        adapter.notifyDataSetChanged();
+            productStockOutDetails.add(new ProductStockOutDetails(productName, lotNumber,outQuantity,""));
+            adapter.notifyDataSetChanged();
+        }
     }
     private void addFirebase(){
-        DatabaseReference stockOutRef = database.child("stockOut").push();
-        stockOutRef.child("productStockInInf").setValue(productStockOutDetails);
-        stockOutRef.child("noted").setValue(noted);
-        stockOutRef.child("stockOutDate").setValue(stockout_date.getText().toString());
+        if(txt_noted.getText().toString().isEmpty()){
+            Toast.makeText(AddStockOutActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            Log.d("thongbaone", "Vui lòng điền đầy đủ thông tin");
+        }
+        else if(productStockOutDetails.size() == 0){
+            Toast.makeText(AddStockOutActivity.this, "Bạn chưa chọn sản phẩm nào để xuất kho", Toast.LENGTH_SHORT).show();
+            Log.d("thongbaone", "Bạn chưa chọn sản phẩm nào để xuất kho");
+        }
+        else {
+            DatabaseReference stockOutRef = database.child("stockOut").push();
+            stockOutRef.child("productStockInInf").setValue(productStockOutDetails);
+            stockOutRef.child("noted").setValue(txt_noted.getText().toString());
+            stockOutRef.child("stockOutDate").setValue(stockout_date.getText().toString());
 
-        DatabaseReference databaseInventory = FirebaseDatabase.getInstance().getReference("inventory");
+            DatabaseReference databaseInventory = FirebaseDatabase.getInstance().getReference("inventory");
 //        DatabaseReference quantityRef = databaseInventory.child(productID).child(unitName).child(lotNumber).child("stock_quantity");
-        DatabaseReference quantityRef = databaseInventory.child(productID).child(unitName).child("inventory_quantity");
-        quantityRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Integer currentQuantity = dataSnapshot.getValue(Integer.class);
-                if (currentQuantity != null) {
-                    int newQuantity = currentQuantity - outQuantity;
-                    quantityRef.setValue(newQuantity).addOnSuccessListener(aVoid -> {
-                        Toast.makeText(AddStockOutActivity.this, "Stock quantity updated successfully.", Toast.LENGTH_SHORT).show();
-                    }).addOnFailureListener(e -> {
-                        Toast.makeText(AddStockOutActivity.this, "Failed to update stock quantity: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-                } else {
-                    Toast.makeText(AddStockOutActivity.this, "Current stock quantity is null.", Toast.LENGTH_SHORT).show();
+            DatabaseReference quantityRef = databaseInventory.child(productID).child(unitName).child("inventory_quantity");
+            quantityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Integer currentQuantity = dataSnapshot.getValue(Integer.class);
+                    if (currentQuantity != null) {
+                        int newQuantity = currentQuantity - outQuantity;
+                        quantityRef.setValue(newQuantity).addOnSuccessListener(aVoid -> {
+                            Toast.makeText(AddStockOutActivity.this, "Cập nhật số lượng thành công", Toast.LENGTH_SHORT).show();
+                        }).addOnFailureListener(e -> {
+                            Toast.makeText(AddStockOutActivity.this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                    } else {
+                        Toast.makeText(AddStockOutActivity.this, "Số lượng tồn kho hiện tại null", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(AddStockOutActivity.this, "Failed to read stock quantity: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(AddStockOutActivity.this, "Failed to read stock quantity: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();                }
+            });
+
+            Intent intent = new Intent(AddStockOutActivity.this, WarehouseStockOutActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
     public void showDatePickerDialog(View v) {
         Calendar calendar = Calendar.getInstance();
