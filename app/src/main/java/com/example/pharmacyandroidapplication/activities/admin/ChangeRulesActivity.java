@@ -4,20 +4,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.LoginActivity;
+import com.example.pharmacyandroidapplication.models.Unit;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ChangeRulesActivity extends AppCompatActivity {
     Integer minInventory, minStockIn, percentProfit;
-    EditText percent_profit, min_inventory, min_stockin;
+    EditText percent_profit, min_inventory, min_stockin, unit_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +33,11 @@ public class ChangeRulesActivity extends AppCompatActivity {
         percent_profit = findViewById(R.id.percent_profit);
         min_inventory = findViewById(R.id.min_inventory);
         min_stockin = findViewById(R.id.min_stockin);
+        unit_name = findViewById(R.id.unit_name);
 
         Button btn_update = findViewById(R.id.btn_update);
         Button btn_cancel = findViewById(R.id.btn_cancel);
+        Button btn_add_unit = findViewById(R.id.btn_add_unit);
 
         loadData();
         btn_update.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +53,37 @@ public class ChangeRulesActivity extends AppCompatActivity {
 
             }
         });
+
+        btn_add_unit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatabaseReference databaseUnits = FirebaseDatabase.getInstance().getReference("unit");
+                String unitName = unit_name.getText().toString().trim();
+                if (!TextUtils.isEmpty(unitName)) {
+                    String unitID = databaseUnits.push().getKey();
+
+                    Map<String, Object> unitMap = new HashMap<>();
+                    unitMap.put("unit_name", unitName);
+
+                    // Save the unit to Firebase
+                    if (unitID != null) {
+                        databaseUnits.child(unitID).setValue(unitMap).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(ChangeRulesActivity.this, "Thêm đơn vị thành công", Toast.LENGTH_SHORT).show();
+                                unit_name.setText(""); // Clear the input field
+                            } else {
+                                Toast.makeText(ChangeRulesActivity.this, "Thêm đơn vị thất bại", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                } else {
+                    Toast.makeText(ChangeRulesActivity.this, "Vui lòng điền đơn vị cần nhập", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
     }
 
     private void loadData() {

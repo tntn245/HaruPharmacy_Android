@@ -17,6 +17,10 @@ public class ItemPay implements Parcelable {
     public void setImg(String img) {
         this.img = img;
     }
+    public  ItemPay()
+    {
+
+    };
 
     public ItemPay(String id_product, String unit, String name, int quantity, int price,String img) {
         this.id_product = id_product;

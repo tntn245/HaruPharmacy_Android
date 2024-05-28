@@ -113,8 +113,51 @@
                 android:layout_width="@dimen/_285sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
+                android:maxLines="1"
                 android:background="@drawable/input_border_radius"
                 android:paddingStart="@dimen/_15sdp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/_25sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:text="Thêm đơn vị"
+                android:textColor="@color/gray"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/unit_name"
+                android:layout_width="@dimen/_285sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_gravity="center"
+                android:maxLines="1"
+                android:imeOptions="actionDone" android:background="@drawable/input_border_radius"
+                android:paddingStart="@dimen/_15sdp" />
+            <Button
+                android:id="@+id/btn_add_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/button_color"
+                android:elevation="@dimen/_8sdp"
+                android:padding="@dimen/_10sdp"
+                android:text="Thêm đơn vị mới"
+                android:textSize="@dimen/text_size_medium" />
+
         </LinearLayout>
     </LinearLayout>
 

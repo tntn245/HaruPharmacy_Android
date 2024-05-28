@@ -19,8 +19,10 @@ import java.util.ArrayList;
 
 
 public class HomeProductAdapter extends  ArrayAdapter<Product> {
+    ArrayList<Product> productArrayList;
     public HomeProductAdapter(@NonNull Context context, ArrayList<Product> productArrayList) {
         super(context, 0, productArrayList);
+        this.productArrayList = productArrayList;
     }
 
     @NonNull
@@ -50,5 +52,10 @@ public class HomeProductAdapter extends  ArrayAdapter<Product> {
                 .load(product.getImg())
                 .into(img_product);
         return listitemView;
+    }
+    public void updateData(ArrayList<Product> newList) {
+        productArrayList.clear();
+        productArrayList.addAll(newList);
+        notifyDataSetChanged();
     }
 }
