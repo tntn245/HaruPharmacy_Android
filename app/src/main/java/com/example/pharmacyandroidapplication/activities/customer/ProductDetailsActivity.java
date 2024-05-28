@@ -130,8 +130,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         for (DataSnapshot unitSnapshot : dataSnapshot.getChildren()) {
                             String name = unitSnapshot.child("name").getValue(String.class);
                             int price = unitSnapshot.child("price").getValue(Integer.class);
-                            int quantity = unitSnapshot.child("quantity").getValue(Integer.class);
-                            Unit unittt = new Unit(name, price, quantity);
+                            Unit unittt = new Unit(name, price);
                             // Thêm đối tượng Unit vào ArrayList
                             // Thực hiện các hành động với dữ liệu đã lấy được, ví dụ: hiển thị dữ liệu lên giao diện người dùng
                             Log.i("Unit ADD", "Name: " + unittt.getName() + ", Price: " + unittt.getPrice());
