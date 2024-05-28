@@ -48,9 +48,8 @@ public class ProductStockInDetailsAdapter extends ArrayAdapter<ProductStockInDet
             }
         }
 
-        ImageButton deleteButton = listitemView.findViewById(R.id.btn_del_arr); // Nút xóa
+        ImageButton deleteButton = listitemView.findViewById(R.id.btn_del_arr);
         deleteButton.setOnClickListener(v -> {
-            remove(productStockInDetails);
             productStockInDetailsArrayList.remove(productStockInDetails);
             notifyDataSetChanged();
         });

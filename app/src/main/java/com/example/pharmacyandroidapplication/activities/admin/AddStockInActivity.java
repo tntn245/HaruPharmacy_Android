@@ -94,10 +94,15 @@ public class AddStockInActivity extends AppCompatActivity {
         btn_add_stockin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFirebase();
-                Intent intent = new Intent(AddStockInActivity.this, WarehouseStockInActivity.class);
-                startActivity(intent);
-                finish();
+                if(productStockInDetails.size()==0){
+                    Toast.makeText(AddStockInActivity.this, "Không thể thêm phiếu khi chưa chọn sản phẩm", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    addFirebase();
+                    Intent intent = new Intent(AddStockInActivity.this, WarehouseStockInActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
