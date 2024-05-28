@@ -1,5 +1,6 @@
 package com.example.pharmacyandroidapplication.activities.admin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,27 +15,28 @@ import com.example.pharmacyandroidapplication.adapters.StockInAdapter;
 import com.example.pharmacyandroidapplication.adapters.StockOutAdapter;
 import com.example.pharmacyandroidapplication.models.StockIn;
 import com.example.pharmacyandroidapplication.models.StockOut;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class WarehouseStockOutActivity extends AppCompatActivity {
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    ArrayList<StockOut> StockArrayList;
+    GridView StockOutGV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wh_stock_out);
 
-        GridView StockOutGV= findViewById(R.id.list_stock_out);
-        ArrayList<StockOut> StockArrayList = new ArrayList<StockOut>();
-
-        StockArrayList.add(new StockOut("FDSFGFSG",new Date(2024, 4, 2), "Hàng hết hạn"));
-        StockArrayList.add(new StockOut("MEFGFSGG",new Date(2024, 4, 1),"Hàng hết hạn"));
-        StockArrayList.add(new StockOut("ODSAXVSG",new Date(2024, 3, 29),"Hàng hết hạn"));
-        StockArrayList.add(new StockOut("EKUGFSYG",new Date(2024, 3, 18),"Hàng hết hạn"));
-
-        StockOutAdapter adapter = new StockOutAdapter(this, StockArrayList);
-        StockOutGV.setAdapter(adapter);
+        StockOutGV= findViewById(R.id.list_stock_out);
+        StockArrayList = new ArrayList<StockOut>();
+        loadProductStockOut();
 
         // Đặt sự kiện click cho mỗi item trong GridView
         StockOutGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -60,4 +62,29 @@ public class WarehouseStockOutActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void loadProductStockOut() {
+        DatabaseReference productsRef = database.getReference("stockOut");
+        productsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String stockOutID = snapshot.getKey();
+                    String stockOutDate = snapshot.child("stockOutDate").getValue(String.class);
+                    String noted = snapshot.child("noted").getValue(String.class);
+                    if(noted==null){
+                        noted = "";
+                    }
+                    StockArrayList.add(new StockOut(stockOutID,stockOutDate, noted));
+                }
+                StockOutAdapter adapter = new StockOutAdapter(WarehouseStockOutActivity.this, StockArrayList);
+                StockOutGV.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
 }

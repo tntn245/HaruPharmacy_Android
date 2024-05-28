@@ -100,8 +100,23 @@ public class AddStockOutActivity extends AppCompatActivity {
             noted = data.getStringExtra("noted");
             Toast.makeText(this, "Đã chọn " + productName, Toast.LENGTH_LONG).show();
 
-            productStockOutDetails.add(new ProductStockOutDetails(productName, lotNumber,outQuantity,""));
-            adapter.notifyDataSetChanged();
+            database.child("product").child(productID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String img = dataSnapshot.child("img").getValue(String.class);
+
+                        productStockOutDetails.add(new ProductStockOutDetails(productName, lotNumber,outQuantity,img));
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Xử lý lỗi nếu có
+                    // ...
+                }
+            });
         }
     }
     private void addFirebase(){
@@ -120,8 +135,24 @@ public class AddStockOutActivity extends AppCompatActivity {
             stockOutRef.child("stockOutDate").setValue(stockout_date.getText().toString());
 
             DatabaseReference databaseInventory = FirebaseDatabase.getInstance().getReference("inventory");
-//        DatabaseReference quantityRef = databaseInventory.child(productID).child(unitName).child(lotNumber).child("stock_quantity");
+            DatabaseReference lotQuantityRef = databaseInventory.child(productID).child(unitName).child(lotNumber).child("stock_quantity");
             DatabaseReference quantityRef = databaseInventory.child(productID).child(unitName).child("inventory_quantity");
+            lotQuantityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Integer currentQuantity = dataSnapshot.getValue(Integer.class);
+                    if (currentQuantity != null) {
+                        int newQuantity = currentQuantity - outQuantity;
+                        lotQuantityRef.setValue(newQuantity);
+                    } else {
+                        Toast.makeText(AddStockOutActivity.this, "Số lượng tồn kho hiện tại null", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(AddStockOutActivity.this, "Failed to read stock quantity: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();                }
+            });
             quantityRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

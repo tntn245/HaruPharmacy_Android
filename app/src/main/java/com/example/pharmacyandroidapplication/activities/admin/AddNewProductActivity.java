@@ -87,7 +87,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         add_spn_product_type = findViewById(R.id.add_spn_product_type);
         btn_save_add_product = findViewById(R.id.btn_save_add_product);
         btn_cancel_add_product = findViewById(R.id.btn_cancel_saved_add_product);
-        img_product=findViewById(R.id.img);
+        img_product = findViewById(R.id.img);
 
         typeList = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeList);
@@ -154,7 +154,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                     public void onSuccess(Uri downloadUri) {
                         // Đường dẫn của ảnh
                         image = downloadUri;
-                        Toast.makeText(AddNewProductActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddNewProductActivity.this, "Tải ảnh thành công", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -162,96 +162,110 @@ public class AddNewProductActivity extends AppCompatActivity {
     }
 
     public void saveNewProduct() {
-        String cate_name = add_spn_product_type.getSelectedItem().toString();
-        String cate_id = getCategoryID(cate_name);
-        String name = add_txt_product_name.getText().toString();
-        String img = image.toString();
-        String ingredient = add_txt_product_ingredient.getText().toString();
-        String uses = add_txt_product_uses.getText().toString();
-        boolean flagValid = (add_spn_product_status.getSelectedItem().toString() == "Đang kinh doanh");
-        boolean isAnyCheckboxChecked = false;
-        for (int i = 0; i < checkboxContainer.getChildCount(); i++) {
-            LinearLayout unitLayout = (LinearLayout) checkboxContainer.getChildAt(i);
-            CheckBox checkBox = (CheckBox) unitLayout.getChildAt(0);
-            if (checkBox.isChecked()) {
-                isAnyCheckboxChecked = true;
-                break;
-            }
+        if(image==null){
+            Toast.makeText(AddNewProductActivity.this, "Vui lòng chọn hình ảnh sản phẩm", Toast.LENGTH_SHORT).show();
         }
-        if (name.isEmpty() || img.isEmpty() ||
-                ingredient.isEmpty() || uses.isEmpty() ||
-                !isAnyCheckboxChecked) {
-            Toast.makeText(AddNewProductActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-        } else {
-            productRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String nameInFirebase = snapshot.child("name").getValue(String.class);
-                        if (name.equals(nameInFirebase)) {
+        else {
+            String cate_name = add_spn_product_type.getSelectedItem().toString();
+            String cate_id = getCategoryID(cate_name);
+            String name = add_txt_product_name.getText().toString();
+            String img = image.toString();
+            String ingredient = add_txt_product_ingredient.getText().toString();
+            String uses = add_txt_product_uses.getText().toString();
+            boolean flagValid = (add_spn_product_status.getSelectedItem().toString() == "Đang kinh doanh");
+            boolean isAnyCheckboxChecked = false;
+            for (int i = 0; i < checkboxContainer.getChildCount(); i++) {
+                LinearLayout unitLayout = (LinearLayout) checkboxContainer.getChildAt(i);
+                CheckBox checkBox = (CheckBox) unitLayout.getChildAt(0);
+                if (checkBox.isChecked()) {
+                    isAnyCheckboxChecked = true;
+                    break;
+                }
+            }
+            if (name.isEmpty() || img.isEmpty() ||
+                    ingredient.isEmpty() || uses.isEmpty() ||
+                    !isAnyCheckboxChecked) {
+                Toast.makeText(AddNewProductActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            } else {
+                productRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            String nameInFirebase = snapshot.child("name").getValue(String.class);
+                            if (name.equals(nameInFirebase)) {
 //                            Toast.makeText(AddNewProductActivity.this, "Sản phẩm đã tồn tại!", Toast.LENGTH_SHORT).show();
-                            flag_exist = true;
-                            break;
+                                flag_exist = true;
+                                break;
+                            }
                         }
                     }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-            if(!flag_exist){
-                // Tạo một product ID duy nhất
-                String productID = UUID.randomUUID().toString();
-                // Tạo một map để chứa các đơn vị và giá cả
-                Map<String, Object> unitArr = new HashMap<>();
-
-                // Duyệt qua tất cả các LinearLayout trong checkboxContainer
-                for (int i = 0; i < checkboxContainer.getChildCount(); i++) {
-                    LinearLayout unitLayout = (LinearLayout) checkboxContainer.getChildAt(i);
-                    CheckBox checkBox = (CheckBox) unitLayout.getChildAt(0);
-                    EditText editTextUnitPrice = (EditText) unitLayout.getChildAt(1);
-                    EditText editTextSellPrice = (EditText) unitLayout.getChildAt(2);
-
-                    if (checkBox.isChecked()) {
-                        // Thêm đơn vị được checked vào map
-                        String unitName = checkBox.getText().toString();
-                        String unitPrice = editTextUnitPrice.getText().toString();
-                        String sellPrice = editTextSellPrice.getText().toString();
-
-                        if (unitPrice.isEmpty()) {
-                            Toast.makeText(AddNewProductActivity.this, "Vui lòng nhập giá sản phẩm", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        // Tạo một map để chứa giá và số lượng của đơn vị
-                        Map<String, Object> unitData = new HashMap<>();
-                        unitData.put("price", Integer.parseInt(unitPrice));
-                        unitData.put("sell_price", Double.parseDouble(sellPrice));
-                        unitData.put("quantity", 0);
-
-                        // Thêm đơn vị vào unitArr
-                        unitArr.put(unitName, unitData);
-                    }
-                }
-
-                // Tạo đối tượng Product
-                Product product = new Product(productID, cate_id, img, name, 0, 0, "", uses, ingredient, flagValid, true, unitArr);
-
-                // Thêm product vào Firebase
-                productRef.child(productID).setValue(product).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(AddNewProductActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(AddNewProductActivity.this, "Thêm sản phẩm thất bại", Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
 
-            Intent intent = new Intent(AddNewProductActivity.this, ProductManagementActivity.class);
-            startActivity(intent);
-            finish();
+                if (!flag_exist) {
+                    // Tạo một product ID duy nhất
+                    String productID = UUID.randomUUID().toString();
+                    // Tạo một map để chứa các đơn vị và giá cả
+                    Map<String, Object> unitArr = new HashMap<>();
+                    int firstSellPrice = 0;
+                    int count = 0;
+
+                    // Duyệt qua tất cả các LinearLayout trong checkboxContainer
+                    for (int i = 0; i < checkboxContainer.getChildCount(); i++) {
+                        LinearLayout unitLayout = (LinearLayout) checkboxContainer.getChildAt(i);
+                        CheckBox checkBox = (CheckBox) unitLayout.getChildAt(0);
+                        EditText editTextUnitPrice = (EditText) unitLayout.getChildAt(1);
+                        EditText editTextPercent = (EditText) unitLayout.getChildAt(2);
+                        EditText editTextSellPrice = (EditText) unitLayout.getChildAt(3);
+
+                        if (checkBox.isChecked()) {
+                            count++;
+                            // Thêm đơn vị được checked vào map
+                            String unitName = checkBox.getText().toString();
+                            String unitPrice = editTextUnitPrice.getText().toString();
+                            String unitPercent = editTextPercent.getText().toString();
+                            String sellPrice = editTextSellPrice.getText().toString();
+
+                            if (unitPrice.isEmpty() || unitPercent.isEmpty()) {
+                                Toast.makeText(AddNewProductActivity.this, "Vui lòng nhập giá và lợi nhuận sản phẩm", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            // Tạo một map để chứa giá và số lượng của đơn vị
+                            Map<String, Object> unitData = new HashMap<>();
+                            unitData.put("price", Integer.parseInt(unitPrice));
+                            unitData.put("percent", Integer.parseInt(unitPercent));
+
+                            // Thêm đơn vị vào unitArr
+                            unitArr.put(unitName, unitData);
+
+                            if (count == 1) {
+                                firstSellPrice = Integer.parseInt(sellPrice);
+                            }
+                        }
+                    }
+
+                    // Tạo đối tượng Product
+                    Product product = new Product(productID, cate_id, img, name, firstSellPrice, 0, "", uses, ingredient, flagValid, true, unitArr);
+
+                    // Thêm product vào Firebase
+                    productRef.child(productID).setValue(product).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(AddNewProductActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(AddNewProductActivity.this, "Thêm sản phẩm thất bại", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                Intent intent = new Intent(AddNewProductActivity.this, ProductManagementActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
     }
 
@@ -286,15 +300,6 @@ public class AddNewProductActivity extends AppCompatActivity {
             }
         });
         return categoryID;
-    }
-
-    public void setDefaultView() {
-        add_txt_product_name.setText("");
-        add_img_product_img.setImageResource(R.mipmap.ic_launcher);
-        add_txt_product_ingredient.setText("");
-        add_txt_product_uses.setText("");
-        add_spn_product_status.setSelection(0);
-        add_spn_product_type.setSelection(0);
     }
 
     public void retrieveCategoryData(String attr) {
@@ -347,9 +352,20 @@ public class AddNewProductActivity extends AppCompatActivity {
                             ViewGroup.LayoutParams.WRAP_CONTENT
                     ));
 
+                    // Tạo một EditText mới để nhập % và thiết lập ẩn ban đầu
+                    EditText editTextPercent = new EditText(AddNewProductActivity.this);
+                    editTextPercent.setHint("Nhập phần trăm lợi nhuận");
+                    editTextPercent.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    editTextPercent.setVisibility(EditText.GONE);
+                    editTextPercent.setLayoutParams(new ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                    ));
+
                     // Tạo một EditText mới để hiện giá bán = % giá nhập
                     EditText editTextSellPrice = new EditText(AddNewProductActivity.this);
                     editTextSellPrice.setEnabled(false);
+                    editTextSellPrice.setHint("Giá bán");
                     editTextSellPrice.setVisibility(EditText.GONE);
                     editTextSellPrice.setLayoutParams(new ViewGroup.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -359,6 +375,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                     // Thêm CheckBox và EditText vào LinearLayout
                     unitLayout.addView(checkBox);
                     unitLayout.addView(editTextPrice);
+                    unitLayout.addView(editTextPercent);
                     unitLayout.addView(editTextSellPrice);
 
                     // Thêm LinearLayout vào checkboxContainer
@@ -368,42 +385,53 @@ public class AddNewProductActivity extends AppCompatActivity {
                     checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                         if (isChecked) {
                             editTextPrice.setVisibility(EditText.VISIBLE);
+                            editTextPercent.setVisibility(EditText.VISIBLE);
                             editTextSellPrice.setVisibility(EditText.VISIBLE);
-//                            Toast.makeText(AddNewProductActivity.this, unitName + " checked", Toast.LENGTH_SHORT).show();
                         } else {
                             editTextPrice.setVisibility(EditText.GONE);
+                            editTextPercent.setVisibility(EditText.GONE);
                             editTextSellPrice.setVisibility(EditText.GONE);
-//                            Toast.makeText(AddNewProductActivity.this, unitName + " unchecked", Toast.LENGTH_SHORT).show();
                         }
                     });
 
                     // Lắng nghe thay đổi trong editTextPrice để cập nhật editText150Percent
                     editTextPrice.addTextChangedListener(new TextWatcher() {
                         @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
 
                         @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
 
                         @Override
                         public void afterTextChanged(Editable s) {
                             try {
-                                database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.exists()) {
-                                            Integer percent_profit = dataSnapshot.child("percent_profit").getValue(Integer.class);
+                                int price = Integer.parseInt(s.toString());
+                                int percent = Integer.parseInt(editTextPercent.getText().toString());
+                                int pricePercent = (int) (price + price * percent / 100);
+                                editTextSellPrice.setText(String.valueOf(pricePercent));
+                            } catch (NumberFormatException e) {
+                                editTextSellPrice.setText("");
+                            }
+                        }
+                    });
+                    editTextPercent.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
 
-                                            int price = Integer.parseInt(s.toString());
-                                            int pricePercent = (int) (price + price * percent_profit / 100);
-                                            editTextSellPrice.setText(String.valueOf(pricePercent));
-                                        }
-                                    }
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                        // Xử lý khi có lỗi
-                                    }
-                                });
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            try {
+                                int percent = Integer.parseInt(s.toString());
+                                int price = Integer.parseInt(editTextPrice.getText().toString());
+                                int pricePercent = (int) (price + price * percent / 100);
+                                editTextSellPrice.setText(String.valueOf(pricePercent));
                             } catch (NumberFormatException e) {
                                 editTextSellPrice.setText("");
                             }
