@@ -29,7 +29,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference orderDetailRef = database.getReference("orderdetail");
     private DatabaseReference productRef = database.getReference("product");
-    private ArrayList<Product> ProductArrayList;
+    private ArrayList<Product> ProductArrayList = new ArrayList<>();
+    private String nameActivity = this.getClass().getSimpleName().toString();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,63 +57,60 @@ public class OrderDetailsActivity extends AppCompatActivity {
         GridView ProductGV = findViewById(R.id.list_products);
 
         DatabaseReference orderdetailByIdRef = orderDetailRef.child(orderID);
-        ProductArrayList = new ArrayList<Product>();
-
         orderdetailByIdRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Product product = new Product("");
-                String id;
                 for (DataSnapshot item : snapshot.getChildren()) {
-                    id = item.getKey().toString();
-                    product.setId(id);
-                    DatabaseReference orderDetailByIdProductRef = orderdetailByIdRef.child(id).getRef();
-                    orderDetailByIdProductRef.addValueEventListener(new ValueEventListener() {
-                        String unit;
+                    String id = item.getKey().toString();
+                    DatabaseReference productByIdRef = productRef.child(id).getRef();
+                    productByIdRef.addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                            for (DataSnapshot item1: snapshot1.getChildren())
-                            {
-                                DatabaseReference productByIdRef = productRef.child(product.getId()).getRef();
-                                productByIdRef.addValueEventListener(new ValueEventListener() {
-                                    String namePro, imgPro;
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshotPro) {
-                                        namePro = snapshotPro.child("name").getValue().toString();
-                                        imgPro = snapshotPro.child("img").getValue().toString();
-                                        product.setName(namePro);
-                                        product.setImg(imgPro);
-                                    }
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String name = snapshot.child("name").getValue(String.class);
+                            String img = snapshot.child("img").getValue(String.class);
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
+                            DatabaseReference orderDetailByIdProductRef = orderdetailByIdRef.child(id).getRef();
+                            orderDetailByIdProductRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                    for (DataSnapshot item1 : snapshot1.getChildren()) {
+                                        String unit = item1.getKey().toString();
 
-                                    }
-                                });
-                                unit = item.getKey().toString();
-                                product.setUnit(unit);
-                                DatabaseReference orderDetailByIdProductUnitRef = orderDetailByIdProductRef.child(unit).getRef();
-                                orderDetailByIdProductUnitRef.addValueEventListener(new ValueEventListener() {
-                                    int quantity_ordered, sell_price;
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot2) {
-                                        Log.e("?", product.getName().toString() );
-                                        for (DataSnapshot item2: snapshot2.getChildren())
-                                        {
-                                            quantity_ordered = item2.child("quantity").getValue(Integer.class);
-                                            sell_price = item2.child("unit_sell_price").getValue(Integer.class);
-                                            product.setInventory_quantity(quantity_ordered);
-                                            product.setPrice(sell_price);
-                                            ProductArrayList.add(product);
-                                        }
-                                    }
+                                        DatabaseReference orderDetailByIdProductUnitRef = orderDetailByIdProductRef.child(unit).getRef();
+                                        orderDetailByIdProductUnitRef.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                                                int quantity_ordered = Integer.valueOf(snapshot2.child("quantity").getValue(String.class));
+                                                int sell_price = Integer.valueOf(snapshot2.child("unit_sell_price").getValue(String.class));
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
+                                                Product product = new Product(id);
+                                                if (nameActivity.equals("OrderDetailsActivity")) {
+                                                product.setName(name);
+                                                product.setImg(img);
+                                                product.setUnit(unit);
+                                                product.setInventory_quantity(quantity_ordered);
+                                                product.setPrice(sell_price);
+                                                }
+                                                ProductArrayList.add(product);
 
+                                                // Tạo adapter và đặt adapter cho GridView
+                                                OrderDetailsAdapter productAdapter = new OrderDetailsAdapter(OrderDetailsActivity.this, ProductArrayList);
+                                                ProductGV.setAdapter(productAdapter);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
-                                });
-                            }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
                         }
 
                         @Override
@@ -121,22 +119,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
                         }
                     });
                 }
-                OrderDetailsAdapter productAdapter = new OrderDetailsAdapter(OrderDetailsActivity.this, ProductArrayList);
-                ProductGV.setAdapter(productAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-        });
-        productRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    dataSnapshot.getValue().toString().equals("");
-                }
             }
 
             @Override
@@ -144,5 +126,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }
