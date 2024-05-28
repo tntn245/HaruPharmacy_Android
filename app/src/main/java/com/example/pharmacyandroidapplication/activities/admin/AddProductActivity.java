@@ -1,12 +1,9 @@
 package com.example.pharmacyandroidapplication.activities.admin;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,8 +13,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.pharmacyandroidapplication.R;
-import com.example.pharmacyandroidapplication.models.Unit;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -27,8 +27,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AddProductActivity extends AppCompatActivity {
     private TextView add_txt_product_id;
@@ -84,6 +82,14 @@ public class AddProductActivity extends AppCompatActivity {
                 Intent intent = new Intent(AddProductActivity.this, ProductManagementActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        btn_cancel_add_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("NHAN", "Huy");
+                Intent intent = new Intent(AddProductActivity.this, ProductManagementActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -159,14 +165,17 @@ public class AddProductActivity extends AppCompatActivity {
                             });
 
                             // Thêm nút "Hủy" vào hộp thoại
+
+
                             builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    Log.i("NHAN", "HUY");
                                     // Xử lý khi người dùng nhấn nút "Hủy"
+
                                     // Ví dụ: đóng hộp thoại hoặc thực hiện hành động khác
                                 }
                             });
-
                             // Hiển thị hộp thoại
                             AlertDialog dialog = builder.create();
                             dialog.show();
