@@ -5,6 +5,7 @@ import static com.example.pharmacyandroidapplication.utils.AndroidUtil.showToast
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class CustomerHomepageActivity extends AppCompatActivity {
+    HomeProductAdapter productAdapter;
     ImageButton imageSearch;
     EditText editTextSearch;
     GridView categoryGV;
@@ -250,7 +252,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ProductArrayList = new ArrayList<Product>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    // Lấy dữ liệu từ snapshot và tạo đối tượng Product
+                    String productID = snapshot.getKey();
                     String productName = snapshot.child("name").getValue(String.class);
                     int productPrice = snapshot.child("price").getValue(Integer.class);
                     String productImg = snapshot.child("img").getValue(String.class);
@@ -262,14 +264,32 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     String ingredient = snapshot.child("ingredient").getValue(String.class);
                     Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
 
-
                     Product product = new Product(id,id_category,productImg, productName,0,productPrice,unit,uses, ingredient, prescription);
-                    // Sau đó, thêm sản phẩm vào danh sách productList
                     ProductArrayList.add(product);
-                }
 
-                // Sau khi lấy được danh sách sản phẩm, tạo adapter và gán cho GridView
-                HomeProductAdapter productAdapter = new HomeProductAdapter(CustomerHomepageActivity.this, ProductArrayList);
+//                    FirebaseDatabase.getInstance().getReference().child("inventory").child(productID)
+//                            .addValueEventListener(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                    int total_quantity = 0;
+//                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                                        String unitName = snapshot.getKey();
+//
+//                                        int inventory_quantity = snapshot.child("inventory_quantity").getValue(Integer.class);
+//                                        total_quantity = total_quantity + inventory_quantity;
+//                                    }
+//                                    if(total_quantity > 0){
+//                                        Product product = new Product(id,id_category,productImg, productName,total_quantity,productPrice,unit,uses, ingredient, prescription);
+//                                        ProductArrayList.add(product);
+//                                        Log.d("innn", String.valueOf(total_quantity));
+//                                    }
+//                                }
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                }
+//                            });
+                }
+                productAdapter = new HomeProductAdapter(CustomerHomepageActivity.this, ProductArrayList);
                 productGV.setAdapter(productAdapter);
             }
 
@@ -356,7 +376,6 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
         // Cập nhật token trong Realtime Database
         userReference.updateChildren(updates)
-                .addOnSuccessListener(aVoid -> showToast(CustomerHomepageActivity.this, "Token updated successfully"))
                 .addOnFailureListener(e -> showToast(CustomerHomepageActivity.this, "Unable to update token"));
     }
 
