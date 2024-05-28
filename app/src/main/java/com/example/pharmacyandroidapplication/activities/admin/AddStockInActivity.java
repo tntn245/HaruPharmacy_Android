@@ -95,6 +95,8 @@ public class AddStockInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(productStockInDetails.size()==0){
+                    total_stockin_price = 0;
+                    txt_total_stockin_price.setText(""+total_stockin_price);
                     Toast.makeText(AddStockInActivity.this, "Không thể thêm phiếu khi chưa chọn sản phẩm", Toast.LENGTH_LONG).show();
                 }
                 else {

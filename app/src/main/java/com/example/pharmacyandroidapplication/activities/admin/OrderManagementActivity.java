@@ -396,6 +396,8 @@ public class OrderManagementActivity extends AppCompatActivity implements OrderI
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // Xóa dữ liệu cũ trong danh sách giỏ hàng
                 orders.clear();
+                dgg=0;
+                dxl=0;
                 // Duyệt qua các nút con trong node "cart"
                 for (DataSnapshot cartSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot orderSnapshot : cartSnapshot.getChildren()){

@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.UUID;
+
 public class AddCategoryActivity extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference categoryRef = database.getReference("category");
@@ -42,6 +44,7 @@ public class AddCategoryActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         add_spn_category_status.setAdapter(adapter);
 
+        add_txt_category_id.setText(UUID.randomUUID().toString());
         btn_save_add_category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

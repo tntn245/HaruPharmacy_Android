@@ -154,24 +154,7 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="@dimen/_3sdp">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="5dp">
-            <include layout="@layout/component_search_bar" />
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+    
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orderRV"
         android:layout_width="match_parent"
