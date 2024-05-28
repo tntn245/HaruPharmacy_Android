@@ -75,6 +75,7 @@ public class EditOrderActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(EditOrderActivity.this, OrderDetailsManagementActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

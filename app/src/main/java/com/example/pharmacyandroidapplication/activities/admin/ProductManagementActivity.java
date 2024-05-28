@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.adapters.CategoryManagementAdapter;
 import com.example.pharmacyandroidapplication.adapters.ProductGVAdapter;
 import com.example.pharmacyandroidapplication.listeners.OnProductClickListener;
+import com.example.pharmacyandroidapplication.models.Category;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,7 +19,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -27,6 +31,8 @@ public class ProductManagementActivity extends AppCompatActivity implements OnPr
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     ArrayList<Product> ProductArrayList;
     GridView productGV;
+    private EditText searchBar;
+    private ImageButton searchButton;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_management);
@@ -34,7 +40,16 @@ public class ProductManagementActivity extends AppCompatActivity implements OnPr
         ProductArrayList = new ArrayList<Product>();
 
         loadProductFromFirebase();
-
+        searchBar = findViewById(R.id.edit_text_search);
+        searchButton = findViewById(R.id.image_search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchQuery = searchBar.getText().toString().trim();
+                // Perform the search operation
+                filterProductsByName(searchQuery, productGV);
+            }
+        });
         ImageView btn_add = findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,5 +113,16 @@ public class ProductManagementActivity extends AppCompatActivity implements OnPr
             }
         });
     }
-
+    private void filterProductsByName(String searchQuery, GridView list_product) {
+        // Filter the product list based on the search query
+        // and update the CategoryManagementAdapter accordingly
+        ArrayList<Product> filteredProduct = new ArrayList<>();
+        for (Product product : ProductArrayList) {
+            if (product.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
+                filteredProduct.add(product);
+            }
+        }
+        ProductGVAdapter newProductGVAdapter = new ProductGVAdapter(ProductManagementActivity.this, filteredProduct);
+        list_product.setAdapter(newProductGVAdapter);
+    }
 }

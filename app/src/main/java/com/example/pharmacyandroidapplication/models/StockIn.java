@@ -37,4 +37,5 @@ public class StockIn {
     public void setTotal_payment(int total_payment) {
         this.total_payment = total_payment;
     }
+
 }

@@ -25,6 +25,7 @@ import java.util.Map;
 public class ChangeRulesActivity extends AppCompatActivity {
     Integer minInventory, minStockIn, percentProfit;
     EditText percent_profit, min_inventory, min_stockin, unit_name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,9 @@ public class ChangeRulesActivity extends AppCompatActivity {
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ChangeRulesActivity.this, ProductManagementActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -110,9 +113,18 @@ public class ChangeRulesActivity extends AppCompatActivity {
     }
 
     public void update() {
-        DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("attribute");
-        productRef.child("min_inventory").setValue(Integer.parseInt(min_inventory.getText().toString()));
-        productRef.child("min_stock_in").setValue(Integer.parseInt(min_stockin.getText().toString()));
-        productRef.child("percent_profit").setValue(Integer.parseInt(percent_profit.getText().toString()));
+        if (min_inventory.getText().toString().isEmpty() ||
+                min_stockin.getText().toString().isEmpty() ||
+                percent_profit.getText().toString().isEmpty()) {
+            Toast.makeText(ChangeRulesActivity.this, "Các quy định không được để trống", Toast.LENGTH_SHORT).show();
+        } else {
+            DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("attribute");
+            productRef.child("min_inventory").setValue(Integer.parseInt(min_inventory.getText().toString()));
+            productRef.child("min_stock_in").setValue(Integer.parseInt(min_stockin.getText().toString()));
+            productRef.child("percent_profit").setValue(Integer.parseInt(percent_profit.getText().toString()));
+            Intent intent = new Intent(ChangeRulesActivity.this, AdminHomepageActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

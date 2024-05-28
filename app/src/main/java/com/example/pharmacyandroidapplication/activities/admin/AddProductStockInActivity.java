@@ -95,7 +95,7 @@ public class AddProductStockInActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Product selectedProduct = productList.get(position);
                 selectedProductID = selectedProduct.getId();
-                Toast.makeText(AddProductStockInActivity.this, selectedProductID, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AddProductStockInActivity.this, selectedProductID, Toast.LENGTH_SHORT).show();
 
                 loadUnits(selectedProductID);
             }
