@@ -83,6 +83,7 @@ public class CategoryManagementActivity extends AppCompatActivity {
                 intent.putExtra("selectedCategoryName", item.getName());
                 intent.putExtra("selectedCategoryStatus", item.isFlag_valid());
                 startActivity(intent);
+                finish();
             }
         });
         ImageView btn_add = findViewById(R.id.btn_add_category);
