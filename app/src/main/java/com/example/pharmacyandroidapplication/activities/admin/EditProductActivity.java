@@ -294,13 +294,13 @@ public class EditProductActivity extends AppCompatActivity {
                             String unitName = unitSnapshot.getKey();
                             Integer price = (unitSnapshot.child("price").getValue(Integer.class) != null)
                                     ? unitSnapshot.child("price").getValue(Integer.class) : 0;
-                            Integer quantity = (unitSnapshot.child("quantity").getValue(Integer.class) != null)
-                                    ? unitSnapshot.child("quantity").getValue(Integer.class) : 0;
+                            Integer percent = (unitSnapshot.child("percent").getValue(Integer.class) != null)
+                                    ? unitSnapshot.child("percent").getValue(Integer.class) : 0;
 
                             // Tạo một map để chứa giá và số lượng của đơn vị
                             Map<String, Object> unitData = new HashMap<>();
                             unitData.put("price", price);
-                            unitData.put("quantity", quantity);
+                            unitData.put("percent", percent);
 
                             // Thêm đơn vị vào unitArr
                             unitArr.put(unitName, unitData);
@@ -308,6 +308,7 @@ public class EditProductActivity extends AppCompatActivity {
                             for (CheckboxData item : checkboxData) {
                                 CheckBox checkbox = item.getCheckBox();
                                 EditText editTextPrice = item.getEditTextPrice();
+                                EditText editPercent = item.getPercent();
                                 EditText editTextSellPrice = item.getEditTextSellPrice();
 
                                 if (unitName.equals(item.getCheckBox().getText().toString())) {
@@ -315,22 +316,23 @@ public class EditProductActivity extends AppCompatActivity {
                                     checkbox.setEnabled(false);
 
                                     editTextPrice.setText(String.valueOf(price));
+                                    editPercent.setText(String.valueOf(percent));
 
-                                    database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            if (dataSnapshot.exists()) {
-                                                Integer percent_profit = dataSnapshot.child("percent_profit").getValue(Integer.class);
+//                                    database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
+//                                        @Override
+//                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                            if (dataSnapshot.exists()) {
+//                                                Integer percent_profit = dataSnapshot.child("percent_profit").getValue(Integer.class);
 
-                                                int sellPrice = price + percent_profit * price / 100;
+                                                int sellPrice = price + percent * price / 100;
                                                 editTextSellPrice.setText(String.valueOf(sellPrice));
-                                            }
-                                        }
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                                            // Xử lý khi có lỗi
-                                        }
-                                    });
+//                                            }
+//                                        }
+//                                        @Override
+//                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                            // Xử lý khi có lỗi
+//                                        }
+//                                    });
 
                                 }
                                 ViewGroup parent = (ViewGroup) item.getCheckBox().getParent();
@@ -341,12 +343,17 @@ public class EditProductActivity extends AppCompatActivity {
                                 if (parentPrice != null) {
                                     parentPrice.removeView(item.getEditTextPrice());
                                 }
+                                ViewGroup parentPercent = (ViewGroup) item.getPercent().getParent();
+                                if (parentPercent != null) {
+                                    parentPercent.removeView(item.getPercent());
+                                }
                                 ViewGroup parentSellPrice = (ViewGroup) item.getEditTextSellPrice().getParent();
                                 if (parentSellPrice != null) {
                                     parentSellPrice.removeView(item.getEditTextSellPrice());
                                 }
                                 checkboxContainer.addView(checkbox);
                                 checkboxContainer.addView(editTextPrice);
+                                checkboxContainer.addView(editPercent);
                                 checkboxContainer.addView(editTextSellPrice);
                             }
                         }
@@ -406,10 +413,14 @@ public class EditProductActivity extends AppCompatActivity {
         Map<String, Object> arr = new HashMap<>();
         DatabaseReference productRef = database.getReference("product").child(productID);
         boolean flagCheckbox = false;
+        boolean flagPrice = false;
         boolean flagDone = false;
 
         String unitName = null;
         int unitPrice = 0;
+        int percent = 0;
+        int count = 0;
+        int price = 0;
 
         for (int i = 0; i < checkboxContainer.getChildCount(); i++) {
             View view = checkboxContainer.getChildAt(i);
@@ -419,28 +430,40 @@ public class EditProductActivity extends AppCompatActivity {
                 CheckBox checkBox = (CheckBox) view;
                 if (checkBox.isChecked()) {
                     flagCheckbox = true;
+                    flagPrice = false;
                     flagDone = false;
                     unitName = checkBox.getText().toString();
                 }
             }
             if (view instanceof EditText) {
                 EditText editText = (EditText) view;
+                String editTextPriceText = editText.getText().toString().trim();
+
                 if (flagCheckbox) {
                     flagCheckbox = false;
-                    flagDone = true;
-                    String editTextPriceText = editText.getText().toString().trim();
+                    flagPrice = true;
                     unitPrice = editTextPriceText.isEmpty() ? 0 : Integer.parseInt(editTextPriceText);
-                } else {
+                }
+                else if(flagPrice){
+                    flagPrice = false;
+                    flagDone = true;
+                    percent =  editTextPriceText.isEmpty() ? 0 : Integer.parseInt(editTextPriceText);
+                }
+                else {
                     flagDone = false;
                 }
             }
 
             if (flagDone) {
-                Log.d("aaaacccccc", unitName + String.valueOf(unitPrice));
+                if(count==0){
+                    price = unitPrice + unitPrice*percent/100;
+                }
+                count++;
+                Log.d("aaaacccccc", unitName + String.valueOf(unitPrice) + String.valueOf(percent));
 
                 Map<String, Object> unitData = new HashMap<>();
                 unitData.put("price", unitPrice);
-                unitData.put("quantity", 0);
+                unitData.put("percent", percent);
 
                 arr.put(unitName, unitData);
             }
@@ -474,6 +497,7 @@ public class EditProductActivity extends AppCompatActivity {
         });
         productRef.child("img").setValue(img);
         productRef.child("name").setValue(name);
+        productRef.child("price").setValue(price);
         productRef.child("ingredient").setValue(ingredient);
         productRef.child("uses").setValue(uses);
         productRef.child("flag_valid").setValue(flagValid);
@@ -527,6 +551,10 @@ public class EditProductActivity extends AppCompatActivity {
                     CheckBox checkBox = new CheckBox(getApplicationContext());
                     checkBox.setText(unitName);
 
+                    EditText editTextPercent = new EditText(getApplicationContext());
+                    editTextPercent.setText(String.valueOf(0));
+                    editTextPercent.setVisibility(View.GONE);
+
                     EditText editTextPrice = new EditText(getApplicationContext());
                     editTextPrice.setText(String.valueOf(0));
                     editTextPrice.setVisibility(View.GONE);
@@ -536,7 +564,7 @@ public class EditProductActivity extends AppCompatActivity {
                     editTextSellPrice.setVisibility(View.GONE);
                     editTextSellPrice.setEnabled(false);
 
-                    CheckboxData cbdata = new CheckboxData(checkBox, editTextPrice, editTextSellPrice);
+                    CheckboxData cbdata = new CheckboxData(checkBox,editTextPrice,editTextPercent, editTextSellPrice);
                     checkboxData.add(cbdata);
 
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -544,12 +572,12 @@ public class EditProductActivity extends AppCompatActivity {
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                             if (isChecked) {
                                 editTextPrice.setVisibility(View.VISIBLE);
+                                editTextPercent.setVisibility(View.VISIBLE);
                                 editTextSellPrice.setVisibility(View.VISIBLE);
-                                Toast.makeText(EditProductActivity.this, checkBox.getText().toString() + " checked", Toast.LENGTH_SHORT).show();
                             } else {
                                 editTextPrice.setVisibility(View.GONE);
+                                editTextPercent.setVisibility(View.GONE);
                                 editTextSellPrice.setVisibility(View.GONE);
-                                Toast.makeText(EditProductActivity.this, checkBox.getText().toString() + " unchecked", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -566,22 +594,44 @@ public class EditProductActivity extends AppCompatActivity {
                         @Override
                         public void afterTextChanged(Editable s) {
                             try {
-                                database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.exists()) {
-                                            Integer percent_profit = dataSnapshot.child("percent_profit").getValue(Integer.class);
+//                                database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                        if (dataSnapshot.exists()) {
+//                                            Integer percent_profit = dataSnapshot.child("percent_profit").getValue(Integer.class);
 
                                             int price = Integer.parseInt(s.toString());
+                                            int percent_profit = Integer.parseInt(editTextPercent.getText().toString());
                                             int pricePercent = (int) (price + price * percent_profit / 100);
                                             editTextSellPrice.setText(String.valueOf(pricePercent));
-                                        }
-                                    }
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                        // Xử lý khi có lỗi
-                                    }
-                                });
+//                                        }
+//                                    }
+//                                    @Override
+//                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                        // Xử lý khi có lỗi
+//                                    }
+//                                });
+                            } catch (NumberFormatException e) {
+                                editTextSellPrice.setText("");
+                            }
+                        }
+                    });
+                    editTextPercent.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            try {
+                                int percent_profit = Integer.parseInt(s.toString());
+                                int price = Integer.parseInt(editTextPrice.getText().toString());
+                                int pricePercent = (int) (price + price * percent_profit / 100);
+                                editTextSellPrice.setText(String.valueOf(pricePercent));
                             } catch (NumberFormatException e) {
                                 editTextSellPrice.setText("");
                             }
@@ -591,11 +641,6 @@ public class EditProductActivity extends AppCompatActivity {
                 Log.d("aaaaa", "unit" + String.valueOf(checkboxData.size()));
                 loadProductFromFirebase();
 
-//                for(CheckboxData item : checkboxData){
-//                    checkboxContainer.addView(item.getCheckBox());
-//                    checkboxContainer.addView(item.getEditTextPrice());
-//                    checkboxContainer.addView(item.getEditTextSellPrice());
-//                }
             }
 
             @Override

@@ -151,12 +151,15 @@ public class AddProductStockOutActivity extends AppCompatActivity {
                         lotNumList = new ArrayList<>();
                         for (DataSnapshot lotnumberSnapshot : dataSnapshot.getChildren()) {
                             String key = lotnumberSnapshot.getKey();
+                            Integer lotQuantity = lotnumberSnapshot.child("stock_quantity").getValue(Integer.class);
                             if(key.equals("inventory_quantity")){
                                 inventoryQuantity = lotnumberSnapshot.getValue(Integer.class);
                                 inventory_quantity.setText(String.valueOf(inventoryQuantity));
                             }
-                            else{
-                                lotNumList.add(key);
+                            else {
+                                if (lotQuantity != 0) {
+                                    lotNumList.add(key);
+                                }
                             }
                         }
                         // Cập nhật danh sách lotnumber vào Spinner Lotnumber
@@ -236,7 +239,7 @@ public class AddProductStockOutActivity extends AppCompatActivity {
                         Toast.makeText(AddProductStockOutActivity.this, "Số lượng vượt quá tồn kho", Toast.LENGTH_LONG).show();
                         Log.d("thongbaone", "Số lượng vượt quá tồn kho");
                     }
-                    else if((stockQuantity - outQuantity) < inventoryQuantity){
+                    else if((inventoryQuantity - outQuantity) < minInventory){
                         Toast.makeText(AddProductStockOutActivity.this, "Phải đảm bảo tồn kho tối thiểu là: "+ minInventory, Toast.LENGTH_LONG).show();
                         Log.d("thongbaone", "Phải đảm bảo tồn kho tối thiểu là: "+ minInventory);
                     }
