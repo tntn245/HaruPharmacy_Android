@@ -18,10 +18,12 @@
         android:weightSum="7">
 
         <ImageView
+            android:id="@+id/back"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:src="@drawable/ic_back"
             android:contentDescription="icon_back"
             tools:ignore="HardcodedText"
             app:tint="@color/white" />

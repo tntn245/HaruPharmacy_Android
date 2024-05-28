@@ -41,7 +41,15 @@ public class ProductManagementActivity extends AppCompatActivity implements OnPr
             public void onClick(View v) {
                 Intent intent = new Intent(ProductManagementActivity.this, AddNewProductActivity.class);
                 startActivity(intent);
-//                finish();
+            }
+        });
+        ImageView btn_back = findViewById(R.id.back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductManagementActivity.this, AdminHomepageActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
