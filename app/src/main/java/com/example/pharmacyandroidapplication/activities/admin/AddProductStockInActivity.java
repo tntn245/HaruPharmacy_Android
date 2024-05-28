@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -49,6 +50,7 @@ public class AddProductStockInActivity extends AppCompatActivity {
     String selectedUnitName;
     String lotNum;
     String inQuantity;
+    Integer minStockIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +76,26 @@ public class AddProductStockInActivity extends AppCompatActivity {
         lot_number.setText(lotNum);
         loadProductFromFirebase();
 
+        database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    minStockIn = dataSnapshot.child("min_stock_in").getValue(Integer.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý khi có lỗi
+            }
+        });
+
         spinnerProductName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Product selectedProduct = productList.get(position);
                 selectedProductID = selectedProduct.getId();
-                Toast.makeText(AddProductStockInActivity.this,selectedProductID , Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddProductStockInActivity.this, selectedProductID, Toast.LENGTH_SHORT).show();
 
                 loadUnits(selectedProductID);
             }
@@ -119,13 +135,16 @@ public class AddProductStockInActivity extends AppCompatActivity {
         btn_add_product_stockin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(in_quantity.getText().toString().isEmpty() ||
-                        production_date.getText().toString().isEmpty()||
-                        expiration_date.getText().toString().isEmpty()||
-                        unit_price.getText().toString().isEmpty()){
+                if (in_quantity.getText().toString().isEmpty() ||
+                        production_date.getText().toString().isEmpty() ||
+                        expiration_date.getText().toString().isEmpty() ||
+                        unit_price.getText().toString().isEmpty()) {
                     Toast.makeText(AddProductStockInActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_LONG).show();
-                }
-                else {
+                    Log.d("thongbaone", "Vui lòng điền đầy đủ thông tin");
+                } else if (Integer.parseInt(in_quantity.getText().toString()) < minStockIn) {
+                    Toast.makeText(AddProductStockInActivity.this, "Số lượng nhập kho tối thiểu là: " + minStockIn, Toast.LENGTH_LONG).show();
+                    Log.d("thongbaone", "Số lượng nhập kho tối thiểu là: " + minStockIn);
+                } else {
                     Intent intent = new Intent(AddProductStockInActivity.this, AddStockInActivity.class);
                     intent.putExtra("productID", selectedProductID);
                     intent.putExtra("productName", spinnerProductName.getSelectedItem().toString());
@@ -144,10 +163,13 @@ public class AddProductStockInActivity extends AppCompatActivity {
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                setResult(RESULT_CANCELED, intent);
                 finish();
             }
         });
     }
+
     private void loadUnits(String productID) {
         DatabaseReference unitsRef = FirebaseDatabase.getInstance().getReference().child("product").child(productID).child("unitarrr");
         unitsRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -178,12 +200,26 @@ public class AddProductStockInActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Lấy thông tin về quantity, price, và sell_price của đơn vị
-                    int quantity = dataSnapshot.child("quantity").getValue(Integer.class);
+//                    int quantity = dataSnapshot.child("quantity").getValue(Integer.class);
                     int price = dataSnapshot.child("price").getValue(Integer.class);
 //                    int sellPrice = dataSnapshot.child("sell_price").getValue(Integer.class);
-                    quantity_in_stock.setText(String.valueOf(quantity));
                     unit_price.setText(String.valueOf(price));
+
+                    FirebaseDatabase.getInstance().getReference().child("inventory").child(productID).child(unitName)
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        int inventory_quantity = dataSnapshot.child("inventory_quantity").getValue(Integer.class);
+                                        quantity_in_stock.setText(String.valueOf(inventory_quantity));
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    // Xử lý khi có lỗi xảy ra trong quá trình truy vấn Firebase
+                                }
+                            });
                 }
             }
 
@@ -248,6 +284,7 @@ public class AddProductStockInActivity extends AppCompatActivity {
             }
         });
     }
+
     public void showDatePickerDialog(View v, EditText txt_date) {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);

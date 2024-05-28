@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Chỉnh sửa đơn hàng"
+            android:textAllCaps="true"
             android:gravity="center"
             android:textColor="@color/text_theme"
             android:textSize="@dimen/text_size_large"

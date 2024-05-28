@@ -1,6 +1,7 @@
 package com.example.pharmacyandroidapplication.activities.admin;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -62,7 +63,7 @@ public class AddStockInActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ProductStockInDetails selectedProduct = productStockInDetails.get(position);
                 String productId = selectedProduct.getProduct_id();
-                Toast.makeText(AddStockInActivity.this, "Selected product ID: " + productId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddStockInActivity.this, "Mã phiếu: " + productId, Toast.LENGTH_SHORT).show();
                 // Perform actions based on the selected product ID
             }
         });
@@ -93,10 +94,15 @@ public class AddStockInActivity extends AppCompatActivity {
         btn_add_stockin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFirebase();
-                Intent intent = new Intent(AddStockInActivity.this, WarehouseStockInActivity.class);
-                startActivity(intent);
-                finish();
+                if(productStockInDetails.size()==0){
+                    Toast.makeText(AddStockInActivity.this, "Không thể thêm phiếu khi chưa chọn sản phẩm", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    addFirebase();
+                    Intent intent = new Intent(AddStockInActivity.this, WarehouseStockInActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
@@ -122,15 +128,27 @@ public class AddStockInActivity extends AppCompatActivity {
             inQuantity = data.getIntExtra("inQuantity", 0);
             unitPrice = data.getIntExtra("unitPrice", 0);
             Toast.makeText(this, "Đã chọn " + productName, Toast.LENGTH_LONG).show();
+
+            total_stockin_price = total_stockin_price + inQuantity * unitPrice;
+            txt_total_stockin_price.setText(String.valueOf(total_stockin_price));
+
+            productStockInDetails.add(new ProductStockInDetails(productID, productName, lotNumber, productionDate, expirationDate, inQuantity, inQuantity, unitPrice, unitName, ""));
+            adapter.notifyDataSetChanged();
         }
-
-        total_stockin_price = total_stockin_price + inQuantity * unitPrice;
-        txt_total_stockin_price.setText(String.valueOf(total_stockin_price));
-
-        productStockInDetails.add(new ProductStockInDetails(productID, productName, lotNumber, productionDate, expirationDate, inQuantity, inQuantity, unitPrice, unitName, ""));
-        adapter.notifyDataSetChanged();
     }
-
+    private void showConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Xác nhận thêm phiếu nhập kho")
+                .setMessage("Sau khi thêm, phiếu sẽ không được chỉnh sửa hay xóa. Bạn có muốn thêm phiếu này không?")
+                .setPositiveButton("Xác nhận", (dialog, which) -> {
+                    Toast.makeText(AddStockInActivity.this, "Xác nhận thêm phiếu", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Hủy", (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .create()
+                .show();
+    }
     private void addFirebase() {
         DatabaseReference stockInRef = database.child("stockIn").push();
         stockInRef.child("productStockInInf").setValue(productStockInDetails);
@@ -172,7 +190,7 @@ public class AddStockInActivity extends AppCompatActivity {
                 }
                 int newInventoryQuantity = currentInventoryQuantity + inQuantity;
                 inventoryQuantityRef.setValue(newInventoryQuantity).addOnSuccessListener(aVoid -> {
-                    Toast.makeText(AddStockInActivity.this, "Inventory quantity updated successfully.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddStockInActivity.this, "Cập nhật tổng tồn kho thành công", Toast.LENGTH_SHORT).show();
                 }).addOnFailureListener(e -> {
                     Toast.makeText(AddStockInActivity.this, "Failed to update inventory quantity: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });

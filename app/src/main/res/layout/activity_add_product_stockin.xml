@@ -13,11 +13,13 @@
         android:background="@color/app_theme"
         android:gravity="center"
         android:padding="@dimen/_20sdp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nhập sản phẩm"
             android:gravity="center"
+            android:text="Nhập sản phẩm"
+            android:textAllCaps="true"
             android:textColor="@color/text_theme"
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold" />

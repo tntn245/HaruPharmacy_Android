@@ -65,6 +65,16 @@ public class WarehouseStockInActivity extends AppCompatActivity {
             }
         });
 
+        ImageView btn_back = findViewById(R.id.back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WarehouseStockInActivity.this, WarehouseHomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     private void loadStockInFromFirebase() {

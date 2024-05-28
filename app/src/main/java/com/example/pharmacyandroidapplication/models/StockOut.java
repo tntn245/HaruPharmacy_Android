@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class StockOut {
     private String id;
-    private Date date;
+    private String date;
     private String noted;
 
-    public StockOut(String id, Date date, String noted) {
+    public StockOut(String id, String date, String noted) {
         this.id = id;
         this.date = date;
         this.noted = noted;
@@ -21,11 +21,11 @@ public class StockOut {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

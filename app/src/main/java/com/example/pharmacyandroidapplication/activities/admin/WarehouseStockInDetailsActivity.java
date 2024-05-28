@@ -29,6 +29,7 @@ public class WarehouseStockInDetailsActivity extends AppCompatActivity {
     String selectedStockInID;
     ArrayList<ProductStockInDetails> productStockInDetails;
     GridView StockInDetails;
+    TextView total_price_stock_in_details, date_stock_in;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,9 @@ public class WarehouseStockInDetailsActivity extends AppCompatActivity {
         loadProductStockInDetails();
 
         // Hiển thị giá trị của item trong layout
+        total_price_stock_in_details= findViewById(R.id.total_price_stock_in_details);
+        date_stock_in = findViewById(R.id.date_stock_in);
+
         TextView StockInID = findViewById(R.id.id_stock_in);
         StockInID.setText(selectedStockInID);
 
@@ -63,6 +67,11 @@ public class WarehouseStockInDetailsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    Integer total_price = dataSnapshot.child("totalPrice").getValue(Integer.class);
+                    String date_stockin = dataSnapshot.child("stockInDate").getValue(String.class);
+                    total_price_stock_in_details.setText(String.valueOf(total_price));
+                    date_stock_in.setText(date_stockin);
+
                     DataSnapshot productStockInInfSnapshot = dataSnapshot.child("productStockInInf");
                     for (DataSnapshot productSnapshot : productStockInInfSnapshot.getChildren()) {
                         Log.d("selectedStockInID", selectedStockInID);

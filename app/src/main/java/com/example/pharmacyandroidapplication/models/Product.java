@@ -17,6 +17,10 @@ public class Product {
     private boolean flag_valid;
     private boolean prescription;
     private Map<String, Object> unitarrr;
+
+    public Product() {
+    }
+
     public Product(String id) {
         this.id = id;
     }

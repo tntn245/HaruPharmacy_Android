@@ -19,13 +19,14 @@
         app:layout_constraintHeight_percent="0.1">
 
         <ImageView
+            android:id="@+id/back"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/ic_back"
             tools:ignore="HardcodedText"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:src="@drawable/ic_back"/>
 
         <LinearLayout
             android:layout_width="0dp"

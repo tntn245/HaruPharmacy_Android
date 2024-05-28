@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Thêm loại sản phẩm"
+            android:textAllCaps="true"
             android:textColor="@color/text_theme"
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold" />
