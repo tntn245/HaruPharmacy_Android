@@ -17,6 +17,9 @@ public class Product {
     private boolean flag_valid;
     private boolean prescription;
     private Map<String, Object> unitarrr;
+    // No-argument constructor required for Firebase
+    public Product() {
+    }
     public Product(String id) {
         this.id = id;
     }
