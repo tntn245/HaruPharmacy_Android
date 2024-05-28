@@ -162,10 +162,9 @@ public class AddNewProductActivity extends AppCompatActivity {
     }
 
     public void saveNewProduct() {
-        if(image==null){
+        if (image == null) {
             Toast.makeText(AddNewProductActivity.this, "Vui lòng chọn hình ảnh sản phẩm", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             String cate_name = add_spn_product_type.getSelectedItem().toString();
             String cate_id = getCategoryID(cate_name);
             String name = add_txt_product_name.getText().toString();
@@ -352,9 +351,26 @@ public class AddNewProductActivity extends AppCompatActivity {
                             ViewGroup.LayoutParams.WRAP_CONTENT
                     ));
 
+//                    TextView textViewPercent = new TextView(AddNewProductActivity.this);
+//                    textViewPercent.setText("Phần trăm lợi nhuận");
+//                    textViewPercent.setVisibility(EditText.GONE);
+
                     // Tạo một EditText mới để nhập % và thiết lập ẩn ban đầu
                     EditText editTextPercent = new EditText(AddNewProductActivity.this);
-                    editTextPercent.setHint("Nhập phần trăm lợi nhuận");
+                    database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                Integer percent_profit = dataSnapshot.child("percent_profit").getValue(Integer.class);
+                                editTextPercent.setText(String.valueOf(percent_profit));
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Xử lý khi có lỗi
+                        }
+                    });
                     editTextPercent.setInputType(InputType.TYPE_CLASS_NUMBER);
                     editTextPercent.setVisibility(EditText.GONE);
                     editTextPercent.setLayoutParams(new ViewGroup.LayoutParams(

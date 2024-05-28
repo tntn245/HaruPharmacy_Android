@@ -23,10 +23,12 @@ import java.util.ArrayList;
 public class ProductStockInDetailsAdapter extends ArrayAdapter<ProductStockInDetails> {
     private Context context;
     private boolean flagAddProductArr;
+    ArrayList<ProductStockInDetails> productStockInDetailsArrayList;
     public ProductStockInDetailsAdapter(@NonNull Context context, ArrayList<ProductStockInDetails> productStockInDetailsArrayList, boolean flagAddProductArr) {
         super(context, 0, productStockInDetailsArrayList);
         this.context = context;
         this.flagAddProductArr = flagAddProductArr;
+        this.productStockInDetailsArrayList =productStockInDetailsArrayList;
     }
 
     @NonNull
@@ -46,9 +48,9 @@ public class ProductStockInDetailsAdapter extends ArrayAdapter<ProductStockInDet
             }
         }
 
-        ImageButton deleteButton = listitemView.findViewById(R.id.btn_del_arr); // Nút xóa
+        ImageButton deleteButton = listitemView.findViewById(R.id.btn_del_arr);
         deleteButton.setOnClickListener(v -> {
-            remove(productStockInDetails);
+            productStockInDetailsArrayList.remove(productStockInDetails);
             notifyDataSetChanged();
         });
         TextView lot_number = listitemView.findViewById(R.id.lot_number);
