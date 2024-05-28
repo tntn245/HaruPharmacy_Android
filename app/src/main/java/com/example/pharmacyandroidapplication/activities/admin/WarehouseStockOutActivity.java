@@ -61,6 +61,16 @@ public class WarehouseStockOutActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        ImageView btn_back = findViewById(R.id.back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WarehouseStockOutActivity.this, WarehouseHomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void loadProductStockOut() {
