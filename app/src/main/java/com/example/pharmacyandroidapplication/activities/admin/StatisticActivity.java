@@ -1,10 +1,12 @@
 package com.example.pharmacyandroidapplication.activities.admin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,6 +77,16 @@ public class StatisticActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Không cần làm gì khi không chọn gì cả
+            }
+        });
+
+        ImageView btn_back = findViewById(R.id.back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StatisticActivity.this, AdminHomepageActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

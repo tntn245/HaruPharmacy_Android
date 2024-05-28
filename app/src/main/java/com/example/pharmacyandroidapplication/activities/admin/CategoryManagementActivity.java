@@ -83,6 +83,7 @@ public class CategoryManagementActivity extends AppCompatActivity {
                 intent.putExtra("selectedCategoryName", item.getName());
                 intent.putExtra("selectedCategoryStatus", item.isFlag_valid());
                 startActivity(intent);
+                finish();
             }
         });
         ImageView btn_add = findViewById(R.id.btn_add_category);
@@ -90,6 +91,16 @@ public class CategoryManagementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CategoryManagementActivity.this, AddCategoryActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        ImageView btn_back = findViewById(R.id.back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CategoryManagementActivity.this, WarehouseHomeActivity.class);
                 startActivity(intent);
                 finish();
             }

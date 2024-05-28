@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.adapters.StockInAdapter;
@@ -42,6 +43,17 @@ public class WarehouseHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(WarehouseHomeActivity.this, WarehouseStockOutActivity.class); // Thay OtherActivity bằng tên Activity hoặc Fragment bạn muốn chuyển đến
                 startActivity(intent);
+            }
+        });
+
+
+        ImageView btn_back = findViewById(R.id.back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WarehouseHomeActivity.this, AdminHomepageActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

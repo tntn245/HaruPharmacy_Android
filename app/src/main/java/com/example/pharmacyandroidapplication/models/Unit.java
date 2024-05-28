@@ -6,10 +6,9 @@ public class Unit {
     private  int quantity;
     public Unit() {
     }
-    public Unit(String name, int price, int quantity) {
+    public Unit(String name, int price) {
         this.name = name;
         this.price = price;
-        this.quantity = quantity;
     }
 
     public String getName() {

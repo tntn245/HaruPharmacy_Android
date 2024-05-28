@@ -134,7 +134,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                             int price = unitSnapshot.child("price").getValue(Integer.class);
                             int percent = unitSnapshot.child("percent").getValue(Integer.class);
                             int price_sell = price*((100+percent)/100);
-                            Unit unittt = new Unit(name, price_sell, 0);
+                            Unit unittt = new Unit(name, price_sell);
                             // Thêm đối tượng Unit vào ArrayList
                             // Thực hiện các hành động với dữ liệu đã lấy được, ví dụ: hiển thị dữ liệu lên giao diện người dùng
                             Log.i("Unit ADD", "Name: " + unittt.getName() + ", Price: " + unittt.getPrice());

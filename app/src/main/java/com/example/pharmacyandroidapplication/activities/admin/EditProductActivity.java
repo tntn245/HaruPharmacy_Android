@@ -508,15 +508,6 @@ public class EditProductActivity extends AppCompatActivity {
         finish();
     }
 
-    private void saveUnitToDatabase(String unitName, int unitPrice) {
-        // Tạo một đối tượng Unit để lưu vào cơ sở dữ liệu Firebase
-        Unit unit = new Unit(unitName, unitPrice, 0);
-
-        // Thực hiện cập nhật thông tin đơn vị vào cơ sở dữ liệu Firebase
-        DatabaseReference unitRef = database.getReference("product").child(productID).child("unitarrr");
-        unitRef.child(unitName).setValue(unit);
-    }
-
     public void retrieveCategoryData(String attr) {
         DatabaseReference categoryRef = database.getReference("category");
         categoryRef.addValueEventListener(new ValueEventListener() {
