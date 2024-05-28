@@ -41,8 +41,7 @@ public class StockOutAdapter extends ArrayAdapter<StockOut> {
 
         assert stockOut != null;
         id_stock_out.setText(stockOut.getId());
-        DateFormat dateFormat = new DateFormat(stockOut.getDate());
-        date_stock_out.setText(dateFormat.formatDateToString());
+        date_stock_out.setText(stockOut.getDate());
         noted_stock_out.setText(stockOut.getNoted());
         return listitemView;
     }

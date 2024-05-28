@@ -13,11 +13,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,6 +29,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.LoginActivity;
+import com.example.pharmacyandroidapplication.models.CheckboxData;
 import com.example.pharmacyandroidapplication.models.Product;
 import com.example.pharmacyandroidapplication.models.Unit;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,6 +48,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -64,17 +69,21 @@ public class EditProductActivity extends AppCompatActivity {
     Map<String, EditText> editTextPriceMap = new HashMap<>();
     Map<String, EditText> editTextSellPriceMap = new HashMap<>();
     Product product;
-//    Integer percentProfit;
+    Integer percentProfit;
     StorageReference storageReference;
     Uri image;
+    String imageStr;
     private ArrayList typeList;
     private ArrayAdapter<String> adapter;
+    ArrayList<CheckboxData> checkboxData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
+
         productID = getIntent().getExtras().getString("productID");
+        loadPercentProfit();
 
         storageReference = FirebaseStorage.getInstance().getReference();
         txt_product_name = findViewById(R.id.spinner_product_name);
@@ -84,7 +93,7 @@ public class EditProductActivity extends AppCompatActivity {
         spinner_status = findViewById(R.id.spinner_status);
         checkboxContainer = findViewById(R.id.checkboxContainer);
         add_img_product_img = findViewById(R.id.add_img_product_img);
-        img_product=findViewById(R.id.img);
+        img_product = findViewById(R.id.img);
 
         typeList = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeList);
@@ -102,7 +111,6 @@ public class EditProductActivity extends AppCompatActivity {
         spinner_status.setAdapter(statusAdapter);
 
         productList = new ArrayList<>();
-        loadProductFromFirebase();
         Button btn_save_add_product = findViewById(R.id.btn_save_add_product);
         btn_save_add_product.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,11 +163,28 @@ public class EditProductActivity extends AppCompatActivity {
                     public void onSuccess(Uri downloadUri) {
                         // Đường dẫn của ảnh
                         image = downloadUri;
+                        imageStr = image.toString();
                         Toast.makeText(EditProductActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
+    }
+
+    private void loadPercentProfit() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        ref.child("attribute").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                percentProfit = dataSnapshot.child("percent_profit").getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Xử lý khi có lỗi xảy ra trong quá trình đọc dữ liệu
+            }
+        });
+
     }
 
     private String getCategoryID(String cateName) {
@@ -195,16 +220,13 @@ public class EditProductActivity extends AppCompatActivity {
         return categoryID;
     }
 
-    private String getCategoryName(String cateID) {
-        // Tạo một DatabaseReference để tham chiếu đến node chứa dữ liệu sản phẩm trong Firebase
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private void getCategoryName(String cateID) {
         DatabaseReference categoryRef = database.getReference("category");        // Thêm một ChildEventListener để lắng nghe sự thay đổi dữ liệu
         categoryRef.child(cateID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     categoryName = dataSnapshot.child("name").getValue(String.class);
-                } else {
                 }
             }
 
@@ -213,10 +235,8 @@ public class EditProductActivity extends AppCompatActivity {
                 // Xử lý sự kiện onCancelled
             }
         });
-        return categoryName;
     }
 
-    // Phương thức để đặt lại trạng thái của tất cả CheckBox và EditText
     private void resetCheckBoxStates() {
         int childCount = checkboxContainer.getChildCount();
 
@@ -248,46 +268,6 @@ public class EditProductActivity extends AppCompatActivity {
         }
     }
 
-    private void checkCheckBoxStates(String unitNameToCheck, int unitPrice, int sellPrice) {
-        int childCount = checkboxContainer.getChildCount();
-
-        for (int i = 0; i < childCount; i++) {
-            View view = checkboxContainer.getChildAt(i);
-
-            // Kiểm tra nếu view là LinearLayout chứa CheckBox và EditText
-            if (view instanceof LinearLayout) {
-                LinearLayout unitLayout = (LinearLayout) view;
-                int layoutChildCount = unitLayout.getChildCount();
-
-                for (int j = 0; j < layoutChildCount; j++) {
-                    View childView = unitLayout.getChildAt(j);
-
-                    // Đặt lại trạng thái của CheckBox
-                    if (childView instanceof CheckBox) {
-                        CheckBox checkBox = (CheckBox) childView;
-                        String unitName = checkBox.getText().toString();
-
-                        if (unitName.equals(unitNameToCheck)) {
-                            checkBox.setChecked(true);
-                            checkBox.setEnabled(false);
-                        }
-                    }
-                    // Kiểm tra và lấy giá trị của EditText giá
-                    if (childView instanceof EditText && j == 1) {
-                        EditText editTextPrice = (EditText) childView;
-                        editTextPrice.setText(String.valueOf(unitPrice));
-                    }
-
-                    // Kiểm tra và lấy giá trị của EditText giá bán
-                    if (childView instanceof EditText && j == 2) {
-                        EditText editTextSellPrice = (EditText) childView;
-                        editTextSellPrice.setText(String.valueOf(sellPrice));
-                    }
-                }
-            }
-        }
-    }
-
     private void loadProductFromFirebase() {
         DatabaseReference productsRef = database.getReference("product");
         productsRef.addValueEventListener(new ValueEventListener() {
@@ -299,7 +279,7 @@ public class EditProductActivity extends AppCompatActivity {
                     if (product_id.equals(productID)) {
                         String productName = snapshot.child("name").getValue(String.class);
                         int productPrice = snapshot.child("price").getValue(Integer.class);
-                        String productImg = snapshot.child("img").getValue(String.class);
+                        imageStr = snapshot.child("img").getValue(String.class);
                         categoryID = snapshot.child("id_category").getValue(String.class);
                         String unit = snapshot.child("unit").getValue(String.class);
                         int inventory_quantity = snapshot.child("inventory_quantity").getValue(Integer.class);
@@ -314,52 +294,109 @@ public class EditProductActivity extends AppCompatActivity {
                             String unitName = unitSnapshot.getKey();
                             Integer price = (unitSnapshot.child("price").getValue(Integer.class) != null)
                                     ? unitSnapshot.child("price").getValue(Integer.class) : 0;
-                            Integer sell_price = (unitSnapshot.child("sell_price").getValue(Integer.class) != null)
-                                    ? unitSnapshot.child("sell_price").getValue(Integer.class) : 0;
-                            Integer quantity = (unitSnapshot.child("quantity").getValue(Integer.class) != null)
-                                    ? unitSnapshot.child("quantity").getValue(Integer.class) : 0;
+                            Integer percent = (unitSnapshot.child("percent").getValue(Integer.class) != null)
+                                    ? unitSnapshot.child("percent").getValue(Integer.class) : 0;
 
                             // Tạo một map để chứa giá và số lượng của đơn vị
                             Map<String, Object> unitData = new HashMap<>();
                             unitData.put("price", price);
-                            unitData.put("sell_price", sell_price);
-                            unitData.put("quantity", quantity);
+                            unitData.put("percent", percent);
 
                             // Thêm đơn vị vào unitArr
                             unitArr.put(unitName, unitData);
+
+                            for (CheckboxData item : checkboxData) {
+                                CheckBox checkbox = item.getCheckBox();
+                                EditText editTextPrice = item.getEditTextPrice();
+                                EditText editPercent = item.getPercent();
+                                EditText editTextSellPrice = item.getEditTextSellPrice();
+
+                                if (unitName.equals(item.getCheckBox().getText().toString())) {
+                                    checkbox.setChecked(true);
+                                    checkbox.setEnabled(false);
+
+                                    editTextPrice.setText(String.valueOf(price));
+                                    editPercent.setText(String.valueOf(percent));
+
+//                                    database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
+//                                        @Override
+//                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                            if (dataSnapshot.exists()) {
+//                                                Integer percent_profit = dataSnapshot.child("percent_profit").getValue(Integer.class);
+
+                                                int sellPrice = price + percent * price / 100;
+                                                editTextSellPrice.setText(String.valueOf(sellPrice));
+//                                            }
+//                                        }
+//                                        @Override
+//                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                            // Xử lý khi có lỗi
+//                                        }
+//                                    });
+
+                                }
+                                ViewGroup parent = (ViewGroup) item.getCheckBox().getParent();
+                                if (parent != null) {
+                                    parent.removeView(item.getCheckBox());
+                                }
+                                ViewGroup parentPrice = (ViewGroup) item.getEditTextPrice().getParent();
+                                if (parentPrice != null) {
+                                    parentPrice.removeView(item.getEditTextPrice());
+                                }
+                                ViewGroup parentPercent = (ViewGroup) item.getPercent().getParent();
+                                if (parentPercent != null) {
+                                    parentPercent.removeView(item.getPercent());
+                                }
+                                ViewGroup parentSellPrice = (ViewGroup) item.getEditTextSellPrice().getParent();
+                                if (parentSellPrice != null) {
+                                    parentSellPrice.removeView(item.getEditTextSellPrice());
+                                }
+                                checkboxContainer.addView(checkbox);
+                                checkboxContainer.addView(editTextPrice);
+                                checkboxContainer.addView(editPercent);
+                                checkboxContainer.addView(editTextSellPrice);
+                            }
                         }
 
-                        product = new Product(productID, categoryID, productImg, productName, productPrice,inventory_quantity, unit, uses, ingredient, flagValid, prescription, unitArr);
+                        product = new Product(productID, categoryID, imageStr, productName, productPrice, inventory_quantity, unit, uses, ingredient, flagValid, prescription, unitArr);
 
                         txt_product_name.setText(product.getName());
-                        categoryName = getCategoryName(categoryID);
-                        int position = typeList.indexOf(categoryName);
-                        if (position >= 0) {
-                            spinner_category_name.setSelection(position);
-                        }
+
+                        DatabaseReference categoryRef = database.getReference("category");
+                        categoryRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                                    String id = item.getKey();
+                                    String name = item.child("name").getValue(String.class);
+                                    if (id.equals(categoryID)) {
+                                        int position = typeList.indexOf(name);
+                                        if (position >= 0) {
+                                            spinner_category_name.setSelection(position);
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                throw databaseError.toException(); // don't ignore errors
+                            }
+                        });
+
+
                         txt_product_ingredient.setText(product.getIngredient());
                         txt_product_uses.setText(product.getUses());
                         boolean productStatus = product.isFlag_valid();
-                        if(productStatus){
+                        if (productStatus) {
                             spinner_status.setSelection(0);
-                        }
-                        else{
+                        } else {
                             spinner_status.setSelection(1);
                         }
-                        Glide.with(getApplicationContext()).load(productImg).into(img_product);
+                        Glide.with(getApplicationContext()).load(image).into(img_product);
 
                         resetCheckBoxStates();
-                        for (String unitName : unitArr.keySet()) {
-                            Map<String, Object> unitData = (Map<String, Object>) unitArr.get(unitName);
-
-                            int price = (int) unitData.get("price");
-                            int sellPrice = (int) (price + price*50/100) ;
-                            int quantity = (int) unitData.get("quantity");
-
-                            // Checked checkbox
-                            checkCheckBoxStates(unitName, price, sellPrice);
-                        }
-
                         break;
                     }
                 }
@@ -372,75 +409,103 @@ public class EditProductActivity extends AppCompatActivity {
         });
     }
 
-    public void saveProduct(){
-        int childCount = checkboxContainer.getChildCount();
+    public void saveProduct() {
+        Map<String, Object> arr = new HashMap<>();
+        DatabaseReference productRef = database.getReference("product").child(productID);
+        boolean flagCheckbox = false;
+        boolean flagPrice = false;
+        boolean flagDone = false;
 
-        for (int i = 0; i < childCount; i++) {
+        String unitName = null;
+        int unitPrice = 0;
+        int percent = 0;
+        int count = 0;
+        int price = 0;
+
+        for (int i = 0; i < checkboxContainer.getChildCount(); i++) {
             View view = checkboxContainer.getChildAt(i);
+            Log.d("aaaabbb", String.valueOf(i));
 
-            // Kiểm tra nếu view là LinearLayout chứa CheckBox và EditText
-            if (view instanceof LinearLayout) {
-                LinearLayout unitLayout = (LinearLayout) view;
-                int layoutChildCount = unitLayout.getChildCount();
-
-                String unitName = null;
-                int unitPrice = 0;
-                int sellPrice = 0;
-
-                for (int j = 0; j < layoutChildCount; j++) {
-                    View childView = unitLayout.getChildAt(j);
-
-                    // Lấy tên đơn vị từ CheckBox được chọn
-                    if (childView instanceof CheckBox) {
-                        CheckBox checkBox = (CheckBox) childView;
-                        if (checkBox.isChecked()) {
-                            unitName = checkBox.getText().toString();
-                        }
-                    }
-
-                    // Kiểm tra và lấy giá trị của EditText giá
-                    if (childView instanceof EditText && j == 1) {
-                        EditText editTextPrice = (EditText) childView;
-                        String priceText = (editTextPrice.getText().toString() == "") ? "0" :editTextPrice.getText().toString();
-                        unitPrice = Integer.parseInt(priceText);
-                    }
-
-                    // Kiểm tra và lấy giá trị của EditText giá bán
-                    if (childView instanceof EditText && j == 2) {
-                        EditText editTextSellPrice = (EditText) childView;
-//                        String priceText = editTextSellPrice.getText().toString();
-//                        sellPrice = Integer.parseInt(priceText);
-                    }
-                }
-
-                if (unitName != null) {
-                    saveUnitToDatabase(unitName, unitPrice);
+            if (view instanceof CheckBox) {
+                CheckBox checkBox = (CheckBox) view;
+                if (checkBox.isChecked()) {
+                    flagCheckbox = true;
+                    flagPrice = false;
+                    flagDone = false;
+                    unitName = checkBox.getText().toString();
                 }
             }
+            if (view instanceof EditText) {
+                EditText editText = (EditText) view;
+                String editTextPriceText = editText.getText().toString().trim();
+
+                if (flagCheckbox) {
+                    flagCheckbox = false;
+                    flagPrice = true;
+                    unitPrice = editTextPriceText.isEmpty() ? 0 : Integer.parseInt(editTextPriceText);
+                }
+                else if(flagPrice){
+                    flagPrice = false;
+                    flagDone = true;
+                    percent =  editTextPriceText.isEmpty() ? 0 : Integer.parseInt(editTextPriceText);
+                }
+                else {
+                    flagDone = false;
+                }
+            }
+
+            if (flagDone) {
+                if(count==0){
+                    price = unitPrice + unitPrice*percent/100;
+                }
+                count++;
+                Log.d("aaaacccccc", unitName + String.valueOf(unitPrice) + String.valueOf(percent));
+
+                Map<String, Object> unitData = new HashMap<>();
+                unitData.put("price", unitPrice);
+                unitData.put("percent", percent);
+
+                arr.put(unitName, unitData);
+            }
         }
-        String img = image.toString();
+        String img = imageStr;
         String name = txt_product_name.getText().toString();
         String ingredient = txt_product_ingredient.getText().toString();
         String uses = txt_product_uses.getText().toString();
         boolean flagValid = (spinner_status.getSelectedItem().toString() == "Đang kinh doanh");
-        Map<String, Object> updateValues = new HashMap<>();
-        updateValues.put("img", img);
-        updateValues.put("name", name);
-        updateValues.put("ingredient", ingredient);
-        updateValues.put("uses", uses);
-//        updateValues.put("flagValid", flagValid);
+        String category_name = spinner_category_name.getSelectedItem().toString();
 
-        database.getReference("product").child(productID).
-                updateChildren(updateValues, new DatabaseReference.CompletionListener() {
+        // Thực hiện cập nhật thông tin đơn vị vào cơ sở dữ liệu Firebase
+        DatabaseReference categoryRef = database.getReference("category");
+        categoryRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError != null) {
-                    // Xử lý khi có lỗi xảy ra trong quá trình cập nhật
-                } else {
-                    // Xử lý khi cập nhật thành công
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    String id = item.getKey();
+                    String name = item.child("name").getValue(String.class);
+                    if (name.equals(category_name)) {
+                        productRef.child("id_category").setValue(id);
+                        break;
+                    }
                 }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                throw databaseError.toException(); // don't ignore errors
+            }
         });
+        productRef.child("img").setValue(img);
+        productRef.child("name").setValue(name);
+        productRef.child("price").setValue(price);
+        productRef.child("ingredient").setValue(ingredient);
+        productRef.child("uses").setValue(uses);
+        productRef.child("flag_valid").setValue(flagValid);
+        productRef.child("unitarrr").setValue(arr);
+
+        Intent intent = new Intent(EditProductActivity.this, ProductManagementActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void saveUnitToDatabase(String unitName, int unitPrice) {
@@ -450,9 +515,6 @@ public class EditProductActivity extends AppCompatActivity {
         // Thực hiện cập nhật thông tin đơn vị vào cơ sở dữ liệu Firebase
         DatabaseReference unitRef = database.getReference("product").child(productID).child("unitarrr");
         unitRef.child(unitName).setValue(unit);
-        Intent intent = new Intent(EditProductActivity.this, ProductManagementActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     public void retrieveCategoryData(String attr) {
@@ -486,65 +548,40 @@ public class EditProductActivity extends AppCompatActivity {
                     String unitID = item.getKey();
                     String unitName = item.child(attr).getValue(String.class);
 
-                    // Tạo một LinearLayout để chứa CheckBox và EditText
-                    LinearLayout unitLayout = new LinearLayout(EditProductActivity.this);
-                    unitLayout.setOrientation(LinearLayout.VERTICAL);
-
-                    // Tạo một CheckBox mới và thiết lập giá trị của nó
-                    CheckBox checkBox = new CheckBox(EditProductActivity.this);
+                    CheckBox checkBox = new CheckBox(getApplicationContext());
                     checkBox.setText(unitName);
-                    checkBox.setLayoutParams(new ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                    ));
-                    checkBox.setTag(unitID); // Lưu trữ unitId vào tag của CheckBox
 
-                    // Tạo một EditText mới để nhập giá và thiết lập ẩn ban đầu
-                    EditText editTextPrice = new EditText(EditProductActivity.this);
-                    editTextPrice.setHint("Enter price");
-                    editTextPrice.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    editTextPrice.setVisibility(EditText.GONE);
-                    editTextPrice.setLayoutParams(new ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                    ));
+                    EditText editTextPercent = new EditText(getApplicationContext());
+                    editTextPercent.setText(String.valueOf(0));
+                    editTextPercent.setVisibility(View.GONE);
 
-                    // Tạo một EditText mới để hiện giá bán = % giá nhập
-                    EditText editTextSellPrice = new EditText(EditProductActivity.this);
+                    EditText editTextPrice = new EditText(getApplicationContext());
+                    editTextPrice.setText(String.valueOf(0));
+                    editTextPrice.setVisibility(View.GONE);
+
+                    EditText editTextSellPrice = new EditText(getApplicationContext());
+                    editTextSellPrice.setText(String.valueOf(0));
+                    editTextSellPrice.setVisibility(View.GONE);
                     editTextSellPrice.setEnabled(false);
-                    editTextSellPrice.setVisibility(EditText.GONE);
-                    editTextSellPrice.setLayoutParams(new ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                    ));
 
-                    // Thêm CheckBox và EditText vào LinearLayout
-                    unitLayout.addView(checkBox);
-                    unitLayout.addView(editTextPrice);
-                    unitLayout.addView(editTextSellPrice);
+                    CheckboxData cbdata = new CheckboxData(checkBox,editTextPrice,editTextPercent, editTextSellPrice);
+                    checkboxData.add(cbdata);
 
-                    // Thêm LinearLayout vào checkboxContainer
-                    checkboxContainer.addView(unitLayout);
-
-                    // Lưu trữ CheckBox và EditText vào Map
-                    checkBoxMap.put(unitName, checkBox);
-                    editTextPriceMap.put(unitName, editTextPrice);
-                    editTextSellPriceMap.put(unitName, editTextSellPrice);
-
-                    // Thiết lập sự kiện kiểm tra trạng thái cho CheckBox
-                    checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                        if (isChecked) {
-                            editTextPrice.setVisibility(EditText.VISIBLE);
-                            editTextSellPrice.setVisibility(EditText.VISIBLE);
-                            Toast.makeText(EditProductActivity.this, unitName + " checked", Toast.LENGTH_SHORT).show();
-                        } else {
-                            editTextPrice.setVisibility(EditText.GONE);
-                            editTextSellPrice.setVisibility(EditText.GONE);
-                            Toast.makeText(EditProductActivity.this, unitName + " unchecked", Toast.LENGTH_SHORT).show();
+                    checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if (isChecked) {
+                                editTextPrice.setVisibility(View.VISIBLE);
+                                editTextPercent.setVisibility(View.VISIBLE);
+                                editTextSellPrice.setVisibility(View.VISIBLE);
+                            } else {
+                                editTextPrice.setVisibility(View.GONE);
+                                editTextPercent.setVisibility(View.GONE);
+                                editTextSellPrice.setVisibility(View.GONE);
+                            }
                         }
                     });
 
-                    // Lắng nghe thay đổi trong editTextPrice để cập nhật editText150Percent
                     editTextPrice.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -557,15 +594,53 @@ public class EditProductActivity extends AppCompatActivity {
                         @Override
                         public void afterTextChanged(Editable s) {
                             try {
-                                int price = Integer.parseInt(s.toString());
-                                int price150Percent = (int) (price + price*50/100);
-                                editTextSellPrice.setText(String.valueOf(price150Percent));
+//                                database.getReference().child("attribute").addListenerForSingleValueEvent(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                        if (dataSnapshot.exists()) {
+//                                            Integer percent_profit = dataSnapshot.child("percent_profit").getValue(Integer.class);
+
+                                            int price = Integer.parseInt(s.toString());
+                                            int percent_profit = Integer.parseInt(editTextPercent.getText().toString());
+                                            int pricePercent = (int) (price + price * percent_profit / 100);
+                                            editTextSellPrice.setText(String.valueOf(pricePercent));
+//                                        }
+//                                    }
+//                                    @Override
+//                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                        // Xử lý khi có lỗi
+//                                    }
+//                                });
+                            } catch (NumberFormatException e) {
+                                editTextSellPrice.setText("");
+                            }
+                        }
+                    });
+                    editTextPercent.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            try {
+                                int percent_profit = Integer.parseInt(s.toString());
+                                int price = Integer.parseInt(editTextPrice.getText().toString());
+                                int pricePercent = (int) (price + price * percent_profit / 100);
+                                editTextSellPrice.setText(String.valueOf(pricePercent));
                             } catch (NumberFormatException e) {
                                 editTextSellPrice.setText("");
                             }
                         }
                     });
                 }
+                Log.d("aaaaa", "unit" + String.valueOf(checkboxData.size()));
+                loadProductFromFirebase();
+
             }
 
             @Override

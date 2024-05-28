@@ -25,7 +25,6 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:contentDescription="icon_warehouse"
-            android:src="@drawable/ic_back"
             tools:ignore="HardcodedText"
             app:tint="@color/white" />
 
@@ -69,9 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/ic_edit"
-            tools:ignore="HardcodedText"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <LinearLayout
@@ -82,26 +80,26 @@
         android:orientation="vertical"
         android:weightSum="3">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp">
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="@dimen/_10sdp">-->
 
-            <CheckBox
-                android:id="@+id/checkbox_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chọn tất cả"
-                android:textSize="@dimen/text_size_medium" />
+<!--            <CheckBox-->
+<!--                android:id="@+id/checkbox_id"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Chọn tất cả"-->
+<!--                android:textSize="@dimen/text_size_medium" />-->
 
-            <ImageButton
-                android:id="@+id/image_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:layout_gravity="end|center_vertical"
-                android:src="@drawable/ic_delete" />
-        </FrameLayout>
+<!--            <ImageButton-->
+<!--                android:id="@+id/image_search"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@null"-->
+<!--                android:layout_gravity="end|center_vertical"-->
+<!--                android:src="@drawable/ic_delete" />-->
+<!--        </FrameLayout>-->
 
         <RelativeLayout
             android:layout_width="match_parent"
