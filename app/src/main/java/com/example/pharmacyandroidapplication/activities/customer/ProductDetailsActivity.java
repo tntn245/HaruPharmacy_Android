@@ -132,8 +132,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         for (DataSnapshot unitSnapshot : dataSnapshot.getChildren()) {
                             String name = unitSnapshot.getKey();
                             int price = unitSnapshot.child("price").getValue(Integer.class);
-                            int quantity = unitSnapshot.child("quantity").getValue(Integer.class);
-                              Unit unittt = new Unit(name, price, quantity);
+                            int percent = unitSnapshot.child("percent").getValue(Integer.class);
+                            int price_sell = price*((100+percent)/100);
+                            Unit unittt = new Unit(name, price_sell, 0);
                             // Thêm đối tượng Unit vào ArrayList
                             // Thực hiện các hành động với dữ liệu đã lấy được, ví dụ: hiển thị dữ liệu lên giao diện người dùng
                             Log.i("Unit ADD", "Name: " + unittt.getName() + ", Price: " + unittt.getPrice());
@@ -295,7 +296,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 int prd_quantity = Integer.parseInt(itemCartQuantity.getText().toString());
                 int price = Integer.parseInt(productPriceBuy.getText().toString());
                 int checkedRadioButtonId = radiogroup_unit.getCheckedRadioButtonId();
-
                 if (checkedRadioButtonId != -1) {
                     RadioButton checkedRadioButton = dialog.findViewById(checkedRadioButtonId);
                     // Bạn có thể thực hiện các thao tác khác với RadioButton đang được chọn ở đây
@@ -330,8 +330,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
                             // Lấy dữ liệu từ DataSnapshot và thực hiện các hành động cần thiết
                             if (dataSnapshot.exists()) {
                                 // Lấy dữ liệu từ dataSnapshot và thực hiện các thao tác cần thiết
-                                Unit un = dataSnapshot.getValue(Unit.class);
-                                dialogProductPrice.setText(String.valueOf(un.getPrice()));
+                                int price = dataSnapshot.child("price").getValue(Integer.class);
+                                int percent = dataSnapshot.child("percent").getValue(Integer.class);
+                                int price_sell = (int) (price * ((100 + percent) / 100.0));
+                                dialogProductPrice.setText(String.valueOf(price_sell));
+                                itemCartQuantity.setText(String.valueOf(quantity));
+                                int sumprice = price_sell * quantity;
+                                productPriceBuy.setText(String.valueOf(sumprice));
                             } else {
                                 Log.d("Product Info", "Product with key '2' does not exist.");
                             }
