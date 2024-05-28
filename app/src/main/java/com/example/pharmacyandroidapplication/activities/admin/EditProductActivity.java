@@ -1,17 +1,9 @@
 package com.example.pharmacyandroidapplication.activities.admin;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -27,12 +19,17 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.example.pharmacyandroidapplication.R;
-import com.example.pharmacyandroidapplication.activities.LoginActivity;
 import com.example.pharmacyandroidapplication.models.CheckboxData;
 import com.example.pharmacyandroidapplication.models.Product;
-import com.example.pharmacyandroidapplication.models.Unit;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -48,7 +45,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -112,13 +108,20 @@ public class EditProductActivity extends AppCompatActivity {
 
         productList = new ArrayList<>();
         Button btn_save_add_product = findViewById(R.id.btn_save_add_product);
+        Button btn_cancel_add_product = findViewById(R.id.btn_cancel_saved_add_product);
         btn_save_add_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveProduct();
             }
         });
-
+        btn_cancel_add_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditProductActivity.this, ProductManagementActivity.class);
+                startActivity(intent);
+            }
+        });
         add_img_product_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
