@@ -3118,12 +3118,17 @@ public class UserAddAddressesActivity extends AppCompatActivity {
                         if (commune.equals("Chọn phường xã"))
                             Toast.makeText(UserAddAddressesActivity.this, "Vui lòng chọn phường xã", Toast.LENGTH_SHORT).show();
                         else {
-                            if(name.equals("")||phone.equals("")||detail_address.equals(""))
+                            if (name.equals("") || phone.equals("") || detail_address.equals(""))
                                 Toast.makeText(UserAddAddressesActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                             else {
-                            savedAddress();
-                            Intent intent = new Intent(UserAddAddressesActivity.this, UserAddressesActivity.class);
-                            startActivity(intent);}
+                                if (!phone.startsWith("0") || phone.length() != 10)
+                                    Toast.makeText(UserAddAddressesActivity.this, "Vui lòng nhập số điện thoại đúng cú pháp", Toast.LENGTH_SHORT).show();
+                                else {
+                                    savedAddress();
+                                    Intent intent = new Intent(UserAddAddressesActivity.this, UserAddressesActivity.class);
+                                    startActivity(intent);
+                                }
+                            }
                         }
                     }
                 }
