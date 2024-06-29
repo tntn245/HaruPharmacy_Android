@@ -397,13 +397,12 @@ public class EditProductActivity extends AppCompatActivity {
                         } else {
                             spinner_status.setSelection(1);
                         }
-                        Glide.with(getApplicationContext()).load(image).into(img_product);
+                        Glide.with(getApplicationContext()).load(imageStr).into(img_product);
 
                         resetCheckBoxStates();
                         break;
                     }
                 }
-
             }
 
             @Override
