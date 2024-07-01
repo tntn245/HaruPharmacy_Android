@@ -1,10 +1,12 @@
 package com.example.pharmacyandroidapplication.activities.customer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -73,6 +75,17 @@ public class ShoppingPageActivity extends AppCompatActivity {
             }
         });
 
+        shoppingGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy giá trị của item được click
+                Product productDetails = ProductArrayList.get(position);
+                // Truyền giá trị của item qua layout tiếp theo để hiển thị
+                Intent intent = new Intent(ShoppingPageActivity.this, ProductDetailsActivity.class);
+                intent.putExtra("product_id", productDetails.getId());
+                startActivity(intent);
+            }
+        });
     }
     private void searchProducts(String searchQuery) {
         // Tạo một danh sách mới để chứa các sản phẩm thỏa điều kiện tìm kiếm

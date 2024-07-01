@@ -3,6 +3,7 @@ package com.example.pharmacyandroidapplication.activities.customer;
 import static com.example.pharmacyandroidapplication.utils.AndroidUtil.showToast;
 
 import android.animation.ValueAnimator;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +17,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
@@ -38,6 +41,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +59,8 @@ public class CustomerHomepageActivity extends AppCompatActivity {
     ArrayList<Product> ProductArrayList;
     String userID;
     String categoryID = "";
+    String productIdByBarcode = "";
+    String productNameByBarcode = "";
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -66,7 +73,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
         ScrollView scrollView = findViewById(R.id.scroll_view);
         CardView searchBar = findViewById(R.id.search_bar);
-        ImageView searchIcon = findViewById(R.id.ic_search);
+        ImageView searchQrIcon = findViewById(R.id.ic_qr_search);
         categoryGV = findViewById(R.id.rcv_category);
         productGV = findViewById(R.id.rcv_shopping);
         imageSearch = findViewById(R.id.image_search);
@@ -80,6 +87,13 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         editTextSearch = findViewById(R.id.edit_text_search);
         editTextSearch.setText("");
 
+        searchQrIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performSearchByBarcode();
+            }
+        });
+
         imageSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +106,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 if (scrollY > oldScrollY) {
 //                    searchBar.setVisibility(View.GONE);
-                    searchIcon.setVisibility(View.VISIBLE);
+                    searchQrIcon.setVisibility(View.VISIBLE);
 
                     // Lấy margin của thanh search
                     ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) searchBar.getLayoutParams();
@@ -127,7 +141,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 } else if (scrollY < oldScrollY) {
 //                    searchBar.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in));
 //                    searchBar.setVisibility(View.VISIBLE);
-//                    searchIcon.setVisibility(View.INVISIBLE);
+//                    searchQrIcon.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -177,6 +191,22 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
     }
 
+    private void performSearchByBarcode() {
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Volume up to flash on");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
+        barLauncher.launch(options);
+    }
+
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
+        if (result.getContents() != null) {
+            productIdByBarcode = result.getContents().toString();
+            loadProductFromFirebaseById(productIdByBarcode);
+        }
+    });
+
     private void performSearch() {
         String searchQuery = editTextSearch.getText().toString().trim();
 
@@ -186,6 +216,42 @@ public class CustomerHomepageActivity extends AppCompatActivity {
         intent.putExtra("searchQuery", searchQuery);
         startActivity(intent);
     }
+
+    private void loadProductFromFirebaseById(String productId) {
+        DatabaseReference productsRef = database.getReference("product");
+        DatabaseReference productRefById = productsRef.child(productIdByBarcode);
+
+        productRefById.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    productNameByBarcode = dataSnapshot.child("name").getValue(String.class);
+
+                        Intent intent = new Intent(CustomerHomepageActivity.this, ShoppingPageActivity.class);
+                        intent.putExtra("categoryID", "");
+                        intent.putExtra("categoryName", "");
+                        intent.putExtra("searchQuery", productNameByBarcode);
+                        startActivity(intent);}
+                else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CustomerHomepageActivity.this);
+                        builder.setTitle("Thông báo");
+                        builder.setMessage("Nhà thuốc hiện tại không có sản phẩm này");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Xử lý lỗi nếu có
+            }
+        });
+    }
+
     private void loadCategoryFromFirebase() {
         DatabaseReference categoryRef = database.getReference("category");
         categoryRef.addValueEventListener(new ValueEventListener() {
@@ -196,8 +262,8 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     String id = snapshot.child("id").getValue(String.class);
                     String name = snapshot.child("name").getValue(String.class);
                     boolean flagValid = Boolean.TRUE.equals(snapshot.child("flag_valid").getValue(Boolean.class));
-                    if(flagValid){
-                        Category category = new Category(id,name, flagValid);
+                    if (flagValid) {
+                        Category category = new Category(id, name, flagValid);
                         CategoryArrayList.add(category);
                     }
                 }
@@ -211,6 +277,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     }
                 });
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -218,7 +285,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
 
     }
 
-    private void navCategory(String categoryName){
+    private void navCategory(String categoryName) {
         DatabaseReference categoryRef = database.getReference("category");
         categoryRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -226,7 +293,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String name = snapshot.child("name").getValue(String.class);
                     String id = snapshot.child("id").getValue(String.class);
-                    if(name.equals(categoryName)){
+                    if (name.equals(categoryName)) {
                         categoryID = id;
                         break;
                     }
@@ -264,7 +331,7 @@ public class CustomerHomepageActivity extends AppCompatActivity {
                     String ingredient = snapshot.child("ingredient").getValue(String.class);
                     Boolean prescription = Boolean.TRUE.equals(snapshot.child("prescription").getValue(Boolean.class));
 
-                    Product product = new Product(id,id_category,productImg, productName,0,productPrice,unit,uses, ingredient, prescription);
+                    Product product = new Product(id, id_category, productImg, productName, 0, productPrice, unit, uses, ingredient, prescription);
                     ProductArrayList.add(product);
 
 //                    FirebaseDatabase.getInstance().getReference().child("inventory").child(productID)

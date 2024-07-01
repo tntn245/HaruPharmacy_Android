@@ -72,4 +72,7 @@ dependencies {
     implementation("com.google.firebase:firebase-storage:21.0.0")
     implementation("com.squareup.picasso:picasso:2.71828")
 
+    //Barcode
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
 }

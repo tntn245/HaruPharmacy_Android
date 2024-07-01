@@ -53,12 +53,12 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:id="@+id/ic_search"
+                        android:id="@+id/ic_qr_search"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_25sdp"
-                        android:src="@drawable/ic_search"
-                        android:visibility="invisible"
-                        app:tint="@color/white" />
+                        android:src="@drawable/qr_scan"
+                        android:visibility="visible"
+                        app:tint="@color/black" />
                 </LinearLayout>
 
             </LinearLayout>
