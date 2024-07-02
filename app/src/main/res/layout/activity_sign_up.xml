@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="2"
+    tools:context=".activities.SignUpActivity">
+
+    <LinearLayout
+        android:id="@+id/imageViewBackground"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:scaleType="centerCrop">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/icon2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/gradientLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/gradient_no_radius"
+        android:orientation="vertical"
+        android:weightSum="9">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/customView"
+                android:layout_width="360dp"
+                android:layout_height="350dp"
+                android:layout_gravity="center"
+                android:background="@drawable/border_radius"
+                android:elevation="8dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:orientation="vertical"
+                android:weightSum="5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewSignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="ĐĂNG KÝ"
+                        android:textColor="@color/dark_blue"
+                        android:textSize="40sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/usernameEditText"
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/edittext_border_radius"
+                        android:gravity="center"
+                        android:hint="Tên đăng nhập" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp" />
+
+                    <EditText
+                        android:id="@+id/passwordEditText"
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/edittext_border_radius"
+                        android:gravity="center"
+                        android:hint="Mật khẩu" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp" />
+
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp" />
+
+                    <Button
+                        android:id="@+id/SignUpButton"
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/dark_blue"
+                        android:elevation="8dp"
+                        android:text="Đăng ký" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutLogin"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:scaleType="centerCrop">
+
+            <TextView
+                android:id="@+id/textViewLogin"
+                android:layout_width="265dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Nếu đã có tài khoản? Đăng nhập tại đây" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
