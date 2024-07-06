@@ -32,7 +32,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="3"
+                    android:weightSum="4"
                     android:orientation="horizontal">
                     <!-- Column 1 -->
                     <LinearLayout
@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:padding="@dimen/_10sdp">
+                        android:padding="@dimen/_8sdp">
 
                         <TextView
                             android:id="@+id/txt_processing_order"
@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:padding="@dimen/_10sdp">
+                        android:padding="@dimen/_8sdp">
 
                         <TextView
                             android:id="@+id/txt_delivering_order"
@@ -80,13 +80,32 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:padding="@dimen/_10sdp">
+                        android:padding="@dimen/_8sdp">
 
                         <TextView
                             android:id="@+id/txt_delivered_order"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Đã giao"
+                            android:textSize="@dimen/text_size_medium"
+                            android:clickable="true"
+                            android:textColor="@color/gray"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingTop="@dimen/_5sdp"/>
+                    </LinearLayout>
+                    <!-- Column 4 -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_8sdp">
+
+                        <TextView
+                            android:id="@+id/txt_cancel_order"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Đã hủy"
                             android:textSize="@dimen/text_size_medium"
                             android:clickable="true"
                             android:textColor="@color/gray"
