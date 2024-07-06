@@ -208,6 +208,7 @@ public class PaymentActivity extends AppCompatActivity {
                 radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        Log.i("Nhấn",String.valueOf(checkedId) );
                         // Check which radio button is checked
                         if (checkedId == R.id.radio_cash) {
                             Log.d("momo check", "no");
@@ -216,6 +217,18 @@ public class PaymentActivity extends AppCompatActivity {
                             Log.d("momo check", "yes");
                             radioCash.setChecked(false);
                         }
+                    }
+                });
+                radioMomo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(radioCash.isChecked()) radioCash.setChecked(false);
+                    }
+                });
+                radioCash.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(radioMomo.isChecked()) radioMomo.setChecked(false);
                     }
                 });
                 dialog1.show();
