@@ -39,7 +39,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -48,13 +50,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.rxjava3.annotations.NonNull;
-
-
 import vn.momo.momo_partner.AppMoMoLib;
-import vn.momo.momo_partner.MoMoParameterNameMap;
-import vn.momo.momo_partner.MoMoParameterNamePayment;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class PaymentActivity extends AppCompatActivity {
@@ -474,52 +470,52 @@ public class PaymentActivity extends AppCompatActivity {
             orderMap.put("payment_status", "Chưa thanh toán");
         }
 
-        // Thêm đơn hàng mới vào Firebase Realtime Database
-//        databaseRef.child("order").child(userId).child(orderId).setValue(orderMap)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        for (ItemPay item : itp) {
-//                            // Tạo một HashMap để lưu thông tin của chi tiết đơn hàng
-//                            HashMap<String, Object> orderDetailMap = new HashMap<>();
-//                            String unit = item.getUnit();
-//                            String productId = item.getId_product().split("@"+unit)[0];
-//                            String cartkey= productId+"@"+unit;
-//                            orderDetailMap.put("lot_number", "12"); // Số lô, bạn cần thay thế bằng thông tin thực tế
-//                            orderDetailMap.put("quantity", String.valueOf(item.getQuantity()) ); // Số lượng sản phẩm
-//                            orderDetailMap.put("unit_price", String.valueOf(item.getPrice())); // Đơn giá
-//                            orderDetailMap.put("unit_sell_price", String.valueOf(item.getPrice() + 3000)); // Giá bán, bạn cần thay thế bằng thông tin thực tế
-//                            // Thêm chi tiết đơn hàng vào Firebase Realtime Database
-//                            databaseRef.child("orderdetail").child(orderId).child(productId).child(unit).setValue(orderDetailMap);
-//                            databaseRef.child("cart").child(userId).child(cartkey).setValue(null);
-//                            Log.i("THEM DON HANG","THANH CONG");
-//
-//                        }
-//                        if(bill){
-//                            Intent intent = new Intent(PaymentActivity.this, CustomerBillingActivity.class);
-//                            intent.putExtra("id_order", orderId );
-//                            intent.putExtra("order_date",DayNow);
-//                            intent.putExtra("name",name_receiver.getText().toString());
-//                            intent.putExtra("phone", phone.getText().toString());
-//                            intent.putExtra("address",address.getText().toString());
-//                            intent.putExtra("sumhang",String.valueOf(finalTotalPrice));
-//                            intent.putParcelableArrayListExtra("selectedItems", (ArrayList<ItemPay>) itp);
-//                            startActivity(intent);
-//                            finish();
-//                        }
-//                        else {
-//                            Toast.makeText(getApplicationContext(), "Đơn hàng của bạn đang được xử lý", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(PaymentActivity.this, CustomerHomepageActivity.class);
-//                            startActivity(intent);
-//                            finish();
-//                        }
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.i("THEM DON HANG","THAt BAI");                                    }
-//                });
+     //    Thêm đơn hàng mới vào Firebase Realtime Database
+        databaseRef.child("order").child(userId).child(orderId).setValue(orderMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        for (ItemPay item : itp) {
+                            // Tạo một HashMap để lưu thông tin của chi tiết đơn hàng
+                            HashMap<String, Object> orderDetailMap = new HashMap<>();
+                            String unit = item.getUnit();
+                            String productId = item.getId_product().split("@"+unit)[0];
+                            String cartkey= productId+"@"+unit;
+                            orderDetailMap.put("lot_number", "12"); // Số lô, bạn cần thay thế bằng thông tin thực tế
+                            orderDetailMap.put("quantity", String.valueOf(item.getQuantity()) ); // Số lượng sản phẩm
+                            orderDetailMap.put("unit_price", String.valueOf(item.getPrice())); // Đơn giá
+                            orderDetailMap.put("unit_sell_price", String.valueOf(item.getPrice() + 3000)); // Giá bán, bạn cần thay thế bằng thông tin thực tế
+                            // Thêm chi tiết đơn hàng vào Firebase Realtime Database
+                            databaseRef.child("orderdetail").child(orderId).child(productId).child(unit).setValue(orderDetailMap);
+                            databaseRef.child("cart").child(userId).child(cartkey).setValue(null);
+                            Log.i("THEM DON HANG","THANH CONG");
+
+                        }
+                        if(bill){
+                            Intent intent = new Intent(PaymentActivity.this, CustomerBillingActivity.class);
+                            intent.putExtra("id_order", orderId );
+                            intent.putExtra("order_date",DayNow);
+                            intent.putExtra("name",name_receiver.getText().toString());
+                            intent.putExtra("phone", phone.getText().toString());
+                            intent.putExtra("address",address.getText().toString());
+                            intent.putExtra("sumhang",String.valueOf(finalTotalPrice));
+                            intent.putParcelableArrayListExtra("selectedItems", (ArrayList<ItemPay>) itp);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "Đơn hàng của bạn đang được xử lý", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PaymentActivity.this, CustomerHomepageActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("THEM DON HANG","THAt BAI");                                    }
+                });
 
     }
 
