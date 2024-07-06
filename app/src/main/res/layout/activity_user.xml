@@ -30,9 +30,12 @@
                     android:id="@+id/img_user"
                     android:layout_width="@dimen/_35sdp"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_margin="@dimen/_15sdp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
                     app:srcCompat="@drawable/img_icon_user" />
 
                 <TextView
@@ -47,21 +50,6 @@
                     android:textStyle="bold"
                     android:layout_toEndOf="@+id/img_user"
                     android:layout_alignParentTop="true"/>
-
-                <TextView
-                    android:id="@+id/txv_change_pass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:paddingTop="@dimen/_20sdp"
-                    android:text="Đổi mật khẩu"
-                    android:textColor="@color/text_theme"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold"
-                    android:layout_toEndOf="@+id/user_name"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"/>
 
             </RelativeLayout>
 

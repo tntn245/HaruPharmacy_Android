@@ -146,14 +146,27 @@
             </GridLayout>
             <Button
                 android:id="@+id/btn_edit_acc_info"
-                android:layout_width="@dimen/_170sdp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
                 android:elevation="@dimen/_8sdp"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginVertical="@dimen/_8sdp"
                 android:text="Chỉnh sửa thông tin"
                 android:textSize="@dimen/text_size_medium"
                 android:backgroundTint="@color/dark_blue"/>
+
+<!--            <Button-->
+<!--                android:id="@+id/btn_change_pass"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/_45sdp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:elevation="@dimen/_8sdp"-->
+<!--                android:layout_marginHorizontal="@dimen/_18sdp"-->
+<!--                android:text="Đổi mật khẩu"-->
+<!--                android:textSize="@dimen/text_size_medium"-->
+<!--                android:backgroundTint="@color/dark_blue"/>-->
+
         </LinearLayout>
     </ScrollView>
-    <include layout="@layout/bottom_navigation"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -187,6 +187,7 @@
             <Button
                 android:id="@+id/btn_saved_edit_acc_info"
                 android:layout_width="@dimen/_170sdp"
+                android:enabled="false"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center"
                 android:elevation="@dimen/_8sdp"
@@ -195,5 +196,4 @@
                 android:backgroundTint="@color/dark_blue"/>
         </LinearLayout>
     </ScrollView>
-    <include layout="@layout/bottom_navigation"/>
 </LinearLayout>

@@ -58,7 +58,7 @@
                         android:layout_height="@dimen/_25sdp"
                         android:src="@drawable/qr_scan"
                         android:visibility="visible"
-                        app:tint="@color/black" />
+                        app:tint="@color/white" />
                 </LinearLayout>
 
             </LinearLayout>

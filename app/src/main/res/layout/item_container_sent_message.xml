@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/_4sdp">
     <TextView
-        android:id="@+id/textMessage"
+        android:id="@+id/textSndMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/background_sent_message"
@@ -16,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.8" />
     <TextView
-        android:id="@+id/textDateTime"
+        android:id="@+id/textSndDateTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_4sdp"
         android:textColor="@color/black"
         android:textSize="@dimen/_10ssp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textMessage"
+        app:layout_constraintTop_toBottomOf="@id/textSndMessage"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

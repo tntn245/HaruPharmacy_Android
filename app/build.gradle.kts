@@ -75,4 +75,6 @@ dependencies {
     //Barcode
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
+    //Momo
+    implementation("com.github.momo-wallet:mobile-sdk:1.0.7")
 }
