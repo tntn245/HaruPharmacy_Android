@@ -39,13 +39,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.rxjava3.annotations.NonNull;
+
+
+import vn.momo.momo_partner.AppMoMoLib;
+import vn.momo.momo_partner.MoMoParameterNameMap;
+import vn.momo.momo_partner.MoMoParameterNamePayment;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class PaymentActivity extends AppCompatActivity {
@@ -84,16 +93,18 @@ public class PaymentActivity extends AppCompatActivity {
     private Switch switchButton ;
     private int selectedAddressPosition = -1;
     private RadioGroup radioGroup;
-    private RadioButton radioCash, radioMomo, radioVNPay;
-    private LinearLayout layoutCash, layoutMomo, layoutVNPay;
+    private RadioButton radioCash, radioMomo;
+    private LinearLayout layoutCash, layoutMomo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT); // AppMoMoLib.ENVIRONMENT.PRODUCTION
+
 
         itemList = getIntent().getParcelableArrayListExtra("selectedItems");
         switchButton = findViewById(R.id.switch_button);
-// Kiểm tra xem selectedItems có rỗng hay không
+        // Kiểm tra xem selectedItems có rỗng hay không
         if (itemList != null && !itemList.isEmpty()) {
             // Ở đây bạn có thể sử dụng selectedItems theo nhu cầu của bạn
             // Ví dụ: Hiển thị danh sách các mục đã được chọn
@@ -198,20 +209,15 @@ public class PaymentActivity extends AppCompatActivity {
                 radioGroup = dialog1.findViewById(R.id.group_pay); // Đảm bảo rằng ID này là chính xác
                 radioCash = dialog1.findViewById(R.id.radio_cash);
                 radioMomo = dialog1.findViewById(R.id.radio_momo);
-                radioVNPay = dialog1.findViewById(R.id.radio_VNPay);
                 radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        Log.i("đã chuyển","checkedId");
-                        // Kiểm tra xem RadioButton nào đã được chọn
+                        // Check which radio button is checked
                         if (checkedId == R.id.radio_cash) {
+                            Log.d("momo check", "no");
                             radioMomo.setChecked(false);
-                            radioVNPay.setChecked(false);
                         } else if (checkedId == R.id.radio_momo) {
-                            radioCash.setChecked(false);
-                            radioVNPay.setChecked(false);
-                        } else if (checkedId == R.id.radio_VNPay) {
-                            radioMomo.setChecked(false);
+                            Log.d("momo check", "yes");
                             radioCash.setChecked(false);
                         }
                     }
@@ -345,6 +351,96 @@ public class PaymentActivity extends AppCompatActivity {
         //Hiển thi
         dialog.show();
     }
+
+
+
+
+
+    private String amount = "10000";
+    private String fee = "0";
+    int environment = 0;//developer default
+    private String merchantName = "Haru Pharmacy";
+    private String merchantCode = "SCB01";
+    private String merchantNameLabel = "Nhà cung cấp";
+    private String description = "Thanh toán dịch vụ ABC";
+    private boolean flag_momo = false;
+
+    //Get token through MoMo app
+    private void requestPayment(String orderID, int total_amount) {
+        AppMoMoLib.getInstance().setAction(AppMoMoLib.ACTION.PAYMENT);
+        AppMoMoLib.getInstance().setActionType(AppMoMoLib.ACTION_TYPE.GET_TOKEN);
+
+        Map<String, Object> eventValue = new HashMap<>();
+        eventValue.put("merchantname", merchantName);
+        eventValue.put("merchantcode", merchantCode);
+        eventValue.put("amount", total_amount);
+        eventValue.put("orderId", orderID);
+        eventValue.put("orderLabel", orderID);
+
+        eventValue.put("merchantnamelabel", merchantNameLabel);
+        eventValue.put("fee", fee);
+        eventValue.put("description", description);
+
+        eventValue.put("requestId", merchantCode + "merchant_billId_" + System.currentTimeMillis());
+        eventValue.put("partnerCode", merchantCode);
+
+        JSONObject objExtraData = new JSONObject();
+        try {
+            objExtraData.put("site_code", "008");
+            objExtraData.put("site_name", "CGV Cresent Mall");
+            objExtraData.put("screen_code", 0);
+            objExtraData.put("screen_name", "Special");
+            objExtraData.put("movie_name", "Kẻ Trộm Mặt Trăng 3");
+            objExtraData.put("movie_format", "2D");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        eventValue.put("extraData", objExtraData.toString());
+
+        eventValue.put("extra", "");
+        AppMoMoLib.getInstance().requestMoMoCallBack(PaymentActivity.this, eventValue);
+        Log.d("momo?", "add_payment: ");
+
+    }
+
+    //Get token callback from MoMo app an submit to server side
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("momo?", "add_payment: ");
+        if (requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == RESULT_OK) {
+            if (data != null) {
+                int status = data.getIntExtra("status", -1);
+                String message = data.getStringExtra("message");
+
+                if (status == 0) {
+                    // Success
+                    String token = data.getStringExtra("data");
+                    String env = data.getStringExtra("env");
+                    if (env == null) {
+                        env = "app";
+                    }
+
+                    if (token != null && !token.isEmpty()) {
+                        // Send token and other necessary data to your server for further processing
+                        Log.d("momo", "Token: " + token);
+                        // Process your order further
+                    } else {
+                        Log.d("momo", "Token not found");
+                        // Handle token not found scenario
+                    }
+                } else {
+                    // Handle failure cases
+                    Log.d("momo", "Payment failed: " + message);
+                }
+            } else {
+                Log.d("momo", "No data received");
+            }
+        } else {
+            Log.d("momo", "Invalid requestCode or resultCode");
+        }
+    }
+
     private void add_payment(List<ItemPay> itp){
         // Tham chiếu đến Firebase Realtime Database
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
@@ -359,55 +455,71 @@ public class PaymentActivity extends AppCompatActivity {
         orderMap.put("noted", detail.getText().toString());
         orderMap.put("order_date", DayNow);
         orderMap.put("order_status", "Đang xử lý");
-        orderMap.put("payment_status", "Chưa thanh toán");
         orderMap.put("phone", phone.getText().toString());
         orderMap.put("total_payment", String.valueOf(finalTotalPrice));
-        // Thêm đơn hàng mới vào Firebase Realtime Database
-        databaseRef.child("order").child(userId).child(orderId).setValue(orderMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        for (ItemPay item : itp) {
-                            // Tạo một HashMap để lưu thông tin của chi tiết đơn hàng
-                            HashMap<String, Object> orderDetailMap = new HashMap<>();
-                            String unit = item.getUnit();
-                            String productId = item.getId_product().split("@"+unit)[0];
-                            String cartkey= productId+"@"+unit;
-                            orderDetailMap.put("lot_number", "12"); // Số lô, bạn cần thay thế bằng thông tin thực tế
-                            orderDetailMap.put("quantity", String.valueOf(item.getQuantity()) ); // Số lượng sản phẩm
-                            orderDetailMap.put("unit_price", String.valueOf(item.getPrice())); // Đơn giá
-                            orderDetailMap.put("unit_sell_price", String.valueOf(item.getPrice() + 3000)); // Giá bán, bạn cần thay thế bằng thông tin thực tế
-                            // Thêm chi tiết đơn hàng vào Firebase Realtime Database
-                            databaseRef.child("orderdetail").child(orderId).child(productId).child(unit).setValue(orderDetailMap);
-                            databaseRef.child("cart").child(userId).child(cartkey).setValue(null);
-                            Log.i("THEM DON HANG","THANH CONG");
 
-                        }
-                        if(bill){
-                            Intent intent = new Intent(PaymentActivity.this, CustomerBillingActivity.class);
-                            intent.putExtra("id_order", orderId );
-                            intent.putExtra("order_date",DayNow);
-                            intent.putExtra("name",name_receiver.getText().toString());
-                            intent.putExtra("phone", phone.getText().toString());
-                            intent.putExtra("address",address.getText().toString());
-                            intent.putExtra("sumhang",String.valueOf(finalTotalPrice));
-                            intent.putParcelableArrayListExtra("selectedItems", (ArrayList<ItemPay>) itp);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(), "Đơn hàng của bạn đang được xử lý", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(PaymentActivity.this, CustomerHomepageActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.i("THEM DON HANG","THAt BAI");                                    }
-                });
+        if (radioMomo.isChecked()) {
+            Intent intent = new Intent(PaymentActivity.this, MoMoActivity.class);
+            intent.putExtra("orderID", orderId);
+            intent.putExtra("address", address.getText().toString());
+            intent.putExtra("name_receiver", name_receiver.getText().toString());
+            intent.putExtra("noted", detail.getText().toString());
+            intent.putExtra("order_date", DayNow);
+            intent.putExtra("order_status", "Đang xử lý");
+            intent.putExtra("phone", phone.getText().toString());
+            intent.putExtra("total_payment", String.valueOf(finalTotalPrice));
+            startActivity(intent);
+        }
+        else {
+            orderMap.put("payment_status", "Chưa thanh toán");
+        }
+
+        // Thêm đơn hàng mới vào Firebase Realtime Database
+//        databaseRef.child("order").child(userId).child(orderId).setValue(orderMap)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        for (ItemPay item : itp) {
+//                            // Tạo một HashMap để lưu thông tin của chi tiết đơn hàng
+//                            HashMap<String, Object> orderDetailMap = new HashMap<>();
+//                            String unit = item.getUnit();
+//                            String productId = item.getId_product().split("@"+unit)[0];
+//                            String cartkey= productId+"@"+unit;
+//                            orderDetailMap.put("lot_number", "12"); // Số lô, bạn cần thay thế bằng thông tin thực tế
+//                            orderDetailMap.put("quantity", String.valueOf(item.getQuantity()) ); // Số lượng sản phẩm
+//                            orderDetailMap.put("unit_price", String.valueOf(item.getPrice())); // Đơn giá
+//                            orderDetailMap.put("unit_sell_price", String.valueOf(item.getPrice() + 3000)); // Giá bán, bạn cần thay thế bằng thông tin thực tế
+//                            // Thêm chi tiết đơn hàng vào Firebase Realtime Database
+//                            databaseRef.child("orderdetail").child(orderId).child(productId).child(unit).setValue(orderDetailMap);
+//                            databaseRef.child("cart").child(userId).child(cartkey).setValue(null);
+//                            Log.i("THEM DON HANG","THANH CONG");
+//
+//                        }
+//                        if(bill){
+//                            Intent intent = new Intent(PaymentActivity.this, CustomerBillingActivity.class);
+//                            intent.putExtra("id_order", orderId );
+//                            intent.putExtra("order_date",DayNow);
+//                            intent.putExtra("name",name_receiver.getText().toString());
+//                            intent.putExtra("phone", phone.getText().toString());
+//                            intent.putExtra("address",address.getText().toString());
+//                            intent.putExtra("sumhang",String.valueOf(finalTotalPrice));
+//                            intent.putParcelableArrayListExtra("selectedItems", (ArrayList<ItemPay>) itp);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//                        else {
+//                            Toast.makeText(getApplicationContext(), "Đơn hàng của bạn đang được xử lý", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(PaymentActivity.this, CustomerHomepageActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.i("THEM DON HANG","THAt BAI");                                    }
+//                });
 
     }
 

@@ -357,32 +357,70 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 }
             }
         });
-                    // Hiển thị dialog
-                    dialog.show();
-                }
+        // Hiển thị dialog
+        dialog.show();
+    }
     private void add_to_cart(String uid, String prd_id, int prd_quantity, String unit,int price, Dialog dialog) {
-        HashMap<String, Object> user_cart = new HashMap<>();
-        user_cart.put("quantity", prd_quantity);
-        user_cart.put("unit", unit);
-        user_cart.put("price",price);
         String cartKey = prd_id + "@" + unit;
+
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("cart");
-        mDatabase.child(uid).child(cartKey).setValue(user_cart)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // Xử lý khi insert thành công
-                        Toast.makeText(getApplicationContext(), "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
-                        // Ẩn dialog hoặc thực hiện các hành động khác ở đây
-                        dialog.dismiss(); // Ví dụ: Ẩn dialog sau khi insert thành công
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Xử lý khi insert thất bại
-                        Toast.makeText(getApplicationContext(), "Insert thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        //Nếu cartKey đã tồn tại
+        mDatabase.child(uid).child(cartKey).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Log.d("carttttt", "exist");
+                    int curr_quantity = dataSnapshot.child("quantity").getValue(Integer.class);
+                    quantity = curr_quantity + prd_quantity;
+
+                    // Cập nhật lại giá trị quantity trong Firebase
+                    mDatabase.child(uid).child(cartKey).child("quantity").setValue(quantity)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // Xử lý khi insert thành công
+                                    Toast.makeText(getApplicationContext(), "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss(); // Ví dụ: Ẩn dialog sau khi insert thành công
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Xử lý khi insert thất bại
+                                    Toast.makeText(getApplicationContext(), "Insert thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    // Tạo mới dữ liệu nếu cartKey chưa tồn tại
+                    HashMap<String, Object> user_cart = new HashMap<>();
+                    user_cart.put("quantity", quantity);
+                    user_cart.put("unit", unit);
+                    user_cart.put("price", price);
+
+                    mDatabase.child(uid).child(cartKey).setValue(user_cart)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // Xử lý khi insert thành công
+                                    Toast.makeText(getApplicationContext(), "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss(); // Ví dụ: Ẩn dialog sau khi insert thành công
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Xử lý khi insert thất bại
+                                    Toast.makeText(getApplicationContext(), "Insert thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý khi có lỗi xảy ra
+                Log.e("Firebase", "Error: " + databaseError.getMessage());
+            }
+        });
     }
 }

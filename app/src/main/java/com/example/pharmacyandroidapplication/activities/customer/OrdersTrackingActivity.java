@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -119,9 +121,9 @@ public class OrdersTrackingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 orderArrayList.clear();
-                String id_order, noted, address, payment_status, order_status;
+                String id_order, noted, address, payment_status, order_status, orderDateString;
                 int total_payment, total_product;
-                Date order_date;
+                Date order_date = null;
                 for (DataSnapshot item : snapshot.getChildren()) {
                     if (item.child("order_status").getValue().toString().equals(status)) {
                         id_order = id_order = item.getKey().toString();
@@ -130,7 +132,13 @@ public class OrdersTrackingActivity extends AppCompatActivity {
                         total_payment = Integer.valueOf(item.child("total_payment").getValue().toString());
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(2024, Calendar.MAY, 23);
-                        order_date = calendar.getTime();
+                        orderDateString = item.child("order_date").getValue().toString();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Định dạng của chuỗi ngày
+                        try {
+                            order_date = dateFormat.parse(orderDateString);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         payment_status = item.child("payment_status").getValue().toString();
                         order_status = item.child("order_status").getValue().toString();
                         Order newOrder = new Order(id_order, userID, total_payment, payment_status, order_status, noted, address, order_date, 0);

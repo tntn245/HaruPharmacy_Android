@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.pharmacyandroidapplication.MainActivity;
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.activities.ChatActivity;
@@ -23,24 +26,32 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class UserActivity extends AppCompatActivity {
     String userID;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+    TextView txt_processing_order_quantity, txt_delivering_order_quantity, txt_delivered_order_quantity, txt_username;
+    LinearLayout order_processing, order_delivering, order_delivered;
+    ImageView imageView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
         userID = getIntent().getExtras().getString("userID");
         //Load quantity of Orders
-        TextView txt_processing_order_quantity, txt_delivering_order_quantity, txt_delivered_order_quantity;
-        LinearLayout order_processing, order_delivering, order_delivered;
         txt_processing_order_quantity = findViewById(R.id.txt_processing_order_quantity);
         txt_delivering_order_quantity = findViewById(R.id.txt_delivering_order_quantity);
         txt_delivered_order_quantity = findViewById(R.id.txt_delivered_order_quantity);
+        txt_username = findViewById(R.id.user_name);
+        imageView = findViewById(R.id.img_user);
         order_processing = findViewById(R.id.order_processing);
         order_delivering = findViewById(R.id.order_delivering);
         order_delivered = findViewById(R.id.order_delivered);
+
+        loadUserInf();
+
         DatabaseReference orderByIdRef = database.getReference("order").child(userID).getRef();
         DatabaseReference orderDetailRef = database.getReference("orderdetail");
         orderByIdRef.addValueEventListener(new ValueEventListener() {
@@ -123,6 +134,7 @@ public class UserActivity extends AppCompatActivity {
 
         // Click Bottom nav
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.profile);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -148,6 +160,37 @@ public class UserActivity extends AppCompatActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+
+    }
+
+    private void loadUserInf() {
+        DatabaseReference accountsRef = FirebaseDatabase.getInstance().getReference().child("accounts").child(userID);
+
+        accountsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String username = dataSnapshot.child("username").getValue(String.class);
+                    String imgURL = dataSnapshot.child("img").getValue(String.class);
+
+                    // Gán username
+                    txt_username.setText(username);
+
+                    // Load hình ảnh từ URL và gán vào ImageView
+                    if (imgURL != null && !imgURL.isEmpty()) {
+                        Glide.with(UserActivity.this)
+                                .load(imgURL) // Thay thế bằng URL hoặc drawable của bạn
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(imageView);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý khi có lỗi xảy ra trong quá trình truy xuất dữ liệu
+                Log.e("Firebase", "Error fetching user data: " + databaseError.getMessage());
             }
         });
 

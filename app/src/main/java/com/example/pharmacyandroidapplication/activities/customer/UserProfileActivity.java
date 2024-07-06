@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.pharmacyandroidapplication.R;
 import com.example.pharmacyandroidapplication.adapters.HomeProductAdapter;
 import com.example.pharmacyandroidapplication.models.Account;
@@ -114,6 +115,7 @@ public class UserProfileActivity extends AppCompatActivity {
         // Tải và hiển thị ảnh từ URL lên ImageView sử dụng Glide
         Glide.with(this)
                 .load(img)
+                .apply(RequestOptions.circleCropTransform())
                 .into(user_img);
     }
 }

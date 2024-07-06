@@ -61,7 +61,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
     StorageReference storageReference;
     String sexOption;
     String userID;
-
+    Button saveBtn;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +79,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
         radioButtonMale = findViewById(R.id.maleRadioButton);
         radioButtonFemale = findViewById(R.id.femaleRadioButton);
 
-        Button saveBtn = findViewById(R.id.btn_saved_edit_acc_info);
+        saveBtn = findViewById(R.id.btn_saved_edit_acc_info);
 //        ImageView ic_back = findViewById(R.id.ic_back);
 //
 //        ic_back.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +198,8 @@ public class UserEditProfileActivity extends AppCompatActivity {
                     public void onSuccess(Uri downloadUri) {
                         // Đường dẫn của ảnh
                         image = downloadUri;
-                        Toast.makeText(UserEditProfileActivity.this, "Upload successful" + image.toString(), Toast.LENGTH_SHORT).show();
+                        saveBtn.setEnabled(true);
+                        Toast.makeText(UserEditProfileActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

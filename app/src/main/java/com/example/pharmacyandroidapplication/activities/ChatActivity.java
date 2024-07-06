@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -16,11 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pharmacyandroidapplication.R;
+import com.example.pharmacyandroidapplication.activities.customer.CustomerHomepageActivity;
 import com.example.pharmacyandroidapplication.adapters.ChatAdapter;
 import com.example.pharmacyandroidapplication.databinding.ActivityChatBinding;
 import com.example.pharmacyandroidapplication.models.Account;
 import com.example.pharmacyandroidapplication.models.ChatMessage;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,6 +62,7 @@ public class ChatActivity extends AppCompatActivity {
 
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        init();
         setListeners();
         loadReceiverDetails();
         listenMessages();
@@ -67,6 +71,7 @@ public class ChatActivity extends AppCompatActivity {
     private void init() {
         chatMessages = new ArrayList<>();
         chatAdapter = new ChatAdapter(
+                ChatActivity.this,
                 chatMessages,
                 receiverImg,
 //                BitmapFactory.decodeResource(getResources(), R.drawable.ic_ava),
@@ -92,25 +97,199 @@ public class ChatActivity extends AppCompatActivity {
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error == null) {
                     String messageId = ref.getKey();
-                    Toast.makeText(ChatActivity.this, messageId, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ChatActivity.this, "Lỗi khi thêm dữ liệu: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        ChatMessage chatMessage = new ChatMessage(senderID, receiverID, binding.inputMessage.getText().toString(), (new Date()).toString());
-        chatMessages.add(chatMessage);
-        chatAdapter.notifyItemRangeInserted(chatMessages.size(), chatMessages.size());
+        Log.d("messchat", "sendMessage: ");
         binding.inputMessage.setText(null);
     }
 
     private void listenMessages() {
-        database.child("chatMessages").orderByChild("senderID").equalTo(senderID).addListenerForSingleValueEvent(eventListener);
-        database.child("chatMessages").orderByChild("senderID").equalTo(receiverID).addListenerForSingleValueEvent(eventListener);
+        DatabaseReference chatMessagesRef = FirebaseDatabase.getInstance().getReference().child("chatMessages");
+
+        // Lắng nghe các tin nhắn có senderID là người dùng hiện tại và receiverID là người nhận
+        chatMessagesRef.orderByChild("senderID").equalTo(senderID).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                Log.d("messchat", "onChildAddedSend: ");
+                ChatMessage chatMessage = new ChatMessage();
+                chatMessage.senderId = dataSnapshot.child("senderID").getValue(String.class);
+                chatMessage.receiverId = dataSnapshot.child("receiverID").getValue(String.class);
+                chatMessage.message = dataSnapshot.child("message").getValue(String.class);
+                chatMessage.dateTime = dataSnapshot.child("timestamp").getValue(String.class);
+
+                String pattern = "EEE MMM dd HH:mm:ss zzz yyyy";
+                SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
+                try {
+                    chatMessage.dateObject = dateFormat.parse(chatMessage.dateTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                if (chatMessage.receiverId.equals(receiverID)) {
+                    chatMessages.add(chatMessage);
+                    Collections.sort(chatMessages, (msg1, msg2) -> msg1.dateObject.compareTo(msg2.dateObject));
+                    chatAdapter.notifyItemInserted(chatMessages.size() - 1);
+                    binding.chatRecyclerView.smoothScrollToPosition(chatMessages.size() - 1);
+                }
+                binding.chatRecyclerView.setVisibility(View.VISIBLE);
+                binding.progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                ChatMessage updatedChatMessage = new ChatMessage();
+                updatedChatMessage.senderId = dataSnapshot.child("senderID").getValue(String.class);
+                updatedChatMessage.receiverId = dataSnapshot.child("receiverID").getValue(String.class);
+                updatedChatMessage.message = dataSnapshot.child("message").getValue(String.class);
+                updatedChatMessage.dateTime = dataSnapshot.child("timestamp").getValue(String.class);
+                Log.d("messchat", "onChildChangedSend: " + updatedChatMessage.message);
+
+                String pattern = "EEE MMM dd HH:mm:ss zzz yyyy";
+                SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
+                try {
+                    updatedChatMessage.dateObject = dateFormat.parse(updatedChatMessage.dateTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                for (int i = 0; i < chatMessages.size(); i++) {
+                    if (chatMessages.get(i).getSenderId().equals(updatedChatMessage.getSenderId())) {
+                        chatMessages.set(i, updatedChatMessage);
+                        chatAdapter.notifyItemChanged(i);
+                        break;
+                    }
+                }
+                // Sắp xếp lại danh sách chatMessages theo dateObject
+                Collections.sort(chatMessages, (msg1, msg2) -> msg1.dateObject.compareTo(msg2.dateObject));
+                chatAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                ChatMessage removedChatMessage = dataSnapshot.getValue(ChatMessage.class);
+                if (removedChatMessage != null) {
+                    for (int i = 0; i < chatMessages.size(); i++) {
+                        if (chatMessages.get(i).getSenderId().equals(removedChatMessage.getSenderId())) {
+                            chatMessages.remove(i);
+                            chatAdapter.notifyItemRemoved(i);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                // Xử lý khi child bị di chuyển
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("ChatActivity", "Firebase database error: " + databaseError.getMessage());
+            }
+        });
+
+
+
+
+
+        // Lắng nghe các tin nhắn có receiverID là người dùng hiện tại và senderID là người nhận
+        chatMessagesRef.orderByChild("receiverID").equalTo(senderID).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                Log.d("messchat", "onChildAddedRv: ");
+                ChatMessage chatMessage = new ChatMessage();
+                chatMessage.senderId = dataSnapshot.child("senderID").getValue(String.class);
+                chatMessage.receiverId = dataSnapshot.child("receiverID").getValue(String.class);
+                chatMessage.message = dataSnapshot.child("message").getValue(String.class);
+                chatMessage.dateTime = dataSnapshot.child("timestamp").getValue(String.class);
+
+                String pattern = "EEE MMM dd HH:mm:ss zzz yyyy";
+                SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
+                try {
+                    chatMessage.dateObject = dateFormat.parse(chatMessage.dateTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                if (chatMessage.senderId.equals(receiverID)) {
+                    chatMessages.add(chatMessage);
+                    Collections.sort(chatMessages, (msg1, msg2) -> msg1.dateObject.compareTo(msg2.dateObject));
+                    chatAdapter.notifyItemInserted(chatMessages.size() - 1);
+                    binding.chatRecyclerView.smoothScrollToPosition(chatMessages.size() - 1);
+                }
+                binding.chatRecyclerView.setVisibility(View.VISIBLE);
+                binding.progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                ChatMessage updatedChatMessage = new ChatMessage();
+                updatedChatMessage.senderId = dataSnapshot.child("senderID").getValue(String.class);
+                updatedChatMessage.receiverId = dataSnapshot.child("receiverID").getValue(String.class);
+                updatedChatMessage.message = dataSnapshot.child("message").getValue(String.class);
+                updatedChatMessage.dateTime = dataSnapshot.child("timestamp").getValue(String.class);
+                Log.d("messchat", "onChildChangedRv: " + updatedChatMessage.message);
+
+                String pattern = "EEE MMM dd HH:mm:ss zzz yyyy";
+                SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.US);
+                try {
+                    updatedChatMessage.dateObject = dateFormat.parse(updatedChatMessage.dateTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                for (int i = 0; i < chatMessages.size(); i++) {
+                    if (chatMessages.get(i).senderId.equals(updatedChatMessage.senderId)) {
+                        Log.d("messchat", chatMessages.get(i).getMessage());
+                        chatMessages.set(i, updatedChatMessage);
+                        chatAdapter.notifyItemChanged(i);
+                        break;
+                    }
+                }
+                // Sắp xếp lại danh sách chatMessages theo dateObject
+                Collections.sort(chatMessages, (msg1, msg2) -> msg1.dateObject.compareTo(msg2.dateObject));
+                chatAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                ChatMessage removedChatMessage = dataSnapshot.getValue(ChatMessage.class);
+                if (removedChatMessage != null) {
+                    for (int i = 0; i < chatMessages.size(); i++) {
+                        if (chatMessages.get(i).getSenderId().equals(removedChatMessage.getSenderId())) {
+                            chatMessages.remove(i);
+                            chatAdapter.notifyItemRemoved(i);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                // Xử lý khi child bị di chuyển
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("ChatActivity", "Firebase database error: " + databaseError.getMessage());
+            }
+        });
     }
 
     private void setListeners() {
-        binding.imageBack.setOnClickListener(v -> onBackPressed());
+        binding.imageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChatActivity.this, CustomerHomepageActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         binding.layoutSend.setOnClickListener(v -> sendMessage());
     }
 
@@ -131,7 +310,6 @@ public class ChatActivity extends AppCompatActivity {
                     receiverUser = new Account(receiverID, receiverImg, userRole, userName, userSex, userBirthDay);
                     TextView receiverName = findViewById(R.id.textName);
                     receiverName.setText(receiverUser.getUsername());
-                    init();
                 } else {
                     // Không có dữ liệu về người dùng
                     Toast.makeText(ChatActivity.this, "User data not found", Toast.LENGTH_SHORT).show();
@@ -152,6 +330,7 @@ public class ChatActivity extends AppCompatActivity {
     private final ValueEventListener eventListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            chatMessages.clear();
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                 ChatMessage chatMessage = new ChatMessage();
                 chatMessage.senderId = snapshot.child("senderID").getValue(String.class);

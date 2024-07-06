@@ -93,12 +93,6 @@ public class CartActivity extends AppCompatActivity {
         });
 
     }
-    private void createCartList() {
-        carts.add(new Cart( "101","101","Thực phẩm chữa lành",100000,1,false,"Hộp","https://firebasestorage.googleapis.com/v0/b/harupharmacy-f4929.appspot.com/o/images%2Fpro1.png?alt=media&token=2d6153e4-a7a7-4fdc-88f2-6a2f4b43378f"));
-        carts.add(new Cart( "101","101","Thực phẩm chữa rách",100000,1,false,"Hộp","https://firebasestorage.googleapis.com/v0/b/harupharmacy-f4929.appspot.com/o/images%2Fpro2.jpg?alt=media&token=90fb857e-aaf8-4c58-b2cd-d8dcc0635025"));
-        carts.add(new Cart( "101","101","Thực phẩm chữa què",100000,1,false,"Hộp","https://firebasestorage.googleapis.com/v0/b/harupharmacy-f4929.appspot.com/o/images%2Fpro3.png?alt=media&token=3a9cb0ca-a8fa-4ea0-9c95-3b9421955772"));
-        carts.add(new Cart( "101","101","Thực phẩm chữa tổn thương",100000,1,false,"Hộp","https://firebasestorage.googleapis.com/v0/b/harupharmacy-f4929.appspot.com/o/images%2Fpro3.png?alt=media&token=3a9cb0ca-a8fa-4ea0-9c95-3b9421955772"));
-    }
     private void loadFireBase(){
         // Lấy ID người dùng đã được xác thực
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
